@@ -3,6 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google tag (gtag.js), Consent Mode v2: analytics cookies stay denied until the visitor accepts (assets/consent.js) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});
+  try { if (localStorage.getItem('ledgertone-consent') === 'granted') gtag('consent', 'update', {analytics_storage: 'granted'}); } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R9G4YSEG77"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-R9G4YSEG77', {allow_google_signals: false, allow_ad_personalization_signals: false});
+</script>
 <title>Privacy policy | Ledgertone</title>
 <meta name="description" content="How Ledgertone handles personal data and cookies.">
 <meta name="color-scheme" content="light dark">
@@ -26,14 +38,15 @@
 <p>Ledgertone (https://ledgertone.github.io/) is run by REPLACE_OWNER_NAME (the controller). Contact for any privacy question: ledgertonehq@gmail.com.</p>
 
 <h2>Short version</h2>
-<p>The site has no accounts, forms, comments, or advertising. It collects personal data only in two ways: the hosting provider's technical logs, and, only if you accept, Google Analytics cookies.</p>
+<p>The site has no accounts, forms, comments, or advertising. Personal data is processed in three ways: the hosting provider's technical logs, limited cookie-free visit pings sent to Google Analytics, and, only if you accept, Google Analytics cookies.</p>
 
 <h2>What is processed and why</h2>
 <table>
 <thead><tr><th>Data</th><th>Purpose</th><th>Legal basis</th></tr></thead>
 <tbody>
 <tr><td>IP address and request data in server logs kept by GitHub Pages, our hosting provider</td><td>Delivering the site and keeping it secure</td><td>Legitimate interest (Art. 6(1)(f) GDPR). We do not have access to these logs.</td></tr>
-<tr><td>Analytics data from Google Analytics 4: pages viewed, approximate location, device and browser type, referrer, visit time, and a random identifier stored in cookies</td><td>Understanding how many people visit the site and which parts are used</td><td>Your consent (Art. 6(1)(a) GDPR). Without it, Google Analytics is not loaded.</td></tr>
+<tr><td>Analytics data from Google Analytics 4 after you accept: pages viewed, approximate location, device and browser type, referrer, visit time, and a random identifier stored in cookies</td><td>Understanding how many people visit the site and which parts are used</td><td>Your consent (Art. 6(1)(a) GDPR)</td></tr>
+<tr><td>Before you choose, or if you reject: limited cookie-free pings from the Google tag (page address, referrer, time, browser and device details, and the IP address as seen by Google). No analytics cookies are set and no identifier is stored on your device.</td><td>Counting visits in aggregate and modeling the effect of declined consent</td><td>Legitimate interest (Art. 6(1)(f) GDPR). You can object at any time, see below.</td></tr>
 <tr><td>Your cookie choice, stored in your browser (localStorage key <code>ledgertone-consent</code>)</td><td>Remembering your choice so we do not ask on every visit</td><td>Strictly necessary for the consent feature</td></tr>
 </tbody>
 </table>
@@ -47,7 +60,7 @@
 <tr><td><code>_ga_&lt;container id&gt;</code></td><td>Keeps session state</td><td>Up to 2 years</td></tr>
 </tbody>
 </table>
-<p>If you click Reject, or do not choose, no analytics cookies are set and nothing is loaded from Google. You can change your choice at any time with the Cookie settings button in the footer. Choosing Reject afterwards stops measurement and removes the Google Analytics cookies from this site.</p>
+<p>If you click Reject, or do not choose, no analytics cookies are set. The Google tag is still loaded and sends only the limited cookie-free pings described above. You can change your choice at any time with the Cookie settings button in the footer. Choosing Reject afterwards removes the Google Analytics cookies from this site.</p>
 <p>Advertising features are off: ad storage, ad user data, ad personalization, and Google signals are disabled.</p>
 
 <h2>Recipients and transfers</h2>

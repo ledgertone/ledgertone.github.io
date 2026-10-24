@@ -14,7 +14,7 @@ grep -rn "ledgertone.github.io" --include="*.html" --include="*.xml" --include="
 | --- | --- | --- |
 | `privacy.html` | `REPLACE_OWNER_NAME` | Name of the person or entity running the site |
 
-GA4 measurement ID `G-R9G4YSEG77` is set in `assets/consent.js`. Do not add the raw Google tag snippet to any HTML file: it would load before consent. While `GA_ID` is empty, the site loads nothing from Google and shows no banner.
+GA4 measurement ID `G-R9G4YSEG77` is set in `assets/consent.js`. The Google tag is in the `<head>` of `index.html`, `privacy.html`, and `404.html`, with Consent Mode defaults set to denied before the tag. Every new HTML page must get the same snippet. Never use Google's raw snippet without the consent defaults.
 Check before publishing: `grep -rn "REPLACE_" . --exclude-dir=skills --exclude-dir=.git` must print nothing.
 
 ## Google Analytics 4 setup
@@ -23,9 +23,9 @@ Check before publishing: `grep -rn "REPLACE_" . --exclude-dir=skills --exclude-d
 2. Admin, Data collection: turn Google signals off. Turn off all advertising features.
 3. Admin, Data retention: set event data retention to 2 months or 14 months, matching `privacy.html` (it says at most 14 months).
 4. The measurement ID is already in `GA_ID` in `assets/consent.js`.
-5. Test: with a fresh browser profile, confirm no request to `googletagmanager.com` and no `_ga` cookie before pressing Accept, and both after Accept. After Reject from Cookie settings the `_ga` cookies must disappear.
+5. Test: with a fresh browser profile, confirm there is no `_ga` cookie before pressing Accept and that it appears after Accept. After Reject from Cookie settings the `_ga` cookies must disappear. The setup check in GA4 can now detect the tag.
 
-Consent design: Consent Mode v2 defaults are all denied, and the Google tag is loaded only after Accept (basic mode, no cookieless pings). Reject and Accept have equal weight. The choice is kept in localStorage.
+Consent design: Consent Mode v2 defaults are all denied. The tag loads on every page (advanced mode): before consent it sends only cookie-free pings, and cookies are set only after Accept. Reject and Accept have equal weight. The choice is kept in localStorage.
 
 ## Search Console and indexing
 

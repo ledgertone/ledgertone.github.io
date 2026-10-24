@@ -4,7 +4,7 @@ Operating manual for AI agents working on Ledgertone.
 
 ## Project
 
-A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, no external requests (no CDN, no web fonts). The only exception is Google Analytics 4, loaded by `assets/consent.js` after the visitor accepts the consent banner, never before. It ranks phonk artists on Pandora by verified streams from dated, hand-collected snapshots.
+A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, no external requests (no CDN, no web fonts). The only exception is Google Analytics 4: the Google tag sits in the `<head>` of every HTML page in Consent Mode v2 (all storage denied by default), and `assets/consent.js` grants analytics storage only after the visitor accepts. It ranks phonk artists on Pandora by verified streams from dated, hand-collected snapshots.
 
 ## Hard rules
 
@@ -13,7 +13,7 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 3. Never imply live data. Keep the four disclosures in `index.html` (`#method`): collected by hand, verified streams, not the Pandora API, snapshots with dates.
 4. Pandora is named only as the data source. No Pandora logo, no artwork, no artist images. Keep the non-affiliation footer.
 5. Archive naming: every archive of the site handed to the owner must carry the site version in its file name, for example `ledgertone_github_io_v0.1.1.zip`. The version is the top entry of `CHANGELOG.md`. Bump it with every change. This rule is mandatory for all AI agents.
-6. Privacy and cookies: set no cookies and make no third-party request before consent. Keep Reject as prominent as Accept. If the data collected changes, update `privacy.html` in the same change. Ask the owner before adding any new tracker.
+6. Privacy and cookies: set no cookies before consent. The head snippet must always declare consent defaults as denied before the tag loads. Every new HTML page needs the same head snippet, and `privacy.html` must stay accurate about it. Keep Reject as prominent as Accept. If the data collected changes, update `privacy.html` in the same change. Ask the owner before adding any new tracker.
 7. Follow `CLAUDE.md`: no emojis, no em-dashes, verify before asserting APIs, versions, or flags.
 
 ## Layout
@@ -24,7 +24,7 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 | `assets/styles.css` | Tokens, glass layer, accessibility media queries |
 | `assets/app.js` | Rendering, snapshot picker, delta vs previous snapshot |
 | `data/snapshots.js` | Only data source. Schema in `docs/DATA.md` |
-| `assets/consent.js` | Cookie banner and Google Analytics loader, consent-gated |
+| `assets/consent.js` | Cookie banner, sends the visitor's choice to the Google tag |
 | `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Legal and search files. Launch steps in `docs/SEO.md` |
 | `skills/` | Design skills, see `skills/README.md` |
 

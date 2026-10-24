@@ -2,6 +2,12 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.3.0] - 2026-10-24
+### Changed
+- Google tag moved into the `<head>` of every page (Consent Mode v2 advanced mode): defaults denied before the tag, no cookies before consent, limited cookie-free pings before consent.
+- `assets/consent.js` no longer loads the tag, it only sends the visitor's choice.
+- `privacy.html` and the banner text describe the cookie-free pings and the legitimate-interest basis for them.
+
 ## [0.2.2] - 2026-10-24
 ### Changed
 - `assets/consent.js`: GA4 measurement ID set. Banner is now active.

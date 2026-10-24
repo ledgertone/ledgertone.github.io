@@ -11,6 +11,7 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: decide whether the cookie-free pings before consent are acceptable, or switch back to loading the tag only after Accept (basic mode)
 - [ ] Owner: fill `REPLACE_OWNER_NAME` in `privacy.html`
 - [ ] Owner: in GA4 turn off Google signals and advertising features, set data retention to 14 months or less (see `docs/SEO.md`)
 - [ ] Test the consent flow in a clean browser profile (steps in `docs/SEO.md`)
