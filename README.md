@@ -20,7 +20,9 @@ See `docs/DATA.md`.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | The whole page |
+| `index.html` | Home page: hero with buttons |
+| `rankings.html` | Snapshot picker and rankings |
+| `about.html` | What the site is and how the data is collected |
 | `assets/styles.css` | Design tokens, Liquid Glass layer, accessibility fallbacks |
 | `assets/app.js` | Renders snapshots, comparison against the previous snapshot |
 | `data/snapshots.js` | All published data |

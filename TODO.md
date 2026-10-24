@@ -1,6 +1,8 @@
 # TODO
 
 ## Done
+- [x] Separate pages for rankings and about, top bar opens pages (v0.5.0)
+- [x] Site information moved to `about.html` (v0.4.0)
 - [x] SEO files, privacy policy, consent banner, GA4 loader (v0.2.0)
 - [x] Name chosen: Ledgertone
 - [x] Static site scaffold: hero, rankings, method, footer

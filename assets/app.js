@@ -14,7 +14,7 @@
     const arts = (s.artists || []).filter(valid).sort((a, b) => b.streams - a.streams);
     const before = new Map(((prev && prev.artists) || []).filter(valid).map((a) => [String(a.name).toLowerCase(), a.streams]));
     const max = arts.length ? arts[0].streams || 1 : 1;
-    meta.textContent = 'Captured ' + fmt(s.capturedAt) + '. ' + arts.length + ' artists. Numbers do not update on their own.' + (s.note ? ' ' + s.note : '');
+    meta.textContent = 'Snapshot of ' + fmt(s.capturedAt) + '. ' + arts.length + ' artists.' + (s.note ? ' ' + s.note : '');
     list.replaceChildren();
     arts.forEach((a, n) => {
       const li = el('li', 'row');
@@ -42,13 +42,15 @@
   }
 
   if (!snaps.length) {
-    empty.hidden = false;
-    meta.hidden = true;
+    if (empty) empty.hidden = false;
+    if (meta) meta.hidden = true;
   } else {
-    status.textContent = 'Latest snapshot: ' + fmt(snaps[0].capturedAt);
-    snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt, 'medium')); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
-    picker.hidden = snaps.length < 2;
-    select(0);
+    if (status) status.textContent = 'Latest snapshot: ' + fmt(snaps[0].capturedAt);
+    if (list && picker && meta) {
+      snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt, 'medium')); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
+      picker.hidden = snaps.length < 2;
+      select(0);
+    }
   }
 
   addEventListener('pointermove', (e) => {

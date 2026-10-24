@@ -82,7 +82,10 @@ footer p{max-width:70ch;margin:0 0 8px}
 .doc th,.doc td{padding:10px 12px;border:1px solid var(--line);text-align:left;vertical-align:top;color:var(--muted)}
 .doc th{color:var(--ink)}
 .doc a{color:var(--ink);text-underline-offset:3px}
-
+.pg{padding:calc(env(safe-area-inset-top,0px) + 112px) 0 40px}
+.pg h1{max-width:20ch;font-size:clamp(2rem,6vw,3.25rem)}
+.link[aria-current=page]{background:var(--line)}
+@media(prefers-contrast:more){.link[aria-current=page]{outline:2px solid var(--ink);outline-offset:-2px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::after{animation:none!important;transition:none!important}.link:active,.btn:active,.picker button:active,.cbtn:active{transform:none}}
 @media(prefers-reduced-transparency:reduce){.glass{background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none}.glass::after,.edge{display:none}}
 @media(prefers-contrast:more){.glass{background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none;border-color:var(--ink)}.row,.status,.empty{border-color:var(--ink)}.edge{display:none}}

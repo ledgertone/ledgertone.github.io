@@ -2,6 +2,22 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.5.0] - 2026-10-24
+### Added
+- `rankings.html`: the snapshot picker and ranking list moved here from the home page. Added to the sitemap and footer.
+### Changed
+- Top bar buttons (Rankings, About) open separate pages instead of scrolling. Current page is highlighted.
+- Home page copy says "snapshot" and no longer explains by-hand collection or not-live data there. The explanation stays on `about.html`.
+- `assets/app.js` works on pages without the rankings list. Title, description, and social image text updated.
+- `AGENTS.md`: navigation and wording rules updated.
+
+## [0.4.0] - 2026-10-24
+### Added
+- `about.html`: what the site is, how the data is collected, independence, contact. Added to the sitemap and to the nav and footer of every page.
+### Changed
+- The "How the data is collected" section moved from `index.html` to `about.html`. The home page keeps a link to it and the not-live notes in the hero and footer.
+- `AGENTS.md`: disclosure rule now points to `about.html`.
+
 ## [0.3.0] - 2026-10-24
 ### Changed
 - Google tag moved into the `<head>` of every page (Consent Mode v2 advanced mode): defaults denied before the tag, no cookies before consent, limited cookie-free pings before consent.

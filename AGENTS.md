@@ -10,7 +10,7 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 
 1. Language: everything in the repository and on the site is English. Talk to the owner in Russian only.
 2. Never invent data. `data/snapshots.js` changes only with numbers the owner collected. No placeholder artists on the live page.
-3. Never imply live data. Keep the four disclosures in `index.html` (`#method`): collected by hand, verified streams, not the Pandora API, snapshots with dates.
+3. Never imply live data. Keep the four disclosures on `about.html` (the "How the data is collected" section): collected by hand, verified streams, not the Pandora API, snapshots with dates. Owner decision: the home page and the rankings page do not repeat the by-hand or not-live explanations, they just say "snapshot". Every page keeps the non-affiliation footer.
 4. Pandora is named only as the data source. No Pandora logo, no artwork, no artist images. Keep the non-affiliation footer.
 5. Archive naming: every archive of the site handed to the owner must carry the site version in its file name, for example `ledgertone_github_io_v0.1.1.zip`. The version is the top entry of `CHANGELOG.md`. Bump it with every change. This rule is mandatory for all AI agents.
 6. Privacy and cookies: set no cookies before consent. The head snippet must always declare consent defaults as denied before the tag loads. Every new HTML page needs the same head snippet, and `privacy.html` must stay accurate about it. Keep Reject as prominent as Accept. If the data collected changes, update `privacy.html` in the same change. Ask the owner before adding any new tracker.
@@ -20,17 +20,20 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 
 | Path | Role |
 | --- | --- |
-| `index.html` | Single page: hero, rankings, method, footer |
+| `index.html` | Home: hero with two buttons. No rankings, no long explanations |
+| `rankings.html` | Snapshot picker and ranking list, rendered by `assets/app.js` |
+| `about.html` | What the site is, how the data is collected (the four disclosures), independence, contact |
 | `assets/styles.css` | Tokens, glass layer, accessibility media queries |
 | `assets/app.js` | Rendering, snapshot picker, delta vs previous snapshot |
 | `data/snapshots.js` | Only data source. Schema in `docs/DATA.md` |
 | `assets/consent.js` | Cookie banner, sends the visitor's choice to the Google tag |
-| `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Legal and search files. Launch steps in `docs/SEO.md` |
+| `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Legal and search files. Every new HTML page needs the head snippet, the same nav and footer links, and a sitemap entry. Launch steps in `docs/SEO.md` |
 | `skills/` | Design skills, see `skills/README.md` |
 
 ## Design rules
 
 - **Glass transparency.** Liquid Glass is as transparent as legibility allows: fill at most 6 percent of `--surface`, light blur, visible edge highlight. Do not raise the fill or blur without an explicit request from the owner. Opaque fallbacks for reduced transparency and increased contrast stay.
+- **Navigation.** Top bar buttons open separate pages (`rankings.html`, `about.html`), they never scroll the page. Say "snapshot" in copy.
 - **Two layers.** Glass (`.glass`) belongs only to the functional layer: the top bar and the snapshot picker. Rows, chips, and cards are opaque. Do not add glass to content.
 - **Color budget.** One accent (`--accent`) for the primary button, the notehead, and rank bars. Labels stay monochrome. The colorful fields live in the page background so the glass has something to refract.
 - **Signature.** The staff with a note on a ledger line above it. Do not add other decorative motifs.
