@@ -47,22 +47,23 @@
   function openBar() {
     if (bar) return;
     bar = document.createElement("div");
-    bar.className = "consent";
+    bar.className = "consent glass";
     bar.setAttribute("role", "dialog");
     bar.setAttribute("aria-labelledby", "consent-title");
     bar.innerHTML =
       '<h2 id="consent-title">Analytics cookies</h2>' +
-      "<p>Ledgertone would like to use Google Analytics cookies to count visits and see which parts of the page are used. " +
-      "Without your consent no cookies are set and Google receives only limited, cookie-free visit pings. " +
-      'You can change your mind at any time. See the <a href="/privacy.html">privacy policy</a>.</p>' +
-      '<div class="consent-actions"><button type="button" class="cbtn" data-c="denied">Reject</button>' +
-      '<button type="button" class="cbtn" data-c="granted">Accept</button></div>';
+      "<p>Ledgertone would like to use Google Analytics cookies to count visits. " +
+      "Without your consent no cookies are set. " +
+      'See the <a href="/privacy.html">privacy policy</a>.</p>' +
+      '<div class="consent-actions"><button type="button" class="cbtn glass glass-flat" data-c="denied">Reject</button>' +
+      '<button type="button" class="cbtn glass glass-flat" data-c="granted">Accept</button></div>';
     bar.addEventListener("click", function (e) {
       var c = e.target && e.target.getAttribute && e.target.getAttribute("data-c");
       if (!c) return;
       write(c); apply(c); closeBar();
     });
     document.body.appendChild(bar);
+    if (window.ledgertoneGlass) window.ledgertoneGlass.observe(bar);
     var first = bar.querySelector("button"); if (first) first.focus({ preventScroll: true });
   }
 

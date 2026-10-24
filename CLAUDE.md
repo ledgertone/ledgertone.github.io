@@ -12,3 +12,4 @@
 - Never invent data. Never present anything as live.
 - Update CHANGELOG.md and TODO.md with every change.
 - Archive file name always includes the site version (see AGENTS.md rule 5).
+- Design: Liquid Glass is the core style of the site and almost every surface and every button is glass. Never replace glass with opaque panels or buttons. Full rules are in AGENTS.md (Design rules).

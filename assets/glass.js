@@ -94,5 +94,8 @@
   function schedule(el) { pending.add(el); if (!queued) { queued = true; requestAnimationFrame(flush); } }
 
   var ro = "ResizeObserver" in window ? new ResizeObserver(function (entries) { entries.forEach(function (e) { schedule(e.target); }); }) : null;
-  document.querySelectorAll(".glass").forEach(function (el) { if (ro) ro.observe(el); schedule(el); });
+  function observe(el) { if (ro) ro.observe(el); schedule(el); }
+  document.querySelectorAll(".glass:not(.glass-flat)").forEach(observe);
+  // For glass elements created after load (the cookie banner)
+  window.ledgertoneGlass = { observe: observe };
 })();

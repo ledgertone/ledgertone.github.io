@@ -1,6 +1,15 @@
 # TODO
 
 ## Done
+- [x] Neue Machina as the only typeface (v0.14.0), checked in headless Chromium only
+- [x] Artist images, Pandora links and explicit Pandora wording (v0.13.0), checked in headless Chromium only
+- [x] Sample snapshots with fictional artists added for the design preview (v0.12.0)
+- [x] Theme switch Auto, Light, Dark and a cooler palette (v0.11.0), checked in headless Chromium only
+- [x] Strict look, compact headings, softer background (v0.10.0), checked in headless Chromium only
+- [x] SF Pro and New York through system stacks, Instrument Sans as non-Apple fallback (v0.9.0), NOT visually checked on Apple devices
+- [x] Glass on all buttons, chips, rows and the cookie banner (v0.8.0), checked in headless Chromium only
+- [x] Instrument Sans self-hosted as the site font (v0.7.0), checked in headless Chromium only
+- [x] Smaller cookie banner in glass style (v0.6.1), checked in headless Chromium only
 - [x] Refraction glass for Chromium and design refresh (v0.6.0), checked in headless Chromium 141 only
 - [x] Separate pages for rankings and about, top bar opens pages (v0.5.0)
 - [x] Site information moved to `about.html` (v0.4.0)
@@ -14,6 +23,14 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: confirm the Neue Machina license covers use on a public website (the font files carry no license text; Pangram Pangram sells separate web licenses)
+- [ ] BEFORE LAUNCH: replace the placeholder images in `assets/artists/` with real images the owner may use, and put real Pandora artist URLs into `profileUrl` (the sample ones point to the Pandora home page)
+- [ ] BEFORE LAUNCH: delete all snapshots with `sample: true` from `data/snapshots.js` (the site must not show fictional artists as real data)
+- [ ] Test the theme switch on a real phone and in Safari (saved choice, no flash on load, theme-color bar)
+- [ ] Owner: check the site on an iPhone and a Mac (Safari and Chrome): New York headings, SF Pro body, heading size and wrapping, tracking
+- [ ] Check text legibility on glass rows and tinted buttons in light and dark, and performance of the rankings list with many rows
+- [ ] Artist names with non-Latin letters (for example Cyrillic) fall back to the system font, the subset is Latin only. Extend the subset if such names appear in `data/snapshots.js`
+- [ ] Check the glass cookie banner in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Check the glass in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Owner: decide whether the cookie-free pings before consent are acceptable, or switch back to loading the tag only after Accept (basic mode)
 - [ ] Owner: in GA4 turn off Google signals and advertising features, set data retention to 14 months or less (see `docs/SEO.md`)

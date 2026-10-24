@@ -21,24 +21,27 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://ledgertone.github.io/rankings.html">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232F3BFF'/%3E%3Ccircle cx='16' cy='11' r='4' fill='white'/%3E%3Cpath d='M8 18h16M8 22h16M8 26h16' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/NeueMachina-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/NeueMachina-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/theme.js"></script>
 </head>
 <body>
 <div class="edge" aria-hidden="true"></div>
 <header class="nav glass">
   <a class="brand" href="index.html">Ledgertone</a>
-  <nav aria-label="Primary"><a class="link" href="rankings.html" aria-current="page">Rankings</a><a class="link" href="about.html">About</a></nav>
+  <nav aria-label="Primary"><a class="link" href="rankings.html" aria-current="page">Rankings</a><a class="link" href="about.html">About</a><button type="button" class="theme glass glass-flat" id="theme-toggle" aria-label="Theme" hidden></button></nav>
 </header>
 <main>
 <section class="wrap pg" id="rankings">
 <h1>Top phonk artists on Pandora</h1>
-<p class="sub">Artists are ordered by verified streams in the selected snapshot. Pick a snapshot to see how the numbers stood on that date.</p>
-<div class="picker glass" id="picker" role="group" aria-label="Snapshot date" hidden><span>Snapshot</span></div>
+<p class="sub">Artists are ordered by verified Pandora streams in the selected snapshot. Pick a snapshot to see how the numbers stood on that date.</p>
+<div class="picker glass" id="picker" role="group" aria-label="Snapshot date" hidden><span>Pandora snapshot</span></div>
 <p class="meta" id="meta"></p>
 <ol id="list" aria-label="Phonk artists on Pandora"></ol>
-<div class="empty" id="empty" hidden>
+<div class="empty glass glass-flat" id="empty" hidden>
   <h3>The first snapshot is not published yet</h3>
-  <p>Rankings will appear here after the first snapshot is captured. Each snapshot is labeled with the date it was taken.</p>
+  <p>Pandora rankings will appear here after the first snapshot is captured. Each snapshot is labeled with the date it was taken.</p>
 </div>
 <noscript><p class="meta">Rankings need JavaScript to display.</p></noscript>
 </section>
@@ -46,7 +49,7 @@
 <footer>
   <div class="wrap">
     <p>Ledgertone is an independent project and is not affiliated with Pandora. Pandora is a trademark of its respective owner.</p>
-    <p class="flinks"><a href="rankings.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn" id="cookie-settings" hidden>Cookie settings</button></p>
+    <p class="flinks"><a href="rankings.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
   </div>
 </footer>
 <script src="data/snapshots.js"></script>
