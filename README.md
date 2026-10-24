@@ -8,9 +8,9 @@ Open `index.html` in a browser, or run `python3 -m http.server` in this folder a
 
 ## Deploy on GitHub Pages
 
-1. Create a repository named `ledgertone` and push this folder to the `main` branch.
+1. Create a repository named `ledgertone.github.io` (a user site) and push this folder to the `main` branch.
 2. Open Settings, then Pages. Under Source choose "Deploy from a branch", branch `main`, folder `/ (root)`.
-3. The site is served at `https://<your-username>.github.io/ledgertone/`. All paths are relative, so the subpath works.
+3. The site is served at `https://<your-username>.github.io/`. Page paths are relative, but `404.html`, the consent banner link, and the canonical tags assume the site root. Launch steps: `docs/SEO.md`.
 
 ## Add a snapshot
 
@@ -24,6 +24,8 @@ See `docs/DATA.md`.
 | `assets/styles.css` | Design tokens, Liquid Glass layer, accessibility fallbacks |
 | `assets/app.js` | Renders snapshots, comparison against the previous snapshot |
 | `data/snapshots.js` | All published data |
+| `assets/consent.js` | Cookie banner and consent-gated Google Analytics |
+| `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Privacy policy, error page, search files |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for AI agents |
 | `skills/` | Design skills used for this project |
 | `TODO.md`, `CHANGELOG.md` | Plan and history |

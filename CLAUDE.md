@@ -11,3 +11,4 @@
 - Site copy, code, comments, docs, and commit messages: English only. Chat with the owner: Russian only.
 - Never invent data. Never present anything as live.
 - Update CHANGELOG.md and TODO.md with every change.
+- Archive file name always includes the site version (see AGENTS.md rule 5).
