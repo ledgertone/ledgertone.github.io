@@ -1,6 +1,7 @@
 # TODO
 
 ## Done
+- [x] Y2K holographic glow restyle (v0.15.0), NOT yet seen in any browser
 - [x] Neue Machina as the only typeface (v0.14.0), checked in headless Chromium only
 - [x] Artist images, Pandora links and explicit Pandora wording (v0.13.0), checked in headless Chromium only
 - [x] Sample snapshots with fictional artists added for the design preview (v0.12.0)
@@ -23,6 +24,7 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: look at v0.15.0 in Chrome and Safari, light and dark: glow strength, star position, text legibility on glass, grain strength
 - [ ] Owner: confirm the Neue Machina license covers use on a public website (the font files carry no license text; Pangram Pangram sells separate web licenses)
 - [ ] BEFORE LAUNCH: replace the placeholder images in `assets/artists/` with real images the owner may use, and put real Pandora artist URLs into `profileUrl` (the sample ones point to the Pandora home page)
 - [ ] BEFORE LAUNCH: delete all snapshots with `sample: true` from `data/snapshots.js` (the site must not show fictional artists as real data)

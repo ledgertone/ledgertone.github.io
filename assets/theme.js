@@ -9,7 +9,7 @@
   var KEY = "ledgertone-theme";
   var ORDER = ["auto", "light", "dark"];
   var LABEL = { auto: "Auto", light: "Light", dark: "Dark" };
-  var BAR = { light: "#EDF1FB", dark: "#0A0E24" };
+  var BAR = { light: "#F1EEFB", dark: "#07050F" };
   var root = document.documentElement;
   var mode = "auto";
 

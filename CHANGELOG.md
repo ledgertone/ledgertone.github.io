@@ -2,6 +2,17 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.15.0] - 2026-10-25
+### Changed
+- New look from the owner's references: Y2K holographic glow. Dark theme is near-black violet with violet, cyan, magenta, and blue glow fields and a small peach field; light theme is a pale lavender version. Film grain over the background (`html::after`, inline SVG noise, no request).
+- Glass cards, rows, bar, and buttons get a violet and magenta glow and a faint iridescent sheen. Primary button and cookie Accept are gradient glass with a glow.
+- Rank bars use a cyan to violet to magenta gradient with a glow.
+- Hero: slowly turning chrome star with a glow behind it (hidden under 720 px). Second half of the h1 uses a holographic gradient.
+- Status chip, picker label, snapshot line, and "streams on Pandora" are small uppercase with wide tracking.
+- `theme-color` and `theme.js` bar colors updated to the new backgrounds.
+- `AGENTS.md`: "Strict and restrained" and "Color budget" rules replaced by the Y2K holographic glow rule (owner decision). Heading size caps unchanged.
+- Not checked in a browser in this change, only code checks.
+
 ## [0.14.0] - 2026-10-24
 ### Changed
 - The whole site now uses Neue Machina (supplied by the owner): `.woff2` in `assets/fonts/` in Regular, Medium, and Bold, Latin and Cyrillic, Regular and Bold preloaded. Replaces SF Pro, New York, and Instrument Sans. Headings no longer use a serif. Heading tracking loosened for this wide font.
