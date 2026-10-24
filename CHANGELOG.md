@@ -2,6 +2,18 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.6.0] - 2026-10-24
+### Added
+- `assets/glass.js`: real Liquid Glass refraction in Chromium browsers (per-element displacement map used through an SVG filter in `backdrop-filter`), disabled for reduced transparency and increased contrast.
+### Changed
+- Design refresh: stronger color fields and concentric rings in the page background (hard edges for the glass to bend), larger hero type with a muted second line, rounder ranking cards with soft shadow, larger primary button.
+- Glass fallback for Safari and Firefox now has specular rim highlights and extra saturation instead of plain blur.
+- `AGENTS.md`, `README.md`: glass rules updated.
+
+## [0.5.1] - 2026-10-24
+### Changed
+- `privacy.html`: controller named as "Daniil (SETTWOR)" with the contact email.
+
 ## [0.5.0] - 2026-10-24
 ### Added
 - `rankings.html`: the snapshot picker and ranking list moved here from the home page. Added to the sitemap and footer.

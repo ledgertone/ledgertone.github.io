@@ -26,6 +26,7 @@ See `docs/DATA.md`.
 | `assets/styles.css` | Design tokens, Liquid Glass layer, accessibility fallbacks |
 | `assets/app.js` | Renders snapshots, comparison against the previous snapshot |
 | `data/snapshots.js` | All published data |
+| `assets/glass.js` | Real refraction for Liquid Glass in Chromium browsers |
 | `assets/consent.js` | Cookie banner, passes the consent choice to the Google tag |
 | `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Privacy policy, error page, search files |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for AI agents |

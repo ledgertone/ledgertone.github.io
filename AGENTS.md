@@ -26,6 +26,7 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 | `assets/styles.css` | Tokens, glass layer, accessibility media queries |
 | `assets/app.js` | Rendering, snapshot picker, delta vs previous snapshot |
 | `data/snapshots.js` | Only data source. Schema in `docs/DATA.md` |
+| `assets/glass.js` | Refraction filter for `.glass` elements (Chromium only, progressive enhancement) |
 | `assets/consent.js` | Cookie banner, sends the visitor's choice to the Google tag |
 | `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Legal and search files. Every new HTML page needs the head snippet, the same nav and footer links, and a sitemap entry. Launch steps in `docs/SEO.md` |
 | `skills/` | Design skills, see `skills/README.md` |
@@ -33,6 +34,7 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 ## Design rules
 
 - **Glass transparency.** Liquid Glass is as transparent as legibility allows: fill at most 6 percent of `--surface`, light blur, visible edge highlight. Do not raise the fill or blur without an explicit request from the owner. Opaque fallbacks for reduced transparency and increased contrast stay.
+- **Glass is refraction, not just blur.** In Chromium browsers `assets/glass.js` builds a displacement map per `.glass` element and applies it as an SVG filter in `backdrop-filter`, so the rim bends the background. Safari and Firefox cannot do this and use the CSS fallback in `styles.css` (blur, saturation, specular edges). Do not remove the rings and color fields in the page background, the glass needs hard edges and color to bend. New `.glass` elements are picked up automatically only if present at load. Test any glass change in Chromium and in a browser without refraction.
 - **Navigation.** Top bar buttons open separate pages (`rankings.html`, `about.html`), they never scroll the page. Say "snapshot" in copy.
 - **Two layers.** Glass (`.glass`) belongs only to the functional layer: the top bar and the snapshot picker. Rows, chips, and cards are opaque. Do not add glass to content.
 - **Color budget.** One accent (`--accent`) for the primary button, the notehead, and rank bars. Labels stay monochrome. The colorful fields live in the page background so the glass has something to refract.

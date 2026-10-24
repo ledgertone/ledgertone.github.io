@@ -12,7 +12,6 @@ grep -rn "ledgertone.github.io" --include="*.html" --include="*.xml" --include="
 
 | Where | Placeholder | What to put |
 | --- | --- | --- |
-| `privacy.html` | `REPLACE_OWNER_NAME` | Name of the person or entity running the site |
 
 GA4 measurement ID `G-R9G4YSEG77` is set in `assets/consent.js`. The Google tag is in the `<head>` of `index.html`, `privacy.html`, and `404.html`, with Consent Mode defaults set to denied before the tag. Every new HTML page must get the same snippet. Never use Google's raw snippet without the consent defaults.
 Check before publishing: `grep -rn "REPLACE_" . --exclude-dir=skills --exclude-dir=.git` must print nothing.

@@ -1,6 +1,7 @@
 # TODO
 
 ## Done
+- [x] Refraction glass for Chromium and design refresh (v0.6.0), checked in headless Chromium 141 only
 - [x] Separate pages for rankings and about, top bar opens pages (v0.5.0)
 - [x] Site information moved to `about.html` (v0.4.0)
 - [x] SEO files, privacy policy, consent banner, GA4 loader (v0.2.0)
@@ -13,8 +14,8 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Check the glass in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Owner: decide whether the cookie-free pings before consent are acceptable, or switch back to loading the tag only after Accept (basic mode)
-- [ ] Owner: fill `REPLACE_OWNER_NAME` in `privacy.html`
 - [ ] Owner: in GA4 turn off Google signals and advertising features, set data retention to 14 months or less (see `docs/SEO.md`)
 - [ ] Test the consent flow in a clean browser profile (steps in `docs/SEO.md`)
 - [ ] Verify the site in Search Console, submit `sitemap.xml`, request indexing after the first snapshot is live
