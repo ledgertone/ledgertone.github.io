@@ -39,7 +39,7 @@ const ld = { '@context': 'https://schema.org', '@graph': [
 
 let h = readCRLF('index.html');
 const sub = (re, s) => { if (!re.test(h)) throw new Error('index.html changed, pattern missing: ' + re); h = h.replace(re, () => s); };
-sub(/<p class="status glass" id="status">.*?<\/p>/, '<p class="status glass" id="status">Latest Pandora snapshot: ' + month(latest, 'en') + '</p>');
+sub(/<p class="status glass" id="status"[^>]*>.*?<\/p>/, '<p class="status glass" id="status" hidden></p>'); // the "Latest Pandora snapshot" label was removed by the owner (v0.86.0), the chip stays hidden until app.js has a warning to show
 sub(/<p class="meta" id="meta">.*?<\/p>/, '<p class="meta" id="meta">' + month(latest, 'en') + ' \u00b7 ' + num(artistCount(homeId), 'en') + ' artists</p>');
 sub(/<div class="tools" id="tools"( hidden)?>/, '<div class="tools" id="tools" hidden>');
 sub(/<div class="foot" id="foot"( hidden)?>/, '<div class="foot" id="foot" hidden>');

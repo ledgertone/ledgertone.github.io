@@ -295,3 +295,51 @@ footer{padding:28px 0 40px;font-size:.8125rem}
 .devwarn strong{display:block;margin:0 0 6px;font-size:1.5rem;line-height:1.2;font-weight:700;letter-spacing:.01em;text-transform:uppercase;color:var(--ink)}
 .devwarn p{margin:0;font-size:1.125rem;line-height:1.5;font-weight:500;color:var(--ink)}
 @media(max-width:700px){.devwarn{padding:14px 16px 16px;border-radius:16px;border-left-width:5px}.devwarn strong{font-size:1.25rem}.devwarn p{font-size:1rem}}
+
+/* Owner request v0.86.0: bolder logo text; hidden status chip; on a phone the "Per page" control moves under the table and pager (desktop unchanged) */
+.brand{font-weight:700}
+.status[hidden]{display:none}
+@media(max-width:700px){
+.rks{display:flex;flex-direction:column}
+.tools{display:contents}
+.rks>.search,.tools .search{flex:none;margin:0 0 12px}
+.rks .sizes{order:1;align-self:flex-start;margin:14px 0 0}
+.rks>.empty,.rks>.more,.rks>noscript{order:2}
+}
+
+.stat{align-content:start}
+
+/* v0.89.0 (owner request): more room between the elements of the ranking page, nothing squeezed. Scoped to the home page (.rks / .hero), artist pages are untouched */
+.hero{padding-bottom:32px}
+.genres{margin-top:26px}
+.rks .meta{margin-bottom:20px}
+.rks .stats{gap:14px;margin-bottom:24px}
+.rks .stat{gap:8px;padding:16px 20px 18px}
+.rks .tools{gap:14px 18px;margin-bottom:20px}
+.rks .tbl th{padding:14px 16px}
+.rks .tbl td{padding:15px 16px}
+.rks .foot{margin-top:22px;gap:14px 18px}
+.rks .more{margin-top:36px}
+@media(max-width:700px){
+h1{margin-bottom:16px}
+.genres{margin-top:22px}
+.hero{padding-bottom:20px}
+.rks .meta{margin-bottom:16px;line-height:1.6}
+.rks .stats{gap:12px;margin-bottom:20px}
+.rks .stat{gap:7px;padding:14px 16px 16px}
+.rks>.search,.rks .tools .search{margin-bottom:18px}
+.rks .tbl th{padding:12px 10px}
+.rks .tbl td{padding:17px 10px}
+.rks .foot{margin-top:20px}
+.rks .sizes{margin-top:20px}
+.rks .more{margin-top:30px}
+}
+
+/* v0.90.0 (owner request): on a phone the text starts a bit lower, so the fixed header does not crowd it (home page and text pages) */
+@media(max-width:700px){
+.hero,.doc{padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
+}
+
+/* v0.93.0 (owner request, "All" froze the iPhone): in a long list (class big, set by assets/app.js) the small link buttons keep their look but lose the blur behind them and the large soft shadow, which were thousands of extra layers */
+.tbl.big .lk.glass{-webkit-backdrop-filter:none;backdrop-filter:none;background:color-mix(in srgb,var(--surface) 60%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(10,14,36,.1)}
+.rks{overflow-anchor:none}

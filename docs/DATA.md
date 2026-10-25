@@ -61,7 +61,7 @@ File shape: a list of `{ artist, searchName, history: [{ monthlyListeners, month
 
 ## Artist pages
 
-Every artist with a reading gets a generated page (AGENTS.md rule 13). After any data change run `node scripts/build-all.js`: it rebuilds all pages, `data/artist-pages.js` and `sitemap.xml`. A new artist page is created automatically when a reading arrives. If an artist loses his reading or is banned, delete his old `<slug>.html` by hand (the script does not delete files) and rebuild.
+Every artist with a reading gets a generated page (AGENTS.md rule 13). Since v0.85.0 the page of an ordinary artist is a shell with no figures and no text: the browser fills it from `data/snapshots.js`, `data/unverified.js`, `data/links.js` and the text file `data/artist-text.js`. Change one line of text on every artist page: edit `data/artist-text.js` only (no build, the pages read it on load). After a data change, a new artist, or a change of `data/artist-text.js` run `node scripts/build-all.js`: it writes the shell of a new artist, the two static SETTWOR pages (they carry the figures and the text in the HTML), `data/artist-pages.js` and `sitemap.xml`. A new artist page is created automatically when a reading arrives. If an artist loses his reading or is banned, delete his old `<slug>.html` by hand (the script does not delete files) and rebuild.
 
 ## Links
 

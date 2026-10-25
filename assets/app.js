@@ -38,6 +38,8 @@
   }
 
   const state = { rows: [], q: '', size: 25, page: 1 };
+  let moreIO = null;
+  const sentinel = el('div', 'rowsend'); sentinel.setAttribute('aria-hidden', 'true'); sentinel.style.height = '1px';
   let cur = genres[0];
   // Roster names of a genre: banned names and duplicates dropped. Shown with "No data" until a snapshot has a 28-day listeners reading for them.
   const rosterOf = (g) => {
@@ -195,7 +197,12 @@
       const tr = el('tr'), td = el('td', 'none', 'No artists match your search.');
       td.colSpan = 3; tr.append(td); list.append(tr);
     }
-    slice.forEach((r, n) => {
+    // Performance (owner request, v0.93.0): "All" made the iPhone freeze (thousands of rows, each with two glass buttons). Rows are now built in small chunks, the next chunk
+    // only when the end of the table comes near the screen (IntersectionObserver), and a long list drops the blur behind the small link buttons (class big, see styles.css).
+    if (moreIO) { moreIO.disconnect(); moreIO = null; }
+    sentinel.remove();
+    if (tbl) tbl.classList.toggle('big', slice.length > 60);
+    const makeRow = (r, n) => {
       const a = r.a, rank = r.rank;
       const tr = el('tr');
       const lk = linkMap[norm(a.name)] || {};
@@ -231,9 +238,29 @@
       const rk = el('td', 'rk');
       if (rank === null) { rk.textContent = '-'; } else if (rank <= 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][rank - 1], String(rank)); m.setAttribute('aria-label', 'Place ' + rank); rk.append(m); } else { rk.textContent = String(rank); }
       tr.append(rk, who, Number.isFinite(a.listeners) ? el('td', 'st', nf.format(a.listeners)) : el('td', 'st nodata', a.few ? 'Few' : 'No data'));
-      list.append(tr);
-      if (!reduce.matches && !window.LTMotion) tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: Math.min(n, 14) * 20, easing: 'ease-out', fill: 'backwards' });
-    });
+      return tr;
+    };
+    const CHUNK = 40;
+    let shown = 0;
+    const addChunk = () => {
+      const end = Math.min(slice.length, shown + CHUNK), frag = document.createDocumentFragment(), start = shown;
+      for (; shown < end; shown++) frag.append(makeRow(slice[shown], shown));
+      list.append(frag);
+      if (start === 0 && !reduce.matches && !window.LTMotion) Array.from(list.children).slice(0, 15).forEach((tr, n) => tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: n * 20, easing: 'ease-out', fill: 'backwards' }));
+    };
+    if (!window.IntersectionObserver) { shown = 0; while (shown < slice.length) addChunk(); }
+    else {
+      addChunk();
+      if (shown < slice.length) {
+        tbl.after(sentinel);
+        moreIO = new IntersectionObserver((es) => {
+          if (!es.some((e) => e.isIntersecting)) return;
+          addChunk();
+          if (shown >= slice.length) { moreIO.disconnect(); moreIO = null; sentinel.remove(); } else { moreIO.unobserve(sentinel); moreIO.observe(sentinel); }
+        }, { rootMargin: '1500px 0px' });
+        moreIO.observe(sentinel);
+      }
+    }
     count.textContent = rows.length ? 'Showing ' + (from + 1) + ' to ' + (from + slice.length) + ' of ' + rows.length : '';
     drawPager(pages);
     if (scroll && tbl && tbl.getBoundingClientRect().top < 0) tbl.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
@@ -251,8 +278,10 @@
     render(i);
   }
 
-  const note = $('#note'), devwarn = $('#devwarn'), devwarnTitle = $('#devwarn-title'), devwarnText = $('#devwarn-text'), caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
+  const devwarn = $('#devwarn'), devwarnTitle = $('#devwarn-title'), devwarnText = $('#devwarn-text'), caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
   const homeId = genres[0].id;
+  // The chip above the title shows only a warning (no snapshot yet, sample data). The normal "Latest Pandora snapshot" label was removed by the owner (v0.86.0), so an empty text hides the chip.
+  const setStatus = (t) => { if (status) { status.textContent = t; status.hidden = !t; } };
   const fromHash = () => genres.find((g) => g.id === decodeURIComponent(location.hash.slice(1))) || genres[0];
 
   function setGenre(g) {
@@ -267,26 +296,26 @@
     state.q = ''; state.page = 1; if (q) q.value = '';
     picker.querySelectorAll('button').forEach((b) => b.remove());
     const has = snaps.length > 0 || rosterOf(g).length > 0 || unverifiedOf(g).length > 0;
-    [[empty, !has], [tbl, has], [meta, has], [note, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
-    if (tbl) { tbl.classList.toggle('pending', !!g.pending); if (g.pending) tbl.setAttribute('aria-describedby', 'note'); else tbl.removeAttribute('aria-describedby'); }
+    [[empty, !has], [tbl, has], [meta, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
+    if (tbl) tbl.classList.toggle('pending', !!g.pending);
     // Large warning for a genre the owner unlocked while it is still raw (genre.devwarn, v0.84.0)
     if (devwarn) { const w = g.devwarn; devwarn.hidden = !(w && w.text); if (w && w.text) { devwarnTitle.textContent = w.title || 'Under development'; devwarnText.textContent = w.text; } }
     if (more) more.hidden = snaps.length < 2;
     picker.hidden = snaps.length < 2;
     if (!has) {
       list.replaceChildren(); count.textContent = ''; pager.hidden = true;
-      if (status) status.textContent = 'No snapshot published yet';
+      setStatus('No snapshot published yet');
       if (emptyTitle) emptyTitle.textContent = 'The first ' + g.name + ' snapshot is not published yet';
       return;
     }
     if (!snaps.length) {
-      if (status) status.textContent = 'No snapshot published yet';
+      setStatus('No snapshot published yet');
       if (caption) caption.textContent = g.name + ' artists on Pandora';
       render(null);
       return;
     }
     if (caption) caption.textContent = g.name + ' artists on Pandora, ordered by 28-day listeners';
-    if (status) status.textContent = snaps[0].sample ? 'Sample data, not real' : 'Latest Pandora snapshot: ' + fmt(snaps[0].capturedAt);
+    setStatus(snaps[0].sample ? 'Sample data, not real' : '');
     snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt)); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
     select(0);
   }

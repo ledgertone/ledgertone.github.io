@@ -1,6 +1,16 @@
 # TODO
 
 ## Done
+- [x] New `assets/og-image.png` in the current design with the title "Top Phonk Artists on Pandora" (v0.94.0), rendered in headless Chromium only, not seen in a real link preview
+- [x] "Per page: All" no longer freezes: rows load in chunks of 40, lighter buttons in long lists (v0.93.0). Measured in headless Chromium with a slowed CPU only, the owner should try it on the real iPhone and say if it is smooth
+- [x] Search field joined to the table on phones was reverted (v0.92.0)
+- [x] Search field joined to the main table on phones (v0.91.0), headless Chromium only
+- [x] More space under the header on phones (v0.90.0), headless Chromium only. Artist pages are not in the archive any more, replace the old copies in the site folder when needed (they carry the version stamp)
+- [x] Card text removed, more spacing on the ranking page (v0.89.0), headless Chromium only
+- [x] Old note removed, explanation inside the "Has data" card (v0.88.0), headless Chromium only
+- [x] Note under the coverage cards: popular artists first, the bar may stay below 100% (v0.87.0), headless Chromium only
+- [x] Bolder logo, status chip removed, "Per page" under the table on phones (v0.86.0), headless Chromium only, not seen in Safari or on a real phone
+- [x] Artist pages are shells filled from the database and one text file `data/artist-text.js` (v0.85.0), headless Chromium only (596 pages equal to the old static ones), not seen in Safari or on a real phone. Open question for the owner: a shell has no figures for search engines that do not run JavaScript, `--static` brings the old pages back
 - [x] Brazilian Phonk unlocked with a large "Under development" warning (v0.84.0), headless Chromium only (1280 and 390 px: warning shown on Brazilian Phonk, hidden on Phonk, table not dimmed), not seen in Safari or on a real phone
 - [x] artistMonthly.json import: 455 readings added, none changed (v0.83.0), node data check only
 - [x] No opacity fade on glass or glass-holding elements during entrances, to stop texture jumps in Safari (v0.82.4), headless Chromium only, needs a check on a real iPhone
@@ -93,6 +103,7 @@
 - [ ] Owner: paste `docs/settwor-site-snippet.html` into `https://settwor.github.io/` (part 1 in the head, part 2 as a visible link), then run the Rich Results Test on both sites
 - [ ] Owner: after deploy, request indexing in Search Console for `https://ledgertone.github.io/`, `settwor.html` and `settwor-ru.html`, and resubmit `sitemap.xml` (it now has hreflang alternates)
 - [ ] Owner: read the Russian text of `settwor-ru.html` and say what to change (copy is in the `T.ru` block of `scripts/build-artist-pages.js`)
+- [ ] Owner: after publishing v0.94.0, refresh the link preview cache (Facebook Sharing Debugger, Telegram bot @WebpageBot) so the new og-image shows
 - [ ] Owner: send Pandora links and Spotify ids for roster artists that have none (about 520 verified names)
 - [ ] Owner: decide whether unverified artists should move up to the verified base one by one, and whether the red note text and the Drift Phonk and Other tabs are right
 - [ ] Owner: check the label-like names in the Brazilian Phonk roster (see the 0.47.0 changelog entry) and say which to drop
@@ -102,7 +113,6 @@
 - [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
 - [ ] Owner: collect the 28-day listeners snapshots for Phonk and Brazilian Phonk (`genre: "phonk"` / `"brazilian-phonk"`; the rosters in `data/snapshots.js` list 293 Phonk and 511 Brazilian Phonk artists to read 28-day listeners for), and decide whether an artist may appear in more than one genre
 - [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
-- [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
 - [ ] Owner: confirm the SF Pro Rounded license covers use on a public website (Apple fonts are normally licensed for Apple platforms only)
 - [ ] Owner: look at v0.17.0 in Chrome and Safari, light and dark: button size, text legibility on glass over the plain background
