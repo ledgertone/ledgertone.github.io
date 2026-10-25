@@ -2,6 +2,17 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.84.0] - 2026-10-25
+### Changed
+- Brazilian Phonk unlocked (owner request): `pending: true` removed from the genre in `data/snapshots.js`, so its table is no longer dark and dimmed. The `.pending` CSS stays for any future genre.
+- Large warning on the Brazilian Phonk tab (owner request): a glass panel with a red edge above the table, title "Under development", text that the section is under development, the information is raw and incomplete, only part of the artists has a 28-day Pandora reading and the data may contain mistakes. It comes from the new optional genre field `devwarn: { title, text }` in `data/snapshots.js`, rendered by `assets/app.js` into the new `#devwarn` element of `index.html` (hidden for Phonk and any genre without `devwarn`). The element has no opacity animation, so Safari keeps its glass. New styles at the end of `assets/styles.css`.
+- Check of the owner's request "verify these artists as Brazilian Phonk": all 511 artists of the five playlist exports were already in the verified Brazilian Phonk roster (39 of them also in Phonk), none banned, none in the unverified list, so no artist data changed.
+- Checked in headless Chromium (1280 and 390 px) and with node (data, build, banned check), not in Safari or on a real phone.
+
+## [0.83.0] - 2026-10-25
+### Added
+- New listeners imported from `artistMonthly.json` (AGENTS.md rule 10, period 2026-09-27 to 2026-10-25, the same snapshot date as the existing snapshots). Verified base: 126 added, 0 changed, 71 unchanged, 8 without a reading. Unverified base: 329 added, 0 changed, 71 unchanged, 19 without a reading. Skipped: 6 not in our base (LONOWN, akiaura, IVOXYGEN, fam0uz, STM, shadowraze), 7 banned (RJ Pasin, Freddie Dredd, SLVG, Bearded Legend, Roland Jones, Daedra, Necroez). SETTWOR unchanged (23,000 in Phonk and Brazilian Phonk). `fits` entries skipped. Pandora links in `data/links.js`: 450 added, 0 changed, 149 same. Phonk now has 54 verified artists with a number in the snapshot, Brazilian Phonk 19. Rebuilt with `node scripts/build-all.js`: a new artist page and sitemap entry appears for every artist that got a reading. Node data checks only.
+
 ## [0.82.4] - 2026-10-25
 ### Fixed
 - Glass textures jumping on load and reload, mostly on iPhone (owner report). Likely cause: the entrance animation in `assets/motion.js` faded the header, chips, cards, table rows and the cookie banner with `opacity`. Safari does not draw the backdrop blur of a glass element (or of glass buttons inside it) while an ancestor has an opacity below 1, so the buttons looked flat and then snapped to the real texture when the entrance ended. Now an element that is glass or holds glass enters by moving and scaling only, with no fade (new `glassy()` check, also for the below-the-fold reveal and the cookie banner); with reduced motion such elements just appear. Elements without glass fade as before. Checked in headless Chromium only (no console errors, no inline opacity on glass during the entrance), the Safari behavior is a diagnosis from known rendering rules, not tested on a real iPhone.

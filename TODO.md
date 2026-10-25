@@ -1,6 +1,8 @@
 # TODO
 
 ## Done
+- [x] Brazilian Phonk unlocked with a large "Under development" warning (v0.84.0), headless Chromium only (1280 and 390 px: warning shown on Brazilian Phonk, hidden on Phonk, table not dimmed), not seen in Safari or on a real phone
+- [x] artistMonthly.json import: 455 readings added, none changed (v0.83.0), node data check only
 - [x] No opacity fade on glass or glass-holding elements during entrances, to stop texture jumps in Safari (v0.82.4), headless Chromium only, needs a check on a real iPhone
 - [x] Place on artist pages out of all artists of the genre, not only the ranked ones (v0.82.3), node checks only
 - [x] Whole ranking row opens the artist page (v0.82.2), headless Chromium only
