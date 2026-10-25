@@ -27,7 +27,7 @@ window.LEDGERTONE = { snapshots: [
 
 1. Read the stream count manually from the profile of every phonk artist you include.
 2. Add one snapshot object with the capture date.
-3. Open `index.html` and check the ranking and the change against the previous snapshot.
+3. Open `index.html` and check the ranking.
 4. Add a line to `CHANGELOG.md`. Suggested commit message: `data: snapshot YYYY-MM-DD`.
 
 ## Rules

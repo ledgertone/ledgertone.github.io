@@ -11,5 +11,5 @@
 - Site copy, code, comments, docs, and commit messages: English only. Chat with the owner: Russian only.
 - Never invent data. Never present anything as live.
 - Update CHANGELOG.md and TODO.md with every change.
-- Archive file name always includes the site version (see AGENTS.md rule 5).
+- Archive file name ALWAYS includes the site name and the site version, e.g. `ledgertone_github_io_v0.20.0.zip`, never `site.zip` (see AGENTS.md rule 5). The footer version line on every page must match the top entry of CHANGELOG.md.
 - Design: Liquid Glass is the core style of the site and almost every surface and every button is glass. Never replace glass with opaque panels or buttons. Full rules are in AGENTS.md (Design rules).

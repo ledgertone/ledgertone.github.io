@@ -20,11 +20,10 @@ See `docs/DATA.md`.
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Home page: hero with buttons |
-| `rankings.html` | Snapshot picker and rankings |
+| `index.html` | Home page: hero, snapshot picker and rankings |
 | `about.html` | What the site is and how the data is collected |
 | `assets/styles.css` | Design tokens, Liquid Glass styles (buttons, chips, cards, bars), accessibility fallbacks |
-| `assets/app.js` | Renders snapshots, comparison against the previous snapshot |
+| `assets/app.js` | Renders the snapshot picker and the ranking table |
 | `data/snapshots.js` | All published data |
 | `assets/glass.js` | Real refraction for Liquid Glass in Chromium browsers |
 | `assets/theme.js` | Auto, Light, Dark theme switch |

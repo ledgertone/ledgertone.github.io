@@ -24,7 +24,7 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
-- [ ] Owner: look at v0.15.0 in Chrome and Safari, light and dark: glow strength, star position, text legibility on glass, grain strength
+- [ ] Owner: look at v0.17.0 in Chrome and Safari, light and dark: button size, text legibility on glass over the plain background
 - [ ] Owner: confirm the Neue Machina license covers use on a public website (the font files carry no license text; Pangram Pangram sells separate web licenses)
 - [ ] BEFORE LAUNCH: replace the placeholder images in `assets/artists/` with real images the owner may use, and put real Pandora artist URLs into `profileUrl` (the sample ones point to the Pandora home page)
 - [ ] BEFORE LAUNCH: delete all snapshots with `sample: true` from `data/snapshots.js` (the site must not show fictional artists as real data)

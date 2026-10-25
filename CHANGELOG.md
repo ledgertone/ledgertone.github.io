@@ -2,6 +2,39 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.20.0] - 2026-10-25
+### Added
+- Pandora logo (supplied by the owner, `assets/pandora-logo.png`) in the "Streams on Pandora" column header.
+### Removed
+- The change versus the previous snapshot under each artist name.
+
+## [0.19.0] - 2026-10-25
+### Added
+- Site version line in the footer of every page (`<p class="ver">`).
+### Changed
+- `AGENTS.md` rule 5 and `CLAUDE.md`: archive name ALWAYS carries site name and version (`ledgertone_github_io_vX.Y.Z.zip`, never `site.zip`), and the footer version must match the top entry here.
+
+## [0.18.0] - 2026-10-25
+### Changed
+- Rankings are a compact table in one glass panel: rank, small avatar with the artist name and the change vs the previous snapshot, streams on the right. One row is about 50 px, same layout on phones. Rank bars removed.
+- "Open on Pandora" button removed, the artist name is the link.
+- Fixed: the class `.rk` was used for both the rank number and the rankings section, so the section text came out bold and muted. The section is now `.rks`.
+- Not checked in a browser in this change, only code checks.
+
+## [0.17.0] - 2026-10-25
+### Changed
+- The site is strict again (owner decision, rule restored in `AGENTS.md`). Background picture removed: glow fields, film grain, rings, and the hero star.
+- Controls are smaller and quieter: 36 px visible height with a 44 px hit area, Medium weight, 14 px text, solid accent primary button, no colored glow. Glass lost its magenta glow and iridescent sheen.
+- Not checked in a browser in this change, only code checks.
+
+## [0.16.0] - 2026-10-25
+### Changed
+- Rankings moved to the home page; `rankings.html` removed (also from the sitemap). Nav and footer "Rankings" point to `index.html`. Hero buttons and the staff drawing removed.
+- Site name in the header uses New York (`assets/fonts/NewYork.woff`).
+- Site icon: `favicon.ico`, `assets/icons/favicon-32.png` and a white `-dark` variant. Apple Home Screen icon: `apple-touch-icon.png` (180 px) and `apple-mobile-web-app-title`.
+- Glass on phones: refraction (`assets/glass.js`) now runs only with a mouse; touch devices get a stronger blur and sheen from CSS, and the highlight follows taps.
+- Not checked in a browser or on a device in this change, only code checks.
+
 ## [0.15.0] - 2026-10-25
 ### Changed
 - New look from the owner's references: Y2K holographic glow. Dark theme is near-black violet with violet, cyan, magenta, and blue glow fields and a small peach field; light theme is a pale lavender version. Film grain over the background (`html::after`, inline SVG noise, no request).

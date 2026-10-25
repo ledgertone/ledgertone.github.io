@@ -8,6 +8,7 @@
   "use strict";
   var uad = navigator.userAgentData;
   if (!uad || !uad.brands || !uad.brands.some(function (b) { return /Chromium/.test(b.brand); })) return;
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return; // phones and tablets: CSS fallback only
   if (!(window.CSS && CSS.supports && CSS.supports("backdrop-filter", "url(#a)"))) return;
 
   var NS = "http://www.w3.org/2000/svg";
