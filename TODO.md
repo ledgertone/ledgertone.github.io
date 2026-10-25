@@ -1,6 +1,9 @@
 # TODO
 
 ## Done
+- [x] DJ MTG BONAFORTE banned, OG phonk 2021 2022 playlist artists added to the Phonk roster, 292 names in total (v0.40.0)
+- [x] Banned list: Freddie Dredd and Oliver Tree removed from the roster and blocked on the site (v0.39.0)
+- [x] Phonk roster extended with the OG Drift Phonk playlist artists, 279 names in total (v0.38.0)
 - [x] Top bar back to full size on phones, controls 33 px, more space above the status chip (v0.37.0), headless Chromium only
 - [x] Drift Phonk removed, genres are Phonk and Brazilian Phonk; Phonk roster of 206 artist names added (v0.36.0)
 - [x] Smaller controls and text on phones (v0.35.0), headless Chromium only
@@ -40,7 +43,7 @@
 
 ## Next
 - [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
-- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the Phonk roster in `data/snapshots.js` lists 206 artists to read streams for), and decide whether an artist may appear in more than one genre
+- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the Phonk roster in `data/snapshots.js` lists 292 artists to read streams for), and decide whether an artist may appear in more than one genre
 - [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark

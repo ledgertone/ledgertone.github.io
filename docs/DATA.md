@@ -22,6 +22,7 @@ window.LEDGERTONE = {
 
 - `genre`: the `id` of one of the genres. Each genre has its own snapshots, its own dates and its own ranking. A snapshot without `genre` counts as the first genre. A genre with no snapshots shows an empty state. To add a genre, add it to `genres` (the switcher, the title and the `#id` link appear by themselves).
 - `roster` (optional, on a genre): names only, the artists whose streams the owner plans to collect. No numbers, never shown on the site, not a ranking. An artist moves from the roster into a snapshot only with a stream count read by hand.
+- `banned` (optional, top level): artist names that are not phonk artists (owner decision). Never put them in a roster or a snapshot and skip them when importing a playlist or a list. `assets/app.js` also removes them from every snapshot. Case does not matter. Current list: Freddie Dredd, Oliver Tree, DJ MTG BONAFORTE.
 - `name`: exactly as written on the artist profile.
 - `streams`: integer, no separators.
 - `profileUrl`: the link to the artist's page on Pandora, `https` only. Other values are ignored by the page. When set, the row shows an "Open on Pandora" button.

@@ -2,6 +2,23 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.40.0] - 2026-10-25
+### Added
+- Banned: DJ MTG BONAFORTE (owner request, immediate). Added to the `banned` list, so the site drops the name from every snapshot and imports skip it.
+- Phonk roster: 15 more artist names from the owner's Spotify playlist export "OG phonk 2021 2022" (73 tracks, 68 unique artists, 51 already in the roster, 1 banned name skipped). The roster now has 292 names. Names only, no stream numbers, not shown on the site.
+- Not added: "Fast & Furious: The Fast Saga" (a soundtrack credit, not an artist). "BADTRIP MUSIC" looks like a label or channel name and may need checking before a Pandora lookup.
+
+## [0.39.0] - 2026-10-25
+### Added
+- `banned` list in `data/snapshots.js` (owner request): Freddie Dredd and Oliver Tree are not phonk artists. `assets/app.js` removes banned names from every snapshot, so they can never show up in a ranking. Rule 8 in `AGENTS.md` and `docs/DATA.md` say to skip banned names in every future import.
+### Changed
+- Both names removed from the Phonk roster, which now has 277 names.
+
+## [0.38.0] - 2026-10-25
+### Added
+- Phonk roster: 73 more artist names from the owner's Spotify playlist export "OG Drift Phonk" (159 tracks, 129 unique artists, 55 were already in the roster). The roster now has 279 names. Names only, no stream numbers, not shown on the site (see 0.36.0).
+- Not added: "Fast & Furious: The Fast Saga" (a soundtrack credit, not an artist). "prod. DTM" is kept as Spotify lists it and probably needs a real name before a Pandora lookup.
+
 ## [0.37.0] - 2026-10-25
 ### Changed
 - Phone scale adjusted (owner request). The top bar is back to the desktop size on phones (50 px high, site name 19 px, links and theme button 36 px). Other visible controls (genre switcher, per page selector, pager, cookie buttons) are 33 px instead of 30; the 44 px touch area is kept (hit zone inset 6 px). The search field is 40 px high.

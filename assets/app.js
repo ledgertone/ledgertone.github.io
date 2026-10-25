@@ -1,7 +1,9 @@
 (() => {
   const data = window.LEDGERTONE || {};
   const genres = data.genres && data.genres.length ? data.genres : [{ id: 'phonk', name: 'Phonk' }];
-  const allSnaps = (data.snapshots || []).slice().sort((a, b) => (a.capturedAt < b.capturedAt ? 1 : -1));
+  const banned = new Set((data.banned || []).map((n) => String(n).trim().toLowerCase()));
+  const clean = (s) => banned.size ? Object.assign({}, s, { artists: (s.artists || []).filter((x) => !banned.has(String(x.name).trim().toLowerCase())) }) : s;
+  const allSnaps = (data.snapshots || []).map(clean).sort((a, b) => (a.capturedAt < b.capturedAt ? 1 : -1));
   let snaps = [];
   const $ = (s) => document.querySelector(s);
   const list = $('#list'), tbl = $('#tbl'), empty = $('#empty'), picker = $('#picker'), status = $('#status'), meta = $('#meta');
