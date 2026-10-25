@@ -6,7 +6,7 @@ All data lives in `data/snapshots.js`. Each snapshot is a record of one moment, 
 
 ```js
 window.LEDGERTONE = {
-  genres: [ { id: "phonk", name: "Phonk" }, { id: "drift-phonk", name: "Drift Phonk" }, { id: "brazilian-phonk", name: "Brazilian Phonk" } ],
+  genres: [ { id: "phonk", name: "Phonk", roster: ["Artist A", "Artist B"] }, { id: "brazilian-phonk", name: "Brazilian Phonk" } ],
   snapshots: [
   {
     genre: "phonk",         // id from the genres list above, one ranking per genre
@@ -21,6 +21,7 @@ window.LEDGERTONE = {
 ```
 
 - `genre`: the `id` of one of the genres. Each genre has its own snapshots, its own dates and its own ranking. A snapshot without `genre` counts as the first genre. A genre with no snapshots shows an empty state. To add a genre, add it to `genres` (the switcher, the title and the `#id` link appear by themselves).
+- `roster` (optional, on a genre): names only, the artists whose streams the owner plans to collect. No numbers, never shown on the site, not a ranking. An artist moves from the roster into a snapshot only with a stream count read by hand.
 - `name`: exactly as written on the artist profile.
 - `streams`: integer, no separators.
 - `profileUrl`: the link to the artist's page on Pandora, `https` only. Other values are ignored by the page. When set, the row shows an "Open on Pandora" button.

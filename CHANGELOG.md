@@ -2,6 +2,20 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.37.0] - 2026-10-25
+### Changed
+- Phone scale adjusted (owner request). The top bar is back to the desktop size on phones (50 px high, site name 19 px, links and theme button 36 px). Other visible controls (genre switcher, per page selector, pager, cookie buttons) are 33 px instead of 30; the 44 px touch area is kept (hit zone inset 6 px). The search field is 40 px high.
+### Fixed
+- The status chip ("Sample data, not real") sat right under the top bar and the bar's blur and shadow fell on it. The hero now starts 92 px below the safe area on phones (was 62 px), which leaves about 30 px between the bar and the chip.
+- Checked in headless Chromium with touch emulation at 390 px. Not tested on a real iPhone.
+
+## [0.36.0] - 2026-10-25
+### Changed
+- Drift Phonk removed (owner request). The genres are now Phonk and Brazilian Phonk: switcher, `genres` list in `data/snapshots.js`, About intro (two genres), `docs/DATA.md`, `AGENTS.md`, `TODO.md`. An old `#drift-phonk` link opens the first genre.
+### Added
+- `roster` on the Phonk genre in `data/snapshots.js`: 206 artist names from the owner's list (`drift_phonk_all_artists.md`, 222 lines, 16 duplicates removed, backslash escapes removed). Names only: no stream numbers were invented, so the roster is not a ranking and is not shown on the site. An artist enters a snapshot only with a stream count read by hand (rule in `docs/DATA.md`).
+- The roster mixes drift phonk and Memphis phonk names from public directories. The inclusion rule for real snapshots is still open (see `TODO.md`).
+
 ## [0.35.0] - 2026-10-25
 ### Changed
 - Phone scale (screens up to 600 px wide, owner request: everything was too big). Body text 15 px (was 17). Visible controls 30 px high (was 36): top bar links, theme button, genre switcher, per page selector, pager, cookie buttons; the 44 px touch area is kept through the `::before` hit zone (inset 7 px). Top bar 40 px high (was 50), search field 38 px (was 44), headline 26 px (was 30), table rows 45 px (was 63), avatars 28 px, rank badges 20 px, cookie banner 114 px high (was 147), smaller footer and Pandora logo.
