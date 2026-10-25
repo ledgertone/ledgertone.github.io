@@ -60,6 +60,10 @@
   </section>
   <section class="wrap rks" id="rankings">
     <p class="meta" id="meta"></p>
+    <div class="tools" id="tools">
+      <label class="search glass glass-flat"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg><span class="sr">Search artists</span><input type="search" id="q" placeholder="Search artists" autocomplete="off" spellcheck="false" maxlength="60"></label>
+      <div class="picker glass glass-flat sizes" id="sizes" role="group" aria-label="Artists per page"><span>Per page</span><button type="button" data-size="10" aria-pressed="true">10</button><button type="button" data-size="25" aria-pressed="false">25</button><button type="button" data-size="50" aria-pressed="false">50</button><button type="button" data-size="0" aria-pressed="false">All</button></div>
+    </div>
     <div class="tbl glass glass-flat" id="tbl">
       <table>
         <caption class="sr">Phonk artists on Pandora, ordered by verified streams</caption>
@@ -67,6 +71,7 @@
         <tbody id="list"></tbody>
       </table>
     </div>
+    <div class="foot" id="foot"><p class="count" id="count" aria-live="polite"></p><nav class="picker glass glass-flat pager" id="pager" aria-label="Pages" hidden></nav></div>
     <div class="empty glass glass-flat" id="empty" hidden>
       <h3>The first snapshot is not published yet</h3>
       <p>Pandora rankings will appear here after the first snapshot is captured. Each snapshot is labeled with the date it was taken.</p>
@@ -82,12 +87,13 @@
   <div class="wrap">
     <p>Ledgertone is an independent project and is not affiliated with Pandora. Pandora is a trademark of its respective owner.</p>
     <p class="flinks"><a href="index.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
-    <p class="ver">Version 0.27.0</p>
+    <p class="ver">Version 0.29.0</p>
   </div>
 </footer>
 <script src="data/snapshots.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/glass.js"></script>
+<script src="assets/pull.js"></script>
 <script src="assets/consent.js"></script>
 </body>
 </html>

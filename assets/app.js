@@ -20,13 +20,64 @@
     return img;
   }
 
+  const state = { rows: [], q: '', size: 10, page: 1 };
+  const tools = $('#tools'), foot = $('#foot'), pager = $('#pager'), count = $('#count'), sizes = $('#sizes'), q = $('#q');
+  const norm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+
   function render(i) {
     const s = snaps[i];
     const valid = (a) => a && a.name && Number.isFinite(a.streams);
     const arts = (s.artists || []).filter(valid).sort((a, b) => b.streams - a.streams);
     meta.textContent = 'Pandora snapshot \u00b7 ' + fmt(s.capturedAt) + ' \u00b7 ' + arts.length + (arts.length === 1 ? ' artist' : ' artists') + (s.note && !s.sample ? ' \u00b7 ' + s.note : '');
+    // the rank always comes from the full snapshot, so it stays correct while searching
+    state.rows = arts.map((a, n) => ({ a, rank: n + 1, key: norm(a.name) }));
+    state.page = 1;
+    draw();
+  }
+
+  function pageList(cur, total) {
+    const set = new Set([1, total, cur - 1, cur, cur + 1]);
+    const nums = [...set].filter((n) => n >= 1 && n <= total).sort((x, y) => x - y);
+    const out = [];
+    nums.forEach((n, k) => { if (k && n - nums[k - 1] > 1) out.push('gap'); out.push(n); });
+    return out;
+  }
+
+  function drawPager(pages) {
+    pager.replaceChildren();
+    pager.hidden = pages <= 1;
+    if (pages <= 1) return;
+    const btn = (label, page, extra) => {
+      const b = el('button', '', label); b.type = 'button';
+      if (extra && extra.aria) b.setAttribute('aria-label', extra.aria);
+      if (extra && extra.current) b.setAttribute('aria-current', 'page');
+      if (extra && extra.disabled) b.disabled = true;
+      b.addEventListener('click', () => { state.page = page; draw(true); });
+      return b;
+    };
+    pager.append(btn('Prev', state.page - 1, { aria: 'Previous page', disabled: state.page === 1 }));
+    pageList(state.page, pages).forEach((n) => {
+      if (n === 'gap') pager.append(el('em', 'gap', '\u2026'));
+      else pager.append(btn(String(n), n, { aria: 'Page ' + n, current: n === state.page }));
+    });
+    pager.append(btn('Next', state.page + 1, { aria: 'Next page', disabled: state.page === pages }));
+  }
+
+  function draw(scroll) {
+    const key = norm(state.q);
+    const rows = key ? state.rows.filter((r) => r.key.includes(key)) : state.rows;
+    const size = state.size || rows.length || 1;
+    const pages = Math.max(1, Math.ceil(rows.length / size));
+    state.page = Math.min(Math.max(state.page, 1), pages);
+    const from = (state.page - 1) * size;
+    const slice = rows.slice(from, from + size);
     list.replaceChildren();
-    arts.forEach((a, n) => {
+    if (!slice.length) {
+      const tr = el('tr'), td = el('td', 'none', 'No artists match your search.');
+      td.colSpan = 3; tr.append(td); list.append(tr);
+    }
+    slice.forEach((r, n) => {
+      const a = r.a, rank = r.rank;
       const tr = el('tr');
       const url = a.profileUrl && safeUrl(a.profileUrl);
       let name;
@@ -35,12 +86,22 @@
       const wh = el('div', 'wh'); wh.append(avatar(a), info);
       const who = el('td', 'who'); who.append(wh);
       const rk = el('td', 'rk');
-      if (n < 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][n], String(n + 1)); m.setAttribute('aria-label', 'Place ' + (n + 1)); rk.append(m); } else { rk.textContent = String(n + 1); }
+      if (rank <= 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][rank - 1], String(rank)); m.setAttribute('aria-label', 'Place ' + rank); rk.append(m); } else { rk.textContent = String(rank); }
       tr.append(rk, who, el('td', 'st', nf.format(a.streams)));
       list.append(tr);
       if (!reduce.matches) tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: Math.min(n, 14) * 20, easing: 'ease-out', fill: 'backwards' });
     });
+    count.textContent = rows.length ? 'Showing ' + (from + 1) + ' to ' + (from + slice.length) + ' of ' + rows.length : '';
+    drawPager(pages);
+    if (scroll && tbl && tbl.getBoundingClientRect().top < 0) tbl.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
   }
+
+  if (q) q.addEventListener('input', () => { state.q = q.value; state.page = 1; draw(); });
+  if (sizes) sizes.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+    state.size = Number(b.dataset.size) || 0; state.page = 1;
+    sizes.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    draw();
+  }));
 
   function select(i) {
     picker.querySelectorAll('button').forEach((b, n) => b.setAttribute('aria-pressed', String(n === i)));
@@ -51,6 +112,8 @@
     if (empty) empty.hidden = false;
     if (tbl) tbl.hidden = true;
     if (meta) meta.hidden = true;
+    if (tools) tools.hidden = true;
+    if (foot) foot.hidden = true;
   } else {
     if (status) status.textContent = snaps[0].sample ? 'Sample data, not real' : 'Latest Pandora snapshot: ' + fmt(snaps[0].capturedAt);
     if (list && picker && meta) {

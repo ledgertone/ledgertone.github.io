@@ -1,6 +1,8 @@
 # TODO
 
 ## Done
+- [x] Pull to refresh on touch screens (v0.29.0), emulated touch only
+- [x] Search, pages and per-page selector in the ranking (v0.28.0)
 - [x] Earlier snapshots always open, shorter snapshot line, smaller logo (v0.27.0)
 - [x] New title, shorter hero, picker moved deep (v0.26.0)
 - [x] Richer Liquid Glass: rim highlight, color fringe, depth (v0.25.0), headless Chromium only
@@ -29,6 +31,7 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
 - [ ] Owner: confirm the SF Pro Rounded license covers use on a public website (Apple fonts are normally licensed for Apple platforms only)

@@ -2,6 +2,20 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.29.0] - 2026-10-25
+### Added
+- Pull to refresh on touch screens (`assets/pull.js`, loaded on every page). A glass round indicator drops under the top bar while you pull and the page reloads when you release past the threshold. It replaces the browser's own pull to refresh.
+- Guards against false triggers: touch only, one finger, only from scroll position 0, must be mostly vertical and downward, ignored on the search field, snapshot pickers and cookie banner, fires only on release past about 64 px of indicator travel (about 115 px of finger travel).
+- No data is stored.
+- Tested with emulated touch in headless Chromium only, not on a real phone.
+
+## [0.28.0] - 2026-10-25
+### Added
+- Search by artist name above the ranking (ignores case and accents). Ranks stay the real ones from the snapshot while searching.
+- Pages in the ranking, with a Prev, page numbers, Next bar under the table and a "Showing X to Y of N" line.
+- Per-page selector: 10, 25, 50 or All. Default is 10. The choice is kept in memory only, nothing is stored.
+- Not checked in Safari or Firefox, only headless Chromium.
+
 ## [0.27.0] - 2026-10-25
 ### Changed
 - "Earlier snapshots" is always open (no toggle), still at the bottom under the table.

@@ -28,6 +28,7 @@ A static site for GitHub Pages: plain HTML, CSS, and JavaScript, no build step, 
 | `assets/artists/` | Local artist images (generated placeholders for the sample artists right now) |
 | `assets/glass.js` | Refraction filter for `.glass` elements (Chromium only, progressive enhancement) |
 | `assets/consent.js` | Cookie banner, sends the visitor's choice to the Google tag |
+| `assets/pull.js` | Pull to refresh for touch screens (guards listed in the file header, nothing stored). Loaded on every page |
 | `assets/theme.js` | Auto, Light, Dark theme switch, loaded in every `<head>` |
 | `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Legal and search files. Every new HTML page needs the head snippet, the same nav and footer links (including the version line), and a sitemap entry. Launch steps in `docs/SEO.md` |
 | `skills/` | Design skills, see `skills/README.md` |
