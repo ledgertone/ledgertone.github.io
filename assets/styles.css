@@ -283,3 +283,8 @@ footer{padding:28px 0 40px;font-size:.8125rem}
 .doc .tbl td .of{font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .tbl.hist .c-rk{width:4.5rem}.tbl.hist .c-st{width:8.5rem;white-space:normal}.tbl.hist td.rk{font-weight:600;color:var(--ink)}
 @media(max-width:480px){.tbl.hist .c-rk{width:3.75rem}.tbl.hist .c-st{width:6.5rem}.tbl.hist th{font-size:.5625rem;letter-spacing:.05em;padding-left:8px;padding-right:8px}.tbl.hist td{padding-left:8px;padding-right:8px}}
+/* Per page control (v0.82.1): no sideways scrolling or rubber-band on touch screens, and it fits 320 px wide screens */
+.picker.sizes{overflow:hidden;overscroll-behavior:none}
+@media(max-width:360px){.picker.sizes button{padding:0 9px}.picker.sizes>span{padding:0 6px 0 8px}}
+/* Whole row opens the artist page (v0.82.2) */
+.tbl tr.go{cursor:pointer}

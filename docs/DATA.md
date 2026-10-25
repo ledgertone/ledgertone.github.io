@@ -59,6 +59,10 @@ File shape: a list of `{ artist, searchName, history: [{ monthlyListeners, month
 7. Links: for every artist of the file that is in our base, set the Pandora link `p` in `data/links.js` from `pandoraUrl` by the same rules (add if none, replace if different, leave if the same). Do not change `image`, rosters, or any other field.
 8. Report to the owner (in Russian), separately for the verified and the unverified base: added, changed, unchanged, skipped (not in our base), skipped (banned), no reading, plus the names that were added or changed. Then bump the version, update `CHANGELOG.md` and `TODO.md`, run the checks from `AGENTS.md`, and build the archive without `data/artist-media*.js` (rule 9).
 
+## Artist pages
+
+Every artist with a reading gets a generated page (AGENTS.md rule 13). After any data change run `node scripts/build-all.js`: it rebuilds all pages, `data/artist-pages.js` and `sitemap.xml`. A new artist page is created automatically when a reading arrives. If an artist loses his reading or is banned, delete his old `<slug>.html` by hand (the script does not delete files) and rebuild.
+
 ## Links
 
 `data/links.js` is `window.LEDGERTONE_LINKS = { "<key>": { p: "<Pandora URL>", s: "<Spotify artist id>" } }` (AGENTS.md rule 12). The key is the artist name lowercased, NFD normalized, with only the combining marks U+0300 to U+036F removed, trimmed (the same as `norm` in `assets/app.js`; a stricter normalization breaks names such as Dxrk with Japanese letters).

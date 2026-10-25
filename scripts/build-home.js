@@ -6,7 +6,7 @@
 // Every name and number comes from the data files, nothing is typed by hand. Run after ANY data change and after every version bump:
 // node scripts/build-home.js (or node scripts/build-all.js)
 const lib = require('./lib/ledger.js');
-const { L, SITE, homeId, esc, month, num, snapsOf, rankedAt, artistCount, linksOf, safeUrl, pandoraLink, readCRLF, writeCRLF, LINKS, norm } = lib;
+const { L, SITE, homeId, esc, month, num, snapsOf, rankedAt, artistCount, linksOf, safeUrl, pandoraLink, readCRLF, writeCRLF, LINKS, norm, pageFileOf } = lib;
 
 const g = L.genres.find((x) => x.id === homeId);
 const snaps = snapsOf(homeId);
@@ -20,7 +20,8 @@ const medal = ['gold', 'silver', 'bronze'];
 const tr = (a) => {
   const lk = LINKS[norm(a.name)] || {};
   const url = (a.profileUrl && safeUrl(a.profileUrl)) || pandoraLink(lk.p);
-  const name = url ? '<a class="nm" href="' + esc(url) + '" rel="noopener" title="' + esc(a.name) + '">' + esc(a.name) + '</a>' : '<span class="nm" title="' + esc(a.name) + '">' + esc(a.name) + '</span>';
+  const pg = pageFileOf(a.name);
+  const name = pg ? '<a class="nm" href="' + esc(pg) + '" title="' + esc(a.name) + '">' + esc(a.name) + '</a>' : url ? '<a class="nm" href="' + esc(url) + '" rel="noopener" title="' + esc(a.name) + '">' + esc(a.name) + '</a>' : '<span class="nm" title="' + esc(a.name) + '">' + esc(a.name) + '</span>';
   let flag = '';
   if (a.unverified) {
     const full = 'Genre not verified' + (a.src ? ' (listed as ' + a.src + ')' : '') + ', may be here by mistake';
@@ -33,7 +34,7 @@ const tr = (a) => {
 const ld = { '@context': 'https://schema.org', '@graph': [
   { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
   { '@type': 'ItemList', '@id': SITE + '#ranking', name: 'Top ' + g.name + ' Artists on Pandora by 28-day listeners, snapshot of ' + month(latest, 'en'), description: 'Artists with a 28-day listeners number in the Ledgertone snapshot of ' + month(latest, 'en') + '. A hand-collected snapshot, not live data.', itemListOrder: 'https://schema.org/ItemListOrderDescending', numberOfItems: rows.length, dateModified: latest,
-    itemListElement: rows.map((a) => { const u = (a.profileUrl && safeUrl(a.profileUrl)) || linksOf(a.name).pandora; return Object.assign({ '@type': 'ListItem', position: a.rank, name: a.name, description: num(a.listeners, 'en') + ' listeners over 28 days on Pandora' }, u ? { url: u } : {}); }) }
+    itemListElement: rows.map((a) => { const pf = pageFileOf(a.name), u = pf ? SITE + pf : (a.profileUrl && safeUrl(a.profileUrl)) || linksOf(a.name).pandora; return Object.assign({ '@type': 'ListItem', position: a.rank, name: a.name, description: num(a.listeners, 'en') + ' listeners over 28 days on Pandora' }, u ? { url: u } : {}); }) }
 ] };
 
 let h = readCRLF('index.html');

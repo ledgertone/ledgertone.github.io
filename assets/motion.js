@@ -126,11 +126,18 @@
     paint(s);
   }
   function forget(el) { var s = states.get(el); if (s) { states.delete(el); el.style.willChange = ""; } }
+  // v0.82.4: Safari (iPhone) drops the blur of a glass element while it, or any ancestor, has an opacity below 1, and the texture
+  // jumps back when the entrance ends. So an element that is glass, or holds glass (header, chips, cards, rows with link pills,
+  // the cookie banner), enters by moving and scaling only, never by fading. With reduced motion it just appears.
+  function glassy(el) { return !!(el.matches && (el.matches(".glass") || el.querySelector(".glass"))); }
   function enter(el, i, from) {
     from = from || {};
-    var o = rm.matches ? { o: 0 } : { y: from.y == null ? 12 : from.y, s: from.s == null ? 1 : from.s, o: 0 };
+    var g = glassy(el);
+    if (g && rm.matches) return;
+    var o = rm.matches ? { o: 0 } : { y: from.y == null ? 12 : from.y, s: from.s == null ? 1 : from.s };
+    if (!g && !rm.matches) o.o = 0;
     set(el, o);
-    to(el, { x: 0, y: 0, s: 1, o: 1 }, { t: 0.5, delay: Math.min(i || 0, 14) * 24 });
+    to(el, g ? { x: 0, y: 0, s: 1 } : { x: 0, y: 0, s: 1, o: 1 }, { t: 0.5, delay: Math.min(i || 0, 14) * 24 });
   }
 
   /* ---------- pointer feedback ---------- */
@@ -406,8 +413,8 @@
     new MutationObserver(function (ms) {
       ms.forEach(function (m) { [].forEach.call(m.addedNodes, function (n) {
         if (n.nodeType === 1 && n.classList.contains("consent") && !rm.matches) {
-          set(n, { y: 28, s: 0.94, o: 0 });
-          to(n, { y: 0, s: 1, o: 1 }, { t: 0.55, origin: "50% 100%" });
+          set(n, { y: 28, s: 0.94 });
+          to(n, { y: 0, s: 1 }, { t: 0.55, origin: "50% 100%" });
         }
       }); });
     }).observe(document.body, { childList: true });
@@ -424,7 +431,8 @@
       if (!io) io = new IntersectionObserver(function (es) {
         es.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); enter(en.target, 0, { y: 14 }); } });
       }, { rootMargin: "0px 0px -6% 0px" });
-      set(el, rm.matches ? { o: 0 } : { y: 14, o: 0 });
+      var g = glassy(el);
+      if (!(g && rm.matches)) set(el, rm.matches ? { o: 0 } : (g ? { y: 14 } : { y: 14, o: 0 }));
       io.observe(el); waiting.push(el);
     });
     // safety net: printing and tools that never scroll must still see everything

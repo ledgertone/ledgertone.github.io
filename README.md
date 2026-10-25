@@ -28,6 +28,7 @@ See `docs/DATA.md`.
 | `assets/glass.js` | Real refraction for Liquid Glass in Chromium browsers |
 | `assets/theme.js` | Auto, Light, Dark theme switch |
 | `assets/consent.js` | Cookie banner, passes the consent choice to the Google tag |
+| `<slug>.html`, `data/artist-pages.js` | Generated artist pages (one per artist with a reading) and the map the ranking uses to link to them |
 | `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Privacy policy, error page, search files |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for AI agents |
 | `skills/` | Design skills used for this project |

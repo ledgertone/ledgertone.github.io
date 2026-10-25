@@ -68,6 +68,9 @@
   };
   // Artist links (owner decision, v0.61.0) from data/links.js, keyed like norm(name): p = Pandora page, s = Spotify artist id. Only these two hosts are accepted.
   const linkMap = (window.LEDGERTONE_LINKS && typeof window.LEDGERTONE_LINKS === 'object') ? window.LEDGERTONE_LINKS : {};
+  // Artist pages (owner decision, v0.82.0): data/artist-pages.js maps the same key to a generated page. The name opens that page, the Pandora pill still opens Pandora.
+  const pageMap = (window.LEDGERTONE_PAGES && typeof window.LEDGERTONE_PAGES === 'object') ? window.LEDGERTONE_PAGES : {};
+  const pageOf = (n) => { const f = pageMap[norm(n)]; return (typeof f === 'string' && /^[a-z0-9-]+\.html$/.test(f)) ? f : null; };
   const pandoraLink = (u) => { const x = safeUrl(u); try { return x && /^(www\.)?pandora\.com$/.test(new URL(x).hostname) ? x : null; } catch (e) { return null; } };
   const spotifyLink = (id) => (typeof id === 'string' && /^[A-Za-z0-9]{22}$/.test(id)) ? 'https://open.spotify.com/artist/' + id : null;
   // Open Spotify links in the Spotify app (owner request, v0.72.0). Phones and tablets keep the plain https link: open.spotify.com is a universal link (iOS) and an app link (Android), so the installed app opens it by itself. Desktop browsers have no such handoff, so a plain click launches the app through the spotify: URI and falls back to the web page in a new tab if the browser never left the page (no app installed). Modified clicks (Ctrl, Cmd, Shift, middle button) keep the normal https behavior.
@@ -198,7 +201,18 @@
       const lk = linkMap[norm(a.name)] || {};
       const url = (a.profileUrl && safeUrl(a.profileUrl)) || pandoraLink(lk.p);
       let name;
-      if (url) { name = el('a', 'nm', a.name); name.href = url; name.rel = 'noopener'; } else { name = el('span', 'nm', a.name); } name.title = a.name;
+      const pg = pageOf(a.name);
+      if (pg) { name = el('a', 'nm', a.name); name.href = pg; } else if (url) { name = el('a', 'nm', a.name); name.href = url; name.rel = 'noopener'; } else { name = el('span', 'nm', a.name); } name.title = a.name;
+      // the whole row opens the artist page (owner request, v0.82.2); the name stays the real link for keyboards and screen readers, links, buttons and selected text keep their own behavior
+      if (pg) {
+        tr.classList.add('go');
+        tr.addEventListener('click', (e) => {
+          if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.target.closest('a,button')) return;
+          const sel = window.getSelection && window.getSelection();
+          if (sel && String(sel).trim()) return;
+          window.location.href = pg;
+        });
+      }
       const info = el('div', 'info'); info.append(name);
       const sp = spotifyLink(lk.s);
       // link buttons (owner request, v0.66.0): Spotify and Pandora as small glass pills under the name, each only when its link exists

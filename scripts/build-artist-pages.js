@@ -2,12 +2,14 @@
 // without running JavaScript. Every number and date comes from data/snapshots.js and data/links.js, nothing is typed by hand.
 // v0.81.0: the page has a snapshot history table, a Russian twin (settwor-ru.html, owner decision) linked by hreflang,
 // and the fragment for the artist's own site is written to docs/settwor-site-snippet.html.
+// v0.82.0: every artist with a reading gets a page (English only, SETTWOR keeps the Russian twin), the list comes from lib.pageArtists(),
+// the script also writes data/artist-pages.js (name to file map for assets/app.js) and sitemap.xml.
 // Run after ANY data change and after every version bump: node scripts/build-artist-pages.js (or node scripts/build-all.js)
 // The page shell is copied from about.html (head snippet with Consent Mode, nav, footer, version tags).
 const lib = require('./lib/ledger.js');
-const { L, SITE, norm, esc, banned, genreName, month, num, snapsOf, rankedAt, linksOf, readCRLF, writeCRLF } = lib;
+const { L, SITE, norm, esc, banned, genreName, month, num, snapsOf, rankedAt, unverifiedOf, artistCount, linksOf, readCRLF, writeCRLF, pageArtists, OWNER } = lib;
 
-const ARTISTS = [{ name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', owner: true }];
+const ARTISTS = pageArtists();
 const statCard = (k, v, of) => '<div class="stat glass glass-flat"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v) + (of ? '<span class="of"> ' + esc(of) + '</span>' : '') + '</div></div>';
 
 // Copy for both languages. English is the source, Russian is the owner-approved twin (AGENTS.md rule 1).
@@ -18,20 +20,21 @@ const T = {
     q: (n) => 'How many listeners does ' + n + ' have on Pandora?',
     answerNum: (n, x, latest, tail) => n + ' had ' + T.en.num(x.listeners) + ' listeners over 28 days on Pandora in the Ledgertone snapshot of ' + T.en.month(latest) + ' (Pandora showed ' + x.text + ')' + tail + '.',
     answerFew: (n, latest) => 'In the Ledgertone snapshot of ' + T.en.month(latest) + ', Pandora showed "Few" as the 28-day listeners of ' + n + ', not a number.',
-    placeTail: (sig) => (sig.length ? ', ' + sig.map((x) => 'place ' + x.p.place + ' of ' + x.p.of + ' ranked artists in ' + x.name).join(' and ') + ' (artists with a number)' : ''),
+    placeTail: (sig) => (sig.length ? ', ' + sig.map((x) => 'place ' + x.p.place + ' of ' + T.en.num(x.p.of) + ' artists in ' + x.name).join(' and ') + ' (only the ' + sig.map((x) => T.en.num(x.p.ranked)).join(' and ') + ' artists with a number are ranked)' : ''),
     same: (g) => 'The same reading is listed in ' + g.join(' and ') + '.', listed: (g) => 'Listed in ' + g.join(' and ') + '.',
     title: (n, x, sig, latest) => n + ' on Pandora: ' + (x ? x.text + ' listeners' + (sig.length ? ', No. ' + sig[0].p.place + ' in ' + sig[0].name : '') : '28-day listeners') + ' (' + T.en.month(latest) + ') | Ledgertone',
     descTail: ' A hand-collected snapshot, not live data.',
     dsName: (n) => n + ' 28-day listeners on Pandora',
     dsDesc: (answer, latest) => answer + ' Collected by hand from the artist profile on Pandora, snapshot dated ' + latest + '. Not the Pandora API, not live.',
     metric: '28-day listeners on Pandora', placeVar: (g, latest) => 'Place in the Ledgertone ' + g + ' ranking, ' + T.en.month(latest),
-    placeDesc: (of) => 'Out of ' + of + ' ranked artists (artists with a 28-day listeners number)', unit: 'listeners',
-    cardL: '28-day listeners on Pandora', cardShown: (t) => 'shown as ' + t, cardSnap: 'Snapshot', cardPlace: (g) => 'Place in ' + g, cardOf: (o) => 'of ' + o + ' ranked',
+    placeDesc: (p) => 'Out of ' + T.en.num(p.of) + ' artists listed, ' + T.en.num(p.ranked) + ' of them have a 28-day listeners number and are ranked', unit: 'listeners',
+    cardL: '28-day listeners on Pandora', cardShown: (t) => 'shown as ' + t, cardSnap: 'Snapshot', cardPlace: (g) => 'Place in ' + g, cardOf: (p) => 'of ' + T.en.num(p.of) + ' artists',
     srcH: 'Where the number comes from',
     src: '<p>The figure is the number of listeners over the last 28 days shown on the artist profile on Pandora, collected by hand on the snapshot date. It is a record of one moment, it is not live and it is not from the Pandora API, so it may differ from what Pandora shows today. More on the method is on the <a href="about.html">About page</a>.</p>',
     histH: 'Snapshot history', histP: (n) => 'Every Ledgertone snapshot that has a Pandora 28-day listeners reading for ' + n + ', newest first. Each row is one snapshot of one genre, the place is counted among the artists with a number in that snapshot.',
     histCap: (n) => n + ': Pandora 28-day listeners by snapshot', th: ['Snapshot', 'Genre', '28-day listeners', 'Place'], few: 'Few',
     links: (n) => ({ site: n + ' website', pandora: n + ' on Pandora', spotify: n + ' on Spotify', rank: 'Full ranking' }), otherLang: ['\u0420\u0443\u0441\u0441\u043a\u0430\u044f \u0432\u0435\u0440\u0441\u0438\u044f', 'ru'],
+    unv: (n) => '<p>The genre of ' + esc(n) + ' is not verified in Ledgertone, so ' + esc(n) + ' may be listed here by mistake.</p>',
     ownerH: 'Who runs Ledgertone',
     owner: (n) => '<p>Ledgertone is run by ' + esc(n) + ', who is listed in the ranking and checks the accuracy of the data by hand. ' + esc(n) + ' is placed by the same rule as every other artist: by the 28-day listeners number in the snapshot. See the <a href="about.html">About page</a>.</p>'
   },
@@ -41,20 +44,21 @@ const T = {
     q: (n) => 'Сколько слушателей у ' + n + ' на Pandora?',
     answerNum: (n, x, latest, tail) => 'У ' + n + ' было ' + T.ru.num(x.listeners) + ' слушателей за 28 дней на Pandora в снимке Ledgertone за ' + T.ru.month(latest) + ' (Pandora показывала ' + x.text + ')' + tail + '.',
     answerFew: (n, latest) => 'В снимке Ledgertone за ' + T.ru.month(latest) + ' Pandora показывала у ' + n + ' «Few» вместо числа слушателей за 28 дней.',
-    placeTail: (sig) => (sig.length ? ', ' + sig.map((x) => 'место ' + x.p.place + ' из ' + x.p.of + ' в рейтинге ' + x.name).join(' и ') + ' (учитываются артисты с числом слушателей)' : ''),
+    placeTail: (sig) => (sig.length ? ', ' + sig.map((x) => 'место ' + x.p.place + ' из ' + T.ru.num(x.p.of) + ' артистов в рейтинге ' + x.name).join(' и ') + ' (в рейтинге участвуют только артисты с числом слушателей: ' + sig.map((x) => T.ru.num(x.p.ranked)).join(' и ') + ')' : ''),
     same: (g) => 'Тот же показатель указан в жанрах ' + g.join(' и ') + '.', listed: (g) => 'Указан в жанрах ' + g.join(' и ') + '.',
     title: (n, x, sig, latest) => n + ' на Pandora: ' + (x ? x.text + ' слушателей' + (sig.length ? ', место ' + sig[0].p.place + ' в ' + sig[0].name : '') : 'слушатели за 28 дней') + ' (' + T.ru.month(latest) + ') | Ledgertone',
     descTail: ' Снимок, собранный вручную, а не данные в реальном времени.',
     dsName: (n) => n + ': слушатели за 28 дней на Pandora',
     dsDesc: (answer, latest) => answer + ' Собрано вручную из профиля артиста на Pandora, снимок от ' + latest + '. Это не API Pandora и не данные в реальном времени.',
     metric: 'Слушатели за 28 дней на Pandora', placeVar: (g, latest) => 'Место в рейтинге Ledgertone ' + g + ', ' + T.ru.month(latest),
-    placeDesc: (of) => 'Из ' + of + ' артистов с числом слушателей за 28 дней', unit: 'слушателей',
-    cardL: 'Слушатели за 28 дней на Pandora', cardShown: (t) => 'показано как ' + t, cardSnap: 'Снимок', cardPlace: (g) => 'Место в ' + g, cardOf: (o) => 'из ' + o,
+    placeDesc: (p) => 'Из ' + T.ru.num(p.of) + ' артистов в списке число слушателей за 28 дней есть у ' + T.ru.num(p.ranked) + ', только они получают место', unit: 'слушателей',
+    cardL: 'Слушатели за 28 дней на Pandora', cardShown: (t) => 'показано как ' + t, cardSnap: 'Снимок', cardPlace: (g) => 'Место в ' + g, cardOf: (p) => 'из ' + T.ru.num(p.of) + ' артистов',
     srcH: 'Откуда это число',
     src: '<p>Число слушателей за последние 28 дней, показанное в профиле артиста на Pandora, собрано вручную в день снимка. Это запись одного момента: она не обновляется сама, взята не из API Pandora и может отличаться от того, что Pandora показывает сегодня. О методе подробнее на странице <a href="about.html" hreflang="en">About</a> (на английском).</p>',
     histH: 'История снимков', histP: (n) => 'Все снимки Ledgertone, в которых есть число слушателей ' + n + ' за 28 дней на Pandora, новые сверху. Строка соответствует одному снимку одного жанра, место считается среди артистов с числом в этом снимке.',
     histCap: (n) => n + ': слушатели за 28 дней на Pandora по снимкам', th: ['Снимок', 'Жанр', 'Слушатели за 28 дней', 'Место'], few: 'Few',
     links: (n) => ({ site: 'Сайт ' + n, pandora: n + ' на Pandora', spotify: n + ' на Spotify', rank: 'Полный рейтинг (на английском)' }), otherLang: ['English version', 'en'],
+    unv: (n) => '<p>Жанр ' + esc(n) + ' в Ledgertone не подтверждён, поэтому ' + esc(n) + ' может быть в списке по ошибке.</p>',
     ownerH: 'Кто ведёт Ledgertone',
     owner: (n) => '<p>Ledgertone ведёт ' + esc(n) + ': он сам есть в рейтинге и вручную проверяет точность данных. ' + esc(n) + ' стоит на своём месте по тому же правилу, что и любой другой артист: по числу слушателей за 28 дней в снимке. См. страницу <a href="about.html" hreflang="en">About</a> (на английском).</p>'
   }
@@ -70,14 +74,23 @@ const historyOf = (name) => {
     if (!x || !(Number.isFinite(x.listeners) || x.few === true)) return;
     let place = null, of = null;
     if (Number.isFinite(x.listeners)) { const r = rankedAt(g.id, i); const k = r.find((y) => norm(y.name) === norm(name)); if (k) { place = k.rank; of = r.length; } }
-    out.push({ genre: g.id, gi, i, date: s.capturedAt, x, place, of });
+    out.push({ genre: g.id, gi, i, date: s.capturedAt, x, place, of, total: i === 0 ? artistCount(g.id) : of });
   }));
+  // an unverified artist with a reading joins the latest snapshot of his genre, like on the home page (the data stays in two files)
+  L.genres.forEach((g, gi) => {
+    const s = snapsOf(g.id)[0], u = unverifiedOf(g.id).find((y) => norm(y.name) === norm(name));
+    if (!s || !u || !(u.listeners !== null || u.few)) return;
+    const x = u.listeners !== null ? { name: u.name, listeners: u.listeners, text: u.text || String(u.listeners) } : { name: u.name, few: true };
+    let place = null, of = null;
+    if (x.listeners !== undefined) { const r = rankedAt(g.id, 0); const k = r.find((y) => norm(y.name) === norm(name)); if (k) { place = k.rank; of = r.length; } }
+    out.push({ genre: g.id, gi, i: 0, date: s.capturedAt, x, place, of, total: artistCount(g.id) });
+  });
   return out.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.gi - b.gi));
 };
 
 function buildPage(a, lang) {
   const t = T[lang], ru = lang === 'ru';
-  const file = ru ? a.fileRu : a.file, other = ru ? a.file : a.fileRu;
+  const file = ru ? a.fileRu : a.file, other = ru ? a.file : a.fileRu, twin = !!a.fileRu;
   const hist = historyOf(a.name);
   if (!hist.length) throw new Error('No reading for ' + a.name + ', page not built');
   const latest = hist[0].date;
@@ -86,15 +99,15 @@ function buildPage(a, lang) {
   const topRows = rows.filter((r) => r.date === latest);
   const top = topRows[0];
   const isNum = Number.isFinite(top.x.listeners);
-  const places = topRows.map((r) => ({ id: r.genre, name: genreName(r.genre), p: r.place ? { place: r.place, of: r.of } : null })).filter((x) => x.p && isNum);
-  // a place out of fewer than 3 ranked artists ("1 of 1") stays in the cards but is left out of the sentence and the title
-  const sig = places.filter((x) => x.p.of >= 3);
+  const places = topRows.map((r) => ({ id: r.genre, name: genreName(r.genre), p: r.place ? { place: r.place, of: r.total, ranked: r.of } : null })).filter((x) => x.p && isNum);
+  // a place among fewer than 3 ranked artists stays in the cards but is left out of the sentence and the title
+  const sig = places.filter((x) => x.p.ranked >= 3);
   const answer = isNum ? t.answerNum(a.name, top.x, latest, t.placeTail(sig)) : t.answerFew(a.name, latest);
   const genres = rows.map((r) => genreName(r.genre));
   const same = rows.length > 1 && rows.every((r) => r.x.listeners === top.x.listeners && r.x.few === top.x.few);
   const second = same ? t.same(genres) : t.listed(genres);
   const lk = linksOf(a.name);
-  const url = SITE + file, urlEn = SITE + a.file, urlRu = SITE + a.fileRu;
+  const url = SITE + file, urlEn = SITE + a.file, urlRu = a.fileRu ? SITE + a.fileRu : null;
   const title = t.title(a.name, isNum ? top.x : null, sig, latest);
   const desc = answer + t.descTail;
   const dates = hist.map((r) => r.date).sort();
@@ -105,7 +118,7 @@ function buildPage(a, lang) {
     { '@type': 'MusicGroup', '@id': url + '#artist', name: a.name, url: a.site, sameAs: [a.site, lk.pandora, lk.spotify].filter(Boolean) },
     { '@type': 'Dataset', '@id': url + '#data', name: t.dsName(a.name), description: t.dsDesc(answer, latest), creator: Object.assign({ '@type': 'Organization', name: 'Ledgertone', url: SITE }, a.owner ? { founder: { '@id': url + '#artist' } } : {}), dateModified: latest, temporalCoverage: coverage, inLanguage: t.lang, about: { '@id': url + '#artist' },
       variableMeasured: (isNum ? [{ '@type': 'PropertyValue', name: t.metric, value: top.x.listeners, unitText: t.unit }] : [{ '@type': 'PropertyValue', name: t.metric, value: 'Few' }])
-        .concat(places.map((x) => ({ '@type': 'PropertyValue', name: t.placeVar(x.name, latest), value: x.p.place, description: t.placeDesc(x.p.of) }))) },
+        .concat(places.map((x) => ({ '@type': 'PropertyValue', name: t.placeVar(x.name, latest), value: x.p.place, description: t.placeDesc(x.p) }))) },
     { '@type': 'FAQPage', '@id': url + '#faq', mainEntity: [{ '@type': 'Question', name: t.q(a.name), acceptedAnswer: { '@type': 'Answer', text: answer + ' ' + second } }] }
   ] };
 
@@ -121,26 +134,27 @@ function buildPage(a, lang) {
     '<h1>' + esc(t.h1(a.name)) + '</h1>',
     '<h2>' + esc(t.q(a.name)) + '</h2>',
     '<p>' + esc(answer) + ' ' + esc(second) + '</p>',
+    ...(a.verified === false ? [t.unv(a.name)] : []),
     '<div class="stats" role="group" aria-label="' + esc(a.name + (ru ? ' на Pandora' : ' on Pandora')) + '">',
     statCard(t.cardL, isNum ? t.num(top.x.listeners) : 'Few', isNum ? t.cardShown(top.x.text) : ''),
     statCard(t.cardSnap, t.month(latest), latest),
-    places.map((x) => statCard(t.cardPlace(x.name), String(x.p.place), t.cardOf(x.p.of))).join('\n'),
+    places.map((x) => statCard(t.cardPlace(x.name), String(x.p.place), t.cardOf(x.p))).join('\n'),
     '</div>',
     '<h2>' + t.srcH + '</h2>', t.src,
     '<h2>' + t.histH + '</h2>', '<p>' + esc(t.histP(a.name)) + '</p>', histTable,
-    '<p>' + [a.site ? '<a href="' + esc(a.site) + '" rel="noopener">' + esc(lt.site) + '</a>' : '', lk.pandora ? '<a href="' + esc(lk.pandora) + '" rel="noopener">' + esc(lt.pandora) + '</a>' : '', lk.spotify ? '<a href="' + esc(lk.spotify) + '" rel="noopener">' + esc(lt.spotify) + '</a>' : '', '<a href="index.html"' + (ru ? ' hreflang="en"' : '') + '>' + esc(lt.rank) + '</a>', '<a href="' + other + '" hreflang="' + t.otherLang[1] + '" lang="' + t.otherLang[1] + '">' + t.otherLang[0] + '</a>'].filter(Boolean).join(' &middot; ') + '</p>',
+    '<p>' + [a.site ? '<a href="' + esc(a.site) + '" rel="noopener">' + esc(lt.site) + '</a>' : '', lk.pandora ? '<a href="' + esc(lk.pandora) + '" rel="noopener">' + esc(lt.pandora) + '</a>' : '', lk.spotify ? '<a href="' + esc(lk.spotify) + '" rel="noopener">' + esc(lt.spotify) + '</a>' : '', '<a href="index.html"' + (ru ? ' hreflang="en"' : '') + '>' + esc(lt.rank) + '</a>', twin ? '<a href="' + other + '" hreflang="' + t.otherLang[1] + '" lang="' + t.otherLang[1] + '">' + t.otherLang[0] + '</a>' : ''].filter(Boolean).join(' &middot; ') + '</p>',
     a.owner ? '<h2>' + t.ownerH + '</h2>\n' + t.owner(a.name) : '',
     '</section>', '</main>'
   ].join('\n');
 
   let h = tpl;
   const sub = (re, s) => { if (!re.test(h)) throw new Error('template changed, pattern missing: ' + re); h = h.replace(re, () => s); };
-  const alt = '<link rel="alternate" hreflang="en" href="' + urlEn + '">\n<link rel="alternate" hreflang="ru" href="' + urlRu + '">\n<link rel="alternate" hreflang="x-default" href="' + urlEn + '">';
+  const alt = twin ? '<link rel="alternate" hreflang="en" href="' + urlEn + '">\n<link rel="alternate" hreflang="ru" href="' + urlRu + '">\n<link rel="alternate" hreflang="x-default" href="' + urlEn + '">' : '';
   sub(/<html lang="en">/, '<html lang="' + t.lang + '">');
   sub(/<title>.*?<\/title>/, '<title>' + esc(title) + '</title>');
   sub(/<meta name="description" content=".*?">/, '<meta name="description" content="' + esc(desc) + '">');
   sub(/<meta name="robots" content=".*?">/, '<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">');
-  sub(/<link rel="canonical" href=".*?">/, '<link rel="canonical" href="' + url + '">\n' + alt + '\n<meta property="og:type" content="article">\n<meta property="og:site_name" content="Ledgertone">\n<meta property="og:locale" content="' + t.locale + '">\n<meta property="og:title" content="' + esc(title) + '">\n<meta property="og:description" content="' + esc(desc) + '">\n<meta property="og:url" content="' + url + '">\n<meta property="og:image" content="' + SITE + 'assets/og-image.png">\n<meta name="twitter:card" content="summary_large_image">\n<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>');
+  sub(/<link rel="canonical" href=".*?">/, '<link rel="canonical" href="' + url + '">\n' + (alt ? alt + '\n' : '') + '<meta property="og:type" content="article">\n<meta property="og:site_name" content="Ledgertone">\n<meta property="og:locale" content="' + t.locale + '">\n<meta property="og:title" content="' + esc(title) + '">\n<meta property="og:description" content="' + esc(desc) + '">\n<meta property="og:url" content="' + url + '">\n<meta property="og:image" content="' + SITE + 'assets/og-image.png">\n<meta name="twitter:card" content="summary_large_image">\n<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>');
   sub(/<main>[\s\S]*?<\/main>/, body);
   h = h.replace(/ aria-current="page"/g, '');
   if (ru) {
@@ -158,6 +172,7 @@ function buildPage(a, lang) {
 ARTISTS.forEach((a) => {
   if (banned.has(norm(a.name))) throw new Error(a.name + ' is banned');
   const en = buildPage(a, 'en');
+  if (!a.fileRu) return;
   buildPage(a, 'ru');
 
   // Fragment for the artist's own site (no numbers in it, so it never goes stale). Paste it by hand, nothing here touches that site.
@@ -185,3 +200,20 @@ ARTISTS.forEach((a) => {
   ].join('\n'));
   console.log('built docs/settwor-site-snippet.html');
 });
+
+// Map for assets/app.js: lowercase accent-free name to page file (owner decision, v0.82.0). Generated, never edited by hand.
+const mapBody = ARTISTS.slice().sort((x, y) => (x.key < y.key ? -1 : 1)).map((a) => '  ' + JSON.stringify(a.key) + ': ' + JSON.stringify(a.file)).join(',\n');
+writeCRLF('data/artist-pages.js', '// Generated by scripts/build-artist-pages.js (AGENTS.md rule 13), do not edit by hand.\n// Artists that have their own page: key (lowercase, accent-free name, same as data/links.js) to file.\nwindow.LEDGERTONE_PAGES = {\n' + mapBody + '\n};\n');
+console.log('built data/artist-pages.js: ' + ARTISTS.length + ' artists');
+
+// sitemap.xml: home, every artist page (SETTWOR with its Russian twin), About and Privacy
+const dateOf = (a) => { const h = historyOf(a.name); return h.length ? h[0].date : null; };
+const allDates = L.snapshots.map((x) => x.capturedAt).filter(Boolean).sort();
+const lastAll = allDates[allDates.length - 1];
+const loc = (f, d, alts) => '  <url><loc>' + SITE + f + '</loc><lastmod>' + d + '</lastmod>' + (alts ? '\n' + alts + '\n  ' : '') + '</url>';
+const altX = (a) => ['en', 'ru', 'x-default'].map((h) => '    <xhtml:link rel="alternate" hreflang="' + h + '" href="' + SITE + (h === 'ru' ? a.fileRu : a.file) + '"/>').join('\n');
+const urls = [loc('', lastAll)];
+ARTISTS.forEach((a) => { urls.push(loc(a.file, dateOf(a), a.fileRu ? altX(a) : null)); if (a.fileRu) urls.push(loc(a.fileRu, dateOf(a), altX(a))); });
+urls.push(loc('about.html', '2026-10-24'), loc('privacy.html', '2026-10-24'));
+writeCRLF('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls.join('\n') + '\n</urlset>\n');
+console.log('built sitemap.xml: ' + urls.length + ' urls');

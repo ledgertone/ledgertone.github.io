@@ -41,7 +41,7 @@ const rosterOf = (genreId) => {
 const unverifiedOf = (genreId) => {
   const seen = new Set();
   return (UNV[genreId] || []).map((x) => (typeof x === 'string' ? { name: x } : (x || {})))
-    .map((x) => ({ name: String(x.name || '').trim(), src: x.genre ? String(x.genre) : '', listeners: Number.isFinite(x.listeners) ? x.listeners : null, few: !x.listeners && x.few === true }))
+    .map((x) => ({ name: String(x.name || '').trim(), src: x.genre ? String(x.genre) : '', listeners: Number.isFinite(x.listeners) ? x.listeners : null, text: x.text ? String(x.text) : null, few: !x.listeners && x.few === true }))
     .filter((x) => { const k = norm(x.name); if (!x.name || banned.has(k) || verifiedKeys.has(k) || seen.has(k)) return false; seen.add(k); return true; });
 };
 
@@ -67,8 +67,34 @@ const pandoraLink = (u) => { const x = safeUrl(u); try { return x && /^(www\.)?p
 const spotifyLink = (id) => (typeof id === 'string' && /^[A-Za-z0-9]{22}$/.test(id)) ? 'https://open.spotify.com/artist/' + id : null;
 const linksOf = (name) => { const lk = LINKS[norm(name)] || {}; return { pandora: pandoraLink(lk.p), spotify: spotifyLink(lk.s) }; };
 
+// Artist pages (owner decision, v0.82.0): every artist with a reading (a number or "Few") in any snapshot of any genre, or in the
+// unverified list, gets a static page. File names are slugs of the English name, SETTWOR keeps settwor.html. Sorted by name so the
+// slugs stay the same from build to build (a collision gets -2, -3 ...). Names with no Latin letters or digits get artist-<n>.
+const RESERVED = new Set(['index', 'about', 'privacy', '404', 'settwor', 'settwor-ru', 'artist-pages']);
+const OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', owner: true };
+const slugOf = (n) => norm(n).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const hasReading = (x) => Number.isFinite(x.listeners) || x.few === true;
+const pageArtists = () => {
+  const seen = new Map();
+  L.genres.forEach((g) => {
+    snapsOf(g.id).forEach((s) => s.artists.forEach((x) => { if (hasReading(x) && !seen.has(norm(x.name))) seen.set(norm(x.name), { name: x.name, verified: true }); }));
+    unverifiedOf(g.id).forEach((u) => { if (hasReading(u) && !seen.has(norm(u.name))) seen.set(norm(u.name), { name: u.name, verified: false }); });
+  });
+  const out = [], used = new Set(RESERVED);
+  let n = 0;
+  [...seen.entries()].sort((a, b) => (a[1].name.toLowerCase() < b[1].name.toLowerCase() ? -1 : 1)).forEach(([k, a]) => {
+    if (k === norm(OWNER.name)) { out.push(Object.assign({ key: k }, a, OWNER)); return; }
+    let base = slugOf(a.name) || 'artist-' + (++n), f = base, i = 2;
+    while (used.has(f)) f = base + '-' + (i++);
+    used.add(f);
+    out.push(Object.assign({ key: k, file: f + '.html' }, a));
+  });
+  return out;
+};
+const pageFileOf = (() => { let m = null; return (name) => { if (!m) { m = new Map(); pageArtists().forEach((a) => m.set(a.key, a.file)); } return m.get(norm(name)) || null; }; })();
+
 const CRLF = (s) => s.replace(/\r?\n/g, '\r\n');
 const readCRLF = (f) => fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n');
 const writeCRLF = (f, s) => fs.writeFileSync(path.join(root, f), CRLF(s));
 
-module.exports = { root, L, LINKS, SITE, homeId, norm, esc, banned, genreName, byName, month, num, snapsOf, rosterOf, unverifiedOf, rankedAt, artistCount, safeUrl, pandoraLink, spotifyLink, linksOf, readCRLF, writeCRLF, CRLF };
+module.exports = { pageArtists, pageFileOf, verifiedKeys, OWNER, hasReading, root, L, LINKS, SITE, homeId, norm, esc, banned, genreName, byName, month, num, snapsOf, rosterOf, unverifiedOf, rankedAt, artistCount, safeUrl, pandoraLink, spotifyLink, linksOf, readCRLF, writeCRLF, CRLF };

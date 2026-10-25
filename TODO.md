@@ -1,6 +1,11 @@
 # TODO
 
 ## Done
+- [x] No opacity fade on glass or glass-holding elements during entrances, to stop texture jumps in Safari (v0.82.4), headless Chromium only, needs a check on a real iPhone
+- [x] Place on artist pages out of all artists of the genre, not only the ranked ones (v0.82.3), node checks only
+- [x] Whole ranking row opens the artist page (v0.82.2), headless Chromium only
+- [x] "Per page" control no longer scrolls sideways on phones (v0.82.1), headless Chromium only, not on a real iPhone
+- [x] Artist pages for every artist with a reading, name in the ranking opens the page (v0.82.0), headless Chromium (click and one page) and node checks only, not seen in Safari or on a real phone
 - [x] Static home ranking, snapshot history on the SETTWOR page, Russian twin with hreflang, fragment for settwor.github.io (v0.81.0), headless Chromium (static rows equal to the `app.js` rows, no JavaScript view, 1100 and 390 px) and node checks only, not seen in Safari or on a real phone
 - [x] Site history on About (v0.80.0), node checks only
 - [x] Owner disclosure on About and on the SETTWOR page (v0.79.0), node checks only
