@@ -1,8 +1,10 @@
 /*
   Ledgertone pull to refresh for touch screens. Reloads the page after a deliberate pull down from the very top.
   Guards against false triggers: touch only, one finger, page must be at scroll position 0 the whole time,
-  the gesture must be mostly vertical and downward, it must not start on inputs, the snapshot pickers or the
-  cookie banner, and it only fires when the finger is released past the threshold. Nothing is stored.
+  the finger must start in the top strip of the screen (START_ZONE), the gesture must be mostly vertical and
+  downward, it must not start on inputs, the snapshot pickers or the cookie banner, and it only fires when the
+  finger is released past the threshold. While the pull gesture is active and while the page is refreshing the
+  page does not scroll at all (touchmove is cancelled, html gets the ptr-lock class). Nothing is stored.
 */
 (function () {
   "use strict";
@@ -12,6 +14,7 @@
   var RESIST = 0.55; // finger travel to indicator travel
   var LOCK = 12;     // px of movement before the direction is decided
   var HIDE = -56;    // resting offset, tucked under the top bar
+  var START_ZONE = 150; // px from the top of the screen: the finger must touch down inside this strip
   var reduce = matchMedia("(prefers-reduced-motion: reduce)");
 
   var ind = document.createElement("div");
@@ -44,6 +47,7 @@
   }
   function fire() {
     busy = true; state = "off";
+    document.documentElement.classList.add("ptr-lock");
     ind.classList.add("back", "busy");
     ind.style.transform = "translate(-50%,0)";
     ind.style.opacity = "1";
@@ -55,6 +59,7 @@
     if (busy) return;
     state = "off";
     if (e.touches.length !== 1 || !top()) return;
+    if (e.touches[0].clientY > START_ZONE) return;
     var t = e.target;
     if (t && t.closest && t.closest("input,textarea,select,.picker,.consent,[contenteditable]")) return;
     sx = e.touches[0].clientX; sy = e.touches[0].clientY; pull = 0;
@@ -62,15 +67,18 @@
   }, { passive: true });
 
   addEventListener("touchmove", function (e) {
-    if (state === "off" || busy) return;
-    if (e.touches.length !== 1 || !top()) { if (state === "pull") release(); state = "off"; return; }
+    if (busy) { if (e.cancelable) e.preventDefault(); return; } // no scrolling while the page refreshes
+    if (state === "off") return;
+    if (e.touches.length !== 1) { if (state === "pull") release(); state = "off"; return; }
+    if (state === "pull") { if (e.cancelable) e.preventDefault(); } // the gesture owns the touch until the finger lifts
+    else if (!top()) { state = "off"; return; }
     var dx = e.touches[0].clientX - sx, dy = e.touches[0].clientY - sy;
+    if (state === "pull" && Math.abs(dx) > Math.abs(dy)) { paint(0); pull = 0; return; }
     if (state === "armed") {
       if (Math.abs(dx) < LOCK && Math.abs(dy) < LOCK) return;
       if (dy <= 0 || Math.abs(dx) > Math.abs(dy) * 0.6) { state = "off"; return; }
       state = "pull";
     }
-    if (Math.abs(dx) > Math.abs(dy)) { release(); return; }
     pull = Math.max(dy - LOCK, 0) * RESIST;
     if (e.cancelable) e.preventDefault(); // stops the browser's own pull to refresh and rubber band
     paint(pull);
@@ -82,6 +90,5 @@
   }
   addEventListener("touchend", end, { passive: true });
   addEventListener("touchcancel", end, { passive: true });
-  addEventListener("scroll", function () { if (state === "pull" && !top()) release(); }, { passive: true });
-  addEventListener("pagehide", function () { busy = false; });
+  addEventListener("pagehide", function () { busy = false; document.documentElement.classList.remove("ptr-lock"); });
 })();

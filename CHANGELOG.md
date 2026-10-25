@@ -2,6 +2,13 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.32.0] - 2026-10-25
+### Fixed
+- iPhone zoomed the page in when the search field was tapped (Safari zooms any field with text under 16 px). The search field text is now 16 px, so the page no longer changes scale on focus.
+- Pull to refresh now starts only when the finger touches down in the top strip of the screen (150 px) with the page at scroll position 0. A pull that starts lower, over the list, is ordinary scrolling.
+- The page no longer scrolls while the refresh gesture is active or while the page is refreshing (touchmove is cancelled and `html` gets the `ptr-lock` class until the reload). The old scroll listener in `assets/pull.js` is removed because the gesture now holds the touch until the finger lifts.
+- Not tested on a real iPhone, only a syntax check of `assets/pull.js`.
+
 ## [0.31.0] - 2026-10-25
 ### Fixed
 - The site saved to the iPhone home screen kept showing an old version. Two fixes: every stylesheet and script URL now carries the site version (`?v=0.31.0`), and a new `assets/update.js` compares the version of the open page with `version.json` (fetched past all caches) on load and when the app returns to the foreground, then reloads once if they differ.

@@ -1,6 +1,7 @@
 # TODO
 
 ## Done
+- [x] No zoom on the search field on iPhone, pull to refresh only from the top strip and without scrolling the list (v0.32.0), not tested on a real iPhone
 - [x] Home screen app now picks up new versions (v0.31.0), not tested on a real iPhone
 - [x] Genre switcher: Phonk, Drift Phonk, Brazilian Phonk (v0.30.0)
 - [x] Pull to refresh on touch screens (v0.29.0), emulated touch only
@@ -35,7 +36,7 @@
 ## Next
 - [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
 - [ ] Owner: collect the first snapshots for Drift Phonk and Brazilian Phonk by hand (`genre: "drift-phonk"` / `"brazilian-phonk"`), and decide whether an artist may appear in more than one genre
-- [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search)
+- [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
 - [ ] Owner: confirm the SF Pro Rounded license covers use on a public website (Apple fonts are normally licensed for Apple platforms only)
