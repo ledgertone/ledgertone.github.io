@@ -1,6 +1,7 @@
 # TODO
 
 ## Done
+- [x] Search field no longer sticks out past the screen edge on phones (v0.33.0), headless Chromium at 320 to 430 px
 - [x] No zoom on the search field on iPhone, pull to refresh only from the top strip and without scrolling the list (v0.32.0), not tested on a real iPhone
 - [x] Home screen app now picks up new versions (v0.31.0), not tested on a real iPhone
 - [x] Genre switcher: Phonk, Drift Phonk, Brazilian Phonk (v0.30.0)

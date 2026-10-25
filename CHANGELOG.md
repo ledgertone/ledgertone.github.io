@@ -2,6 +2,11 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.33.0] - 2026-10-25
+### Fixed
+- The search field stuck out past the right edge of the screen on phones. A search input has a built-in width of about 20 characters, and with the 16 px text from 0.32.0 that width kept the field from shrinking to the column. `.search` now has `min-width:0` and the input has `width:100%`.
+- Checked in headless Chromium with touch emulation at 320, 360, 390 and 430 px: the search field, the per-page picker and the table all stay inside the column and the page has no sideways scroll. Not tested on a real iPhone.
+
 ## [0.32.0] - 2026-10-25
 ### Fixed
 - iPhone zoomed the page in when the search field was tapped (Safari zooms any field with text under 16 px). The search field text is now 16 px, so the page no longer changes scale on focus.
