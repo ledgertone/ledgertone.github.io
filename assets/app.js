@@ -15,27 +15,50 @@
 
   const safeImg = (u) => (typeof u === 'string' && /^assets\/artists\/[a-z0-9._-]+\.(png|jpe?g|webp|svg)$/i.test(u)) ? u : null;
   const initials = (n) => String(n).trim().split(/\s+/).slice(0, 2).map((w) => w.charAt(0)).join('').toUpperCase();
+  // Artist pictures from the generated data/artist-media.js: only https URLs on Spotify's image host (owner decision, v0.43.0).
+  const media = (window.LEDGERTONE_MEDIA && typeof window.LEDGERTONE_MEDIA === 'object') ? window.LEDGERTONE_MEDIA : {};
+  const safeExt = (u) => { try { const x = new URL(u); return x.protocol === 'https:' && x.hostname === 'i.scdn.co' ? x.href : null; } catch (e) { return null; } };
   function avatar(a) {
     const mono = () => el('span', 'av mono', initials(a.name));
-    const src = safeImg(a.image);
+    const src = safeImg(a.image) || safeExt(media[norm(a.name)]);
     if (!src) return mono();
     const img = el('img', 'av');
-    img.src = src; img.alt = ''; img.width = 36; img.height = 36; img.loading = 'lazy'; img.decoding = 'async';
+    img.src = src; img.alt = ''; img.width = 36; img.height = 36; img.loading = 'lazy'; img.decoding = 'async'; img.referrerPolicy = 'no-referrer';
     img.addEventListener('error', () => img.replaceWith(mono()), { once: true });
     return img;
   }
 
-  const state = { rows: [], q: '', size: 10, page: 1 };
-  const tools = $('#tools'), foot = $('#foot'), pager = $('#pager'), count = $('#count'), sizes = $('#sizes'), q = $('#q');
   const norm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+  const state = { rows: [], q: '', size: 10, page: 1 };
+  let cur = genres[0];
+  // Roster names of a genre: banned names and duplicates dropped. Shown with "No data" until a hand-read stream count exists.
+  const rosterOf = (g) => {
+    const seen = new Set();
+    return (g.roster || []).map((n) => String(n).trim()).filter((n) => {
+      const k = norm(n);
+      if (!n || banned.has(n.toLowerCase()) || seen.has(k)) return false;
+      seen.add(k); return true;
+    });
+  };
+  const tools = $('#tools'), foot = $('#foot'), pager = $('#pager'), count = $('#count'), sizes = $('#sizes'), q = $('#q');
 
   function render(i) {
-    const s = snaps[i];
+    const s = i === null ? null : snaps[i];
     const valid = (a) => a && a.name && Number.isFinite(a.streams);
-    const arts = (s.artists || []).filter(valid).sort((a, b) => b.streams - a.streams);
-    meta.textContent = 'Pandora snapshot \u00b7 ' + fmt(s.capturedAt) + ' \u00b7 ' + arts.length + (arts.length === 1 ? ' artist' : ' artists') + (s.note && !s.sample ? ' \u00b7 ' + s.note : '');
-    // the rank always comes from the full snapshot, so it stays correct while searching
-    state.rows = arts.map((a, n) => ({ a, rank: n + 1, key: norm(a.name) }));
+    const arts = s ? (s.artists || []).filter(valid).sort((a, b) => b.streams - a.streams) : [];
+    // roster artists without a hand-read stream count follow the ranked ones and show "No data" (latest snapshot only)
+    const have = new Set(arts.map((a) => norm(a.name)));
+    const rest = (i === 0 || !s) ? rosterOf(cur).filter((n) => !have.has(norm(n))).sort((a, b) => a.localeCompare(b, 'en')) : [];
+    const total = arts.length + rest.length;
+    const parts = [s ? 'Pandora snapshot \u00b7 ' + fmt(s.capturedAt) : 'Pandora'];
+    parts.push(total + (total === 1 ? ' artist' : ' artists'));
+    if (!s) parts.push('No data yet');
+    else if (rest.length) parts.push(rest.length + ' with no data');
+    if (s && s.note && !s.sample) parts.push(s.note);
+    meta.textContent = parts.join(' \u00b7 ');
+    // the rank always comes from the full list, so it stays correct while searching
+    state.rows = arts.map((a, n) => ({ a, rank: n + 1, key: norm(a.name) }))
+      .concat(rest.map((n) => ({ a: { name: n }, rank: null, key: norm(n) })));
     state.page = 1;
     draw();
   }
@@ -91,8 +114,8 @@
       const wh = el('div', 'wh'); wh.append(avatar(a), info);
       const who = el('td', 'who'); who.append(wh);
       const rk = el('td', 'rk');
-      if (rank <= 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][rank - 1], String(rank)); m.setAttribute('aria-label', 'Place ' + rank); rk.append(m); } else { rk.textContent = String(rank); }
-      tr.append(rk, who, el('td', 'st', nf.format(a.streams)));
+      if (rank === null) { rk.textContent = '-'; } else if (rank <= 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][rank - 1], String(rank)); m.setAttribute('aria-label', 'Place ' + rank); rk.append(m); } else { rk.textContent = String(rank); }
+      tr.append(rk, who, Number.isFinite(a.streams) ? el('td', 'st', nf.format(a.streams)) : el('td', 'st nodata', 'No data'));
       list.append(tr);
       if (!reduce.matches) tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: Math.min(n, 14) * 20, easing: 'ease-out', fill: 'backwards' });
     });
@@ -113,18 +136,19 @@
     render(i);
   }
 
-  const gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
+  const caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
   const homeId = genres[0].id;
   const fromHash = () => genres.find((g) => g.id === decodeURIComponent(location.hash.slice(1))) || genres[0];
 
   function setGenre(g) {
+    cur = g;
     snaps = allSnaps.filter((s) => (s.genre || homeId) === g.id);
     if (gbox) gbox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === g.id)));
     if (h1) h1.textContent = 'Top ' + g.name + ' Artists on Pandora';
     document.title = 'Ledgertone | Top ' + g.name + ' Artists on Pandora';
     state.q = ''; state.page = 1; if (q) q.value = '';
     picker.querySelectorAll('button').forEach((b) => b.remove());
-    const has = snaps.length > 0;
+    const has = snaps.length > 0 || rosterOf(g).length > 0;
     [[empty, !has], [tbl, has], [meta, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
     if (more) more.hidden = snaps.length < 2;
     picker.hidden = snaps.length < 2;
@@ -134,6 +158,13 @@
       if (emptyTitle) emptyTitle.textContent = 'The first ' + g.name + ' snapshot is not published yet';
       return;
     }
+    if (!snaps.length) {
+      if (status) status.textContent = 'No snapshot published yet';
+      if (caption) caption.textContent = g.name + ' artists on Pandora';
+      render(null);
+      return;
+    }
+    if (caption) caption.textContent = g.name + ' artists on Pandora, ordered by verified streams';
     if (status) status.textContent = snaps[0].sample ? 'Sample data, not real' : 'Latest Pandora snapshot: ' + fmt(snaps[0].capturedAt);
     snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt, 'medium')); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
     select(0);

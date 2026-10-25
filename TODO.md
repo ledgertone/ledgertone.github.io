@@ -1,6 +1,9 @@
 # TODO
 
 ## Done
+- [x] Spotify artist pictures by URL, fetch script and privacy text (v0.43.0), script tested with a mock only
+- [x] SETTWOR added to the Phonk roster, 293 names (v0.42.0)
+- [x] Real Phonk roster (292 names) listed on the site with `No data` instead of streams, fictional sample snapshots and placeholder images removed (v0.41.0), headless Chromium only
 - [x] DJ MTG BONAFORTE banned, OG phonk 2021 2022 playlist artists added to the Phonk roster, 292 names in total (v0.40.0)
 - [x] Banned list: Freddie Dredd and Oliver Tree removed from the roster and blocked on the site (v0.39.0)
 - [x] Phonk roster extended with the OG Drift Phonk playlist artists, 279 names in total (v0.38.0)
@@ -42,16 +45,18 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: create a Spotify developer app, run `SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/fetch-artist-images.js` (Node 18+), check `scripts/artist-images-review.txt`, put fixes into `scripts/spotify-ids.json`, rerun, publish `data/artist-media.js`
+- [ ] Owner: read the Spotify Developer Terms about showing artist pictures (attribution, caching) before publishing the pictures
+- [ ] Verify the real image host and URL stability after the first script run (the code accepts `i.scdn.co` only)
 - [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
-- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the Phonk roster in `data/snapshots.js` lists 292 artists to read streams for), and decide whether an artist may appear in more than one genre
+- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the Phonk roster in `data/snapshots.js` lists 293 artists to read streams for), and decide whether an artist may appear in more than one genre
 - [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
 - [ ] Owner: confirm the SF Pro Rounded license covers use on a public website (Apple fonts are normally licensed for Apple platforms only)
 - [ ] Owner: look at v0.17.0 in Chrome and Safari, light and dark: button size, text legibility on glass over the plain background
 - [ ] Owner: confirm the Neue Machina license covers use on a public website (the font files carry no license text; Pangram Pangram sells separate web licenses)
-- [ ] BEFORE LAUNCH: replace the placeholder images in `assets/artists/` with real images the owner may use, and put real Pandora artist URLs into `profileUrl` (the sample ones point to the Pandora home page)
-- [ ] BEFORE LAUNCH: delete all snapshots with `sample: true` from `data/snapshots.js` (the site must not show fictional artists as real data)
+- [ ] BEFORE LAUNCH: add real artist images the owner may use to `assets/artists/` and real Pandora artist URLs as `profileUrl` in snapshots
 - [ ] Test the theme switch on a real phone and in Safari (saved choice, no flash on load, theme-color bar)
 - [ ] Owner: check the site on an iPhone and a Mac (Safari and Chrome): New York headings, SF Pro body, heading size and wrapping, tracking
 - [ ] Check text legibility on glass rows and tinted buttons in light and dark, and performance of the rankings list with many rows

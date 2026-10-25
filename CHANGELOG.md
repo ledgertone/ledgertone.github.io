@@ -2,6 +2,29 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.43.0] - 2026-10-25
+### Added
+- Artist pictures from Spotify without storing them on the site (owner request). `scripts/fetch-artist-images.js` (run by the owner with a Spotify developer app, Client Credentials flow, Node 18 or newer) looks up every roster and snapshot artist and writes picture URLs to `data/artist-media.js`. Only exact name matches are used; the rest go to `scripts/artist-images-review.txt`. Optional `scripts/spotify-ids.json` pins an exact Spotify artist by ID.
+- `assets/app.js` shows a picture from `data/artist-media.js` when the row has no local `image`. Only https URLs on `i.scdn.co` are accepted, images are requested with `no-referrer`, and a failed load falls back to the initials monogram.
+- `data/artist-media.js` ships empty, so nothing changes on the site until the owner runs the script.
+### Changed
+- `privacy.html` (date 2026-10-25), `about.html`, `AGENTS.md` rule 4 and `docs/DATA.md` describe the Spotify image requests. The site now makes requests to Spotify's image host as soon as pictures exist.
+- The script was tested only with a mocked Spotify API, not against the real one (no network in the build environment). The image host `i.scdn.co` is assumed, not verified; any other host is reported and not used.
+
+## [0.42.0] - 2026-10-25
+### Added
+- Phonk roster: SETTWOR (owner request, the owner's own name). Listed with `No data` like the rest. The roster now has 293 names.
+
+## [0.41.0] - 2026-10-25
+### Changed
+- The list now shows the real Phonk roster (292 artist names) instead of fictional sample data. The streams column reads `No data` for every artist and the rank column shows `-`, because no stream counts were collected yet. Nothing is ranked and no number is shown (owner request). Search, pages and per page work as before. The status chip says "No snapshot published yet", the line above the list says "Pandora · 292 artists · No data yet".
+- When a snapshot exists, its ranked artists come first and roster artists missing from it follow in alphabetical order with `No data` (latest snapshot only).
+- Brazilian Phonk has no roster, so it still shows the empty state.
+- The roster is no longer "not shown on the site": `AGENTS.md` rule 2, `docs/DATA.md` and the comments in `data/snapshots.js` are updated. Banned names stay filtered out of the roster list.
+### Removed
+- The three `sample: true` snapshots with fictional artists and their 12 placeholder SVG images in `assets/artists/`.
+- Checked in headless Chromium at 1100 px: 292 rows over 30 pages, search works, genre switch works. Not tested on a real phone.
+
 ## [0.40.0] - 2026-10-25
 ### Added
 - Banned: DJ MTG BONAFORTE (owner request, immediate). Added to the `banned` list, so the site drops the name from every snapshot and imports skip it.

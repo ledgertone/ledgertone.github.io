@@ -218,3 +218,4 @@ footer{padding:28px 0 40px;font-size:.8125rem}
 .ver{font-size:.6875rem}
 .empty{padding:16px}.empty h3{font-size:1rem}
 }
+.tbl td.st.nodata{color:var(--muted);font-weight:500}
