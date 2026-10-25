@@ -2,6 +2,34 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.47.0] - 2026-10-25
+### Added
+- Brazilian Phonk roster: 511 artist names from the owner's five Spotify playlist exports (BRAZILIAN PHONK, BRAZILIAN PHONK 2022-2023, BRAZILIAN PHONK 2026, BRAZILIAN PHONK/FUNK VIRAL 2026, Latest Phonk Songs OCTOBER 2026). Every credited artist counted (credits are split on `;`), duplicates removed, names only, no stream numbers. The genre now lists them with `No data` like Phonk.
+- Notice on the home page above the list (owner request): "Data is still being collected. Only part of the artists is displayed." Shown for every genre that has a list (`#note`).
+- 32 of the names are also in the Phonk roster (for example Rubikdice, NUEKI, SETTWOR). They stay in both lists for now, the open question about artists in more than one genre is still in `TODO.md`.
+- Skipped: one placeholder row with the artist "undefined" in the 2026 export. No banned names were found.
+- Some names look like labels, channels or tags and may need a check before a Pandora lookup: Akuma Records, SHADOW RECORDS, SoundMusic Original, Resumo Produtora, Conexão do Funk, Dominando as Ruas, MONTAGEM, Prod.Nifour. They are kept as Spotify lists them.
+- Run `scripts/fetch-artist-images.js` again to fetch pictures for the new names (it skips names that already have one).
+
+## [0.46.0] - 2026-10-25
+### Changed
+- Home page heading (owner request): the Pandora logo and the accent color on the genre word from 0.45.0 are removed. The heading is plain ink again and reads "Top Phonk Artists on Pandora" in text. The `--hl` color token is removed.
+- New look for the heading: "Top <genre> Artists" stays Neue Machina Bold, "on Pandora" is set in Neue Machina Regular (weight contrast, no color, no decoration). "on Pandora" never splits across lines. Neue Machina Regular is preloaded on the home page. `assets/app.js` builds the heading again when the genre switches.
+- `AGENTS.md` rule 4 and the type rule are updated (the logo appears once again, only in the table column header).
+- Checked in headless Chromium, light and dark, at 1100 px and 390 px. Not tested on a real phone.
+
+## [0.45.0] - 2026-10-25
+### Changed
+- Home page heading (owner request): the Pandora logo, unmodified, now stands in for the word "Pandora" ("Top Phonk Artists on [pandora]"), and the genre word is set in the accent color (new token `--hl`: `#5B34E0` in light, `#9B7BFF` in dark, 6.1:1 and 6.4:1 against the page background; the regular accent is only 3.4:1 in dark). The logo keeps the alt text "Pandora", so the heading reads the same to screen readers and search engines. `document.title` is unchanged. `assets/app.js` builds the heading again when the genre switches.
+- `AGENTS.md` rule 4: the logo now appears in two places, the table column header and the heading.
+- Checked in headless Chromium, light and dark, at 1100 px and 390 px. Not tested on a real phone.
+
+## [0.44.0] - 2026-10-25
+### Changed
+- Artist pictures and monograms are bigger (owner request): 56 px on desktop (was 36) and 44 px on phones up to 600 px (was 28). Table rows are a little taller (desktop cell padding 10 px, was 13). Monogram text scaled with it.
+- `scripts/fetch-artist-images.js` now picks the smallest Spotify picture at least 150 px wide (was 100), so the bigger avatars stay sharp. Rerun the script with `--refresh` only if pictures were fetched with the older version.
+- Checked in headless Chromium at 1100 px and 390 px. Not tested on a real phone.
+
 ## [0.43.0] - 2026-10-25
 ### Added
 - Artist pictures from Spotify without storing them on the site (owner request). `scripts/fetch-artist-images.js` (run by the owner with a Spotify developer app, Client Credentials flow, Node 18 or newer) looks up every roster and snapshot artist and writes picture URLs to `data/artist-media.js`. Only exact name matches are used; the rest go to `scripts/artist-images-review.txt`. Optional `scripts/spotify-ids.json` pins an exact Spotify artist by ID.

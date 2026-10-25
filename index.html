@@ -44,9 +44,10 @@
 <link rel="preload" href="assets/fonts/SFProRounded-Regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/SFProRounded-Medium.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/NeueMachina-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="ledgertone-version" content="0.43.0">
-<link rel="stylesheet" href="assets/styles.css?v=0.43.0">
-<script src="assets/theme.js?v=0.43.0"></script>
+<link rel="preload" href="assets/fonts/NeueMachina-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="ledgertone-version" content="0.47.0">
+<link rel="stylesheet" href="assets/styles.css?v=0.47.0">
+<script src="assets/theme.js?v=0.47.0"></script>
 </head>
 <body>
 <div class="edge" aria-hidden="true"></div>
@@ -57,11 +58,12 @@
 <main id="top">
   <section class="hero wrap">
     <p class="status glass" id="status">No snapshot published yet</p>
-    <h1>Top Phonk Artists on Pandora</h1>
+    <h1>Top Phonk Artists <span class="lt">on Pandora</span></h1>
     <div class="picker glass glass-flat genres" id="genres" role="group" aria-label="Genre" hidden></div>
   </section>
   <section class="wrap rks" id="rankings">
     <p class="meta" id="meta"></p>
+    <p class="note" id="note" hidden>Data is still being collected. Only part of the artists is displayed.</p>
     <div class="tools" id="tools">
       <label class="search glass glass-flat"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg><span class="sr">Search artists</span><input type="search" id="q" placeholder="Search artists" autocomplete="off" spellcheck="false" maxlength="60"></label>
       <div class="picker glass glass-flat sizes" id="sizes" role="group" aria-label="Artists per page"><span>Per page</span><button type="button" data-size="10" aria-pressed="true">10</button><button type="button" data-size="25" aria-pressed="false">25</button><button type="button" data-size="50" aria-pressed="false">50</button><button type="button" data-size="0" aria-pressed="false">All</button></div>
@@ -89,15 +91,15 @@
   <div class="wrap">
     <p>Ledgertone is an independent project and is not affiliated with Pandora. Pandora is a trademark of its respective owner.</p>
     <p class="flinks"><a href="index.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
-    <p class="ver">Version 0.43.0</p>
+    <p class="ver">Version 0.47.0</p>
   </div>
 </footer>
-<script src="data/snapshots.js?v=0.43.0"></script>
-<script src="data/artist-media.js?v=0.43.0"></script>
-<script src="assets/app.js?v=0.43.0"></script>
-<script src="assets/glass.js?v=0.43.0"></script>
-<script src="assets/pull.js?v=0.43.0"></script>
-<script src="assets/consent.js?v=0.43.0"></script>
-<script src="assets/update.js?v=0.43.0"></script>
+<script src="data/snapshots.js?v=0.47.0"></script>
+<script src="data/artist-media.js?v=0.47.0"></script>
+<script src="assets/app.js?v=0.47.0"></script>
+<script src="assets/glass.js?v=0.47.0"></script>
+<script src="assets/pull.js?v=0.47.0"></script>
+<script src="assets/consent.js?v=0.47.0"></script>
+<script src="assets/update.js?v=0.47.0"></script>
 </body>
 </html>

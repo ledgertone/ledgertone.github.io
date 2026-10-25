@@ -23,7 +23,7 @@
     const src = safeImg(a.image) || safeExt(media[norm(a.name)]);
     if (!src) return mono();
     const img = el('img', 'av');
-    img.src = src; img.alt = ''; img.width = 36; img.height = 36; img.loading = 'lazy'; img.decoding = 'async'; img.referrerPolicy = 'no-referrer';
+    img.src = src; img.alt = ''; img.width = 56; img.height = 56; img.loading = 'lazy'; img.decoding = 'async'; img.referrerPolicy = 'no-referrer';
     img.addEventListener('error', () => img.replaceWith(mono()), { once: true });
     return img;
   }
@@ -136,7 +136,7 @@
     render(i);
   }
 
-  const caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
+  const note = $('#note'), caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
   const homeId = genres[0].id;
   const fromHash = () => genres.find((g) => g.id === decodeURIComponent(location.hash.slice(1))) || genres[0];
 
@@ -144,12 +144,15 @@
     cur = g;
     snaps = allSnaps.filter((s) => (s.genre || homeId) === g.id);
     if (gbox) gbox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === g.id)));
-    if (h1) h1.textContent = 'Top ' + g.name + ' Artists on Pandora';
+    if (h1) {
+      // bold "Top <genre> Artists", then "on Pandora" in the Regular cut (weight contrast only, same color)
+      h1.replaceChildren('Top ' + g.name + ' Artists ', el('span', 'lt', 'on Pandora'));
+    }
     document.title = 'Ledgertone | Top ' + g.name + ' Artists on Pandora';
     state.q = ''; state.page = 1; if (q) q.value = '';
     picker.querySelectorAll('button').forEach((b) => b.remove());
     const has = snaps.length > 0 || rosterOf(g).length > 0;
-    [[empty, !has], [tbl, has], [meta, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
+    [[empty, !has], [tbl, has], [meta, has], [note, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
     if (more) more.hidden = snaps.length < 2;
     picker.hidden = snaps.length < 2;
     if (!has) {

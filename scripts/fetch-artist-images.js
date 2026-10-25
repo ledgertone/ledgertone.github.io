@@ -68,11 +68,11 @@ function saveMedia(media) {
   fs.writeFileSync(OUT, text.replace(/\n/g, '\r\n'));
 }
 
-// the smallest picture that is at least 100 px wide (the list shows 36 px, this keeps retina sharp), else the largest
+// the smallest picture that is at least 150 px wide (the list shows up to 56 px, this keeps retina sharp), else the largest
 function pickImage(images) {
   const list = (images || []).filter((i) => i && typeof i.url === 'string');
   if (!list.length) return null;
-  const wide = list.filter((i) => Number(i.width) >= 100).sort((a, b) => a.width - b.width);
+  const wide = list.filter((i) => Number(i.width) >= 150).sort((a, b) => a.width - b.width);
   if (wide.length) return wide[0].url;
   return list.slice().sort((a, b) => (b.width || 0) - (a.width || 0))[0].url;
 }

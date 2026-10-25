@@ -1,6 +1,9 @@
 # TODO
 
 ## Done
+- [x] Brazilian Phonk roster of 511 names and the "data is still being collected" notice (v0.47.0), headless Chromium only
+- [x] Heading logo and accent color removed, heading now Bold plus Regular weight contrast (v0.46.0), headless Chromium only
+- [x] Bigger artist pictures: 56 px desktop, 44 px phones (v0.44.0), headless Chromium only
 - [x] Spotify artist pictures by URL, fetch script and privacy text (v0.43.0), script tested with a mock only
 - [x] SETTWOR added to the Phonk roster, 293 names (v0.42.0)
 - [x] Real Phonk roster (292 names) listed on the site with `No data` instead of streams, fictional sample snapshots and placeholder images removed (v0.41.0), headless Chromium only
@@ -45,11 +48,12 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: check the label-like names in the Brazilian Phonk roster (see the 0.47.0 changelog entry) and say which to drop
 - [ ] Owner: create a Spotify developer app, run `SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/fetch-artist-images.js` (Node 18+), check `scripts/artist-images-review.txt`, put fixes into `scripts/spotify-ids.json`, rerun, publish `data/artist-media.js`
 - [ ] Owner: read the Spotify Developer Terms about showing artist pictures (attribution, caching) before publishing the pictures
 - [ ] Verify the real image host and URL stability after the first script run (the code accepts `i.scdn.co` only)
 - [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
-- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the Phonk roster in `data/snapshots.js` lists 293 artists to read streams for), and decide whether an artist may appear in more than one genre
+- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the rosters in `data/snapshots.js` list 293 Phonk and 511 Brazilian Phonk artists to read streams for), and decide whether an artist may appear in more than one genre
 - [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
