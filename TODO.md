@@ -1,6 +1,10 @@
 # TODO
 
 ## Done
+- [x] Static home ranking, snapshot history on the SETTWOR page, Russian twin with hreflang, fragment for settwor.github.io (v0.81.0), headless Chromium (static rows equal to the `app.js` rows, no JavaScript view, 1100 and 390 px) and node checks only, not seen in Safari or on a real phone
+- [x] Site history on About (v0.80.0), node checks only
+- [x] Owner disclosure on About and on the SETTWOR page (v0.79.0), node checks only
+- [x] SETTWOR page: place per genre, stat cards, link to settwor.github.io (v0.78.0), place checked against a second node calculation of the `app.js` logic, the page was not opened in a browser
 - [x] RJ Pasin banned and removed (the owner's "RS Pasin" was shown on the page as RJ Pasin) (v0.77.0), node data check only
 - [x] Static SETTWOR page with plain-text answer and JSON-LD, generated from the data (v0.76.0), node checks only. To do by the owner after deploy: request indexing in Search Console, run the Rich Results Test
 - [x] Ban deletes the artist from the data and blocks adding him again: SLVG and Bearded Legend removed from the snapshot, `scripts/check-banned.js`, accent-safe matching in `app.js` (v0.75.0), node data check only, the page was not opened in a browser
@@ -79,6 +83,9 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: paste `docs/settwor-site-snippet.html` into `https://settwor.github.io/` (part 1 in the head, part 2 as a visible link), then run the Rich Results Test on both sites
+- [ ] Owner: after deploy, request indexing in Search Console for `https://ledgertone.github.io/`, `settwor.html` and `settwor-ru.html`, and resubmit `sitemap.xml` (it now has hreflang alternates)
+- [ ] Owner: read the Russian text of `settwor-ru.html` and say what to change (copy is in the `T.ru` block of `scripts/build-artist-pages.js`)
 - [ ] Owner: send Pandora links and Spotify ids for roster artists that have none (about 520 verified names)
 - [ ] Owner: decide whether unverified artists should move up to the verified base one by one, and whether the red note text and the Drift Phonk and Other tabs are right
 - [ ] Owner: check the label-like names in the Brazilian Phonk roster (see the 0.47.0 changelog entry) and say which to drop

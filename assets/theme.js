@@ -8,7 +8,8 @@
   "use strict";
   var KEY = "ledgertone-theme";
   var ORDER = ["auto", "light", "dark"];
-  var LABEL = { auto: "Auto", light: "Light", dark: "Dark" };
+  var RU = document.documentElement.lang === "ru"; // Russian page (settwor-ru.html, v0.81.0)
+  var LABEL = RU ? { auto: "Авто", light: "Светлая", dark: "Тёмная" } : { auto: "Auto", light: "Light", dark: "Dark" };
   var BAR = { light: "#F1EEFB", dark: "#120E26" };
   var root = document.documentElement;
   var mode = "auto";
@@ -45,8 +46,8 @@
     function paint() {
       var next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
       btn.innerHTML = ICONS[mode];
-      btn.setAttribute("aria-label", "Theme: " + LABEL[mode] + ". Switch to " + LABEL[next] + ".");
-      btn.title = "Theme: " + LABEL[mode];
+      btn.setAttribute("aria-label", RU ? "Тема: " + LABEL[mode] + ". Следующая: " + LABEL[next] + "." : "Theme: " + LABEL[mode] + ". Switch to " + LABEL[next] + ".");
+      btn.title = (RU ? "Тема: " : "Theme: ") + LABEL[mode];
     }
     btn.hidden = false;
     paint();

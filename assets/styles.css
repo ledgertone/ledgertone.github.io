@@ -277,3 +277,9 @@ footer{padding:28px 0 40px;font-size:.8125rem}
 .picker .sg{position:absolute;left:0;top:0;z-index:0;display:none;border-radius:999px;pointer-events:none;background:color-mix(in srgb,var(--surface) 55%,transparent);box-shadow:inset 1px 1px 1px -.5px rgba(255,255,255,.9),inset 0 0 10px -4px rgba(255,255,255,.6),0 2px 8px -3px rgba(10,14,36,.3)}
 @media(prefers-reduced-transparency:reduce){.picker .sg{background:var(--surface)}}
 @media(prefers-contrast:more){.picker .sg{outline:2px solid var(--ink);outline-offset:-2px}}
+/* settwor pages, history table (v0.81.0): reuses the .tbl glass panel inside .doc, so the plain .doc table rules are switched off here */
+.doc .tbl{margin:12px 0 4px}.doc .tbl table{max-width:none;margin:0}
+.doc .tbl th,.doc .tbl td{border:0;border-bottom:1px solid var(--line);color:var(--ink)}.doc .tbl th{color:var(--muted)}.doc .tbl tbody tr:last-child td{border-bottom:0}
+.doc .tbl td .of{font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.tbl.hist .c-rk{width:4.5rem}.tbl.hist .c-st{width:8.5rem;white-space:normal}.tbl.hist td.rk{font-weight:600;color:var(--ink)}
+@media(max-width:480px){.tbl.hist .c-rk{width:3.75rem}.tbl.hist .c-st{width:6.5rem}.tbl.hist th{font-size:.5625rem;letter-spacing:.05em;padding-left:8px;padding-right:8px}.tbl.hist td{padding-left:8px;padding-right:8px}}

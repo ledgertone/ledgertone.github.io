@@ -12,6 +12,11 @@
   var KEY = "ledgertone-consent";
   var bar = null;
   var settingsBtn = document.getElementById("cookie-settings");
+  // The Russian page (settwor-ru.html, owner decision, v0.81.0) gets the banner in Russian. Same choices, same weight for Reject and Accept.
+  var RU = document.documentElement.lang === "ru";
+  var TXT = RU
+    ? { title: "Cookie для аналитики", body: "Ledgertone хотел бы использовать cookie Google Analytics, чтобы считать посещения. Без вашего согласия cookie не устанавливаются. См. ", policy: "политику конфиденциальности", tail: " (на английском).", reject: "Отклонить", accept: "Принять", settings: "Настройки cookie" }
+    : { title: "Analytics cookies", body: "Ledgertone would like to use Google Analytics cookies to count visits. Without your consent no cookies are set. See the ", policy: "privacy policy", tail: ".", reject: "Reject", accept: "Accept", settings: "" };
 
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
@@ -51,12 +56,10 @@
     bar.setAttribute("role", "dialog");
     bar.setAttribute("aria-labelledby", "consent-title");
     bar.innerHTML =
-      '<h2 id="consent-title">Analytics cookies</h2>' +
-      "<p>Ledgertone would like to use Google Analytics cookies to count visits. " +
-      "Without your consent no cookies are set. " +
-      'See the <a href="/privacy.html">privacy policy</a>.</p>' +
-      '<div class="consent-actions"><button type="button" class="cbtn glass glass-flat" data-c="denied">Reject</button>' +
-      '<button type="button" class="cbtn glass glass-flat" data-c="granted">Accept</button></div>';
+      '<h2 id="consent-title">' + TXT.title + '</h2>' +
+      "<p>" + TXT.body + '<a href="/privacy.html"' + (RU ? ' hreflang="en"' : '') + '>' + TXT.policy + '</a>' + TXT.tail + '</p>' +
+      '<div class="consent-actions"><button type="button" class="cbtn glass glass-flat" data-c="denied">' + TXT.reject + '</button>' +
+      '<button type="button" class="cbtn glass glass-flat" data-c="granted">' + TXT.accept + '</button></div>';
     bar.addEventListener("click", function (e) {
       var c = e.target && e.target.getAttribute && e.target.getAttribute("data-c");
       if (!c) return;
@@ -68,7 +71,7 @@
   }
 
   if (!GA_ID) return;
-  if (settingsBtn) { settingsBtn.hidden = false; settingsBtn.addEventListener("click", openBar); }
+  if (settingsBtn) { if (TXT.settings) settingsBtn.textContent = TXT.settings; settingsBtn.hidden = false; settingsBtn.addEventListener("click", openBar); }
 
   var saved = read();
   if (saved === "granted" || saved === "denied") apply(saved); else openBar();
