@@ -2,6 +2,11 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.34.0] - 2026-10-25
+### Fixed
+- The genre switcher, the per page selector, the pager and the snapshot picker had a different color from the rest of the glass (table, search, top bar, status chip). A rule from the time when the snapshot picker was sticky gave every `.picker` an 82 percent surface fill, while the other glass elements use the standard fill (6 percent, 18 percent on touch screens). The rule is removed, so every glass surface now has the same fill, in light and dark. The selected item inside a picker keeps its own lighter pill.
+- Checked in headless Chromium with touch emulation (390 px, light and dark): computed fill is the same on the top bar, status chip, genre switcher, search, per page selector, pager and table. Not tested on a real iPhone.
+
 ## [0.33.0] - 2026-10-25
 ### Fixed
 - The search field stuck out past the right edge of the screen on phones. A search input has a built-in width of about 20 characters, and with the 16 px text from 0.32.0 that width kept the field from shrinking to the column. `.search` now has `min-width:0` and the input has `width:100%`.

@@ -132,7 +132,6 @@ footer p{max-width:70ch;margin:0 0 8px}
 .tbl .nm,.tbl td.who{overflow-wrap:break-word}
 @media(max-width:720px){.hero{padding-top:calc(env(safe-area-inset-top,0px) + 84px);padding-bottom:8px}.status{margin-bottom:16px}h1{margin-bottom:12px}.lede,.sub{margin-bottom:16px;font-size:.9375rem;line-height:1.5}.rks{padding-top:0;padding-bottom:40px}.meta{font-size:.75rem;line-height:1.5}.consent{padding:12px 14px}.consent h2{font-size:.9375rem}.consent p{font-size:.8125rem;margin-bottom:8px}}
 @media(max-width:480px){.tbl .c-rk{width:2.75rem}.tbl .c-st{width:7.25rem}.tbl .nm{font-size:.9375rem}.picker>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}}
-.picker{background:color-mix(in srgb,var(--surface) 82%,transparent)}
 table.doc{width:100%}table.doc code{overflow-wrap:anywhere}
 @media(max-width:720px){table.doc thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}table.doc,table.doc tbody,table.doc tr,table.doc td{display:block;width:100%}table.doc tr{padding:12px 0;border-top:1px solid var(--line)}table.doc td{padding:4px 0;border:0}table.doc td::before{content:attr(data-label);display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}}
 /* Podium: places 1 to 3 */
