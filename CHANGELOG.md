@@ -2,6 +2,21 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.31.0] - 2026-10-25
+### Fixed
+- The site saved to the iPhone home screen kept showing an old version. Two fixes: every stylesheet and script URL now carries the site version (`?v=0.31.0`), and a new `assets/update.js` compares the version of the open page with `version.json` (fetched past all caches) on load and when the app returns to the foreground, then reloads once if they differ.
+- `version.json` is new. `privacy.html` lists the one sessionStorage key used to avoid reload loops.
+- Release rule: the version must now be changed in `version.json`, the `?v=` on every asset URL, the `ledgertone-version` meta tag and the footer line, together with the top entry here.
+- Not tested on a real iPhone. Home screen copies that are older than this version still need one manual refresh (pull down, or remove and add the shortcut again).
+
+## [0.30.0] - 2026-10-25
+### Added
+- Genres: Phonk, Drift Phonk, Brazilian Phonk. A glass switcher under the title; the title, the page title, the status chip, the ranking and the snapshot list all follow the chosen genre. Each genre has its own snapshots (`genre` field in `data/snapshots.js`, genre list in `genres`). Deep links: `#drift-phonk`, `#brazilian-phonk`.
+- A genre without snapshots shows the empty state "The first <genre> snapshot is not published yet". No data was invented for the new genres.
+### Changed
+- The three sample snapshots are tagged `genre: "phonk"`. About page intro names the three genres.
+- Not checked in Safari or Firefox, only headless Chromium.
+
 ## [0.29.0] - 2026-10-25
 ### Added
 - Pull to refresh on touch screens (`assets/pull.js`, loaded on every page). A glass round indicator drops under the top bar while you pull and the page reloads when you release past the threshold. It replaces the browser's own pull to refresh.

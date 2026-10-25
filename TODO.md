@@ -1,6 +1,8 @@
 # TODO
 
 ## Done
+- [x] Home screen app now picks up new versions (v0.31.0), not tested on a real iPhone
+- [x] Genre switcher: Phonk, Drift Phonk, Brazilian Phonk (v0.30.0)
 - [x] Pull to refresh on touch screens (v0.29.0), emulated touch only
 - [x] Search, pages and per-page selector in the ranking (v0.28.0)
 - [x] Earlier snapshots always open, shorter snapshot line, smaller logo (v0.27.0)
@@ -31,6 +33,8 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
+- [ ] Owner: collect the first snapshots for Drift Phonk and Brazilian Phonk by hand (`genre: "drift-phonk"` / `"brazilian-phonk"`), and decide whether an artist may appear in more than one genre
 - [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark

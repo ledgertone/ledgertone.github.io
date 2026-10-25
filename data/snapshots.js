@@ -1,14 +1,21 @@
 /*
   Ledgertone data. One object per snapshot. Do not invent numbers.
   Schema and update steps: docs/DATA.md
-  Shape: { capturedAt: "YYYY-MM-DD", note: "optional", sample: true (optional), artists: [{ name, streams, profileUrl? }] }
+  Shape: { genre: "phonk" | "drift-phonk" | "brazilian-phonk", capturedAt: "YYYY-MM-DD", note: "optional", sample: true (optional), artists: [{ name, streams, profileUrl? }] }
 
   The three snapshots below are SAMPLE DATA with fictional artists, added at the owner's request
   to preview the design. Images are generated placeholders, profileUrl is a stand-in
   (the Pandora home page, fictional artists have no Pandora pages). Remove every snapshot that has sample: true before the real launch.
 */
-window.LEDGERTONE = { snapshots: [
+window.LEDGERTONE = {
+  genres: [
+    { id: "phonk", name: "Phonk" },
+    { id: "drift-phonk", name: "Drift Phonk" },
+    { id: "brazilian-phonk", name: "Brazilian Phonk" }
+  ],
+  snapshots: [
   {
+    genre: "phonk",
     capturedAt: "2026-10-01",
     sample: true,
     note: "Sample data for design preview, not real.",
@@ -26,6 +33,7 @@ window.LEDGERTONE = { snapshots: [
     ]
   },
   {
+    genre: "phonk",
     capturedAt: "2026-10-12",
     sample: true,
     note: "Sample data for design preview, not real.",
@@ -44,6 +52,7 @@ window.LEDGERTONE = { snapshots: [
     ]
   },
   {
+    genre: "phonk",
     capturedAt: "2026-10-24",
     sample: true,
     note: "Sample data for design preview, not real.",

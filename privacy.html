@@ -28,8 +28,9 @@
 <link rel="preload" href="assets/fonts/SFProRounded-Regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/SFProRounded-Medium.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/NeueMachina-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/styles.css">
-<script src="assets/theme.js"></script>
+<meta name="ledgertone-version" content="0.31.0">
+<link rel="stylesheet" href="assets/styles.css?v=0.31.0">
+<script src="assets/theme.js?v=0.31.0"></script>
 </head>
 <body>
 <div class="edge" aria-hidden="true"></div>
@@ -57,6 +58,7 @@
 <tr><td data-label="Data">Before you choose, or if you reject: limited cookie-free pings from the Google tag (page address, referrer, time, browser and device details, and the IP address as seen by Google). No analytics cookies are set and no identifier is stored on your device.</td><td data-label="Purpose">Counting visits in aggregate and modeling the effect of declined consent</td><td data-label="Legal basis">Legitimate interest (Art. 6(1)(f) GDPR). You can object at any time, see below.</td></tr>
 <tr><td data-label="Data">Your cookie choice, stored in your browser (localStorage key <code>ledgertone-consent</code>)</td><td data-label="Purpose">Remembering your choice so we do not ask on every visit</td><td data-label="Legal basis">Strictly necessary for the consent feature</td></tr>
 <tr><td data-label="Data">Your theme choice (Light or Dark), stored in your browser (localStorage key <code>ledgertone-theme</code>); nothing is stored if you leave it on Auto</td><td data-label="Purpose">Remembering your display preference</td><td data-label="Legal basis">Functional preference you set yourself, it is never sent anywhere</td></tr>
+<tr><td data-label="Data">The version number the site last reloaded itself to, stored in your browser for the current session only (sessionStorage key <code>ledgertone-updated</code>), cleared when you close the tab or the app</td><td data-label="Purpose">Loading a new version of the site once and avoiding reload loops</td><td data-label="Legal basis">Strictly necessary for the update feature</td></tr>
 </tbody>
 </table>
 
@@ -93,11 +95,12 @@
   <div class="wrap">
     <p>Ledgertone is an independent project and is not affiliated with Pandora. Pandora is a trademark of its respective owner.</p>
     <p class="flinks"><a href="index.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
-    <p class="ver">Version 0.29.0</p>
+    <p class="ver">Version 0.31.0</p>
   </div>
 </footer>
-<script src="assets/glass.js"></script>
-<script src="assets/pull.js"></script>
-<script src="assets/consent.js"></script>
+<script src="assets/glass.js?v=0.31.0"></script>
+<script src="assets/pull.js?v=0.31.0"></script>
+<script src="assets/consent.js?v=0.31.0"></script>
+<script src="assets/update.js?v=0.31.0"></script>
 </body>
 </html>

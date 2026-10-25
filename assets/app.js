@@ -1,5 +1,8 @@
 (() => {
-  const snaps = ((window.LEDGERTONE || {}).snapshots || []).slice().sort((a, b) => (a.capturedAt < b.capturedAt ? 1 : -1));
+  const data = window.LEDGERTONE || {};
+  const genres = data.genres && data.genres.length ? data.genres : [{ id: 'phonk', name: 'Phonk' }];
+  const allSnaps = (data.snapshots || []).slice().sort((a, b) => (a.capturedAt < b.capturedAt ? 1 : -1));
+  let snaps = [];
   const $ = (s) => document.querySelector(s);
   const list = $('#list'), tbl = $('#tbl'), empty = $('#empty'), picker = $('#picker'), status = $('#status'), meta = $('#meta');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -108,20 +111,45 @@
     render(i);
   }
 
-  if (!snaps.length) {
-    if (empty) empty.hidden = false;
-    if (tbl) tbl.hidden = true;
-    if (meta) meta.hidden = true;
-    if (tools) tools.hidden = true;
-    if (foot) foot.hidden = true;
-  } else {
-    if (status) status.textContent = snaps[0].sample ? 'Sample data, not real' : 'Latest Pandora snapshot: ' + fmt(snaps[0].capturedAt);
-    if (list && picker && meta) {
-      snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt, 'medium')); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
-      picker.hidden = snaps.length < 2; const more = $('#more'); if (more) more.hidden = snaps.length < 2;
-      select(0);
+  const gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
+  const homeId = genres[0].id;
+  const fromHash = () => genres.find((g) => g.id === decodeURIComponent(location.hash.slice(1))) || genres[0];
+
+  function setGenre(g) {
+    snaps = allSnaps.filter((s) => (s.genre || homeId) === g.id);
+    if (gbox) gbox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === g.id)));
+    if (h1) h1.textContent = 'Top ' + g.name + ' Artists on Pandora';
+    document.title = 'Ledgertone | Top ' + g.name + ' Artists on Pandora';
+    state.q = ''; state.page = 1; if (q) q.value = '';
+    picker.querySelectorAll('button').forEach((b) => b.remove());
+    const has = snaps.length > 0;
+    [[empty, !has], [tbl, has], [meta, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
+    if (more) more.hidden = snaps.length < 2;
+    picker.hidden = snaps.length < 2;
+    if (!has) {
+      list.replaceChildren(); count.textContent = ''; pager.hidden = true;
+      if (status) status.textContent = 'No snapshot published yet';
+      if (emptyTitle) emptyTitle.textContent = 'The first ' + g.name + ' snapshot is not published yet';
+      return;
     }
+    if (status) status.textContent = snaps[0].sample ? 'Sample data, not real' : 'Latest Pandora snapshot: ' + fmt(snaps[0].capturedAt);
+    snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt, 'medium')); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
+    select(0);
   }
+
+  if (gbox && genres.length > 1) {
+    genres.forEach((g) => {
+      const b = el('button', '', g.name); b.type = 'button'; b.dataset.id = g.id; b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => {
+        history.replaceState(null, '', g.id === homeId ? location.pathname + location.search : '#' + g.id);
+        setGenre(g);
+      });
+      gbox.append(b);
+    });
+    gbox.hidden = false;
+    addEventListener('hashchange', () => setGenre(fromHash()));
+  }
+  setGenre(fromHash());
 
   ['pointermove', 'pointerdown'].forEach((t) => addEventListener(t, (e) => {
     const g = e.target.closest && e.target.closest('.glass');

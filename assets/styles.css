@@ -178,3 +178,8 @@ html{overscroll-behavior-y:contain}
 .ptr.back{transition:transform .25s ease-out,opacity .25s ease-out}
 .ptr.ready{color:var(--accent)}
 .ptr.busy svg{animation:spin .8s linear infinite}
+/* Genre switcher under the title */
+.genres{margin:22px 0 0}
+.genres[hidden]{display:none}
+.genres button{padding:0 14px;font-weight:600}
+@media(max-width:480px){.genres{margin-top:16px}.genres button{padding:0 11px}}
