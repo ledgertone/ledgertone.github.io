@@ -183,3 +183,41 @@ html.ptr-lock{overflow:hidden;touch-action:none}
 .genres[hidden]{display:none}
 .genres button{padding:0 14px;font-weight:600}
 @media(max-width:480px){.genres{margin-top:16px}.genres button{padding:0 11px}}
+/* Phone scale (v0.35.0): everything smaller. Visible controls 30 px, hit area stays 44 px via ::before. Search text stays 16 px so iOS does not zoom. */
+@media(max-width:600px){
+body{font-size:.9375rem;line-height:1.5}
+.nav{top:calc(env(safe-area-inset-top,0px) + 8px);width:calc(100% - 20px);padding:4px 5px 4px 16px}
+.brand{font-size:1.0625rem}
+.btn,.text,.link,.picker button,.cbtn{min-height:30px;font-size:.8125rem}
+.btn{padding:0 14px}.link{padding:0 10px}.picker button{padding:0 11px}.cbtn{padding:0 12px}
+.theme{width:30px;height:30px;min-height:30px;margin-left:0}.theme svg{width:17px;height:17px}
+.btn::before,.text::before,.link::before,.picker button::before,.cbtn::before{inset:-7px 0}.theme::before{inset:-7px}
+.hero{padding-top:calc(env(safe-area-inset-top,0px) + 62px)}
+h1{font-size:1.625rem;margin-bottom:10px}
+.status{padding:3px 10px;font-size:.75rem;margin-bottom:12px}
+.picker{padding:4px;gap:4px;margin-bottom:14px}
+.tools .sizes{padding:3px}
+.picker span,.picker>span{font-size:.6875rem;padding:0 8px 0 10px}
+.meta{font-size:.6875rem;margin-bottom:10px}
+.search{min-height:38px;padding:0 12px;gap:6px}
+.search svg{width:14px;height:14px}
+.search input{height:30px}
+.tools{gap:8px 10px;margin-bottom:10px}
+.tbl{border-radius:16px}
+.tbl th{padding:7px 10px;font-size:.625rem}
+.tbl td{padding:8px 10px;font-size:.875rem}
+.tbl .nm{font-size:.875rem}
+.tbl td.st{font-size:.9375rem}
+.tbl .c-rk{width:2.25rem}.tbl .c-st{width:6.5rem}
+.plogo{width:56px;height:auto}
+.av{width:28px;height:28px}
+.mono{font-size:.625rem}
+.mdl{width:20px;height:20px;font-size:.6875rem}
+.count{font-size:.75rem}
+.consent{padding:10px 12px;border-radius:20px;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));bottom:calc(env(safe-area-inset-bottom,0px) + 10px)}
+.consent h2{font-size:.875rem}
+.consent p{font-size:.75rem;margin-bottom:8px;line-height:1.4}
+footer{padding:28px 0 40px;font-size:.8125rem}
+.ver{font-size:.6875rem}
+.empty{padding:16px}.empty h3{font-size:1rem}
+}

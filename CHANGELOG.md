@@ -2,6 +2,13 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.35.0] - 2026-10-25
+### Changed
+- Phone scale (screens up to 600 px wide, owner request: everything was too big). Body text 15 px (was 17). Visible controls 30 px high (was 36): top bar links, theme button, genre switcher, per page selector, pager, cookie buttons; the 44 px touch area is kept through the `::before` hit zone (inset 7 px). Top bar 40 px high (was 50), search field 38 px (was 44), headline 26 px (was 30), table rows 45 px (was 63), avatars 28 px, rank badges 20 px, cookie banner 114 px high (was 147), smaller footer and Pandora logo.
+- The search text stays 16 px on purpose, otherwise iOS zooms the page when the field is tapped (see 0.32.0).
+- Desktop and tablet (over 600 px) are unchanged. The block is the last rule set in `assets/styles.css`.
+- Checked in headless Chromium with touch emulation at 320, 360, 390 and 430 px: no sideways scroll. Not tested on a real iPhone.
+
 ## [0.34.0] - 2026-10-25
 ### Fixed
 - The genre switcher, the per page selector, the pager and the snapshot picker had a different color from the rest of the glass (table, search, top bar, status chip). A rule from the time when the snapshot picker was sticky gave every `.picker` an 82 percent surface fill, while the other glass elements use the standard fill (6 percent, 18 percent on touch screens). The rule is removed, so every glass surface now has the same fill, in light and dark. The selected item inside a picker keeps its own lighter pill.
