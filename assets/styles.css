@@ -288,3 +288,10 @@ footer{padding:28px 0 40px;font-size:.8125rem}
 @media(max-width:360px){.picker.sizes button{padding:0 9px}.picker.sizes>span{padding:0 6px 0 8px}}
 /* Whole row opens the artist page (v0.82.2) */
 .tbl tr.go{cursor:pointer}
+
+/* Large warning for a genre that is unlocked but still raw (genre.devwarn, owner request, v0.84.0). Glass panel, red edge, no opacity animation */
+.devwarn{margin:0 0 16px;padding:18px 20px 20px;border-radius:20px;border-left:6px solid #d92d3a}
+.devwarn[hidden]{display:none}
+.devwarn strong{display:block;margin:0 0 6px;font-size:1.5rem;line-height:1.2;font-weight:700;letter-spacing:.01em;text-transform:uppercase;color:var(--ink)}
+.devwarn p{margin:0;font-size:1.125rem;line-height:1.5;font-weight:500;color:var(--ink)}
+@media(max-width:700px){.devwarn{padding:14px 16px 16px;border-radius:16px;border-left-width:5px}.devwarn strong{font-size:1.25rem}.devwarn p{font-size:1rem}}

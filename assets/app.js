@@ -251,7 +251,7 @@
     render(i);
   }
 
-  const note = $('#note'), caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
+  const note = $('#note'), devwarn = $('#devwarn'), devwarnTitle = $('#devwarn-title'), devwarnText = $('#devwarn-text'), caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
   const homeId = genres[0].id;
   const fromHash = () => genres.find((g) => g.id === decodeURIComponent(location.hash.slice(1))) || genres[0];
 
@@ -269,6 +269,8 @@
     const has = snaps.length > 0 || rosterOf(g).length > 0 || unverifiedOf(g).length > 0;
     [[empty, !has], [tbl, has], [meta, has], [note, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
     if (tbl) { tbl.classList.toggle('pending', !!g.pending); if (g.pending) tbl.setAttribute('aria-describedby', 'note'); else tbl.removeAttribute('aria-describedby'); }
+    // Large warning for a genre the owner unlocked while it is still raw (genre.devwarn, v0.84.0)
+    if (devwarn) { const w = g.devwarn; devwarn.hidden = !(w && w.text); if (w && w.text) { devwarnTitle.textContent = w.title || 'Under development'; devwarnText.textContent = w.text; } }
     if (more) more.hidden = snaps.length < 2;
     picker.hidden = snaps.length < 2;
     if (!has) {
