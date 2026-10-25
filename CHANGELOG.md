@@ -2,6 +2,52 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.27.0] - 2026-10-25
+### Changed
+- "Earlier snapshots" is always open (no toggle), still at the bottom under the table.
+- The line above the table is shorter: "Pandora snapshot · date · N artists". The sample note is dropped there because the chip at the top already says "Sample data, not real".
+- Site name in the header is smaller (1.2 rem).
+
+## [0.26.0] - 2026-10-25
+### Changed
+- Home page title is now "Top Phonk Artists on Pandora" (h1, page title, social titles). The "ranked by verified streams" phrase and the intro paragraph under the title are removed.
+- The snapshot picker moved below the ranking table into a closed "Earlier snapshots" block and is no longer sticky. It stays hidden when there is only one snapshot.
+- `assets/og-image.png` still carries the old wording and needs a new image.
+
+## [0.25.0] - 2026-10-25
+### Changed
+- Liquid Glass is richer (owner request). Chromium refraction: smoother bend profile, wider bezel, and a faint color fringe at the rim (one displacement per color channel). All browsers: a thin specular rim ring (bright top left and bottom right, brighter near the pointer on hover), inner edge light and a softer, deeper shadow. Fill and blur values are unchanged.
+- Not tested in Safari or Firefox, only headless Chromium, light and dark.
+
+## [0.24.0] - 2026-10-25
+### Changed
+- Places 1 to 3 in the ranking show a gold, silver and bronze round badge instead of a plain number.
+- Artist names are no longer underlined.
+- Ranking rows are taller (cell padding 13 px, avatar 36 px). Rank column widened to fit the badge.
+- Not checked in a browser in this change, only code checks.
+
+## [0.23.0] - 2026-10-25
+### Added
+- SF Pro Rounded (Regular, Medium, Semibold, Bold, `.woff`, supplied by the owner) in `assets/fonts/`, with `@font-face` rules and preloads for Regular and Medium.
+### Changed
+- Body text and the interface now use SF Pro Rounded (`--sans`): paragraphs, long-form pages, buttons, nav links, snapshot picker, chips, ranking table, cookie banner, footer.
+- Headings (`h1`, `h2`, `h3`, definition terms in the method block) stay in Neue Machina via the new `--display` variable. The site name stays in New York.
+- Neue Machina Regular and Medium are no longer used by any text but their files and `@font-face` rules are kept (owner decision). Preload of Neue Machina Regular replaced by SF Pro Rounded Regular and Medium.
+- `AGENTS.md` type rule and `assets/fonts/README.md` updated.
+- Not checked in a browser in this change, only code checks.
+
+## [0.22.0] - 2026-10-25
+### Fixed
+- Site name in the header looked like a generic serif instead of New York. The browser picked the low-contrast text cut automatically (optical size axis); `.brand` now uses the display cut (`font-optical-sizing:none`), weight 500, size 1.375 rem.
+
+## [0.21.0] - 2026-10-25
+### Changed
+- Rankings button removed from the top bar on every page (the site name links home).
+- Site name in the header is lighter (New York, weight 400).
+- Phone layout, checked in headless Chromium at 390 px: the ranking table uses fixed columns so artist names no longer break letter by letter; the "Streams on Pandora" header wraps to two lines; the snapshot label is hidden visually on narrow screens so more dates fit; smaller hero spacing and lede; smaller cookie banner.
+- Privacy page: the two data tables were wider than a phone screen and made the whole page scroll sideways. On phones each row is now a stacked block with labels (`data-label`).
+- The sticky snapshot picker has a denser fill so text under it stays readable.
+
 ## [0.20.0] - 2026-10-25
 ### Added
 - Pandora logo (supplied by the owner, `assets/pandora-logo.png`) in the "Streams on Pandora" column header.

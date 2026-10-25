@@ -1,6 +1,11 @@
 # TODO
 
 ## Done
+- [x] Earlier snapshots always open, shorter snapshot line, smaller logo (v0.27.0)
+- [x] New title, shorter hero, picker moved deep (v0.26.0)
+- [x] Richer Liquid Glass: rim highlight, color fringe, depth (v0.25.0), headless Chromium only
+- [x] Gold, silver, bronze badges, no underline on names, taller rows (v0.24.0)
+- [x] SF Pro Rounded for text and interface, Neue Machina kept for headings (v0.23.0), NOT checked in a browser
 - [x] Y2K holographic glow restyle (v0.15.0), NOT yet seen in any browser
 - [x] Neue Machina as the only typeface (v0.14.0), checked in headless Chromium only
 - [x] Artist images, Pandora links and explicit Pandora wording (v0.13.0), checked in headless Chromium only
@@ -24,6 +29,9 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
+- [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
+- [ ] Owner: confirm the SF Pro Rounded license covers use on a public website (Apple fonts are normally licensed for Apple platforms only)
 - [ ] Owner: look at v0.17.0 in Chrome and Safari, light and dark: button size, text legibility on glass over the plain background
 - [ ] Owner: confirm the Neue Machina license covers use on a public website (the font files carry no license text; Pangram Pangram sells separate web licenses)
 - [ ] BEFORE LAUNCH: replace the placeholder images in `assets/artists/` with real images the owner may use, and put real Pandora artist URLs into `profileUrl` (the sample ones point to the Pandora home page)

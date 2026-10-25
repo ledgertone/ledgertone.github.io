@@ -15,7 +15,7 @@
     const src = safeImg(a.image);
     if (!src) return mono();
     const img = el('img', 'av');
-    img.src = src; img.alt = ''; img.width = 32; img.height = 32; img.loading = 'lazy'; img.decoding = 'async';
+    img.src = src; img.alt = ''; img.width = 36; img.height = 36; img.loading = 'lazy'; img.decoding = 'async';
     img.addEventListener('error', () => img.replaceWith(mono()), { once: true });
     return img;
   }
@@ -24,7 +24,7 @@
     const s = snaps[i];
     const valid = (a) => a && a.name && Number.isFinite(a.streams);
     const arts = (s.artists || []).filter(valid).sort((a, b) => b.streams - a.streams);
-    meta.textContent = 'Pandora snapshot of ' + fmt(s.capturedAt) + '. ' + arts.length + ' artists.' + (s.note ? ' ' + s.note : '');
+    meta.textContent = 'Pandora snapshot \u00b7 ' + fmt(s.capturedAt) + ' \u00b7 ' + arts.length + (arts.length === 1 ? ' artist' : ' artists') + (s.note && !s.sample ? ' \u00b7 ' + s.note : '');
     list.replaceChildren();
     arts.forEach((a, n) => {
       const tr = el('tr');
@@ -34,7 +34,9 @@
       const info = el('div', 'info'); info.append(name);
       const wh = el('div', 'wh'); wh.append(avatar(a), info);
       const who = el('td', 'who'); who.append(wh);
-      tr.append(el('td', 'rk', String(n + 1)), who, el('td', 'st', nf.format(a.streams)));
+      const rk = el('td', 'rk');
+      if (n < 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][n], String(n + 1)); m.setAttribute('aria-label', 'Place ' + (n + 1)); rk.append(m); } else { rk.textContent = String(n + 1); }
+      tr.append(rk, who, el('td', 'st', nf.format(a.streams)));
       list.append(tr);
       if (!reduce.matches) tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: Math.min(n, 14) * 20, easing: 'ease-out', fill: 'backwards' });
     });
@@ -53,7 +55,7 @@
     if (status) status.textContent = snaps[0].sample ? 'Sample data, not real' : 'Latest Pandora snapshot: ' + fmt(snaps[0].capturedAt);
     if (list && picker && meta) {
       snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt, 'medium')); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
-      picker.hidden = snaps.length < 2;
+      picker.hidden = snaps.length < 2; const more = $('#more'); if (more) more.hidden = snaps.length < 2;
       select(0);
     }
   }

@@ -15,7 +15,7 @@
   var root = document.documentElement;
   var MAX_SHIFT = 18;            // px of bend at the very rim
   var SCALE = MAX_SHIFT * 2.01;  // feDisplacementMap scale for that shift
-  var BEZEL = 26;                // px from the rim over which light bends
+  var BEZEL = 30;                // px from the rim over which light bends
   var opts = [matchMedia("(prefers-reduced-transparency: reduce)"), matchMedia("(prefers-contrast: more)")];
   var counter = 0;
 
@@ -46,7 +46,7 @@
         var depth = r - dist; // distance inward from the rim
         var m = 0, nx = 0, ny = 0;
         if (dist > 0) { nx = dx / dist; ny = dy / dist; }
-        if (depth < bezel) { var t = 1 - Math.max(depth, 0) / bezel; m = t * t; }
+        if (depth < bezel) { var t = 1 - Math.max(depth, 0) / bezel; m = Math.pow(t, 1.7) * (1 - Math.pow(1 - t, 4) * 0.15); }
         // sample from further inside the glass, so the rim shows bent content
         d[i] = 128 - nx * m * 127;
         d[i + 1] = 128 - ny * m * 127;
@@ -79,13 +79,29 @@
     im.setAttribute("width", String(w)); im.setAttribute("height", String(h));
     im.setAttribute("preserveAspectRatio", "none");
     im.setAttribute("result", "map");
-    var dm = document.createElementNS(NS, "feDisplacementMap");
-    dm.setAttribute("in", "SourceGraphic");
-    dm.setAttribute("in2", "map");
-    dm.setAttribute("scale", String(SCALE));
-    dm.setAttribute("xChannelSelector", "R");
-    dm.setAttribute("yChannelSelector", "G");
-    f.appendChild(im); f.appendChild(dm);
+    f.appendChild(im);
+    // One displacement per color channel with slightly different strength: a faint color fringe at the rim, like real glass
+    var parts = [["R", 1, "1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"], ["G", 0.94, "0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0"], ["B", 0.88, "0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0"]];
+    parts.forEach(function (c) {
+      var dm = document.createElementNS(NS, "feDisplacementMap");
+      dm.setAttribute("in", "SourceGraphic");
+      dm.setAttribute("in2", "map");
+      dm.setAttribute("scale", String(SCALE * c[1]));
+      dm.setAttribute("xChannelSelector", "R");
+      dm.setAttribute("yChannelSelector", "G");
+      dm.setAttribute("result", "d" + c[0]);
+      var cm = document.createElementNS(NS, "feColorMatrix");
+      cm.setAttribute("in", "d" + c[0]);
+      cm.setAttribute("type", "matrix");
+      cm.setAttribute("values", c[2]);
+      cm.setAttribute("result", "c" + c[0]);
+      f.appendChild(dm); f.appendChild(cm);
+    });
+    var b1 = document.createElementNS(NS, "feBlend");
+    b1.setAttribute("in", "cR"); b1.setAttribute("in2", "cG"); b1.setAttribute("mode", "screen"); b1.setAttribute("result", "rg");
+    var b2 = document.createElementNS(NS, "feBlend");
+    b2.setAttribute("in", "rg"); b2.setAttribute("in2", "cB"); b2.setAttribute("mode", "screen");
+    f.appendChild(b1); f.appendChild(b2);
     defs.appendChild(f);
     el.style.setProperty("--lg", "url(#" + id + ")");
   }

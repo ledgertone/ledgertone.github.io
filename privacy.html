@@ -25,7 +25,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Ledgertone">
-<link rel="preload" href="assets/fonts/NeueMachina-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/SFProRounded-Regular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/SFProRounded-Medium.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/NeueMachina-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/theme.js"></script>
@@ -34,7 +35,7 @@
 <div class="edge" aria-hidden="true"></div>
 <header class="nav glass">
   <a class="brand" href="index.html">Ledgertone</a>
-  <nav aria-label="Primary"><a class="link" href="index.html">Rankings</a><a class="link" href="about.html">About</a><button type="button" class="theme glass glass-flat" id="theme-toggle" aria-label="Theme" hidden></button></nav>
+  <nav aria-label="Primary"><a class="link" href="about.html">About</a><button type="button" class="theme glass glass-flat" id="theme-toggle" aria-label="Theme" hidden></button></nav>
 </header>
 <main>
 <section class="wrap doc">
@@ -48,24 +49,24 @@
 <p>The site has no accounts, forms, comments, or advertising. Personal data is processed in three ways: the hosting provider's technical logs, limited cookie-free visit pings sent to Google Analytics, and, only if you accept, Google Analytics cookies.</p>
 
 <h2>What is processed and why</h2>
-<table>
+<table class="doc">
 <thead><tr><th>Data</th><th>Purpose</th><th>Legal basis</th></tr></thead>
 <tbody>
-<tr><td>IP address and request data in server logs kept by GitHub Pages, our hosting provider</td><td>Delivering the site and keeping it secure</td><td>Legitimate interest (Art. 6(1)(f) GDPR). We do not have access to these logs.</td></tr>
-<tr><td>Analytics data from Google Analytics 4 after you accept: pages viewed, approximate location, device and browser type, referrer, visit time, and a random identifier stored in cookies</td><td>Understanding how many people visit the site and which parts are used</td><td>Your consent (Art. 6(1)(a) GDPR)</td></tr>
-<tr><td>Before you choose, or if you reject: limited cookie-free pings from the Google tag (page address, referrer, time, browser and device details, and the IP address as seen by Google). No analytics cookies are set and no identifier is stored on your device.</td><td>Counting visits in aggregate and modeling the effect of declined consent</td><td>Legitimate interest (Art. 6(1)(f) GDPR). You can object at any time, see below.</td></tr>
-<tr><td>Your cookie choice, stored in your browser (localStorage key <code>ledgertone-consent</code>)</td><td>Remembering your choice so we do not ask on every visit</td><td>Strictly necessary for the consent feature</td></tr>
-<tr><td>Your theme choice (Light or Dark), stored in your browser (localStorage key <code>ledgertone-theme</code>); nothing is stored if you leave it on Auto</td><td>Remembering your display preference</td><td>Functional preference you set yourself, it is never sent anywhere</td></tr>
+<tr><td data-label="Data">IP address and request data in server logs kept by GitHub Pages, our hosting provider</td><td data-label="Purpose">Delivering the site and keeping it secure</td><td data-label="Legal basis">Legitimate interest (Art. 6(1)(f) GDPR). We do not have access to these logs.</td></tr>
+<tr><td data-label="Data">Analytics data from Google Analytics 4 after you accept: pages viewed, approximate location, device and browser type, referrer, visit time, and a random identifier stored in cookies</td><td data-label="Purpose">Understanding how many people visit the site and which parts are used</td><td data-label="Legal basis">Your consent (Art. 6(1)(a) GDPR)</td></tr>
+<tr><td data-label="Data">Before you choose, or if you reject: limited cookie-free pings from the Google tag (page address, referrer, time, browser and device details, and the IP address as seen by Google). No analytics cookies are set and no identifier is stored on your device.</td><td data-label="Purpose">Counting visits in aggregate and modeling the effect of declined consent</td><td data-label="Legal basis">Legitimate interest (Art. 6(1)(f) GDPR). You can object at any time, see below.</td></tr>
+<tr><td data-label="Data">Your cookie choice, stored in your browser (localStorage key <code>ledgertone-consent</code>)</td><td data-label="Purpose">Remembering your choice so we do not ask on every visit</td><td data-label="Legal basis">Strictly necessary for the consent feature</td></tr>
+<tr><td data-label="Data">Your theme choice (Light or Dark), stored in your browser (localStorage key <code>ledgertone-theme</code>); nothing is stored if you leave it on Auto</td><td data-label="Purpose">Remembering your display preference</td><td data-label="Legal basis">Functional preference you set yourself, it is never sent anywhere</td></tr>
 </tbody>
 </table>
 
 <h2>Cookies</h2>
 <p>Only if you click Accept, Google Analytics sets these first-party cookies:</p>
-<table>
+<table class="doc">
 <thead><tr><th>Cookie</th><th>Purpose</th><th>Duration</th></tr></thead>
 <tbody>
-<tr><td><code>_ga</code></td><td>Distinguishes visitors</td><td>Up to 2 years</td></tr>
-<tr><td><code>_ga_&lt;container id&gt;</code></td><td>Keeps session state</td><td>Up to 2 years</td></tr>
+<tr><td data-label="Cookie"><code>_ga</code></td><td data-label="Purpose">Distinguishes visitors</td><td data-label="Duration">Up to 2 years</td></tr>
+<tr><td data-label="Cookie"><code>_ga_&lt;container id&gt;</code></td><td data-label="Purpose">Keeps session state</td><td data-label="Duration">Up to 2 years</td></tr>
 </tbody>
 </table>
 <p>If you click Reject, or do not choose, no analytics cookies are set. The Google tag is still loaded and sends only the limited cookie-free pings described above. You can change your choice at any time with the Cookie settings button in the footer. Choosing Reject afterwards removes the Google Analytics cookies from this site.</p>
@@ -92,7 +93,7 @@
   <div class="wrap">
     <p>Ledgertone is an independent project and is not affiliated with Pandora. Pandora is a trademark of its respective owner.</p>
     <p class="flinks"><a href="index.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
-    <p class="ver">Version 0.20.0</p>
+    <p class="ver">Version 0.27.0</p>
   </div>
 </footer>
 <script src="assets/glass.js"></script>
