@@ -2,6 +2,189 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [0.77.0] - 2026-10-25
+### Changed
+- Banned (owner request, "RS Pasin is still shown in the list"): the name that was on the page is "RJ Pasin" (14K, unverified list), no "RS Pasin" existed in any data file. RJ Pasin is in `banned` now and is removed from `data/unverified.js` and `data/links.js`. "RS Pasin" stays in `banned` too, in case it is a separate name. If the owner meant only RS Pasin, take RJ Pasin out of `banned` and restore the two lines from v0.76.0.
+
+## [0.76.0] - 2026-10-25
+### Added
+- `settwor.html` (owner request: make search and AI answers able to quote the SETTWOR figure). Static page with the answer in plain text ("SETTWOR had 23,000 listeners over 28 days on Pandora in the Ledgertone snapshot of October 2026"), the snapshot date, links to Pandora and Spotify, the method note, and JSON-LD (WebPage, MusicGroup, Dataset, FAQPage). Own title, description, canonical, Open Graph tags, `max-snippet:-1`. In the sitemap and linked from every footer.
+- `scripts/build-artist-pages.js`: generates the page from `data/snapshots.js` and `data/links.js` (latest reading per genre), no number is typed by hand, it fails if the artist has no reading or is banned. AGENTS.md rule 13, `docs/SEO.md` updated.
+
+## [0.75.0] - 2026-10-25
+### Changed
+- Ban now deletes and blocks (owner request). SLVG (65 listeners) and Bearded Legend (6,900 listeners) are removed from the October Phonk snapshot in `data/snapshots.js`, so no banned artist is left in any data file. Before, old readings stayed in the file and only the page hid them.
+- `assets/app.js` matches banned names by the page key (lowercase, accents stripped) in the snapshots, the rosters and the unverified list, so a spelling with accents cannot slip through.
+- AGENTS.md rule 8, `docs/DATA.md` and `CLAUDE.md`: a ban removes the name from rosters, snapshots, `data/unverified.js` and `data/links.js`, and the name is never added again by any import.
+### Added
+- `scripts/check-banned.js`: exits with an error if a banned name is still in rosters, snapshots, the unverified list or the links. Part of the "Before you finish" checks.
+
+## [0.74.0] - 2026-10-25
+### Changed
+- Dark theme (owner request, "ugly"): the near-black page is now a deep violet (`--bg` #120E26, was #07050F), the glass tint a lighter violet (`--surface` #2A2058), the white rims and row lines are softer (`--edge` .26 to .14, `--line` .16 to .09, specular ring .7 to .45). Same glass fill and blur as before. `theme-color` meta tags and `theme.js` follow the new color.
+- Banned (owner request): RS Pasin, Roland Jones, SLVG, Necroez, Daedra, Bearded Legend, Sinitizer are in `banned` now. Removed SLVG and Bearded Legend from the Phonk roster, Roland Jones, Necroez and Daedra from `data/unverified.js`, and their entries from `data/links.js`. The old Bearded Legend and SLVG readings stay in the October snapshot file untouched, the page drops them at run time.
+- Genres (owner request): blueberry is in the Phonk and the Brazilian Phonk roster, OXWAVE and V21 in the Phonk roster (all three were in the unverified list, left untouched, the page hides them there). Phonk roster 375 names, Brazilian Phonk 512.
+
+## [0.73.0] - 2026-10-25
+### Added
+- `assets/motion.js`: a living interface (owner request), built on the Apple Design skill. One small spring engine (no library), critically damped by default, interruptible, velocity is kept when a motion is redirected. Everything answers on pointer down: buttons, links, pills, theme button, brand, rank medals, the artist name, cards, headings and text, table numbers, the search field (breathes on focus), keyboard Enter and Space. Mouse and pen also get hover (controls grow and lean toward the pointer, names slide, cards lift). Touch gets press only.
+- Table rows: a highlight lens glides from row to row under the mouse, brightens on press, and a ripple spreads from the touch point (touch and mouse). The picture of an artist can be grabbed and dragged 1:1 (soft rubber band at the edge, tilt), and on release it springs back with the finger's speed (the only bounce on the site). Pressing and sliding away cancels a press, coming back resumes it.
+- Spotify and Pandora pills: the arrow shoots out on click. Theme button: the icon turns in. Genre, per page, snapshot and page pickers: one indicator glides to the chosen button (it keeps its speed if you click again mid-move).
+- Entrances: the top bar, hero, cards and the table settle in on load, below-the-fold blocks as they scroll into view, rows on every render (first 30 only), cards on every render. The cookie banner comes in and flies out the same way.
+- Reduced motion: no scale, slide or spring, a short opacity change for feedback and fades for entrances.
+### Changed
+- CSS transitions and `:active` scales of the controls are handed over to `motion.js` (`html.mo`), the old rules stay as the fallback. Artist pictures cannot be dragged as files (`dragstart` blocked). Only `transform` and `opacity` are animated.
+- Phonk roster: 11 more names from the owner's playlist export "Chill old phonk" (49 tracks, 43 unique artists): CYREX, DJ Jacob, ROMANE, ZERXMANE, KILLOMANE, LXSTGRED, CHAVØMANE, EVVORTEX, lilbubblegum, Yung Gravy, TZAR. 30 were already in the roster, Oliver Tree skipped (banned), "Fast & Furious: The Fast Saga" skipped (a soundtrack credit, not an artist). Six of the 11 (DJ Jacob, ROMANE, ZERXMANE, KILLOMANE, EVVORTEX, TZAR) were in the unverified list, which is left untouched, the page already hides an unverified name that is in the verified base. The Phonk roster now has 374 names, names only, no numbers.
+
+## [0.72.0] - 2026-10-25
+### Changed
+- Spotify buttons now open the Spotify app (owner request). Phones and tablets keep the https link `open.spotify.com/artist/<id>`, which the installed app takes over by itself (universal link on iOS, app link on Android). On desktop a plain click launches the app through `spotify:artist:<id>`, and if the browser never left the page within 2 seconds (no app installed) the web page opens in a new tab. Ctrl, Cmd, Shift, Alt and middle clicks keep the normal https behavior. No new data, no new requests, `privacy.html` unchanged.
+
+## [0.71.0] - 2026-10-25
+### Changed
+- Artists with a "Few" reading now get a place in the table (owner request): they follow the numbered artists, in the order they were already listed, with places continuing the count (for Phonk: 47 numbered, then places 48 to 149 for "Few"). This matches the "Has data" card (149). Rows with "No data" still show a "-". Applies to verified and unverified artists alike.
+
+## [0.70.0] - 2026-10-25
+### Changed
+- The meta line now counts all artists, verified and unverified together (for example "October 2026 · 2,775 artists"). The separate "with no data" and "unverified" counts are gone from that line, the new cards below show the coverage instead.
+### Added
+- Two coverage cards between the meta line and the search row (owner request): "Has data" (artists with a number or with "Few", out of all artists) and "Verified" (verified artists out of all artists). Each card is glass-flat with a large value, the total in muted text and a thin accent bar (animated with `transform` only, not when reduced motion is on). Shown for the latest snapshot only, two columns on phones too. Computed in `assets/app.js` from the same lists the table uses, no new data.
+
+## [0.69.0] - 2026-10-25
+### Changed
+- Table header (owner request): the full label "28-day listeners on Pandora" is back, in two lines on every screen. Wide screens: "28-day listeners on" on line 1, the Pandora logo on line 2 (column 10.5 rem, no wrap). Phones: "28-day listeners" on line 1, "on" plus the logo on line 2 (smaller header text, 9 px, column 6.5 rem). The word "listeners" is visible again. The header is 42 px high on phones, rows keep 69 px, the Spotify and Pandora buttons stay side by side down to 360 px.
+
+## [0.68.0] - 2026-10-25
+### Changed
+- `about.html`, "Collected by hand": the text now says only that every figure is collected by hand from the artist's Pandora profile (owner request). Nothing else about how the collection is done. The same rule is added to `AGENTS.md` rule 3.
+- Phones, less crowded rows (owner request): the Spotify and Pandora buttons are smaller and quieter (muted text, 18 px high), there is more space between the name and the buttons, rows have a little more padding (69 px at 390 px, 91 px under about 350 px where the buttons stack) and the picture is 40 px.
+### Removed
+- The Other genre (owner request): its entry is gone from `genres` in `data/snapshots.js`, so the genre switcher shows only Phonk and Brazilian Phonk. The `other` group in `data/unverified.js` is left in the file, untouched, and is not shown anywhere.
+
+## [0.67.0] - 2026-10-25
+### Changed
+- Table header (owner request): "28-day listeners on Pandora" is now "28-day" plus the Pandora logo. The word "listeners" stays in the markup for screen readers (`.hl`, visually hidden). One line on wide screens, two lines on phones, so the header no longer takes three or four lines and no longer pushes the column wider.
+- The `#` in the header and the rank numbers and medals are centered in their column with no side padding, so the `#` sits exactly over the medal and the digits (checked at 1280, 390 and 320 px: same center for the header and every row). On phones the medal was shifted 2 px to the right before, because the padded cell was narrower than the medal.
+
+## [0.66.0] - 2026-10-25
+### Changed
+- The small "Spotify" text link under the artist name is now two small glass pill buttons, Spotify and Pandora (owner request). Each button shows only when its link exists: Spotify from the id in `data/links.js`, Pandora from the same address the artist name links to (`profileUrl` or `p`). Glass-flat style (no refraction filter per row), label plus a small up-right arrow, 44 px hit area, press feedback, works in light and dark and with reduced transparency and increased contrast.
+- Phones: the listeners column is narrower (5.75 rem), the buttons drop the arrow and sit side by side, so rows keep the height of v0.64.0 (60.5 to 61 px at 390 px). The red "Not verified" pill now sits to the right of the name on the first line. Under about 350 px the two buttons stack and rows get taller.
+### Added
+- SETTWOR Spotify id `5BD8hsAGp1fwJKcnlQWjGf` in `data/links.js` (from the owner's artist link, the tracking part after `?si=` is dropped). SETTWOR now has both buttons.
+
+## [0.65.0] - 2026-10-25
+### Added
+- Phonk roster: 70 more artist names from the owner's two Spotify playlist exports "OG Phonk Vibes Best of 2020-2022" (234 tracks) and "2020-2022 PHONK" (79 tracks). Together 191 unique artists (collaborations split at `;`): 118 were already in the roster, 2 banned names skipped (Freddie Dredd, Oliver Tree), "Fast & Furious: The Fast Saga" skipped (a soundtrack credit, not an artist). The Phonk roster now has 363 names. Names only, no listener numbers.
+- Of the 70, 7 are also in the Brazilian Phonk roster (ANDROMEDA, Rushex, PHOROMANE, SZEKTAS, SXCREDMANE, Baly & Shem, 0to8) and stay there too. 16 were in the unverified list (14 Phonk, 2 Brazilian Phonk: GhostyPlaya, LaughingSkxll): `data/unverified.js` is left untouched and the page already hides an unverified name that is in the verified base, so they now show as verified Phonk rows with `No data`.
+
+## [0.64.0] - 2026-10-25
+### Changed
+- The unverified note is prettier (owner request): a glossy red pill with a thin light edge, soft red glow and a small white "!" mark. The red is brighter (gradient `#FF5A70` to `#D90E2E`), the text is white bold with a light shadow so it stays legible.
+- On wide screens (over 700 px) the text "Genre not verified, may be here by mistake" stays on one line, to the right of the name.
+- On phones (700 px and narrower) the pill shows the short text "Not verified" on the same line as the Spotify link, and the full text is in the tooltip (`title`). A flagged row now has exactly the height of every other row (checked at 390 and 320 px: 60.5 to 61 px for all rows).
+- On phones an artist name stays on one line and is cut with an ellipsis when it is too long (the full name is in the tooltip, set on every name), otherwise long names such as "Fast & Furious: The Fast Saga" made their row taller than the rest.
+
+## [0.63.0] - 2026-10-25
+### Changed
+- The note "Genre not verified, may be here by mistake" is now a small red pill with white bold text (owner request, style of the owner's example button), narrow (at most 9.5 rem), the text wraps to two or three lines. Red gradient from `#DC2F47` to `#B80F29`, white text stays legible in light and dark.
+- On screens wider than 600 px the pill sits to the right of the name, in the row of the picture, not under the name. On phones it sits under the name and the Spotify link.
+### Fixed
+- On phones the long note squeezed the artist picture. The picture no longer shrinks (`.av{flex:none}`) and on phones the row is a two column grid, so the note cannot take width from it.
+
+## [0.62.0] - 2026-10-25
+### Changed
+- `scripts/fetch-artist-images.js` asks what to do (owner request). Started in a terminal without options it asks two questions: search only new pictures or all pictures again, and for which genre (one genre or all genres). The options `--genre <id>`, `--all-genres`, `--new` and `--refresh` skip the matching question, and without a terminal the old defaults apply (only new, first genre).
+- Rate limit fix: the old script showed "waiting 120 s" because it cut Spotify's real wait time to 120 s and retried too early. Now requests are spaced 350 ms apart (slower after every rate limit answer), the real wait time is honored up to 5 minutes, and a longer wait stops the run: progress and the review file are saved, the script says how long to wait and exits. Running it again with "only new pictures" continues.
+- Fewer requests: an artist with a Spotify id in `data/links.js` (or in `scripts/spotify-ids.json`) is fetched by id, one request instead of up to two searches. An id from `data/links.js` is used only when the artist's name on Spotify equals ours, otherwise the name search runs as before. An artist in two genres is looked up once per run.
+- Tested with a mock Spotify only (menus, short and long rate limit, all genres), not against the real API.
+### Added
+- A Windows launcher `run-fetch-artist-images.bat`, delivered next to the archive and kept outside the repository because it holds the Spotify keys. `.gitignore` now ignores `*.bat`. Not in the archive.
+
+## [0.61.0] - 2026-10-25
+### Added
+- Links for every artist (owner request): new file `data/links.js` with 4,059 entries. The artist name is now the link to the artist's Pandora page (153 artists in the Phonk table, from `pandoraUrl` of `artistMonthly.json`), and a small "Spotify" link under the name opens the artist on Spotify (about 4,000 artists, from `spotifyId` of `artistBase.json`). A link shows only when we have it, nothing is guessed. Hosts are checked in `assets/app.js` (`pandora.com`, `open.spotify.com`). Works for verified and unverified rows alike.
+- Gaps: SETTWOR has a Pandora link but no Spotify id (the file has none), and about 520 verified artists, mostly Brazilian Phonk roster names, have no links yet because neither file has them.
+- New hard rule 12 in `AGENTS.md` and a "Links" section in `docs/DATA.md`. The artistMonthly import now also updates the Pandora link, the artistBase import also stores the Spotify id.
+### Fixed
+- Names with Japanese letters (for example Dxrk with katakana) matched nothing because the link key was built with a stricter normalization than the page uses. The key now strips only combining marks U+0300 to U+036F, as `assets/app.js` does.
+
+## [0.60.0] - 2026-10-25
+### Changed
+- Unverified artists with a listeners number now sit in the common table among the verified artists, ordered by listeners, and get a place number (owner request). Each keeps the red note "Genre not verified, may be here by mistake". Unverified artists with `Few` or no reading follow the verified `Few` and `No data` rows, all sorted by name. Medals (places 1 to 3) can now go to an unverified artist.
+- The data is still in two separate files (`data/snapshots.js` and `data/unverified.js`), only the display is merged in `assets/app.js`. Rule 11 in `AGENTS.md` updated.
+
+## [0.59.0] - 2026-10-25
+### Changed
+- Drift Phonk is always plain Phonk (owner decision): the Drift Phonk tab and group are gone, its 1,614 unverified names moved into the `phonk` group of `data/unverified.js` (Phonk unverified is now 2,426). The `#drift-phonk` link opens Phonk.
+- New listeners from the owner's `artistMonthly.json` (170 artists, 2026-09-27 to 2026-10-25), same rules as before (AGENTS.md rule 10), now over both bases. Verified Phonk: 8 artists added with `Few` (NØCTRIS, qonran, glexks, BLXCKBUSTA, sapphyre, mxnarch, Skidz, Sensi Affect), 67 rows are the same and were left untouched, no number changed, SETTWOR was already entered. Unverified: 87 artists got a reading in `data/unverified.js` (81 Phonk and Brazilian Phonk names plus the 6 in Other), 8 with a number, for example RJ Pasin 14K and LONOWN 5K. Skipped: Freddie Dredd (banned), 9 artists with no reading (Funk Tribu, Luga, Kim, SLXEPING TOKYO, CASPER, HR, Clovis Reyes, Nakani, Goos). Nobody was skipped as unknown, every artist of the file is in one of the two bases.
+- Unverified rows show their reading in the listeners column (numbers first, then `Few`), with no rank and the same red note. They stay in a separate base and are never mixed into the verified ranking. `data/unverified.js` gets a `readings` field with the period.
+- Rules for the next AI updated (owner request): AGENTS.md rule 10 now includes the owner's own wording and covers the unverified list, rule 11 says Drift Phonk is Phonk and describes readings in the unverified list, `docs/DATA.md` and `CLAUDE.md` match.
+
+## [0.58.0] - 2026-10-25
+### Added
+- Unverified artists (owner request): new file `data/unverified.js` with 3,808 names from the owner's `artistBase.json`, names only: Phonk 812, Brazilian Phonk 1,376, Drift Phonk 1,614, Other 6 (Angelcore 2, Emo Rap, Jeffrey Epstein Edit Songs, Bemani, Dota Rap; the source genre is shown in the red note). Skipped: 252 artists already in our verified base and Freddie Dredd (banned).
+- The home page shows them in the same table after the verified rows of the genre, with `No data`, no rank, and a red note "Genre not verified, may be here by mistake" under the name. The meta line counts them separately ("812 unverified"). Search covers them too. They are never merged with `data/snapshots.js` and never ranked (`assets/app.js` also drops any name that is in the verified base or banned).
+- Two new genre tabs, Drift Phonk and Other, with unverified artists only and the dimmed `pending` table. Drift Phonk was removed in v0.36.0 and is back only because of this list.
+- Numbers, `profileUrl` (musicmetricsvault) and `imageUrl` from `artistBase.json` are not used: they are Spotify and third party figures, not Pandora 28-day listeners.
+- New hard rule 11 in `AGENTS.md`, section "Importing artistBase.json" in `docs/DATA.md`, a pointer in `CLAUDE.md`: an archive plus `artistBase.json` means import the unverified names this way.
+### Changed
+- `.tbl.pending` dims the header, rank, name, picture and listeners cells instead of the whole table, so the red note keeps its color. Looks the same for verified rows.
+
+## [0.57.0] - 2026-10-25
+### Added
+- New listeners from the owner's `artistMonthly.json` (131 readings, period 2026-09-27 to 2026-10-25, same snapshot date as before). Phonk: 11 artists added (g3ox_em 27K, SETTWOR 23K, Soudiere 1.6K, Apoc Krysis 59, GXNRC 4, and few: HOSPICEMANE, Mista Playa, 5admin, safetypleace, gelowler, 6 Senz). Brazilian Phonk: SETTWOR added (23K). SETTWOR is entered 100 percent, in both genres that list him.
+- 55 existing rows are the same as in the file and were left untouched, no number changed. 67 artists of the file are not in our base and were skipped, Freddie Dredd is banned and skipped, 4 roster artists have no reading in the file (Funk Tribu, Luga, Kim, SLXEPING TOKYO) and stay as they were. Collaboration entries (`fits`) are not used.
+- New hard rule 10 in `AGENTS.md`, a new section "Importing artistMonthly.json" in `docs/DATA.md` and a pointer in `CLAUDE.md` (owner request): when the owner sends only an archive and an `artistMonthly.json`, the agent imports the listeners with these rules: SETTWOR always, others only if already in our base, different numbers replaced, same numbers untouched, unknown artists skipped.
+
+## [0.56.0] - 2026-10-25
+### Changed
+- The meta line above the table no longer says "Pandora snapshot" or "28-day listeners" (owner request). It reads "October 2026 · 293 artists · 241 with no data". The status chip and the column header are unchanged.
+- Listener counts are printed in full with commas, 144,000 instead of 144K (owner request). The `text` field in the data stays for reference and is not printed.
+
+## [0.55.0] - 2026-10-25
+### Added
+- Pictures for Brazilian Phonk artists (owner request) live in their own file, `data/artist-media-brazilian-phonk.js` (`window.LEDGERTONE_MEDIA_BRAZILIAN_PHONK`). `scripts/fetch-artist-images.js` now works for one genre per run: without `--genre` it reads the Phonk names and writes `data/artist-media.js` as before, with `--genre brazilian-phonk` it reads the 511 Brazilian Phonk names and writes only the new file (and `scripts/artist-images-review-brazilian-phonk.txt`). A run for one genre never touches the other genre's file.
+- `assets/app.js` and `index.html` load the new file. The Brazilian Phonk page looks in its own file first and then in the Phonk file for artists that appear in both lists. Missing files are fine, rows show initials monograms.
+- Rule 9 now covers every `data/artist-media*.js`: none of them goes into an archive, and no empty placeholder is created. This archive has neither file, so the Brazilian Phonk pictures appear after the owner runs the script and uploads the new file. Checked with a mock Spotify only, not with real credentials.
+
+## [0.54.0] - 2026-10-25
+### Changed
+- The site measures 28-day listeners on Pandora, not streams (owner correction). The column header reads "28-day listeners on Pandora", the ranking is sorted by listeners, the data field `streams` is now `listeners` (with optional `text`, the figure as the source shows it, for example 144K), and every page, meta description, caption and doc says listeners.
+- The 28-day readings from `artistMonthly.json` are now real snapshots (2026-10-25, period 2026-09-27 to 2026-10-25) instead of the small line under the artist name, which is removed together with the top-level `listeners` block. Phonk: 34 artists are ranked with a number, 18 more show `Few` (the source shows only "few listeners"), the rest show `No data`. Brazilian Phonk: 3 artists show `Few` and no one has a number, so its table stays dimmed (`pending`).
+- Roster artists keep the `-` instead of a rank when there is no number. Rows with `Few` come before rows with `No data`.
+- The meta line says "28-day listeners"; the snapshot date is still shown as month and year.
+- `about.html`: "Verified streams" is now "Verified listeners" and says the figure is the 28-day listener count, rounded as Pandora shows it. The "collected by hand" disclosure is unchanged.
+
+## [0.53.0] - 2026-10-25
+### Changed
+- Headings use SF Pro Rounded instead of Neue Machina for now (owner request). `--display` now points to `var(--sans)`, the old stack is kept as `--display-neue`. Bold headings use SF Pro Rounded Bold, the "on Pandora" part of the home heading uses Regular. The Neue Machina preloads are commented out in the HTML heads (marked `neue-revert`) and the SF Pro Rounded Bold preload is added.
+- To go back: in `assets/styles.css` set `--display:var(--display-neue)` and restore the commented preloads. Fonts and `@font-face` rules stay in the repository. Noted in `AGENTS.md`.
+
+## [0.52.0] - 2026-10-25
+### Changed
+- New hard rule 9 in `AGENTS.md` (owner request): `data/artist-media.js` is never put into an archive, even if it was in the uploaded one. It holds the picture data the owner records, and the file from an archive wipes it. Also noted in `CLAUDE.md` and `docs/DATA.md`. This archive does not contain the file.
+
+## [0.51.0] - 2026-10-25
+### Changed
+- Dates of snapshots are shown as month and year only, for example "October 2026" (owner request): the status chip, the meta line, the snapshot picker buttons and the monthly listeners period. The data still keeps the full `capturedAt` date. If two snapshots fall in the same month their picker buttons read the same.
+
+## [0.50.0] - 2026-10-25
+### Added
+- Monthly listeners on Pandora under the artist name (owner request), from the owner's file `artistMonthly.json` (readings of 2026-10-25, period 2026-09-27 to 2026-10-25). Stored in `data/snapshots.js` under `listeners`. 54 of the 85 artists in the file are in our rosters and have a reading (52 Phonk, 3 Brazilian Phonk, 1 in both); 34 have a number (shown as the source text, for example 144K), 20 are marked "few" by the source and show "Few monthly listeners". The period appears in the meta line.
+- Skipped, as asked: 29 artists not in our base, plus Freddie Dredd (banned), and 2 roster artists with no reading in the file (Funk Tribu, Luga). Collaboration entries (`fits`) are not used.
+
+## [0.49.0] - 2026-10-25
+### Changed
+- Per page options (owner request): 25, 50, 100, 200, All (were 10, 25, 50, All). The default is 25.
+
+## [0.48.0] - 2026-10-25
+### Changed
+- Brazilian Phonk table (owner request): the table panel is dark and dimmed (new `.tbl.pending`, set from `pending: true` on the genre in `data/snapshots.js`), so it is clear at a glance that this genre does not work yet. Phonk shows its table as usual. The notice "Data is still being collected. Only part of the artists is displayed." stays on every genre that has a list.
+- The table panel gets `aria-describedby` pointing at the notice while it is dimmed.
+- The tint is a soft gray-violet, not black (owner request). It is a deliberate exception to the 6 percent glass fill rule, requested by the owner. Remove `pending: true` and the table returns to normal.
+- Checked with `node --check` only so far, see TODO.
+
 ## [0.47.0] - 2026-10-25
 ### Added
 - Brazilian Phonk roster: 511 artist names from the owner's five Spotify playlist exports (BRAZILIAN PHONK, BRAZILIAN PHONK 2022-2023, BRAZILIAN PHONK 2026, BRAZILIAN PHONK/FUNK VIRAL 2026, Latest Phonk Songs OCTOBER 2026). Every credited artist counted (credits are split on `;`), duplicates removed, names only, no stream numbers. The genre now lists them with `No data` like Phonk.

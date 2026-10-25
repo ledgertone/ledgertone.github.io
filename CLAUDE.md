@@ -12,4 +12,8 @@
 - Never invent data. Never present anything as live.
 - Update CHANGELOG.md and TODO.md with every change.
 - Archive file name ALWAYS includes the site name and the site version, e.g. `ledgertone_github_io_v0.22.0.zip`, never `site.zip` (see AGENTS.md rule 5). The footer version line on every page must match the top entry of CHANGELOG.md.
+- Never put any `data/artist-media*.js` (one file per genre) in an archive, even if it was in the one the owner uploaded: they hold the owner's picture data and a file from an archive wipes it (AGENTS.md rule 9). Build archives with `-x "data/artist-media*.js"`.
 - Design: Liquid Glass is the core style of the site and almost every surface and every button is glass. Never replace glass with opaque panels or buttons. Full rules are in AGENTS.md (Design rules).
+- If the owner sends only a site archive and an `artistMonthly.json` file, add the new listeners without asking: follow AGENTS.md rule 10 and `docs/DATA.md` (section "Importing artistMonthly.json"). SETTWOR is always entered, other artists only if they are in our base (verified or unverified list), different numbers are replaced, same numbers are left alone, unknown artists are skipped.
+- If the owner sends only a site archive and an `artistBase.json` file, import it without asking: follow AGENTS.md rule 11 and `docs/DATA.md` (section "Importing artistBase.json"). Names not in the verified base go to `data/unverified.js`, the two bases are never merged. Drift Phonk is always plain Phonk.
+- Banned artists: when the owner bans a name, delete it from every roster, snapshot, `data/unverified.js` and `data/links.js`, add it to `banned`, and never add it again in any import. Run `node scripts/check-banned.js` before every archive (AGENTS.md rule 8).

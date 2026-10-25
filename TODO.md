@@ -1,6 +1,37 @@
 # TODO
 
 ## Done
+- [x] RJ Pasin banned and removed (the owner's "RS Pasin" was shown on the page as RJ Pasin) (v0.77.0), node data check only
+- [x] Static SETTWOR page with plain-text answer and JSON-LD, generated from the data (v0.76.0), node checks only. To do by the owner after deploy: request indexing in Search Console, run the Rich Results Test
+- [x] Ban deletes the artist from the data and blocks adding him again: SLVG and Bearded Legend removed from the snapshot, `scripts/check-banned.js`, accent-safe matching in `app.js` (v0.75.0), node data check only, the page was not opened in a browser
+- [x] Softer dark theme, 7 artists banned, blueberry, OXWAVE and V21 into rosters (v0.74.0), headless Chromium and node data check only
+- [x] Living interface: springs, press, hover, drag, row lens, indicators, entrances (v0.73.0), headless Chromium only (desktop mouse, touch, reduced motion), not tried in Safari, Firefox or on a real phone
+- [x] 11 artists from "Chill old phonk" added to the Phonk roster, 374 names (v0.73.0), data check with node only
+- [x] Spotify buttons open the Spotify app: https app link on phones, `spotify:` URI with web fallback on desktop (v0.72.0), logic checked in headless Chromium only, not on a real phone or with the real app
+- [x] "Few" artists get a place after the numbered ones (v0.71.0), headless Chromium only
+- [x] Total artist count in the meta line, "Has data" and "Verified" cards (v0.70.0), headless Chromium only (1280, 390, 320 px, light and dark)
+- [x] Full header label "28-day listeners on Pandora" back, two lines on desktop and phones (v0.69.0), headless Chromium only (1280 to 320 px)
+- [x] Other genre removed, by-hand wording shortened, calmer rows on phones (v0.68.0), headless Chromium only (390, 360, 320 px, light and dark)
+- [x] Shorter column header ("28-day" plus Pandora logo), `#` centered over rank numbers and medals (v0.67.0), headless Chromium only (1280, 390, 320 px)
+- [x] Spotify and Pandora link buttons (glass pills) under the artist name, SETTWOR Spotify id added (v0.66.0), headless Chromium only (1280, 390, 320 px, light and dark)
+- [x] 70 new artists from two playlist exports added to the Phonk roster, 363 names (v0.65.0), data check with node only
+- [x] Unverified note: brighter glossy red pill on one line on wide screens, short "Not verified" next to the Spotify link on phones so rows keep the same height, long names cut with an ellipsis on phones (v0.64.0), headless Chromium only (1280, 390 and 320 px, light and dark)
+- [x] Unverified note is a narrow red pill, right of the name on wide screens, under it on phones, picture no longer squeezed (v0.63.0), headless Chromium only (desktop 1280 px and phone 390 px, light theme)
+- [x] Picture script asks what to search and which genre, slower requests and a clean stop on a long rate limit, `.bat` launcher outside the repository (v0.62.0), tested with a mock Spotify only
+- [x] Pandora link on the artist name and a Spotify link under it, `data/links.js` (v0.61.0), headless Chromium only
+- [x] Unverified artists with numbers shown in the common table by listeners, still a separate data file (v0.60.0), headless Chromium only
+- [x] Drift Phonk merged into Phonk, new listeners for the verified and the unverified base, import rules updated (v0.59.0), headless Chromium only
+- [x] Unverified artists in `data/unverified.js` shown with a red note, Drift Phonk and Other tabs (v0.58.0), headless Chromium only
+- [x] New listeners imported from artistMonthly.json, import rule for AI agents (v0.57.0), data check with node only
+- [x] Meta line shortened, counts printed with zeros not K (v0.56.0), headless Chromium only
+- [x] Pictures for Brazilian Phonk artists use their own file `data/artist-media-brazilian-phonk.js`, script takes `--genre` (v0.55.0), script tested with a mock only
+- [x] Main metric is 28-day listeners instead of streams: column, ranking, snapshot data from artistMonthly.json (v0.54.0), headless Chromium only
+- [x] Headings in SF Pro Rounded, Neue Machina switched off but kept (v0.53.0), headless Chromium only
+- [x] Rule: artist-media.js never goes into an archive (v0.52.0)
+- [x] Snapshot dates shown as month and year (v0.51.0), headless Chromium only
+- [x] Monthly listeners from artistMonthly.json shown under artist names (v0.50.0), headless Chromium only
+- [x] Per page 25, 50, 100, 200, All, default 25 (v0.49.0), headless Chromium only
+- [x] Brazilian Phonk table dark and dimmed via `pending` flag, Phonk unchanged (v0.48.0), not yet checked visually
 - [x] Brazilian Phonk roster of 511 names and the "data is still being collected" notice (v0.47.0), headless Chromium only
 - [x] Heading logo and accent color removed, heading now Bold plus Regular weight contrast (v0.46.0), headless Chromium only
 - [x] Bigger artist pictures: 56 px desktop, 44 px phones (v0.44.0), headless Chromium only
@@ -48,12 +79,14 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner: send Pandora links and Spotify ids for roster artists that have none (about 520 verified names)
+- [ ] Owner: decide whether unverified artists should move up to the verified base one by one, and whether the red note text and the Drift Phonk and Other tabs are right
 - [ ] Owner: check the label-like names in the Brazilian Phonk roster (see the 0.47.0 changelog entry) and say which to drop
 - [ ] Owner: create a Spotify developer app, run `SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/fetch-artist-images.js` (Node 18+), check `scripts/artist-images-review.txt`, put fixes into `scripts/spotify-ids.json`, rerun, publish `data/artist-media.js`
 - [ ] Owner: read the Spotify Developer Terms about showing artist pictures (attribution, caching) before publishing the pictures
 - [ ] Verify the real image host and URL stability after the first script run (the code accepts `i.scdn.co` only)
 - [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
-- [ ] Owner: collect the first real snapshots for Phonk and Brazilian Phonk by hand (`genre: "phonk"` / `"brazilian-phonk"`; the rosters in `data/snapshots.js` list 293 Phonk and 511 Brazilian Phonk artists to read streams for), and decide whether an artist may appear in more than one genre
+- [ ] Owner: collect the 28-day listeners snapshots for Phonk and Brazilian Phonk (`genre: "phonk"` / `"brazilian-phonk"`; the rosters in `data/snapshots.js` list 293 Phonk and 511 Brazilian Phonk artists to read 28-day listeners for), and decide whether an artist may appear in more than one genre
 - [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
 - [ ] Owner: send a new `assets/og-image.png` with the title "Top Phonk Artists on Pandora" (the current image shows the old wording)
 - [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark

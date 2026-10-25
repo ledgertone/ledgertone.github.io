@@ -1,25 +1,34 @@
 /*
   Ledgertone data. One object per snapshot. Do not invent numbers.
   Schema and update steps: docs/DATA.md
-  Shape: { genre: "phonk" | "drift-phonk" | "brazilian-phonk", capturedAt: "YYYY-MM-DD", note: "optional", sample: true (optional), artists: [{ name, streams, profileUrl? }] }
+  Shape: { genre: "phonk" | "drift-phonk" | "brazilian-phonk", capturedAt: "YYYY-MM-DD", note: "optional", sample: true (optional), artists: [{ name, listeners, text?, profileUrl? } or { name, few: true }] }
 
-  There are no snapshots yet. The site lists the roster names of each genre with "No data" in the streams column
-  until the owner adds a snapshot with hand-read stream counts (docs/DATA.md).
+  The ranking is by 28-day listeners on Pandora. The site lists the roster names of each genre with "No data" in the
+  listeners column until a snapshot has a reading for them (docs/DATA.md).
 */
 window.LEDGERTONE = {
   // Banned artists (owner decision): not phonk artists. Never add them to the roster or to a snapshot, never import them from playlists or lists.
-  // assets/app.js also drops them from every snapshot, so they cannot show up on the site. Case does not matter.
+  // A ban deletes the artist from every data file and blocks adding him again (AGENTS.md rule 8, node scripts/check-banned.js).
+  // assets/app.js also drops them at run time. Case and accents do not matter.
   banned: [
     "Freddie Dredd",
     "Oliver Tree",
-    "DJ MTG BONAFORTE"
+    "DJ MTG BONAFORTE",
+    "RS Pasin",
+    "RJ Pasin",
+    "Roland Jones",
+    "SLVG",
+    "Necroez",
+    "Daedra",
+    "Bearded Legend",
+    "Sinitizer"
   ],
   genres: [
     {
       id: "phonk",
       name: "Phonk",
       // Roster: artists to collect Pandora stream counts for. Names only, NO numbers. The site lists them with "No data" in the streams column, not as a ranking, until a snapshot has their stream count.
-      // Supplied by the owner (drift_phonk_all_artists.md and the Spotify playlist exports OG Drift Phonk and OG phonk 2021 2022, duplicates removed). Move an artist into a snapshot only with a hand-read stream count.
+      // Supplied by the owner (drift_phonk_all_artists.md and the Spotify playlist exports OG Drift Phonk, OG phonk 2021 2022, Chill old phonk, OG Phonk Vibes Best of 2020-2022 and 2020-2022 PHONK, duplicates removed). Move an artist into a snapshot only with a hand-read stream count.
       roster: [
       "Kordhell",
       "INTERWORLD",
@@ -135,7 +144,6 @@ window.LEDGERTONE = {
       "POOTY",
       "SAY3AM",
       "SLXSH",
-      "SLVG",
       "TTM",
       "Vinsmoker",
       "Wilee",
@@ -159,7 +167,6 @@ window.LEDGERTONE = {
       "GXNRC",
       "FindMyName",
       "Sinizter",
-      "Bearded Legend",
       "Øfdream",
       "5l33p",
       "Ogryzek",
@@ -313,12 +320,97 @@ window.LEDGERTONE = {
       "$NOT",
       "sma$her",
       "TRIGX",
+      "SNYSTA",
+      "ByErik ヵ",
+      "NXRTHSTXR",
+      "ANDROMEDA",
+      "Trihoof",
+      "4WHEEL",
+      "deadsouls",
+      "TAKESHI",
+      "CORX",
+      "zaqzar.",
+      "509 $icario",
+      "Barely Beige",
+      "CRYDE UMRIZ",
+      "Lorean",
+      "Lumi Athena",
+      "jnhygs",
+      "GORMCORPSX",
+      "Phonkyrie",
+      "Watergun Collective",
+      "Rushex",
+      "Jolixwery",
+      "PHOROMANE",
+      "ShadowStorm",
+      "GhostyPlaya",
+      "WXRTNAX",
+      "Mxyouone",
+      "LØRIXIØN",
+      "NVITO-RVITO",
+      "NEKXSTXZIS",
+      "satoru",
+      "SZEKTAS",
+      "LaughingSkxll",
+      "Scarlxrd",
+      "CORPSE",
+      "SaintRxse",
+      "SXCREDMANE",
+      "OXBRIDGE",
+      "$LMK",
+      "T’iny",
+      "Aega",
+      "Portwave",
+      "DePaul",
+      "Chi X",
+      "Lord Lorenz",
+      "KXLLYXU",
+      "BXNFXM",
+      "SHPACKYOU$",
+      "ELVEN DIOR",
+      "requi3m",
+      "Baly & Shem",
+      "Øneheart",
+      "XAN$X",
+      "ORLV",
+      "Autxmn Love",
+      "QUXNTUM",
+      "Ne Skazhu",
+      "Us3ll3ss",
+      "Nia.wave",
+      "Xelishurt",
+      "SVI!",
+      "0to8",
+      "Raf From Ilonya",
+      "CØNTRV",
+      "F_xyz_n",
+      "NISMO.EXE",
+      "PeyoKks",
+      "Yqkym",
+      "UnClear",
+      "Öwnboss",
+      "Sevek",
+      "CYREX",
+      "DJ Jacob",
+      "ROMANE",
+      "ZERXMANE",
+      "KILLOMANE",
+      "LXSTGRED",
+      "CHAVØMANE",
+      "EVVORTEX",
+      "lilbubblegum",
+      "Yung Gravy",
+      "TZAR",
+      "blueberry",
+      "OXWAVE",
+      "V21",
       "SETTWOR"
       ]
     },
     {
       id: "brazilian-phonk",
       name: "Brazilian Phonk",
+      pending: true, // table is shown dimmed until real data exists; remove this line when it goes live
       // Roster: names only, NO numbers, listed on the site with "No data" until a snapshot has hand-read stream counts.
       // Supplied by the owner as Spotify playlist exports (BRAZILIAN PHONK, BRAZILIAN PHONK 2022-2023, BRAZILIAN PHONK 2026, BRAZILIAN PHONK/FUNK VIRAL 2026, Latest Phonk Songs OCTOBER 2026); every credited artist, duplicates removed.
       roster: [
@@ -832,9 +924,102 @@ window.LEDGERTONE = {
       "Itz Daksh Music",
       "DJ ANIX",
       "Droy WAV",
-      "MYKROH"
+      "MYKROH",
+      "blueberry"
       ]
     }
   ],
-  snapshots: []
+  // 28-day listeners on Pandora, owner-supplied file artistMonthly.json (latest reading per artist, period 2026-09-27 to 2026-10-25).
+  // { name, listeners, text } is a number with the text as the source shows it. { name, few: true } means the source shows only "few listeners". See docs/DATA.md.
+  snapshots: [
+    {
+      genre: "phonk",
+      capturedAt: "2026-10-25",
+      periodFrom: "2026-09-27",
+      periodTo: "2026-10-25",
+      artists: [
+        { name: "Kordhell", listeners: 144000, text: "144K" },
+        { name: "DVRST", listeners: 120000, text: "120K" },
+        { name: "1nonly", listeners: 90000, text: "90K" },
+        { name: "SXMPRA", listeners: 45000, text: "45K" },
+        { name: "Dxrk ダーク", listeners: 33000, text: "33K" },
+        { name: "Hensonn", listeners: 30000, text: "30K" },
+        { name: "g3ox_em", listeners: 27000, text: "27K" },
+        { name: "SETTWOR", listeners: 23000, text: "23K" },
+        { name: "MoonDeity", listeners: 20000, text: "20K" },
+        { name: "Ghostface Playa", listeners: 20000, text: "20K" },
+        { name: "Suave Lee", listeners: 16000, text: "16K" },
+        { name: "LXST CXNTURY", listeners: 13000, text: "13K" },
+        { name: "Pharmacist", listeners: 11000, text: "11K" },
+        { name: "DJ Paul", listeners: 10000, text: "10K" },
+        { name: "KUTE", listeners: 7500, text: "7.5K" },
+        { name: "MUPP", listeners: 7100, text: "7.1K" },
+        { name: "Kingpin Skinny Pimp", listeners: 6800, text: "6.8K" },
+        { name: "MC ORSEN", listeners: 5500, text: "5.5K" },
+        { name: "Sinizter", listeners: 4400, text: "4.4K" },
+        { name: "HXVRMXN", listeners: 4100, text: "4.1K" },
+        { name: "Kaito Shoma", listeners: 2700, text: "2.7K" },
+        { name: "PlayaPhonk", listeners: 2500, text: "2.5K" },
+        { name: "SHADXWBXRN", listeners: 2200, text: "2.2K" },
+        { name: "Soudiere", listeners: 1600, text: "1.6K" },
+        { name: "Narvent", listeners: 1300, text: "1.3K" },
+        { name: "KSLV Noh", listeners: 1000, text: "1K" },
+        { name: "my!lane", listeners: 1000, text: "1K" },
+        { name: "DJ Smokey", listeners: 721, text: "721" },
+        { name: "TWISTED", listeners: 600, text: "600" },
+        { name: "Sadfriendd", listeners: 352, text: "352" },
+        { name: "plenka", listeners: 206, text: "206" },
+        { name: "Apoc Krysis", listeners: 59, text: "59" },
+        { name: "Suicideyear", listeners: 25, text: "25" },
+        { name: "Marin Hoxha", listeners: 11, text: "11" },
+        { name: "ARCHEZ", listeners: 5, text: "5" },
+        { name: "Lastfragment", listeners: 4, text: "4" },
+        { name: "GXNRC", listeners: 4, text: "4" },
+        { name: "VØJ", few: true },
+        { name: "FORGOTTENAGE", few: true },
+        { name: "VOLT VISION", few: true },
+        { name: "Vinsmoker", few: true },
+        { name: "mzmff", few: true },
+        { name: "FindMyName", few: true },
+        { name: "WEEDMANE", few: true },
+        { name: "Mishashi Sensei", few: true },
+        { name: "yatashigang", few: true },
+        { name: "ovg!", few: true },
+        { name: "TRVNSPORTER", few: true },
+        { name: "Yvetzal", few: true },
+        { name: "fkbambam", few: true },
+        { name: "IGARASHI KANTA", few: true },
+        { name: "zecki", few: true },
+        { name: "Jidanofu", few: true },
+        { name: "Cloudymane", few: true },
+        { name: "Yavomag", few: true },
+        { name: "HOSPICEMANE", few: true },
+        { name: "Mista Playa", few: true },
+        { name: "5admin", few: true },
+        { name: "safetypleace", few: true },
+        { name: "gelowler", few: true },
+        { name: "6 Senz", few: true },
+        { name: "NØCTRIS", few: true },
+        { name: "qonran", few: true },
+        { name: "glexks", few: true },
+        { name: "BLXCKBUSTA", few: true },
+        { name: "sapphyre", few: true },
+        { name: "mxnarch", few: true },
+        { name: "Skidz", few: true },
+        { name: "Sensi Affect", few: true }
+      ]
+    },
+    {
+      genre: "brazilian-phonk",
+      capturedAt: "2026-10-25",
+      periodFrom: "2026-09-27",
+      periodTo: "2026-10-25",
+      artists: [
+        { name: "SETTWOR", listeners: 23000, text: "23K" },
+        { name: "Matra!", few: true },
+        { name: "XO1", few: true },
+        { name: "Yavomag", few: true }
+      ]
+    }
+  ]
 };

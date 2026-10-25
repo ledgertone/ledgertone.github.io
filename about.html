@@ -27,10 +27,11 @@
 <meta name="apple-mobile-web-app-title" content="Ledgertone">
 <link rel="preload" href="assets/fonts/SFProRounded-Regular.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/SFProRounded-Medium.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="assets/fonts/NeueMachina-Bold.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="ledgertone-version" content="0.47.0">
-<link rel="stylesheet" href="assets/styles.css?v=0.47.0">
-<script src="assets/theme.js?v=0.47.0"></script>
+<!-- neue-revert: <link rel="preload" href="assets/fonts/NeueMachina-Bold.woff2" as="font" type="font/woff2" crossorigin> -->
+<link rel="preload" href="assets/fonts/SFProRounded-Bold.woff" as="font" type="font/woff" crossorigin>
+<meta name="ledgertone-version" content="0.77.0">
+<link rel="stylesheet" href="assets/styles.css?v=0.77.0">
+<script src="assets/theme.js?v=0.77.0"></script>
 </head>
 <body>
 <div class="edge" aria-hidden="true"></div>
@@ -41,13 +42,13 @@
 <main>
 <section class="wrap doc">
 <h1>About Ledgertone</h1>
-<p>Ledgertone is an independent project that ranks artists in two phonk genres (Phonk and Brazilian Phonk) on Pandora by verified streams. Every ranking is a dated snapshot: the numbers are read from artist profiles on one specific day, and nothing on the site updates live.</p>
+<p>Ledgertone is an independent project that ranks artists in two phonk genres (Phonk and Brazilian Phonk) on Pandora by 28-day listeners. Every ranking is a dated snapshot: the numbers are read from artist profiles on one specific day, and nothing on the site updates live.</p>
 
 <h2>How the data is collected</h2>
 <p>We would rather show less than show something we cannot stand behind.</p>
 <dl class="method">
-  <div><dt>Collected by hand</dt><dd>Every figure is read manually from the profile of each phonk artist on Pandora. No scraper and no automated feed is involved.</dd></div>
-  <div><dt>Verified streams</dt><dd>Every stream count is verified before it is published.</dd></div>
+  <div><dt>Collected by hand</dt><dd>Every figure is collected by hand from the profile of each phonk artist on Pandora.</dd></div>
+  <div><dt>Verified listeners</dt><dd>Every listener count is verified before it is published. It is the number of listeners over the last 28 days, rounded the way Pandora shows it.</dd></div>
   <div><dt>Not the Pandora API</dt><dd>Ledgertone does not use any official Pandora API. We only collect and organize numbers shown on artist profiles.</dd></div>
   <div><dt>Snapshots, not live</dt><dd>Numbers never update on their own. Each snapshot shows the date it was captured, and older snapshots stay available.</dd></div>
 </dl>
@@ -62,13 +63,14 @@
 <footer>
   <div class="wrap">
     <p>Ledgertone is an independent project and is not affiliated with Pandora. Pandora is a trademark of its respective owner.</p>
-    <p class="flinks"><a href="index.html">Rankings</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
-    <p class="ver">Version 0.47.0</p>
+    <p class="flinks"><a href="index.html">Rankings</a><a href="about.html">About</a><a href="settwor.html">SETTWOR on Pandora</a><a href="privacy.html">Privacy policy</a><button type="button" class="linkbtn glass" id="cookie-settings" hidden>Cookie settings</button></p>
+    <p class="ver">Version 0.77.0</p>
   </div>
 </footer>
-<script src="assets/glass.js?v=0.47.0"></script>
-<script src="assets/pull.js?v=0.47.0"></script>
-<script src="assets/consent.js?v=0.47.0"></script>
-<script src="assets/update.js?v=0.47.0"></script>
+<script src="assets/motion.js?v=0.77.0"></script>
+<script src="assets/glass.js?v=0.77.0"></script>
+<script src="assets/pull.js?v=0.77.0"></script>
+<script src="assets/consent.js?v=0.77.0"></script>
+<script src="assets/update.js?v=0.77.0"></script>
 </body>
 </html>

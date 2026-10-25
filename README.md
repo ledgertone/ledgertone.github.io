@@ -1,6 +1,6 @@
 # Ledgertone
 
-Snapshot-based ranking of phonk artists on Pandora by verified streams. Numbers are collected by hand from artist profiles, are not live, and every snapshot is dated. This is not an official Pandora API and the project is not affiliated with Pandora.
+Snapshot-based ranking of phonk artists on Pandora by 28-day listeners. Numbers are collected by hand from artist profiles, are not live, and every snapshot is dated. This is not an official Pandora API and the project is not affiliated with Pandora.
 
 ## Run locally
 
