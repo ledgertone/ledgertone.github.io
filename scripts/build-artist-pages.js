@@ -60,6 +60,12 @@ function buildPage(a, lang) {
 ARTISTS.forEach((a) => {
   if (banned.has(norm(a.name))) throw new Error(a.name + ' is banned');
   const en = buildPage(a, 'en');
+  if (a.csv) { // the readings of the owner as a download, linked from the page and from the Dataset JSON-LD (distribution)
+    const q = (v) => { v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    const rows = [['snapshot_date', 'genre', 'listeners_28d', 'shown_on_pandora', 'place', 'ranked_artists', 'artists_in_genre']].concat(en.hist.map((r) => [r.date, genreName(r.genre), Number.isFinite(r.x.listeners) ? r.x.listeners : 'Few', r.x.text || '', r.place || '', r.of || '', r.total || '']));
+    writeCRLF(a.csv, rows.map((r) => r.map(q).join(',')).join('\r\n') + '\r\n');
+    console.log('built ' + a.csv + ': ' + en.hist.length + ' rows');
+  }
   if (!a.fileRu) return;
   buildPage(a, 'ru');
 

@@ -141,7 +141,7 @@
   }
 
   /* ---------- pointer feedback ---------- */
-  var PRESS = ".link,.btn,.text,.theme,.picker button,.cbtn,.linkbtn,.brand,.tbl .lk,.flinks a,.consent a";
+  var PRESS = ".link,.btn,.text,.theme,.picker button,.cbtn,.linkbtn,.brand,.ownmark,.tbl .lk,.flinks a,.consent a";
   var NAME = ".tbl .nm";
   var PUCK = ".av,.mono,.mdl";
   var CARD = ".stat,.status,.empty";
@@ -153,7 +153,10 @@
     if ((el = t.closest(NAME))) return { el: el, kind: "name" };
     if ((el = t.closest(PUCK))) return { el: el, kind: "puck" };
     if ((el = t.closest(CARD))) return { el: el, kind: "card" };
-    if ((el = t.closest(TXT))) return { el: el, kind: "text" };
+    if ((el = t.closest(TXT))) { // v1.2.1: a link or button inside a text block springs by itself, the block stays still
+      var lk = t.closest("a[href],button"); if (lk && !lk.disabled && el.contains(lk)) return { el: lk, kind: "btn" };
+      return { el: el, kind: "text" };
+    }
     return null;
   }
   function depth(kind, el, r) {

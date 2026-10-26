@@ -56,7 +56,7 @@
   var linksOf = function (name) { var lk = LINKS[norm(name)] || {}; return { pandora: pandoraLink(lk.p), spotify: spotifyLink(lk.s) }; };
 
   var RESERVED = new Set(['index', 'about', 'privacy', '404', 'settwor', 'settwor-ru', 'artist-pages']);
-  var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', owner: true };
+  var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', owner: true, csv: 'settwor-listeners.csv' };
   var slugOf = function (n) { return norm(n).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); };
   var hasReading = function (x) { return Number.isFinite(x.listeners) || x.few === true; };
   var pageArtists = function () {

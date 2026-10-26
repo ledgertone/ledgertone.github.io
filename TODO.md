@@ -1,6 +1,10 @@
 # TODO
 
 ## Done
+- [x] v1.4.0: SETTWOR logo made about half the size. Headless Chromium only, the owner should check it on the real iPhone
+- [x] v1.3.0: only the pressed link springs, not its whole paragraph; SETTWOR logo is inline SVG (visible without the extra file). Headless Chromium only, the owner should check both on the real iPhone
+- [x] v1.2.0: SETTWOR logo as a glass card in the owner section of About and the SETTWOR pages. Headless Chromium only, the owner should look at it on the real iPhone and say if the logo should also go somewhere else (header, footer, home page)
+- [x] v1.1.0: more structured data on the artist pages (Organization, BreadcrumbList, richer Dataset) and `settwor-listeners.csv` as a download. Checked in headless Chromium only, the owner should run the Rich Results Test on `settwor.html` and `settwor-ru.html`
 - [x] v1.0.0: the search field now has its entrance animation on page load on phones (`reveal()` in `assets/motion.js` skipped `display:contents` containers). Headless Chromium only, the owner should check it on the real iPhone
 - [x] v0.99.0: unchanged artist pages are not in the archive any more (rule 17), `scripts/pack.js` builds the archive. Pages left out keep an old version stamp until they change
 - [x] v0.98.0: font gate (page appears when SF Pro and New York are loaded, no blinking), redesigned pager row at the bottom of the table on phones. Headless Chromium only, the owner should check on the real iPhone. Open idea: shrink the fonts (woff2, Latin and Cyrillic subset) so the gate is shorter on a first visit, needs tools that were not available
@@ -106,6 +110,7 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
+- [ ] Owner, most important for the Google and Gemini goal: (1) paste the snippet below into `https://settwor.github.io/`, (2) in Search Console request indexing for `settwor.html`, `settwor-ru.html` and the home page and resubmit `sitemap.xml`, (3) put the Ledgertone link into the profiles you control (Spotify bio, Instagram, YouTube, Telegram), (4) the number on the page must match what Pandora shows
 - [ ] Owner: paste `docs/settwor-site-snippet.html` into `https://settwor.github.io/` (part 1 in the head, part 2 as a visible link), then run the Rich Results Test on both sites
 - [ ] Owner: after deploy, request indexing in Search Console for `https://ledgertone.github.io/`, `settwor.html` and `settwor-ru.html`, and resubmit `sitemap.xml` (it now has hreflang alternates)
 - [ ] Owner: read the Russian text of `settwor-ru.html` and say what to change (copy is in the `T.ru` block of `scripts/build-artist-pages.js`)
@@ -144,6 +149,20 @@
 - [ ] CSV download of each snapshot
 - [ ] Structured data (schema.org Dataset) after the first snapshot exists
 - [ ] Lighthouse accessibility and performance pass
+
+## Assistant ideas (v1.5.0, what I would do next, not started, the owner decides)
+Order is by value for the goal "Google and Gemini quote the site" and for the owner's time.
+- [ ] Real device pass: almost everything since v0.82 was checked in headless Chromium only. One sitting on a real iPhone and in Safari: entrance animation of the search field (v1.0.0), per-link spring (v1.3.0), logo card (v1.4.0), pager row, font gate, "Per page: All". Write down what is off, I fix it in one version.
+- [ ] Release check script `scripts/check-release.js`: one command that runs `node --check`, `check-banned`, `build-all`, the em-dash grep, validates the JSON-LD of `settwor.html`, `settwor-ru.html` and one shell page (parses, every `@id` resolves), and checks that every `href` and `src` in the HTML points to an existing file. Today I run these by hand with throwaway scripts.
+- [ ] Make `pack.js` independent of the old archive: write `data/pages-manifest.json` (a hash of each generated artist page with the version masked) into every archive and compare against that. The v0.99.0 archive had no artist pages at all, so I had to rebuild a baseline to leave the 595 unchanged pages out.
+- [ ] Machine-readable data for the whole ranking: `ranking-<genre>.csv` and `.json` of the latest snapshot (the "CSV download of each snapshot" item below), linked from the home page and from a `Dataset` with `distribution` in the home JSON-LD, like SETTWOR got in v1.1.0. Gives Gemini and Dataset Search one clean source for every artist.
+- [ ] Snapshot permalinks: a stable URL or anchor per snapshot date (for example `index.html#2026-10-25`) and a visible "Cite this data" line with the date. Answers about "how many listeners in October 2026" can then point to a dated address.
+- [ ] Static artist pages for the top artists only (for example the 69 numbered Phonk rows), not just SETTWOR: figures readable without JavaScript where the search traffic will be. `--static` already exists for all pages, the cost is the archive size (rule 17), so a limit by rank is a smaller step.
+- [ ] A short "Methodology" section or page with a version number and a changelog of the method (still only "by hand", rule 3), so a quoted number can be traced to a rule. About already has the four disclosures, this is the same text with a stable address.
+- [ ] Feed of updates (`feed.xml`, Atom): one entry per new snapshot. Small, static, helps crawlers notice new data. Also set real `lastmod` dates per page in `sitemap.xml` (today most entries share the build date).
+- [ ] Shrink the fonts to woff2 with a Latin and Cyrillic subset so the font gate (v0.98.0) releases sooner on a first visit (needs tools I did not have here). The license questions for SF Pro Rounded, New York and Neue Machina in the list above are still open and matter before real traffic.
+- [ ] Lighthouse accessibility and performance pass with the real numbers, then fix the top items (listed under Later).
+- [ ] Monthly routine written down in `docs/DATA.md`: collect snapshot, import, `build-all`, request indexing for changed pages, refresh link previews. Makes the monthly update a checklist instead of a conversation.
 
 ## Open questions
 - What exactly is the metric on Pandora profiles (name it precisely on the site)?

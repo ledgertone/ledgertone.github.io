@@ -358,3 +358,11 @@ h1{margin-bottom:16px}
 }
 /* v0.98.0: font gate, see assets/theme.js. visibility only, never opacity (glass blur) */
 .fw body{visibility:hidden}
+
+/* v1.2.0 (owner request): the SETTWOR wordmark as a glass card in the "Who runs Ledgertone" section of About and of the SETTWOR pages. The logo is an inline SVG (path of the owner's assets/settwor-logo.svg, unchanged) filled with the ink color, so it needs no extra file and follows light and dark */
+.ownmark{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:0;margin:14px 0 0;padding:12px 20px;border-radius:16px;color:var(--ink);text-decoration:none}
+.ownlogo{display:block;width:clamp(88px,26vw,112px)}
+.ownlogo svg{display:block;width:100%;height:auto;fill:currentColor}
+.ownmark:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+/* v1.2.1: a link inside a text block springs on its own; inline boxes cannot be transformed, so these links are inline-block */
+.doc p a,.doc li a,.hero p a,.lede a,.sub a,.note a,.meta a,.count a,footer p a{display:inline-block}
