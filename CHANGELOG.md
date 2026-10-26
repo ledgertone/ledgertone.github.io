@@ -2,6 +2,43 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.11.0] - 2026-10-26
+### Removed
+- Banned (owner request, AGENTS.md rule 8): SPOON, Rameses B. Deleted from the Phonk roster and the 2026-10-25 snapshot (Rameses B, 57,000), from `data/unverified.js` (SPOON, 195,000), and from `data/links.js`, added to `banned`. Their generated pages `spoon.html` and `rameses-b.html` are deleted, `data/artist-pages.js` and `sitemap.xml` rebuilt.
+
+## [1.10.0] - 2026-10-26
+### Added
+- New listeners imported from `ledgerMonthly.json` (same shape as `artistMonthly.json`, AGENTS.md rule 10). Two dates in the file (2026-10-25, period 2026-09-27 to 2026-10-25, and 2026-10-26, period 2026-09-28 to 2026-10-26). Same owner decision as in 1.6.0 and 1.9.0: no new snapshot, every reading goes into the existing 2026-10-25 snapshots and into the 2026-10-25 reading period of `data/unverified.js`, so dates and periods are unchanged.
+- Verified base: 274 artists added (274 rows), 0 changed, 520 unchanged, 36 without a reading (Ghostdriving, SPLYXER, Lestmor, CASPER, CAIRO!, Kim, SLXEPING TOKYO, Kool Kidz Krew, T’iny, KILLOMANE, ΣP, D&rwin, h6itam, WAA, Z1Z, WILBUR, cape, NAOMI, Rayn.., MIDNIGHT, haze, Forsaken, DJ Kinn, DJ ALEX, itssimannn!, Lŭ, DJ RD, FXARZ, 1HXSX, T$R, notdjfake, Beyounger, $AvE, Mc Lullu, DJ DUDA, Mc Luizinho). SETTWOR unchanged.
+- Unverified base: 0 added, 0 changed, 337 unchanged, 259 without a reading.
+- Skipped: 0 not in our base, 12 banned (HAARPER, Skeler, 1nonly, Øfdream, NEFFEX, Three 6 Mafia, DJ Screw, Pouya, $NOT, CORPSE, Öwnboss, Yung Gravy). `fits` (collaboration) entries not used.
+- Pandora links in `data/links.js`: 274 added, 8 changed (RXDXVIL, MC Pequeno Diamante, Mc Delux, MC MN, Mc Bockaum, Akuma Records, DJ Guih Da ZO, mc pl alves), 849 same. 8 links skipped because they are not on `https://www.pandora.com` (D&rwin, h6itam, Forsaken, DJ Kinn, FXARZ, 1HXSX, notdjfake, Beyounger, rule 12).
+- Rebuilt with `node scripts/build-all.js` (home rows, artist pages, `data/artist-pages.js`, `sitemap.xml`).
+
+## [1.9.0] - 2026-10-26
+### Added
+- New listeners imported from `ledgerMonthly.json` (same shape as `artistMonthly.json`, AGENTS.md rule 10). Two dates in the file (2026-10-25 and 2026-10-26, period 2026-09-27 to 2026-10-25 and 2026-09-28 to 2026-10-26). Same owner decision as in 1.6.0: no new snapshot, every reading goes into the existing 2026-10-25 snapshots and into the 2026-10-25 reading period of `data/unverified.js`, so dates and periods are unchanged.
+- Verified base: 119 artists added (120 rows, an artist counts once per genre roster that lists him), 1 changed (Mc Gw), 359 unchanged, 14 without a reading (Ghostdriving, SPLYXER, Lestmor, CASPER, CAIRO!, Kim, SLXEPING TOKYO, Kool Kidz Krew, T’iny, KILLOMANE, ΣP, D&rwin, h6itam, WAA). SETTWOR unchanged (23,000 in Phonk and Brazilian Phonk).
+- Unverified base: 288 readings added, 0 changed, 49 unchanged, 259 without a reading. 25 names of the file are in the verified base and in the unverified list at once, they were handled as verified and the unverified duplicates were left untouched (the page hides them anyway).
+- Skipped: 0 not in our base, 12 banned (HAARPER, Skeler, 1nonly, Øfdream, NEFFEX, Three 6 Mafia, DJ Screw, Pouya, $NOT, CORPSE, Öwnboss, Yung Gravy). `fits` (collaboration) entries not used.
+- Pandora links in `data/links.js`: 407 added, 12 changed (akrai, Alban Chela, ALZO, attashe, besch1er, Consumane, Cxxlion, Daisuke13, DARKWOLE, DeadJxhn, Din1c, Mc Menor Do Alvorada), 397 same. Two links skipped because they are not on `https://www.pandora.com` (D&rwin, h6itam, rule 12).
+- Rebuilt with `node scripts/build-all.js` (home rows, artist pages, `data/artist-pages.js`, `sitemap.xml`).
+
+## [1.8.0] - 2026-10-26
+### Changed
+- New hard rule 18 in `AGENTS.md` and a pointer in `CLAUDE.md` (owner request): whenever page files must be deleted from the site folder (a ban, a removed artist), the agent also creates a one-time `delete-banned-pages.bat` and hands it over next to the archive, so the owner never deletes files by hand. No data or page text changed, only the version stamp.
+
+## [1.7.0] - 2026-10-26
+### Removed
+- Banned (owner request, AGENTS.md rule 8): Three 6 Mafia, NEFFEX, Yung Gravy, Skeler, 1nonly, HAARPER, Pouya, DJ Screw, CORPSE, $NOT, Øfdream, Öwnboss. Deleted from the Phonk roster, from the 2026-10-25 snapshots (readings included) and from `data/links.js`, none were in `data/unverified.js`, added to `banned`. Their 12 generated pages (`three-6-mafia.html`, `neffex.html`, `yung-gravy.html`, `skeler.html`, `1nonly.html`, `haarper.html`, `pouya.html`, `dj-screw.html`, `corpse.html`, `not.html`, `fdream.html`, `ownboss.html`) are deleted, `data/artist-pages.js` and `sitemap.xml` rebuilt.
+
+## [1.6.0] - 2026-10-26
+### Added
+- New listeners imported from `ledgerMonthly.json` (same shape as `artistMonthly.json`, AGENTS.md rule 10). The file holds two dates (293 readings of 2026-10-26, period 2026-09-28 to 2026-10-26, and 56 of 2026-10-25, period 2026-09-27 to 2026-10-25). Owner decision: no new snapshot, every reading goes into the existing 2026-10-25 snapshots regardless of its own date, so the snapshot dates and periods are unchanged.
+- Verified base: 219 artists added (237 rows, an artist counts once per genre roster that lists him), 0 changed, 130 unchanged, 20 without a reading (Ghostdriving, VØJ, SPLYXER, Lestmor, Jéja, Rameses B, PHARAØH, erickD, CASPER, CAIRO!, Kim, Luga, T-Mass, Wels, SLXEPING TOKYO, Kool Kidz Krew, T’iny, Chi X, SVI!, KILLOMANE). Unverified base: nothing in the file. Skipped: 0 not in our base, 0 banned. SETTWOR unchanged (23,000 in Phonk and Brazilian Phonk). `fits` (collaboration) entries not used.
+- Pandora links in `data/links.js`: 219 added, 13 changed (chipbagov, HXTTA, Vinsmoker, safetypleace, ANTICXLTXRE, DRXWCHILL, TRVNSPORTER, fkbambam, Cloudymane, Yavomag, GhostyPlaya, DePaul, 0to8), 117 same.
+- Rebuilt with `node scripts/build-all.js` (home rows, artist pages, `data/artist-pages.js`, `sitemap.xml`).
+
 ## [1.5.0] - 2026-10-26
 ### Changed
 - `TODO.md`: new section "Assistant ideas" with what the assistant would do next (owner request). No code, data or page text changed, only the version stamp.

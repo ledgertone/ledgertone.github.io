@@ -1,6 +1,12 @@
 # TODO
 
 ## Done
+- [x] v1.11.0: 2 artists banned and removed (SPOON, Rameses B). Node checks only
+- [x] v1.10.0: listeners imported from `ledgerMonthly.json` into the 2026-10-25 snapshots (274 verified artists added, none changed, unverified unchanged, 274 Pandora links added, 8 changed). Node data checks only, the owner should look at the home page
+- [x] v1.9.0: listeners imported from `ledgerMonthly.json` into the 2026-10-25 snapshots (119 verified artists added, 1 changed, 288 unverified readings added, 407 Pandora links added, 12 changed). Node data checks only, the owner should look at the home page
+- [x] v1.8.0: rule 18, the agent creates a delete script (.bat) for removed pages. Documentation only
+- [x] v1.7.0: 12 artists banned and removed (Three 6 Mafia, NEFFEX, Yung Gravy, Skeler, 1nonly, HAARPER, Pouya, DJ Screw, CORPSE, $NOT, Øfdream, Öwnboss). Node checks only
+- [x] v1.6.0: listeners imported from `ledgerMonthly.json` into the 2026-10-25 snapshots (219 artists added, none changed, 13 Pandora links changed). Node data checks only, the owner should look at the home page
 - [x] v1.4.0: SETTWOR logo made about half the size. Headless Chromium only, the owner should check it on the real iPhone
 - [x] v1.3.0: only the pressed link springs, not its whole paragraph; SETTWOR logo is inline SVG (visible without the extra file). Headless Chromium only, the owner should check both on the real iPhone
 - [x] v1.2.0: SETTWOR logo as a glass card in the owner section of About and the SETTWOR pages. Headless Chromium only, the owner should look at it on the real iPhone and say if the logo should also go somewhere else (header, footer, home page)
