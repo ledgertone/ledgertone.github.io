@@ -32,7 +32,7 @@ const tr = (a) => {
 };
 
 const ld = { '@context': 'https://schema.org', '@graph': [
-  { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
+  { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', alternateName: 'ledgertone.github.io', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
   { '@type': 'ItemList', '@id': SITE + '#ranking', name: 'Top ' + g.name + ' Artists on Pandora by 28-day listeners, snapshot of ' + month(latest, 'en'), description: 'Artists with a 28-day listeners number in the Ledgertone snapshot of ' + month(latest, 'en') + '. A hand-collected snapshot, not live data.', itemListOrder: 'https://schema.org/ItemListOrderDescending', numberOfItems: rows.length, dateModified: latest,
     itemListElement: rows.map((a) => { const pf = pageFileOf(a.name), u = pf ? SITE + pf : (a.profileUrl && safeUrl(a.profileUrl)) || linksOf(a.name).pandora; return Object.assign({ '@type': 'ListItem', position: a.rank, name: a.name, description: num(a.listeners, 'en') + ' listeners over 28 days on Pandora' }, u ? { url: u } : {}); }) }
 ] };
