@@ -11,6 +11,7 @@ window.LEDGERTONE = {
   // A ban deletes the artist from every data file and blocks adding him again (AGENTS.md rule 8, node scripts/check-banned.js).
   // assets/app.js also drops them at run time. Case and accents do not matter.
   banned: [
+    "líue",
     "Freddie Dredd",
     "Oliver Tree",
     "DJ MTG BONAFORTE",

@@ -421,7 +421,13 @@
   }
 
   function reveal() {
-    var nodes = [].slice.call(document.querySelectorAll(".nav,main section > *,footer .wrap > *")).filter(function (n) { return !n.hidden && n.getClientRects().length; });
+    // v1.0.0: a container with display:contents (.tools on a phone) has no box of its own, so it cannot move; its children enter instead
+    var nodes = [];
+    [].forEach.call(document.querySelectorAll(".nav,main section > *,footer .wrap > *"), function (n) {
+      if (n.hidden) return;
+      if (getComputedStyle(n).display === "contents") { [].forEach.call(n.children, function (c) { if (!c.hidden && c.getClientRects().length) nodes.push(c); }); return; }
+      if (n.getClientRects().length) nodes.push(n);
+    });
     var vh = window.innerHeight, n = 0, io = null, waiting = [];
     nodes.forEach(function (el) {
       var top = el.getBoundingClientRect().top, nav = el.classList.contains("nav");

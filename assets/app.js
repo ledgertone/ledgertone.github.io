@@ -102,6 +102,16 @@
   };
   const tools = $('#tools'), foot = $('#foot'), pager = $('#pager'), count = $('#count'), sizes = $('#sizes'), q = $('#q');
 
+  // Phones (owner request, v0.96.0): the count and the page buttons sit INSIDE the table panel as its last row. Wider screens keep them under the table as before.
+  const phoneMQ = window.matchMedia ? window.matchMedia('(max-width:700px)') : null;
+  function placeFoot() {
+    if (!foot || !tbl) return;
+    if (phoneMQ && phoneMQ.matches) { if (foot.parentNode !== tbl) tbl.append(foot); }
+    else if (foot.parentNode === tbl) empty.before(foot);
+  }
+  placeFoot();
+  if (phoneMQ) { if (phoneMQ.addEventListener) phoneMQ.addEventListener('change', placeFoot); else if (phoneMQ.addListener) phoneMQ.addListener(placeFoot); }
+
   // two small glass cards with "value / total" and a thin bar (only for the latest snapshot)
   const statsBox = $('#stats');
   function drawStats(items) {
@@ -289,8 +299,9 @@
     snaps = allSnaps.filter((s) => (s.genre || homeId) === g.id);
     if (gbox) gbox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === g.id)));
     if (h1) {
-      // bold "Top <genre> Artists", then "on Pandora" in the Regular cut (weight contrast only, same color)
-      h1.replaceChildren('Top ' + g.name + ' Artists ', el('span', 'lt', 'on Pandora'));
+      // v0.97.0: only the genre name is Bold, "Top" and "Artists" are Medium, "on Pandora" is Regular (weight contrast only, same color)
+      h1.classList.add('gh');
+      h1.replaceChildren('Top ', el('span', 'gn', g.name), ' Artists ', el('span', 'lt', 'on Pandora'));
     }
     document.title = 'Ledgertone | Top ' + g.name + ' Artists on Pandora';
     state.q = ''; state.page = 1; if (q) q.value = '';

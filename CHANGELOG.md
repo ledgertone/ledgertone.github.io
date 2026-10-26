@@ -2,6 +2,43 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.0.0] - 2026-10-26
+### Fixed
+- Phones (owner report): the search field had no entrance animation on page load. Cause: on a phone (up to 700 px) `.tools` is `display:contents` (v0.86.0), so it has no box of its own and `reveal()` in `assets/motion.js` skipped it, and the search field inside it is not a direct child of the section. Now `reveal()` replaces a `display:contents` child of a section by its visible children, so the search field (and the "Per page" control, which enters when scrolled into view) enter like the other blocks: move and scale only, no opacity on glass (v0.82.4). Desktop is unchanged (the `.tools` box itself enters there).
+- Checked in headless Chromium at 390 and 1280 px: the search field moves from 14 px down to its place on load on a phone, no console errors. Not seen on a real iPhone.
+### Changed
+- Version number (owner decision): the version after 0.99 is always 1.0.0. Only the version stamp and the fix above changed, no data and no page text.
+
+## [0.99.0] - 2026-10-26
+### Changed
+- Archive rule (owner decision): the generated artist pages that did not change are no longer put into the archive, the owner always has them (AGENTS.md rule 17, rule 5 and `CLAUDE.md` adjusted). A version bump alone does not count as a change. New `scripts/pack.js` builds the archive (`Ledgertone vX.Y.Z.zip`, no `artist-media*.js`, unchanged artist pages left out by comparing with the previous archive with the version number ignored) and prints which page files the owner must delete.
+- No page, style or script content changed, only the version stamp and the rules.
+
+## [0.98.0] - 2026-10-26
+### Changed
+- Fonts (owner request): SF Pro Rounded and New York are always used and the text does not blink or jump while they load. `assets/theme.js` (loaded in every head, after the stylesheet) now holds a font gate: it hides the body with `visibility` (never `opacity`, glass blur) until the five font faces (SF Pro Rounded 400, 500, 600, 700 and New York) are loaded, then shows the page at once; after 2.5 s it shows the page anyway, and without JavaScript nothing is hidden (`.fw body{visibility:hidden}` in `assets/styles.css`). `font-display` is back to `swap` in all `@font-face` rules (`optional` from v0.95.0 could leave the page on a fallback font on a first visit). The preloads from v0.95.0 stay.
+- Phones: the last row of the table (count line, then "Prev 1 2 ... 111 Next") redesigned: the buttons are spread over the full width of the row (Prev left, Next right), the current page is a 40 px round glass pill, the count is a small muted line above, 10 px side padding like the rows, nothing clipped at the bottom. Desktop unchanged.
+- Checked in headless Chromium: body stays hidden while the font files are slowed by 0.8 s and appears with all five faces loaded, paging works inside the table, desktop keeps the pager under the table, no console errors. Not seen on a real iPhone.
+
+## [0.97.0] - 2026-10-26
+### Changed
+- Home heading (owner request): only the genre name ("Phonk") is Bold now, "Top" and "Artists" are Medium, "on Pandora" stays the thinnest (Regular). Same color, weight contrast only. `index.html` (static heading), `assets/app.js` (heading on genre switch, new `.gn` span and `gh` class), `assets/styles.css` (`h1.gh`, so the headings of other pages are unchanged). AGENTS.md type rule updated.
+- Checked in headless Chromium only.
+
+## [0.96.0] - 2026-10-26
+### Changed
+- Phones only, up to 700 px wide (owner request): the count line and the page buttons ("Prev 1 2 ... 111 Next") are now the last row inside the table panel, under the last artist, separated by the same thin line as the rows. `assets/app.js` moves `#foot` into `#tbl` on a phone and back under the table on a wider screen (`matchMedia`, follows a window resize), `assets/styles.css` strips the separate glass pill from the pager there. Desktop and tablets above 700 px are unchanged.
+- Checked in headless Chromium at 390 px and 1280 px only (position, resize back and forth, no console errors seen). Not seen on a real iPhone.
+
+## [0.95.0] - 2026-10-26
+### Changed
+- Banned artist (owner request): "líue" removed from `data/unverified.js` and `data/links.js`, added to `banned` in `data/snapshots.js`, his page `liue.html` deleted, `data/artist-pages.js` and `sitemap.xml` rebuilt (AGENTS.md rule 8). `node scripts/check-banned.js` prints ok.
+- Fonts (owner report: text jumped while fonts loaded): every `@font-face` in `assets/styles.css` uses `font-display:optional` instead of `swap`; `SFProRounded-Semibold.woff` and `NewYork.woff` are now preloaded in `index.html`, `about.html`, `404.html` (and so in every artist page). Not yet shrunk to woff2 or subset (no tools here); on a first visit with a slow connection the fallback font may stay until the next load.
+- Search appearance: `favicon.ico` rebuilt with 16, 32 and 48 px; `assets/icons/favicon-192.png` linked in every head (Google wants a multiple of 48 px); the missing `apple-touch-icon.png` (180 px, from the 192 px icon) added; `alternateName` `ledgertone.github.io` added to the `WebSite` JSON-LD of the home page (`scripts/build-home.js`). The site name in Google may still read "GitHub" for a github.io subdomain, only a custom domain fixes it for sure.
+- Structured data: `license` (CC BY 4.0, `https://creativecommons.org/licenses/by/4.0/`) added to the `Dataset` JSON-LD of every artist page (`assets/artist-page.js`), the optional field the Rich Results Test reported as missing. Licence chosen by the assistant, the owner may change it.
+- Archive naming rule changed (owner decision): `Ledgertone vX.Y.Z.zip`, always the whole site (AGENTS.md rule 5 and `CLAUDE.md`). The owner shorthand "<name> - бан" is written down in `CLAUDE.md`.
+- Note: the icon, font and licence changes of this version were first handed out as unnumbered patch archives that broke rules 5 and 9; this version replaces them.
+
 ## [0.94.0] - 2026-10-25
 ### Changed
 - `assets/og-image.png` redrawn (owner request) in the current design, 1200 x 630: flat light page color, the staff and the note as on the site, the site name in New York, the title "Top Phonk Artists on Pandora" in SF Pro Rounded (Bold and Regular, as the home page heading), a glass chip "Snapshot ranking" and a glass bar with "Ranked by 28-day listeners" and the site address. The old wording is gone. No figures, no artist names, no Pandora logo (rule 4).

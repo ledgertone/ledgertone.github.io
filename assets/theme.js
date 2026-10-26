@@ -1,4 +1,20 @@
 /*
+  Font gate (owner request, v0.98.0): SF Pro Rounded and New York must always be used, and the text must not blink or jump while they load.
+  This script runs in the <head> after the stylesheet. It hides the page body (visibility, never opacity: opacity on a parent breaks the glass blur in Safari)
+  until the font files are loaded, then shows everything at once. Safety net: after 2.5 s the page is shown anyway. Without JavaScript nothing is hidden.
+*/
+(function () {
+  "use strict";
+  var d = document, root = d.documentElement;
+  if (!d.fonts || !d.fonts.load || !window.Promise) return;
+  root.classList.add("fw");
+  var shown = false;
+  function show() { if (shown) return; shown = true; clearTimeout(t); root.classList.remove("fw"); }
+  var t = setTimeout(show, 2500);
+  var faces = ['400 16px "SF Pro Rounded"', '500 16px "SF Pro Rounded"', '600 16px "SF Pro Rounded"', '700 16px "SF Pro Rounded"', '500 16px "New York"'];
+  Promise.all(faces.map(function (f) { return d.fonts.load(f, "Aa"); })).then(show, show);
+})();
+/*
   Ledgertone theme switch: Auto (follows the system), Light, Dark.
   Loaded in the <head> of every page so the saved theme is applied before first paint.
   The choice is stored in localStorage (not a cookie) under "ledgertone-theme".

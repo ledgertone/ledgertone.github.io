@@ -1,6 +1,12 @@
 # TODO
 
 ## Done
+- [x] v1.0.0: the search field now has its entrance animation on page load on phones (`reveal()` in `assets/motion.js` skipped `display:contents` containers). Headless Chromium only, the owner should check it on the real iPhone
+- [x] v0.99.0: unchanged artist pages are not in the archive any more (rule 17), `scripts/pack.js` builds the archive. Pages left out keep an old version stamp until they change
+- [x] v0.98.0: font gate (page appears when SF Pro and New York are loaded, no blinking), redesigned pager row at the bottom of the table on phones. Headless Chromium only, the owner should check on the real iPhone. Open idea: shrink the fonts (woff2, Latin and Cyrillic subset) so the gate is shorter on a first visit, needs tools that were not available
+- [x] v0.97.0: home heading, only the genre name is Bold, "on Pandora" thinnest. Headless Chromium only, the owner should look at it on the real devices
+- [x] v0.96.0: on phones (up to 700 px) the count and the page buttons are the last row inside the table panel, desktop unchanged. Headless Chromium only, the owner should check it on the real iPhone
+- [x] v0.95.0: banned "líue"; fonts no longer jump (font-display optional, more preloads); favicon, 192 px icon, apple-touch-icon and `alternateName` for Google; `license` in the Dataset; archive name is now `Ledgertone vX.Y.Z.zip`. Not checked in a real browser or in Search Console, the owner should re-run the Rich Results Test and request indexing of the home page
 - [x] New `assets/og-image.png` in the current design with the title "Top Phonk Artists on Pandora" (v0.94.0), rendered in headless Chromium only, not seen in a real link preview
 - [x] "Per page: All" no longer freezes: rows load in chunks of 40, lighter buttons in long lists (v0.93.0). Measured in headless Chromium with a slowed CPU only, the owner should try it on the real iPhone and say if it is smooth
 - [x] Search field joined to the table on phones was reverted (v0.92.0)

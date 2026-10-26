@@ -1203,7 +1203,6 @@ window.LEDGERTONE_UNVERIFIED = {
       { name: "Litrazas", few: true },
       "LITTLE RAVEN",
       "Little Trouble",
-      { name: "líue", listeners: 7000, text: "7K" },
       "Livestep",
       "liza peredoz",
       { name: "LJ BEATZ", few: true },

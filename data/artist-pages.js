@@ -300,7 +300,6 @@ window.LEDGERTONE_PAGES = {
   "lil moulif": "lil-moulif.html",
   "lil' rocketman": "lil-rocketman.html",
   "litrazas": "litrazas.html",
-  "liue": "liue.html",
   "lj beatz": "lj-beatz.html",
   "lord distortion": "lord-distortion.html",
   "lostmane": "lostmane.html",
