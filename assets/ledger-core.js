@@ -43,6 +43,19 @@
     var uv = idx === 0 ? unverifiedOf(genreId).filter(function (u) { return u.listeners !== null; }).map(function (u) { return { name: u.name, listeners: u.listeners, unverified: true, src: u.src }; }) : [];
     return arts.concat(uv).sort(function (a, b) { return b.listeners - a.listeners || byName(a, b); }).map(function (a, i) { return Object.assign(a, { rank: i + 1 }); });
   };
+  // Top list (owner decision, v1.14.0, AGENTS.md rule 19): the places 1 to topLimit of the latest snapshot, counted like render() in app.js:
+  // numbered artists by listeners, then the "Few" artists (verified and unverified together, by name) with the next places. Mirrors assets/app.js.
+  var topLimit = Number.isFinite(L.topLimit) && L.topLimit > 0 ? L.topLimit : Infinity;
+  var topOf = function (genreId) {
+    var ranked = rankedAt(genreId, 0), s = snapsOf(genreId)[0];
+    var have = new Set(ranked.filter(function (a) { return !a.unverified; }).map(function (a) { return norm(a.name); }));
+    var fewSet = new Set(s ? s.artists.filter(function (a) { return a && a.few; }).map(function (a) { return norm(a.name); }) : []);
+    var few = rosterOf(genreId).filter(function (n) { return !have.has(norm(n)) && fewSet.has(norm(n)); }).map(function (n) { return { name: n, few: true, unverified: false }; })
+      .concat(unverifiedOf(genreId).filter(function (u) { return u.listeners === null && u.few; }).map(function (u) { return { name: u.name, few: true, unverified: true, src: u.src }; }))
+      .sort(function (a, b) { return a.name.localeCompare(b.name, 'en'); });
+    var place = ranked.length;
+    return ranked.concat(few.map(function (a) { return Object.assign(a, { rank: ++place }); })).filter(function (a) { return a.rank <= topLimit; });
+  };
   var artistCount = function (genreId) {
     var s = snapsOf(genreId)[0];
     var have = new Set(s ? s.artists.filter(function (a) { return Number.isFinite(a.listeners); }).map(function (a) { return norm(a.name); }) : []);
@@ -55,7 +68,7 @@
   var spotifyLink = function (id) { return (typeof id === 'string' && /^[A-Za-z0-9]{22}$/.test(id)) ? 'https://open.spotify.com/artist/' + id : null; };
   var linksOf = function (name) { var lk = LINKS[norm(name)] || {}; return { pandora: pandoraLink(lk.p), spotify: spotifyLink(lk.s) }; };
 
-  var RESERVED = new Set(['index', 'about', 'privacy', '404', 'settwor', 'settwor-ru', 'artist-pages']);
+  var RESERVED = new Set(['index', 'about', 'privacy', '404', 'settwor', 'settwor-ru', 'artist-pages', 'all']);
   var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', owner: true, csv: 'settwor-listeners.csv' };
   var slugOf = function (n) { return norm(n).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); };
   var hasReading = function (x) { return Number.isFinite(x.listeners) || x.few === true; };
@@ -102,6 +115,6 @@
   };
 
   return { L: L, LINKS: LINKS, homeId: homeId, norm: norm, esc: esc, banned: banned, genreName: genreName, byName: byName, month: month, num: num, snapsOf: snapsOf, verifiedKeys: verifiedKeys,
-    rosterOf: rosterOf, unverifiedOf: unverifiedOf, rankedAt: rankedAt, artistCount: artistCount, safeUrl: safeUrl, pandoraLink: pandoraLink, spotifyLink: spotifyLink, linksOf: linksOf,
+    rosterOf: rosterOf, unverifiedOf: unverifiedOf, rankedAt: rankedAt, topLimit: topLimit, topOf: topOf, artistCount: artistCount, safeUrl: safeUrl, pandoraLink: pandoraLink, spotifyLink: spotifyLink, linksOf: linksOf,
     OWNER: OWNER, hasReading: hasReading, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
 });

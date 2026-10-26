@@ -1277,6 +1277,7 @@ window.LEDGERTONE_PAGES = {
   "spaceghostpurrp": "spaceghostpurrp.html",
   "spctrm": "spctrm.html",
   "spixel": "spixel.html",
+  "splyxer": "splyxer.html",
   "sporblix": "sporblix.html",
   "spuria": "spuria.html",
   "spvrrow": "spvrrow.html",

@@ -11,6 +11,18 @@
   const list = $('#list'), tbl = $('#tbl'), empty = $('#empty'), picker = $('#picker'), status = $('#status'), meta = $('#meta');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const nf = new Intl.NumberFormat('en-US');
+  // owner decision, v1.14.0 (AGENTS.md rule 19): the home page shows only the places 1 to TOP, the other artists stay in the data and are listed on all.html
+  // (body data-view="all", v1.15.0), which shows everyone like before
+  const VIEW_ALL = !!(document.body && document.body.dataset.view === 'all');
+  const TOP = !VIEW_ALL && Number.isFinite(data.topLimit) && data.topLimit > 0 ? data.topLimit : Infinity;
+  const TOPN = Number.isFinite(data.topLimit) && data.topLimit > 0 ? data.topLimit : 100;
+  const topnote = $('#topnote');
+  const noteFor = (g) => {
+    const wrap = document.createDocumentFragment(), a = el('a', '', VIEW_ALL ? 'Back to the top ' + nf.format(TOPN) : 'See the list of all artists');
+    a.href = (VIEW_ALL ? 'index.html' : 'all.html') + (g.id === homeId ? '' : '#' + g.id);
+    wrap.append(VIEW_ALL ? 'This is the full list. Ledgertone follows only the top ' + nf.format(TOPN) + ' artists of each genre, the figures of all other artists are not updated. ' : 'Ledgertone follows the top ' + nf.format(TOPN) + ' artists of each genre. The list of all other artists is not updated. ', a);
+    return wrap;
+  };
   // snapshot dates are shown as month and year only, for example "October 2026" (owner decision, v0.51.0)
   const fmt = (d) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
   const safeUrl = (u) => { try { const x = new URL(u); return x.protocol === 'https:' ? x.href : null; } catch (e) { return null; } };
@@ -143,13 +155,16 @@
     // all artists on the page: verified plus unverified (owner request, v0.70.0)
     const all = total + uv.length;
     const parts = [s ? fmt(s.capturedAt) : 'Pandora'];
-    if (all) parts.push(nf.format(all) + (all === 1 ? ' artist' : ' artists'));
+    const capped = i === 0 && all > TOP;
+    if (all) parts.push(capped ? 'Top ' + nf.format(TOP) + ' of ' + nf.format(all) + ' artists' : nf.format(all) + (all === 1 ? ' artist' : ' artists'));
+    if (topnote) { topnote.hidden = !(capped || (VIEW_ALL && i === 0 && all > TOPN)); if (!topnote.hidden) topnote.replaceChildren(noteFor(cur)); }
     if (!s) parts.push('No data yet');
     if (s && s.note && !s.sample) parts.push(s.note);
     meta.textContent = parts.join(' \u00b7 ');
     // coverage cards (owner request, v0.70.0): "Has data" counts a number or "Few" (both mean the source has a reading), verified is out of all artists
     const hasData = arts.length + rest.filter((n) => few.has(norm(n))).length + uv.filter((u) => u.listeners !== null || u.few).length;
-    drawStats((i === 0 || !s) ? [['Has data', hasData, all], ['Verified', total, all]] : []);
+    // with a top list the coverage cards are not shown (v1.14.0): they would count the hidden artists
+    drawStats((i === 0 || !s) && !(all > TOP) ? [['Has data', hasData, all], ['Verified', total, all]] : []);
     // One common table (owner decision, v0.60.0): unverified artists with a number sit among the verified ones by listeners and get a place too,
     // each with the red note. Unverified artists without a number follow the "Few" and "No data" rows. The data stays in two files, this only merges the display.
     const uvRow = (u) => ({ name: u.name, unverified: true, src: u.src, listeners: u.listeners === null ? undefined : u.listeners, few: u.few });
@@ -162,6 +177,8 @@
     let place = ranked.length;
     state.rows = ranked.map((a, n) => ({ a, rank: n + 1, key: norm(a.name) }))
       .concat(flat.map((a) => ({ a, rank: a.few ? ++place : null, key: norm(a.name) })));
+    // top list: keep only the places 1 to TOP, the rest is hidden (rank null rows too)
+    if (Number.isFinite(TOP)) state.rows = state.rows.filter((r) => r.rank !== null && r.rank <= TOP);
     state.page = 1;
     draw();
   }
@@ -301,9 +318,9 @@
     if (h1) {
       // v0.97.0: only the genre name is Bold, "Top" and "Artists" are Medium, "on Pandora" is Regular (weight contrast only, same color)
       h1.classList.add('gh');
-      h1.replaceChildren('Top ', el('span', 'gn', g.name), ' Artists ', el('span', 'lt', 'on Pandora'));
+      h1.replaceChildren(VIEW_ALL ? 'All ' : 'Top-' + nf.format(TOPN) + ' ', el('span', 'gn', g.name), ' Artists ', el('span', 'lt', 'on Pandora'));
     }
-    document.title = 'Ledgertone | Top ' + g.name + ' Artists on Pandora';
+    document.title = 'Ledgertone | ' + (VIEW_ALL ? 'All ' : 'Top-' + nf.format(TOPN) + ' ') + g.name + ' Artists on Pandora';
     state.q = ''; state.page = 1; if (q) q.value = '';
     picker.querySelectorAll('button').forEach((b) => b.remove());
     const has = snaps.length > 0 || rosterOf(g).length > 0 || unverifiedOf(g).length > 0;

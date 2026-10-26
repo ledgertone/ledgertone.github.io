@@ -71,3 +71,7 @@ Every artist with a reading gets a generated page (AGENTS.md rule 13). Since v0.
 - `s`: from `spotifyId` of `artistBase.json` (22 letters and digits). Filled by the artistBase import: for every artist of that file that is in our base (verified or unverified list), add or replace the id. Never use `profileUrl` of that file, it is a musicmetricsvault link.
 - Only artists in our base get an entry, never banned ones. Never guess a link or an id, a missing link just means no link on the page. Keep the entries sorted by key, one per line, and keep the header comment.
 - Known gaps (v0.61.0): SETTWOR has a Pandora link but no Spotify id (the owner's file has none), artists that only exist in the verified roster have no Pandora link until a reading with `pandoraUrl` arrives.
+
+## Top list
+
+`topLimit` in `data/snapshots.js` (100) cuts the home page ranking to the places 1 to 100 of each genre, `all.html` lists everyone (AGENTS.md rule 19). The data of all other artists stays and imports still fill it, only the display is cut. `node scripts/export-top.js --out <dir>` writes the current top list (`Ledgertone top100.txt`, `Ledgertone top100.json`) to run the next snapshot over.

@@ -1,6 +1,6 @@
-Ghostdriving | error: HTTP 403 for https://api.spotify.com/v1/search?type=artist&limit=5&q=artist%3A%22Ghostdriving%22
-DJ Yung Vamp | error: HTTP 403 for https://api.spotify.com/v1/artists/69eIrU4oA3mEHensYx0PWL
-SLVG | error: HTTP 403 for https://api.spotify.com/v1/artists/779QJkvhTmrxtUGaMo8QbK
-WILLE | error: HTTP 403 for https://api.spotify.com/v1/search?type=artist&limit=5&q=artist%3A%22WILLE%22
-Kim | error: HTTP 403 for https://api.spotify.com/v1/artists/4q5RE9bDpugEWslh6TfiI0
-Kool Kidz Krew | error: HTTP 403 for https://api.spotify.com/v1/search?type=artist&limit=5&q=artist%3A%22Kool%20Kidz%20Krew%22
+Ghostdriving | no exact name match | candidates: Ghost, Ghost Mountain, Ghost Rider, Coma, Kamp!
+WILLE | no exact name match | candidates: RAC, Latin Artist Collective, Christophe Willem, Willemijn Verkaik, Toni Willé, Willie Nelson, Pharrell Williams, Willie and the Bandits, Willem
+Kool Kidz Krew | no exact name match | candidates: Cool Kids Of Death, kidzlori, Cool P, The Returners, Opał
+TAKESHI | no exact name match | candidates: Takeshi Saito, Takeshi Furukawa, Takeshi Nakatsuka, 孟可, 刘大壮, The Weeknd, Takeshi's Cashew, 阿保剛, takihasdied
+T’iny | matched on Spotify but the artist has no picture
+SVI! | matched on Spotify but the artist has no picture

@@ -366,3 +366,4 @@ h1{margin-bottom:16px}
 .ownmark:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 /* v1.2.1: a link inside a text block springs on its own; inline boxes cannot be transformed, so these links are inline-block */
 .doc p a,.doc li a,.hero p a,.lede a,.sub a,.note a,.meta a,.count a,footer p a{display:inline-block}
+.topnote{margin:14px 0 0;color:var(--muted);font-size:.9375rem;line-height:1.5}

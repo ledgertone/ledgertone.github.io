@@ -7,6 +7,8 @@
   listeners column until a snapshot has a reading for them (docs/DATA.md).
 */
 window.LEDGERTONE = {
+  // Top list (owner decision, v1.14.0, AGENTS.md rule 19): the ranking shows only the places 1 to topLimit of each genre. Everyone else stays in the data but is hidden and is not updated.
+  topLimit: 100,
   // Banned artists (owner decision): not phonk artists. Never add them to the roster or to a snapshot, never import them from playlists or lists.
   // A ban deletes the artist from every data file and blocks adding him again (AGENTS.md rule 8, node scripts/check-banned.js).
   // assets/app.js also drops them at run time. Case and accents do not matter.
@@ -1292,7 +1294,8 @@ window.LEDGERTONE = {
         { name: "Baly & Shem", few: true },
         { name: "Rxm リム", few: true },
         { name: "F_xyz_n", few: true },
-        { name: "Лукамор", few: true }
+        { name: "Лукамор", few: true },
+        { name: "SPLYXER", few: true },
       ]
     },
     {
@@ -1784,7 +1787,7 @@ window.LEDGERTONE = {
         { name: "Axapo", few: true },
         { name: "MYKROH", few: true },
         { name: "KECI", few: true },
-        { name: "ExusS", few: true }
+        { name: "ExusS", few: true },
       ]
     }
   ]

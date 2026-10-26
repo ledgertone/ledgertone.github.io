@@ -1,6 +1,11 @@
 # TODO
 
 ## Done
+- [x] v1.16.0: top-100 note moved below the table next to the link to `all.html`. Headless Chromium only
+- [x] v1.15.0: `all.html` full list, Top-100 title, page sizes 25/50/75/100 on the home page. Headless Chromium at 1280 px only (home 100 rows, all.html 2,759 and 1,887), the owner should look at it on the real iPhone. Open: `assets/og-image.png` still shows the old title text
+- [x] v1.14.0: top list, ranking cut to places 1 to 100 per genre, note and about disclosure, `scripts/export-top.js`. Checked in headless Chromium at 1280 px only, the owner should look at it on the real iPhone
+- [x] v1.13.0: `artistBase.json` imported (1 unverified name added, 1 Spotify id added, 4,047 same). Node data checks only
+- [x] v1.12.0: listeners imported again from `ledgerMonthly.json` into the 2026-10-25 snapshots (1 verified artist added, none changed, unverified unchanged, 1 Pandora link added). Node data checks only, the owner should look at the home page
 - [x] v1.11.0: 2 artists banned and removed (SPOON, Rameses B). Node checks only
 - [x] v1.10.0: listeners imported from `ledgerMonthly.json` into the 2026-10-25 snapshots (274 verified artists added, none changed, unverified unchanged, 274 Pandora links added, 8 changed). Node data checks only, the owner should look at the home page
 - [x] v1.9.0: listeners imported from `ledgerMonthly.json` into the 2026-10-25 snapshots (119 verified artists added, 1 changed, 288 unverified readings added, 407 Pandora links added, 12 changed). Node data checks only, the owner should look at the home page
