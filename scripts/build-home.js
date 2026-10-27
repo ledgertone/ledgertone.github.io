@@ -6,7 +6,8 @@
 // Every name and number comes from the data files, nothing is typed by hand. Run after ANY data change and after every version bump:
 // node scripts/build-home.js (or node scripts/build-all.js)
 const lib = require('./lib/ledger.js');
-const { topLimit, L, SITE, homeId, esc, month, num, snapsOf, rankedAt, artistCount, linksOf, safeUrl, pandoraLink, readCRLF, writeCRLF, LINKS, norm, pageFileOf } = lib;
+const rankingFiles = require('./build-ranking-files.js'); // v1.26.0: ranking-<genre>.csv and .json, written first, linked below
+const { topLimit, L, SITE, homeId, esc, month, num, snapsOf, rankedAt, artistCount, linksOf, safeUrl, pandoraLink, readCRLF, writeCRLF, LINKS, norm, pageFileOf, earlierPlaceAt, moveAt, OWNER } = lib;
 
 const g = L.genres.find((x) => x.id === homeId);
 const snaps = snapsOf(homeId);
@@ -17,6 +18,18 @@ const rows = rankedAt(homeId, 0).filter((a) => a.rank <= topLimit); // top list 
 const initials = (n) => String(n).trim().split(/\s+/).slice(0, 2).map((w) => w.charAt(0)).join('').toUpperCase();
 const medal = ['gold', 'silver', 'bronze'];
 
+// owner mark (owner decision, v1.19.0, AGENTS.md rule 21): same markup as in assets/app.js
+const ownerEarlier = earlierPlaceAt(homeId, 0, OWNER.name);
+const drop = (a) => (norm(a.name) === norm(OWNER.name) && ownerEarlier !== null && a.rank > ownerEarlier)
+  ? '<span class="dn" aria-label="Earlier place ' + ownerEarlier + '"><svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>#' + ownerEarlier + '</span>' : '';
+// change pills (owner request, v1.22.0, AGENTS.md rule 22): places moved against the previous snapshot of the genre, same markup as in assets/app.js
+const moves = moveAt(homeId, 0);
+const mv = (a) => {
+  const d = a.unverified ? undefined : moves.get(norm(a.name));
+  if (!d) return '';
+  const n = Math.abs(d), word = n === 1 ? ' place' : ' places';
+  return d > 0 ? '<span class="up" aria-label="Up ' + n + word + '"><svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>' + n + '</span>' : '<span class="dn mv" aria-label="Down ' + n + word + '"><svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>' + n + '</span>';
+};
 // same markup as draw() in assets/app.js, without the picture and the link pills
 const tr = (a) => {
   const lk = LINKS[norm(a.name)] || {};
@@ -29,20 +42,25 @@ const tr = (a) => {
     flag = '<span class="flag" title="' + esc(full) + '"><span class="fl">' + esc(full) + '</span><span class="fs">Not verified</span></span>';
   }
   const rk = a.rank <= 3 ? '<span class="mdl ' + medal[a.rank - 1] + '" aria-label="Place ' + a.rank + '">' + a.rank + '</span>' : String(a.rank);
-  return '<tr><td class="rk">' + rk + '</td><td class="who"><div class="wh' + (a.unverified ? ' hasfl' : '') + '"><span class="av mono">' + esc(initials(a.name)) + '</span><div class="info">' + name + '</div>' + flag + '</div></td><td class="st">' + num(a.listeners, 'en') + '</td></tr>';
+  return '<tr><td class="rk">' + rk + '</td><td class="who"><div class="wh' + (a.unverified ? ' hasfl' : '') + '"><span class="av mono">' + esc(initials(a.name)) + '</span><div class="info">' + name + '</div>' + flag + '</div></td><td class="st">' + num(a.listeners, 'en') + mv(a) + drop(a) + '</td></tr>';
 };
 
 const ld = { '@context': 'https://schema.org', '@graph': [
   { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', alternateName: 'ledgertone.github.io', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
   { '@type': 'ItemList', '@id': SITE + '#ranking', name: 'Top-' + topLimit + ' ' + g.name + ' Artists on Pandora by 28-day listeners, snapshot of ' + month(latest, 'en'), description: 'Artists with a 28-day listeners number in the Ledgertone snapshot of ' + month(latest, 'en') + '. A hand-collected snapshot, not live data.', itemListOrder: 'https://schema.org/ItemListOrderDescending', numberOfItems: rows.length, dateModified: latest,
     itemListElement: rows.map((a) => { const pf = pageFileOf(a.name), u = pf ? SITE + pf : (a.profileUrl && safeUrl(a.profileUrl)) || linksOf(a.name).pandora; return Object.assign({ '@type': 'ListItem', position: a.rank, name: a.name, description: num(a.listeners, 'en') + ' listeners over 28 days on Pandora' }, u ? { url: u } : {}); }) }
-] };
+].concat(rankingFiles.map((f) => ({ '@type': 'Dataset', '@id': SITE + '#data-' + f.id, name: 'Ledgertone ' + f.genre + ' ranking on Pandora by 28-day listeners, snapshot of ' + month(f.snapshot, 'en'), description: 'The top ' + f.count + ' ' + f.genre + ' artists on Pandora by 28-day listeners in the Ledgertone snapshot of ' + month(f.snapshot, 'en') + '. A hand-collected snapshot, not live data.', url: SITE, creator: { '@type': 'Organization', name: 'Ledgertone', url: SITE }, license: 'https://creativecommons.org/licenses/by/4.0/', isAccessibleForFree: true, keywords: 'phonk, Pandora, 28-day listeners, ranking, ' + f.genre, dateModified: f.snapshot, temporalCoverage: f.snapshot, inLanguage: 'en', distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: SITE + f.csv }, { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: SITE + f.json }] }))) };
 
 let h = readCRLF('index.html');
 const sub = (re, s) => { if (!re.test(h)) throw new Error('index.html changed, pattern missing: ' + re); h = h.replace(re, () => s); };
+const feedRe = /(<link rel="alternate" type="application\/atom\+xml"[^>]*>)(\n<link rel="alternate" type="(?:text\/csv|application\/json)"[^>]*>)*/;
+if (!feedRe.test(h)) throw new Error('index.html changed, feed link missing');
+h = h.replace(feedRe, (m0, feedLink) => feedLink + rankingFiles.map((f) => '\n<link rel="alternate" type="text/csv" title="Ledgertone ' + f.genre + ' ranking (CSV)" href="' + f.csv + '">\n<link rel="alternate" type="application/json" title="Ledgertone ' + f.genre + ' ranking (JSON)" href="' + f.json + '">').join(''));
 sub(/<p class="status glass" id="status"[^>]*>.*?<\/p>/, '<p class="status glass" id="status" hidden></p>'); // the "Latest Pandora snapshot" label was removed by the owner (v0.86.0), the chip stays hidden until app.js has a warning to show
 sub(/<p class="meta" id="meta">.*?<\/p>/, '<p class="meta" id="meta">' + month(latest, 'en') + ' \u00b7 ' + (total > topLimit ? 'Top ' + num(topLimit, 'en') + ' of ' : '') + num(total, 'en') + ' artists</p>');
 sub(/<p class="topnote" id="topnote"[^>]*>.*?<\/p>/, total > topLimit ? '<p class="topnote" id="topnote">Ledgertone follows the top ' + num(topLimit, 'en') + ' artists of each genre. The list of all other artists is not updated. <a href="all.html">See the list of all artists</a></p>' : '<p class="topnote" id="topnote" hidden></p>');
+const citeP = (pre) => '<p class="cite" id="cite">Cite this snapshot: <a href="' + pre + '#' + g.id + '-' + latest + '">' + SITE + pre + '#' + g.id + '-' + latest + '</a></p>'; // rule 23
+sub(/<p class="cite" id="cite"[^>]*>.*?<\/p>/, citeP(''));
 sub(/<div class="tools" id="tools"( hidden)?>/, '<div class="tools" id="tools" hidden>');
 sub(/<div class="foot" id="foot"( hidden)?>/, '<div class="foot" id="foot" hidden>');
 sub(/<tbody id="list">[\s\S]*?<\/tbody>/, '<tbody id="list">\n' + rows.map(tr).join('\n') + '\n</tbody>');
@@ -68,6 +86,7 @@ asub(/<h1 class="gh">.*?<\/h1>/, '<h1 class="gh">All <span class="gn">' + esc(g.
 asub(sizesRe, sizesAll);
 asub(/<p class="meta" id="meta">.*?<\/p>/, '<p class="meta" id="meta">' + month(latest, 'en') + ' \u00b7 ' + num(total, 'en') + ' artists</p>');
 asub(/<p class="topnote" id="topnote"[^>]*>.*?<\/p>/, '<p class="topnote" id="topnote">This is the full list. Ledgertone follows only the top ' + num(topLimit, 'en') + ' artists of each genre, the figures of all other artists are not updated. <a href="index.html">Back to the top ' + num(topLimit, 'en') + '</a></p>');
+asub(/<p class="cite" id="cite"[^>]*>.*?<\/p>/, citeP('all.html'));
 asub(/<tbody id="list">[\s\S]*?<\/tbody>/, '<tbody id="list">\n</tbody>');
 asub(/<noscript>[\s\S]*?<\/noscript>/, '<noscript><p class="meta">The full list needs JavaScript. The top ' + num(topLimit, 'en') + ' artists are on the home page.</p></noscript>');
 asub(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '<script type="application/ld+json">' + JSON.stringify({ '@context': 'https://schema.org', '@graph': [ld['@graph'][0]] }).replace(/</g, '\\u003c') + '</script>');

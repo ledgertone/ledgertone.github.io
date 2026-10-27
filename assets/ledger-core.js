@@ -43,6 +43,27 @@
     var uv = idx === 0 ? unverifiedOf(genreId).filter(function (u) { return u.listeners !== null; }).map(function (u) { return { name: u.name, listeners: u.listeners, unverified: true, src: u.src }; }) : [];
     return arts.concat(uv).sort(function (a, b) { return b.listeners - a.listeners || byName(a, b); }).map(function (a, i) { return Object.assign(a, { rank: i + 1 }); });
   };
+  // Owner mark (rule 21): the place an artist would have in snapshot idx of a genre with L.earlierListeners listeners, counted among the other ranked artists
+  // (same order as rankedAt: listeners descending, then the name). The artist's own row is left out. null when earlierListeners is not set.
+  var earlierPlaceAt = function (genreId, idx, name) {
+    var v = L.earlierListeners; if (!Number.isFinite(v)) return null;
+    var k = norm(name), n = 1;
+    rankedAt(genreId, idx).forEach(function (a) { if (norm(a.name) === k) return; if (a.listeners > v || (a.listeners === v && byName(a, { name: name }) < 0)) n++; });
+    return n;
+  };
+  // Change pills (owner request, v1.22.0, AGENTS.md rule 22): how many places an artist moved between snapshot idx and the next older snapshot of the same genre.
+  // Both places are counted among the verified artists with a number (listeners descending, then the name), so the unverified rows that only exist in the latest
+  // snapshot never move anybody. Positive = went up. Only artists with a number in both snapshots and a different place are in the map. Mirrors assets/app.js.
+  var verifiedPlaces = function (genreId, idx) {
+    var s = snapsOf(genreId)[idx], m = new Map();
+    if (s) s.artists.filter(function (a) { return Number.isFinite(a.listeners); }).sort(function (a, b) { return b.listeners - a.listeners || byName(a, b); }).forEach(function (a, n) { m.set(norm(a.name), n + 1); });
+    return m;
+  };
+  var moveAt = function (genreId, idx) {
+    var out = new Map(), cur = verifiedPlaces(genreId, idx), prev = verifiedPlaces(genreId, idx + 1);
+    cur.forEach(function (r, k) { var p = prev.get(k); if (p !== undefined && p !== r) out.set(k, p - r); });
+    return out;
+  };
   // Top list (owner decision, v1.14.0, AGENTS.md rule 19): the places 1 to topLimit of the latest snapshot, counted like render() in app.js:
   // numbered artists by listeners, then the "Few" artists (verified and unverified together, by name) with the next places. Mirrors assets/app.js.
   var topLimit = Number.isFinite(L.topLimit) && L.topLimit > 0 ? L.topLimit : Infinity;
@@ -116,5 +137,5 @@
 
   return { L: L, LINKS: LINKS, homeId: homeId, norm: norm, esc: esc, banned: banned, genreName: genreName, byName: byName, month: month, num: num, snapsOf: snapsOf, verifiedKeys: verifiedKeys,
     rosterOf: rosterOf, unverifiedOf: unverifiedOf, rankedAt: rankedAt, topLimit: topLimit, topOf: topOf, artistCount: artistCount, safeUrl: safeUrl, pandoraLink: pandoraLink, spotifyLink: spotifyLink, linksOf: linksOf,
-    OWNER: OWNER, hasReading: hasReading, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
+    OWNER: OWNER, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
 });

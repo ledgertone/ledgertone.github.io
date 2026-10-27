@@ -1,4 +1,5 @@
 // Exports the current top list (AGENTS.md rule 19) per genre, to run new snapshots over it.
+// Since v1.30.0 scripts/pack.js runs this into top100/ so the files are always inside the archive.
 // usage: node scripts/export-top.js --out <dir>   writes Ledgertone top100.txt (names, one per line) and Ledgertone top100.json
 // Order and places are the ones the home page shows: numbered artists by listeners, then "Few" artists by name.
 const fs = require('fs'), path = require('path');

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ledgertone: new snapshots</title>
+  <subtitle>One entry for every new snapshot of phonk artists on Pandora by 28-day listeners.</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://ledgertone.github.io/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://ledgertone.github.io/"/>
+  <id>https://ledgertone.github.io/</id>
+  <updated>2026-10-25T00:00:00Z</updated>
+  <author><name>Ledgertone</name></author>
+  <entry>
+    <title>Phonk snapshot, October 2026</title>
+    <link rel="alternate" type="text/html" href="https://ledgertone.github.io/"/>
+    <id>tag:ledgertone.github.io,2026-10-25:phonk</id>
+    <updated>2026-10-25T00:00:00Z</updated>
+    <summary>Snapshot of October 2026 for Phonk on Pandora by 28-day listeners. 100 artists in the top list. Top 3: 1. Kordhell (144,000), 2. Ariis (120,872), 3. DVRST (120,000). A hand-collected snapshot, not live data.</summary>
+  </entry>
+  <entry>
+    <title>Brazilian Phonk snapshot, October 2026</title>
+    <link rel="alternate" type="text/html" href="https://ledgertone.github.io/"/>
+    <id>tag:ledgertone.github.io,2026-10-25:brazilian-phonk</id>
+    <updated>2026-10-25T00:00:00Z</updated>
+    <summary>Snapshot of October 2026 for Brazilian Phonk on Pandora by 28-day listeners. 100 artists in the top list. Top 3: 1. MXZI (319,950), 2. ZXKAI (154,569), 3. ATLXS (145,490). This section is under development, the data is raw and incomplete. A hand-collected snapshot, not live data.</summary>
+  </entry>
+</feed>

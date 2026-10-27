@@ -35,7 +35,7 @@ window.LEDGERTONE = {
 
 1. Take the 28-day listeners reading of every phonk artist you include (owner-supplied).
 2. Add one snapshot object with the capture date.
-3. Open `index.html` and check the ranking.
+3. Open `index.html` and check the ranking. Run `node scripts/build-all.js`: it also adds an entry for the new snapshot to `feed.xml` and rewrites `ranking-<genre>.csv` and `ranking-<genre>.json` (top 100 of the latest snapshot).
 4. Add a line to `CHANGELOG.md`. Suggested commit message: `data: snapshot YYYY-MM-DD`.
 
 ## Rules
@@ -50,8 +50,8 @@ Trigger: the owner sends a site archive and an `artistMonthly.json` file and not
 
 File shape: a list of `{ artist, searchName, history: [{ monthlyListeners, monthlyText, takenAt, periodFrom, periodTo, few? }], pandoraUrl, linkSource, fits? }`. `monthlyListeners` is the number, `monthlyText` the figure as shown (for example `1.6K`), `few: true` means the source shows only "few listeners".
 
-1. Reading per artist: the `history` entry with the newest `takenAt`. `monthlyListeners` set gives a number reading (`listeners` + `text`). `few: true` gives a `few` reading. `monthlyListeners: null` without `few`, or an empty `history`, is no reading: skip the artist and leave any existing row alone.
-2. Our base is two separate lists: the verified base (rosters and snapshots in `data/snapshots.js`) and the unverified list (`data/unverified.js`). Match names ignoring case and accents. An artist in neither list is skipped and is never added anywhere. `banned` artists and `fits` (collaboration) entries are skipped.
+1. Reading per artist (AGENTS.md rule 20: fits count): the `history` entry with the newest `takenAt`, plus the newest reading of every distinct entry of his own `fits` list, added into one number (a `few` or empty fit adds nothing; if the own reading is `few` or missing and a fit has a number, the number is the sum of the fit numbers; the text of a sum is derived: under 1,000 exact, 1,000 to 9,949 one decimal K, then whole K, M from 999,500). Never mention fits on the site. Own reading alone: `monthlyListeners` set gives a number reading (`listeners` + `text`). `few: true` gives a `few` reading. `monthlyListeners: null` without `few`, or an empty `history`, is no reading: skip the artist and leave any existing row alone.
+2. Our base is two separate lists: the verified base (rosters and snapshots in `data/snapshots.js`) and the unverified list (`data/unverified.js`). Match names ignoring case and accents. An artist in neither list is skipped and is never added anywhere. `banned` artists are skipped.
 3. SETTWOR (the owner) is always entered, 100 percent, in every genre roster that lists him, including when his reading is `few`.
 4. Verified artist: the reading goes into the snapshot of each genre whose roster lists him (`{ name, listeners, text }` or `{ name, few: true }`). The snapshot is the one whose `capturedAt` equals the file's `takenAt` and whose period equals `periodFrom` to `periodTo`; if no such snapshot exists yet, create one for that date and period (one per genre) and keep older snapshots unchanged. Never edit an older snapshot to match newer numbers. Keep rows sorted by listeners, then the `few` rows.
 5. Unverified artist: the reading goes into his own item in `data/unverified.js` (the item becomes `{ name, genre?, listeners, text }` or `{ name, genre?, few: true }`, keep `genre` when it is there). All readings in that file belong to the period in its `readings` field; when the file's period is older than the new one, replace every reading with the new import only for the artists that are in the new file, update `readings`, and leave the other items as they are. Never copy a unverified artist into the verified base.
@@ -75,3 +75,18 @@ Every artist with a reading gets a generated page (AGENTS.md rule 13). Since v0.
 ## Top list
 
 `topLimit` in `data/snapshots.js` (100) cuts the home page ranking to the places 1 to 100 of each genre, `all.html` lists everyone (AGENTS.md rule 19). The data of all other artists stays and imports still fill it, only the display is cut. `node scripts/export-top.js --out <dir>` writes the current top list (`Ledgertone top100.txt`, `Ledgertone top100.json`) to run the next snapshot over.
+
+## Monthly routine
+
+The checklist for one monthly update (added in v1.27.0, assistant idea from TODO). Everything here already has its own rule, this is only the order. A new AI agent can follow it without a conversation. Rule numbers are those of `AGENTS.md`.
+
+1. Hand over the current top list: `node scripts/export-top.js --out <dir>` writes `Ledgertone top100.txt` and `Ledgertone top100.json` (rule 19). The owner reads the 28-day listeners over it and sends back `artistMonthly.json` or `ledgerMonthly.json`.
+2. Import the file (rules 10, 11, 20): follow the section "Importing artistMonthly.json" above. A readings file for an existing snapshot goes into that snapshot. A new reading round with a new date and period needs a new snapshot per genre (see "Steps for a new snapshot"), older snapshots stay unchanged. Skip banned artists, never add artists that are not in our base.
+3. Apply bans the owner gave (rule 8): remove the name from every roster, snapshot, `data/unverified.js` and `data/links.js`, add it to `banned`, delete his page file (rule 18, hand over `delete-banned-pages.bat`).
+4. Bump the version (rule 5): `version.json`, the footer line `<p class="ver">`, the `<meta name="ledgertone-version">` tag and every `?v=` suffix in all HTML pages. The version equals the top entry of `CHANGELOG.md`.
+5. Rebuild: `node scripts/build-all.js` (artist pages, `data/artist-pages.js`, `sitemap.xml`, `feed.xml`, `ranking-<genre>.csv` and `.json`, `settwor-listeners.csv`, the static home rows and `all.html`). Never edit generated files by hand.
+6. Check: `node scripts/check-release.js` must print `all checks passed` (it includes `check-banned.js` and the build).
+7. Write `CHANGELOG.md` and `TODO.md` (counts: added, changed, unchanged, skipped not in our base, skipped banned, no reading, separately for the verified and the unverified base).
+8. Build the archive: `node scripts/pack.js --out <dir> --prev <the archive the owner uploaded>` (rules 5, 9, 17). Check the name `Ledgertone vX.Y.Z.zip` and that `unzip -l` shows no `artist-media`. The top list files `top100/Ledgertone top100.txt` and `.json` are written into the archive by `pack.js` itself (rule 19, v1.30.0, always inside, never only next to it). Hand over next to it `delete-banned-pages.bat` only when pages must be deleted (rule 18).
+9. Tell the owner (Russian): the counts and the names added or changed, how many artist pages were left out, which page files to delete.
+10. Owner after deploy: open the home page and `all.html` (and look at the change pills once a genre has two snapshots, rule 22), request indexing in Search Console for the home page and the changed pages, resubmit `sitemap.xml`, refresh the link previews (Facebook Sharing Debugger, Telegram @WebpageBot) when `assets/og-image.png` changed.

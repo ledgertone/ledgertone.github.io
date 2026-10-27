@@ -1,0 +1,712 @@
+{
+ "name": "Ledgertone Phonk ranking on Pandora by 28-day listeners",
+ "publisher": "Ledgertone",
+ "url": "https://ledgertone.github.io/",
+ "genre": "Phonk",
+ "snapshot": "2026-10-25",
+ "note": "A hand-collected snapshot of October 2026, not live data. The top 100 of the list, places counted by 28-day listeners, \"Few\" artists follow the numbered ones.",
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "count": 100,
+ "artists": [
+  {
+   "place": 1,
+   "artist": "Kordhell",
+   "listeners_28d": 144000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/kordhell/ARwdnkdPVtKgg5q"
+  },
+  {
+   "place": 2,
+   "artist": "Ariis",
+   "listeners_28d": 120872,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/ariis/ARcp4kct6XlVm5Z"
+  },
+  {
+   "place": 3,
+   "artist": "DVRST",
+   "listeners_28d": 120000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/dvrst/ARvqt3l9xtjthV2"
+  },
+  {
+   "place": 4,
+   "artist": "Ogryzek",
+   "listeners_28d": 64521,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/ogryzek/ARqXqpnZtfKK4f9"
+  },
+  {
+   "place": 5,
+   "artist": "SXMPRA",
+   "listeners_28d": 45000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/sxmpra/ARgKm45gp4c2m5k"
+  },
+  {
+   "place": 6,
+   "artist": "Dxrk ダーク",
+   "listeners_28d": 33000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/dxrk-da-ku/ARwjjX5xZ93d5PP"
+  },
+  {
+   "place": 7,
+   "artist": "INTERWORLD",
+   "listeners_28d": 33000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/interworld/ARctwbK5PJj7v3X"
+  },
+  {
+   "place": 8,
+   "artist": "Hensonn",
+   "listeners_28d": 30000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/hensonn/ARZpb3PZcnzVvxc"
+  },
+  {
+   "place": 9,
+   "artist": "g3ox_em",
+   "listeners_28d": 27000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/g3ox-em/ARghj2K7Kd92bvK"
+  },
+  {
+   "place": 10,
+   "artist": "SETTWOR",
+   "listeners_28d": 24459,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c"
+  },
+  {
+   "place": 11,
+   "artist": "PHNKR",
+   "listeners_28d": 21096,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/phnkr/ARfbZKKhhv5zcVc"
+  },
+  {
+   "place": 12,
+   "artist": "Ghostface Playa",
+   "listeners_28d": 20000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/ghostface-playa/ARzz7pX3kn55hz6"
+  },
+  {
+   "place": 13,
+   "artist": "MoonDeity",
+   "listeners_28d": 20000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/moondeity/ARjxXgtqc4cmktX"
+  },
+  {
+   "place": 14,
+   "artist": "Lumi Athena",
+   "listeners_28d": 19736,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/lumi-athena/ARwkwJllglpc6Vm"
+  },
+  {
+   "place": 15,
+   "artist": "Suave Lee",
+   "listeners_28d": 16000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/suave-lee/ARv9hP74Jb5cbPg"
+  },
+  {
+   "place": 16,
+   "artist": "Irokz",
+   "listeners_28d": 14771,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/irokz/ARdpxPVV3vwkb7c"
+  },
+  {
+   "place": 17,
+   "artist": "Scythermane",
+   "listeners_28d": 14636,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/scythermane/ARKr2JqVKZplp4X"
+  },
+  {
+   "place": 18,
+   "artist": "Towa",
+   "listeners_28d": 14481,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/towa/AR94xXg7PP5pmJk"
+  },
+  {
+   "place": 19,
+   "artist": "jnhygs",
+   "listeners_28d": 13123,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/jnhygs/ARpKVnpVvkfncjK"
+  },
+  {
+   "place": 20,
+   "artist": "SCXR SOUL",
+   "listeners_28d": 13024,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/scxr-soul/ARbZfKf7Jcqvd9P"
+  },
+  {
+   "place": 21,
+   "artist": "LXST CXNTURY",
+   "listeners_28d": 13000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/lxst-cxntury/ARw2tdVqVVbn2vK"
+  },
+  {
+   "place": 22,
+   "artist": "ovg!",
+   "listeners_28d": 13000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/ovg/AR7zzXZ44cK3P2P"
+  },
+  {
+   "place": 23,
+   "artist": "Pharmacist",
+   "listeners_28d": 11000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/pharmacist/ARXqftKvgq4JK2K"
+  },
+  {
+   "place": 24,
+   "artist": "DJ Paul",
+   "listeners_28d": 10000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/dj-paul/ARJrwqgk7ZKzzfX"
+  },
+  {
+   "place": 25,
+   "artist": "ROMANE",
+   "listeners_28d": 10000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/romane/ARvKm2Zm6gmZcm6"
+  },
+  {
+   "place": 26,
+   "artist": "NxxxxxS",
+   "listeners_28d": 9700,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/nxxxxxs/ARmlqmj3jjbp5qm"
+  },
+  {
+   "place": 27,
+   "artist": "ZWE1HVNDXR",
+   "listeners_28d": 8400,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/zwe1hvndxr/ARp4mrktmknrjnP"
+  },
+  {
+   "place": 28,
+   "artist": "Skorde",
+   "listeners_28d": 8091,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/skorde/ARcJ9mvn9226Jp2"
+  },
+  {
+   "place": 29,
+   "artist": "CURSEDEVIL",
+   "listeners_28d": 7800,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/cursedevil/ARmpX5b22tzk744"
+  },
+  {
+   "place": 30,
+   "artist": "KUTE",
+   "listeners_28d": 7500,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/kute/ARktlK99Vl7qj3Z"
+  },
+  {
+   "place": 31,
+   "artist": "SwuM",
+   "listeners_28d": 7443,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/swum/ARd5V7kr7xhh3w9"
+  },
+  {
+   "place": 32,
+   "artist": "MUPP",
+   "listeners_28d": 7100,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/mupp/ARxqhgPJpvV6hpZ"
+  },
+  {
+   "place": 33,
+   "artist": "Jéja",
+   "listeners_28d": 7032,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/jeja/ARJbhXjp4pjkzhV"
+  },
+  {
+   "place": 34,
+   "artist": "Kingpin Skinny Pimp",
+   "listeners_28d": 6800,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/kingpin-skinny-pimp/ARr3l5PV5wZjqXK"
+  },
+  {
+   "place": 35,
+   "artist": "911",
+   "listeners_28d": 6200,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/911/ARt2j4vfzkd5pzm"
+  },
+  {
+   "place": 36,
+   "artist": "MC ORSEN",
+   "listeners_28d": 5500,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/mc-orsen/ARgf4fkfJb3frc4"
+  },
+  {
+   "place": 37,
+   "artist": "$werve",
+   "listeners_28d": 5000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/swerve/ARndtXXrtvX59wc"
+  },
+  {
+   "place": 38,
+   "artist": "6YNTHMANE",
+   "listeners_28d": 4900,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/6ynthmane/ARj59v5PbJ6jcqZ"
+  },
+  {
+   "place": 39,
+   "artist": "DXGGX",
+   "listeners_28d": 4600,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/dxggx/ARk6p2bhKfK9qVJ"
+  },
+  {
+   "place": 40,
+   "artist": "Phonk.me",
+   "listeners_28d": 4600,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/phonkme/AR7rhr3JX5kd53K"
+  },
+  {
+   "place": 41,
+   "artist": "Scarlxrd",
+   "listeners_28d": 4469,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/scarlxrd/ARqX7zn6K9qm73w"
+  },
+  {
+   "place": 42,
+   "artist": "Sinizter",
+   "listeners_28d": 4400,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/sinizter/ARdltZtK2czqkqm"
+  },
+  {
+   "place": 43,
+   "artist": "HXVRMXN",
+   "listeners_28d": 4100,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/hxvrmxn/AR5Xwnk6wZ7Jpvm"
+  },
+  {
+   "place": 44,
+   "artist": "Genshin",
+   "listeners_28d": 4000,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/genshin/ARwj73rKpjzXmzg"
+  },
+  {
+   "place": 45,
+   "artist": "Sibewest",
+   "listeners_28d": 3700,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/sibewest/ARPh36f6kj94jJV"
+  },
+  {
+   "place": 46,
+   "artist": "Devilish Trio",
+   "listeners_28d": 3600,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/devilish-trio/ARbZJ2p5pt35xqP"
+  },
+  {
+   "place": 47,
+   "artist": "ONIMXRU",
+   "listeners_28d": 3500,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/onimxru/AR9PkgfwwKgKj5K"
+  },
+  {
+   "place": 48,
+   "artist": "SXCREDMANE",
+   "listeners_28d": 2958,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/sxcredmane/ARb3qKl6lkJlrqq"
+  },
+  {
+   "place": 49,
+   "artist": "RAIZHELL",
+   "listeners_28d": 2730,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/raizhell/AR6rX6h74txVbhm"
+  },
+  {
+   "place": 50,
+   "artist": "Kaito Shoma",
+   "listeners_28d": 2700,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/kaito-shoma/ARktglpVlVJVnwZ"
+  },
+  {
+   "place": 51,
+   "artist": "PlayaPhonk",
+   "listeners_28d": 2500,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/playaphonk/AR4vjV6dtrVxz4K"
+  },
+  {
+   "place": 52,
+   "artist": "Demon",
+   "listeners_28d": 2200,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/demon/ARgrV4dVzxm4q9Z"
+  },
+  {
+   "place": 53,
+   "artist": "SHADXWBXRN",
+   "listeners_28d": 2200,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/shadxwbxrn/ARgdrdjz54mkKPP"
+  },
+  {
+   "place": 54,
+   "artist": "Alban Chela",
+   "listeners_28d": 1705,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/alban-chela/ARjXh4dz6m324qc"
+  },
+  {
+   "place": 55,
+   "artist": "Soudiere",
+   "listeners_28d": 1600,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/soudiere/ARZP3l6tr92Pw9g"
+  },
+  {
+   "place": 56,
+   "artist": "Geoxor",
+   "listeners_28d": 1582,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/geoxor/AR2hJmznfbhbngP"
+  },
+  {
+   "place": 57,
+   "artist": "Narvent",
+   "listeners_28d": 1300,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/narvent/AR44xfgbm95jllZ"
+  },
+  {
+   "place": 58,
+   "artist": "KSLV Noh",
+   "listeners_28d": 1000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/kslv-noh/ARvp7xXthk27534"
+  },
+  {
+   "place": 59,
+   "artist": "my!lane",
+   "listeners_28d": 1000,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/my-lane/ARZPpqcg73495wm"
+  },
+  {
+   "place": 60,
+   "artist": "blueberry",
+   "listeners_28d": 949,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/blueberry/AR27Xp7V5JmnqvK"
+  },
+  {
+   "place": 61,
+   "artist": "H11T",
+   "listeners_28d": 940,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/h11t/ARZfm7r64hnglxc"
+  },
+  {
+   "place": 62,
+   "artist": "Nateki",
+   "listeners_28d": 753,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/nateki/ARqc4Pwgq6m2xpK"
+  },
+  {
+   "place": 63,
+   "artist": "BLESSED MANE",
+   "listeners_28d": 734,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/blessed-mane/ARkf63wVPknbdJ6"
+  },
+  {
+   "place": 64,
+   "artist": "DJ Smokey",
+   "listeners_28d": 721,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/dj-smokey/ARhtzfZc5qcfhz2"
+  },
+  {
+   "place": 65,
+   "artist": "Groove Dealers",
+   "listeners_28d": 706,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/groove-dealers/AR3htZf5chtwf7m"
+  },
+  {
+   "place": 66,
+   "artist": "ANDROMEDA",
+   "listeners_28d": 665,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/andromeda/ARx393gtdqp97bq"
+  },
+  {
+   "place": 67,
+   "artist": "VOLT VISION",
+   "listeners_28d": 641,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/volt-vision/AR3nhjK4p9l9mlm"
+  },
+  {
+   "place": 68,
+   "artist": "TWISTED",
+   "listeners_28d": 600,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/twisted/AR243hZ5cz2k6x9"
+  },
+  {
+   "place": 69,
+   "artist": "6EXTERMINATION",
+   "listeners_28d": 578,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/6extermination/ARz2JbgvrldVplV"
+  },
+  {
+   "place": 70,
+   "artist": "CORE",
+   "listeners_28d": 489,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/core/AR446PqpZpJlP7P"
+  },
+  {
+   "place": 71,
+   "artist": "Sadfriendd",
+   "listeners_28d": 352,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/sadfriendd/ARrmJ2pckXnvftm"
+  },
+  {
+   "place": 72,
+   "artist": "Cursed",
+   "listeners_28d": 336,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/cursed/ARhlnlvJZ5rqk56"
+  },
+  {
+   "place": 73,
+   "artist": "Big Melancholy",
+   "listeners_28d": 290,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/big-melancholy/ARnkxfbjfn2jPdK"
+  },
+  {
+   "place": 74,
+   "artist": "II Tone",
+   "listeners_28d": 282,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/2-tone/ARkrXkfhcw9qkJX"
+  },
+  {
+   "place": 75,
+   "artist": "SNYSTA",
+   "listeners_28d": 269,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/snysta/ARmxKzj33dr6d5Z"
+  },
+  {
+   "place": 76,
+   "artist": "STRLGHT",
+   "listeners_28d": 230,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/strlght/AR747kJq6dXmmfP"
+  },
+  {
+   "place": 77,
+   "artist": "Varo",
+   "listeners_28d": 222,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/varo/ARXvK7qgmP2tX42"
+  },
+  {
+   "place": 78,
+   "artist": "Funk Tribu",
+   "listeners_28d": 206,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/funk-tribu/ARwtrrZ6Vkr6vV4"
+  },
+  {
+   "place": 79,
+   "artist": "plenka",
+   "listeners_28d": 206,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/plenka/ARr6qdcc4gkrdcm"
+  },
+  {
+   "place": 80,
+   "artist": "MXRCVRY",
+   "listeners_28d": 195,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/mxrcvry/ARJvkx93VXhvlxX"
+  },
+  {
+   "place": 81,
+   "artist": "DJ Yung Vamp",
+   "listeners_28d": 177,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/dj-yung-vamp/ARfPlgzj9pJ9P2m"
+  },
+  {
+   "place": 82,
+   "artist": "Isolate.exe",
+   "listeners_28d": 173,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/isolateexe/ARX3d73KKljZjkm"
+  },
+  {
+   "place": 83,
+   "artist": "BLXCKBUSTA",
+   "listeners_28d": 169,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/blxckbusta/ARmgdVwt6PkvkqP"
+  },
+  {
+   "place": 84,
+   "artist": "Phonk Killer",
+   "listeners_28d": 146,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/phonk-killer/ARjd3xfZPqpgc49"
+  },
+  {
+   "place": 85,
+   "artist": "Berrymane",
+   "listeners_28d": 144,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/berrymane/AR9Vfhwvb9t2fjV"
+  },
+  {
+   "place": 86,
+   "artist": "AntXres",
+   "listeners_28d": 125,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/antxres/ARtgZ4kmXntnlkK"
+  },
+  {
+   "place": 87,
+   "artist": "TOLCHONOV",
+   "listeners_28d": 118,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/tolchonov/AR5dtd9597vcwh4"
+  },
+  {
+   "place": 88,
+   "artist": "Kiraw",
+   "listeners_28d": 117,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/kiraw/AR7k2zKhhn4J9ZV"
+  },
+  {
+   "place": 89,
+   "artist": "CANA",
+   "listeners_28d": 107,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/cana/ARqd7qvPjrnKJKV"
+  },
+  {
+   "place": 90,
+   "artist": "Xantesha",
+   "listeners_28d": 98,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/xantesha/ARlKZc452695JcZ"
+  },
+  {
+   "place": 91,
+   "artist": "SAGE",
+   "listeners_28d": 95,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/sage/ARK6qgblt3d6xf2"
+  },
+  {
+   "place": 92,
+   "artist": "Heuse",
+   "listeners_28d": 85,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/heuse/AR2fp74hb9knptm"
+  },
+  {
+   "place": 93,
+   "artist": "T-Mass",
+   "listeners_28d": 75,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/t-mass/ARgzqk6l73rKfn6"
+  },
+  {
+   "place": 94,
+   "artist": "NUEKI",
+   "listeners_28d": 71,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/nueki/ARftgbPJdwJlkrq"
+  },
+  {
+   "place": 95,
+   "artist": "ChillPanic",
+   "listeners_28d": 70,
+   "genre_verified": false,
+   "pandora_url": "https://www.pandora.com/artist/chillpanic/ARc4VV6hpj34lP6"
+  },
+  {
+   "place": 96,
+   "artist": "Nia.wave",
+   "listeners_28d": 64,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/niawave/ARXgVhwn9495Pr4"
+  },
+  {
+   "place": 97,
+   "artist": "Apoc Krysis",
+   "listeners_28d": 59,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/apoc-krysis/ARgmZmq7lPg56p4"
+  },
+  {
+   "place": 98,
+   "artist": "Phonkyrie",
+   "listeners_28d": 53,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/phonkyrie/ARzklbxV5bxk9dm"
+  },
+  {
+   "place": 99,
+   "artist": "SPLYXER",
+   "listeners_28d": 52,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/splyxer/ARfKXgmmqf2cg2V"
+  },
+  {
+   "place": 100,
+   "artist": "lilbubblegum",
+   "listeners_28d": 50,
+   "genre_verified": true,
+   "pandora_url": "https://www.pandora.com/artist/lilbubblegum/ARZ5zw7rgKZ69qZ"
+  }
+ ]
+}

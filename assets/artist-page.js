@@ -15,7 +15,9 @@
   var esc = core.esc, num = core.num, month = core.month, genreName = core.genreName;
   var fmt = function (s, v) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return Object.prototype.hasOwnProperty.call(v, k) ? v[k] : m; }); };
   var fmtH = function (s, v) { var e = {}; Object.keys(v).forEach(function (k) { e[k] = esc(v[k]); }); return fmt(s, e); };
-  var statCard = function (k, v, of) { return '<div class="stat glass glass-flat"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v) + (of ? '<span class="of"> ' + esc(of) + '</span>' : '') + '</div></div>'; };
+  var statCard = function (k, v, of, extra) { return '<div class="stat glass glass-flat"><div class="k">' + esc(k) + '</div><div class="v">' + esc(v) + (of ? '<span class="of"> ' + esc(of) + '</span>' : '') + (extra || '') + '</div></div>'; };
+  // owner mark (owner decision, v1.19.0, AGENTS.md rule 21): only the owner page, only while the place is worse than the place with earlierListeners (core.earlierPlaceAt); same markup as in assets/app.js
+  var dropMark = function (a, place, e, t) { return a.owner && e !== null && e !== undefined && place > e ? '<span class="dn" aria-label="' + esc(fmt(t.earlier, { place: e })) + '"><svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>#' + e + '</span>' : ''; };
 
   function model(a, lang) {
     var t = TEXT[lang], ru = lang === 'ru', n = function (x) { return num(x, lang); }, m = function (d) { return month(d, lang); };
@@ -26,7 +28,7 @@
     var rows = core.L.genres.map(function (g) { return hist.find(function (r) { return r.genre === g.id; }); }).filter(Boolean);
     var topRows = rows.filter(function (r) { return r.date === latest; });
     var top = topRows[0], isNum = Number.isFinite(top.x.listeners);
-    var places = topRows.map(function (r) { return { id: r.genre, name: genreName(r.genre), p: r.place ? { place: r.place, of: r.total, ranked: r.of } : null }; }).filter(function (x) { return x.p && isNum; });
+    var places = topRows.map(function (r) { return { id: r.genre, name: genreName(r.genre), p: r.place ? { place: r.place, of: r.total, ranked: r.of } : null, e: a.owner ? core.earlierPlaceAt(r.genre, r.i, a.name) : null }; }).filter(function (x) { return x.p && isNum; });
     // a place among fewer than 3 ranked artists stays in the cards but is left out of the sentence and the title
     var sig = places.filter(function (x) { return x.p.ranked >= 3; });
     var placeTail = sig.length ? fmt(t.placeTail, {
@@ -72,7 +74,7 @@
       '<div class="stats" role="group" aria-label="' + esc(fmt(t.aria, vn)) + '">',
       statCard(t.cardL, isNum ? n(top.x.listeners) : 'Few', isNum ? fmt(t.cardShown, { text: top.x.text }) : ''),
       statCard(t.cardSnap, m(latest), latest),
-      places.map(function (x) { return statCard(fmt(t.cardPlace, { genre: x.name }), String(x.p.place), fmt(t.cardOf, { of: n(x.p.of) })); }).join('\n'),
+      places.map(function (x) { return statCard(fmt(t.cardPlace, { genre: x.name }), String(x.p.place), fmt(t.cardOf, { of: n(x.p.of) }), dropMark(a, x.p.place, x.e, t)); }).join('\n'),
       '</div>',
       '<h2>' + esc(t.srcH) + '</h2>', '<p>' + t.srcP + '</p>',
       '<h2>' + esc(t.histH) + '</h2>', '<p>' + esc(fmt(t.histLead, vn)) + '</p>', histTable,

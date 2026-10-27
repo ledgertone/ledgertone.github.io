@@ -16,7 +16,7 @@
   const VIEW_ALL = !!(document.body && document.body.dataset.view === 'all');
   const TOP = !VIEW_ALL && Number.isFinite(data.topLimit) && data.topLimit > 0 ? data.topLimit : Infinity;
   const TOPN = Number.isFinite(data.topLimit) && data.topLimit > 0 ? data.topLimit : 100;
-  const topnote = $('#topnote');
+  const topnote = $('#topnote'), cite = $('#cite');
   const noteFor = (g) => {
     const wrap = document.createDocumentFragment(), a = el('a', '', VIEW_ALL ? 'Back to the top ' + nf.format(TOPN) : 'See the list of all artists');
     a.href = (VIEW_ALL ? 'index.html' : 'all.html') + (g.id === homeId ? '' : '#' + g.id);
@@ -158,6 +158,8 @@
     const capped = i === 0 && all > TOP;
     if (all) parts.push(capped ? 'Top ' + nf.format(TOP) + ' of ' + nf.format(all) + ' artists' : nf.format(all) + (all === 1 ? ' artist' : ' artists'));
     if (topnote) { topnote.hidden = !(capped || (VIEW_ALL && i === 0 && all > TOPN)); if (!topnote.hidden) topnote.replaceChildren(noteFor(cur)); }
+    // permalink line (v1.28.0, AGENTS.md rule 23): a stable address of the snapshot on screen, #<genre id>-<capture date>
+    if (cite) { cite.hidden = !s; if (s) { const f = (VIEW_ALL ? 'all.html' : '') + '#' + cur.id + '-' + s.capturedAt; const a = el('a', '', 'https://ledgertone.github.io/' + f); a.href = f; cite.replaceChildren('Cite this snapshot: ', a); } }
     if (!s) parts.push('No data yet');
     if (s && s.note && !s.sample) parts.push(s.note);
     meta.textContent = parts.join(' \u00b7 ');
@@ -172,6 +174,15 @@
       .sort((a, b) => b.listeners - a.listeners || String(a.name).localeCompare(String(b.name), 'en'));
     const flat = rest.map((n) => ({ name: n, few: few.has(norm(n)) })).concat(uv.filter((u) => u.listeners === null).map(uvRow))
       .sort((a, b) => (!!b.few - !!a.few) || a.name.localeCompare(b.name, 'en'));
+    // change pills (owner request, v1.22.0, AGENTS.md rule 22): places moved against the next older snapshot of the genre, counted among the verified artists with a number
+    // (same count as moveAt in assets/ledger-core.js). state.move: key -> places gained (positive) or lost (negative), only for a different place.
+    state.move = new Map();
+    const olderSnap = s ? snaps[i + 1] : null;
+    if (olderSnap) {
+      const olderPlace = new Map();
+      (olderSnap.artists || []).filter(valid).sort((a, b) => b.listeners - a.listeners || String(a.name).localeCompare(String(b.name), 'en')).forEach((a, n) => olderPlace.set(norm(a.name), n + 1));
+      arts.forEach((a, n) => { const p = olderPlace.get(norm(a.name)); if (p !== undefined && p !== n + 1) state.move.set(norm(a.name), p - (n + 1)); });
+    }
     // the rank always comes from the full list, so it stays correct while searching
     // "Few" artists have a reading too (owner decision, v0.71.0), so they get a place after the numbered ones, in the order they are listed; "No data" rows keep "-"
     let place = ranked.length;
@@ -179,6 +190,8 @@
       .concat(flat.map((a) => ({ a, rank: a.few ? ++place : null, key: norm(a.name) })));
     // top list: keep only the places 1 to TOP, the rest is hidden (rank null rows too)
     if (Number.isFinite(TOP)) state.rows = state.rows.filter((r) => r.rank !== null && r.rank <= TOP);
+    // owner mark (rule 21): the place SETTWOR would have with data.earlierListeners, from the full ranked list (same count as earlierPlaceAt in assets/ledger-core.js)
+    state.earlier = Number.isFinite(data.earlierListeners) ? 1 + ranked.filter((a) => norm(a.name) !== 'settwor' && (a.listeners > data.earlierListeners || (a.listeners === data.earlierListeners && String(a.name).localeCompare('SETTWOR', 'en') < 0))).length : null;
     state.page = 1;
     draw();
   }
@@ -264,7 +277,20 @@
       const who = el('td', 'who'); who.append(wh);
       const rk = el('td', 'rk');
       if (rank === null) { rk.textContent = '-'; } else if (rank <= 3) { const m = el('span', 'mdl ' + ['gold', 'silver', 'bronze'][rank - 1], String(rank)); m.setAttribute('aria-label', 'Place ' + rank); rk.append(m); } else { rk.textContent = String(rank); }
-      tr.append(rk, who, Number.isFinite(a.listeners) ? el('td', 'st', nf.format(a.listeners)) : el('td', 'st nodata', a.few ? 'Few' : 'No data'));
+      const st = Number.isFinite(a.listeners) ? el('td', 'st', nf.format(a.listeners)) : el('td', 'st nodata', a.few ? 'Few' : 'No data');
+      // change pill (owner request, v1.22.0, AGENTS.md rule 22): green arrow up or red arrow down with the number of places, same markup as scripts/build-home.js
+      const mvd = (!a.unverified && rank !== null && Number.isFinite(a.listeners) && state.move) ? state.move.get(norm(a.name)) : 0;
+      if (mvd) {
+        const cnt = Math.abs(mvd), pill = el('span', mvd > 0 ? 'up' : 'dn mv'); pill.setAttribute('aria-label', (mvd > 0 ? 'Up ' : 'Down ') + cnt + (cnt === 1 ? ' place' : ' places'));
+        pill.innerHTML = mvd > 0 ? '<svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '<svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        pill.append(String(cnt)); st.append(pill);
+      }
+      // owner mark (owner decision, v1.19.0, AGENTS.md rule 21): only SETTWOR, only while his place is worse than state.earlier (the place he would have with data.earlierListeners); same markup as scripts/build-home.js
+      if (rank !== null && Number.isFinite(a.listeners) && state.earlier !== null && state.earlier !== undefined && norm(a.name) === 'settwor' && rank > state.earlier) {
+        const dn = el('span', 'dn'); dn.setAttribute('aria-label', 'Earlier place ' + state.earlier);
+        dn.innerHTML = '<svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>'; dn.append('#' + state.earlier); st.append(dn);
+      }
+      tr.append(rk, who, st);
       return tr;
     };
     const CHUNK = 40;
@@ -309,9 +335,17 @@
   const homeId = genres[0].id;
   // The chip above the title shows only a warning (no snapshot yet, sample data). The normal "Latest Pandora snapshot" label was removed by the owner (v0.86.0), so an empty text hides the chip.
   const setStatus = (t) => { if (status) { status.textContent = t; status.hidden = !t; } };
-  const fromHash = () => genres.find((g) => g.id === decodeURIComponent(location.hash.slice(1))) || genres[0];
+  // #<genre id> opens a genre, #<genre id>-<YYYY-MM-DD> opens that snapshot of the genre (v1.28.0, rule 23); an unknown date opens the latest
+  const fromHash = () => {
+    let h = ''; try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { h = ''; }
+    const m = /^(.*)-(\d{4}-\d{2}-\d{2})$/.exec(h);
+    const g = genres.find((x) => x.id === h);
+    if (g) return { g, d: '' };
+    const g2 = m && genres.find((x) => x.id === m[1]);
+    return g2 ? { g: g2, d: m[2] } : { g: genres[0], d: '' };
+  };
 
-  function setGenre(g) {
+  function setGenre(g, date) {
     cur = g;
     snaps = allSnaps.filter((s) => (s.genre || homeId) === g.id);
     if (gbox) gbox.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === g.id)));
@@ -345,7 +379,8 @@
     if (caption) caption.textContent = g.name + ' artists on Pandora, ordered by 28-day listeners';
     setStatus(snaps[0].sample ? 'Sample data, not real' : '');
     snaps.forEach((s, i) => { const b = el('button', '', fmt(s.capturedAt)); b.type = 'button'; b.addEventListener('click', () => select(i)); picker.append(b); });
-    select(0);
+    const di = date ? snaps.findIndex((x) => x.capturedAt === date) : 0;
+    select(di > -1 ? di : 0);
   }
 
   if (gbox && genres.length > 1) {
@@ -358,9 +393,9 @@
       gbox.append(b);
     });
     gbox.hidden = false;
-    addEventListener('hashchange', () => setGenre(fromHash()));
+    addEventListener('hashchange', () => { const h = fromHash(); setGenre(h.g, h.d); });
   }
-  setGenre(fromHash());
+  { const h0 = fromHash(); setGenre(h0.g, h0.d); }
 
   ['pointermove', 'pointerdown'].forEach((t) => addEventListener(t, (e) => {
     const g = e.target.closest && e.target.closest('.glass');

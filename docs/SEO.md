@@ -33,7 +33,7 @@ Consent design: Consent Mode v2 defaults are all denied. The tag loads on every 
 3. Submit `https://ledgertone.github.io/sitemap.xml`.
 4. Use URL Inspection on the home page and request indexing.
 5. Optional: add the site to Bing Webmaster Tools and import from Search Console.
-6. Update `<lastmod>` in `sitemap.xml` whenever a snapshot is added.
+6. Update `<lastmod>` in `sitemap.xml` whenever a snapshot is added (`node scripts/build-all.js` does it, and it also writes `feed.xml`, an Atom feed with one entry per snapshot, v1.25.0, and `ranking-<genre>.csv` and `.json`, the top 100 of each genre as clean data with a `Dataset` in the home JSON-LD, v1.26.0).
 
 ## What helps ranking, and what does not
 
