@@ -2,6 +2,39 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.37.0] - 2026-10-27
+### Added
+- CSV and JSON for every older snapshot (TODO item "CSV download of each snapshot"): `scripts/build-ranking-files.js` now also writes `ranking-<genre>-<YYYY-MM-DD>.csv` and `.json` for each snapshot of a genre except the latest (same columns as the latest files, numbered artists of that snapshot only, places 1 to `topLimit`; unverified artists exist only in the latest snapshot and "Few" rows are not part of older snapshots, so neither appears). The latest `ranking-<genre>.json` lists them in `earlier_snapshots`. `scripts/check-release.js` checks every pair (row count, date, note, listed in the latest JSON).
+- With the present data (one snapshot per genre) nothing new is written and the four existing ranking files are byte-identical to v1.36.0. Tested in a scratch copy with a made-up older snapshot (files written, check fails when a file is missing). Node checks only, not seen in a browser.
+### Changed
+- Defaults chosen by the agent, the owner may change them: the older files are not linked in the head of `index.html`, not in `sitemap.xml`, not in the `Dataset` JSON-LD, no visible download link. Documentation: `AGENTS.md` layout table, `docs/DATA.md`.
+### Tried and not done
+- Shrinking the fonts (TODO): `fonttools` subsetting to Latin and Cyrillic saves only about 2 percent (1,141 to 1,121 glyphs in SF Pro Rounded, the files already hold little else), and woff2 needs the `brotli` module, which is not available here. The font files are unchanged.
+
+## [1.36.0] - 2026-10-27
+### Changed
+- Documentation only: TODO cleanup. "Artist detail view with history across snapshots" (snapshot history table on the artist pages) and "Structured data (schema.org Dataset)" (Dataset JSON-LD on `index.html` and the artist pages) were already built and are marked done. "CSV download of each snapshot" stays open: no genre has an older snapshot yet. No site, data or script change.
+
+## [1.35.0] - 2026-10-27
+### Changed
+- Static accessibility pass (part of the Lighthouse TODO item, no Lighthouse or browser audit was possible here): checked index, all, about, privacy, 404 and settwor for `lang`, one `h1`, image `alt`, empty buttons, description and canonical. Only finding fixed: the `h3` "Changes to the method" in the Methodology section had no style, `.doc h3` added in `assets/styles.css` (quiet, same font as headings). Left as is: the empty state `h3` on the home page skips a heading level (it is shown only when no snapshot exists); `404.html` has no canonical (intended for an error page); the theme button is empty in the HTML but gets its text from `assets/theme.js` and has an `aria-label`. Node checks only, not seen in a browser.
+
+## [1.34.0] - 2026-10-27
+### Added
+- Methodology section on `about.html` (anchor `#methodology`, assistant idea from TODO): method version 1.0, the rules of the ranking (metric, order, Few and No data, verified and not verified, top 100, change pills, snapshot address) and a short list of method changes by site version (0.54.0, 0.60.0, 0.71.0, 1.14.0, 1.22.0). Only restates rules already in force, no new facts, no word about how the figures are made up. Node checks only, the page was not opened in a browser. Open: the wording and the method version number are defaults chosen by the agent, the owner may change them.
+
+## [1.33.0] - 2026-10-27
+### Changed
+- Documentation only (TODO item about artist names with non-Latin letters): checked all 4,583 names in rosters, snapshots and the unverified list. 22 names have Cyrillic letters and every Cyrillic glyph in them is in all four SF Pro Rounded files, so they are drawn in the site font. 22 more names carry Japanese, Chinese, Greek or symbol characters, which fall back to the system font (the fonts have no such glyphs). No site, data or script change.
+
+## [1.32.0] - 2026-10-27
+### Added
+- Static artist pages for the best artists (assistant idea from TODO): places 1 to 10 of every genre (latest snapshot, same order as the home page) are now written with figures and text in the HTML, readable without JavaScript, like SETTWOR. `STATIC_TOP = 10` in `scripts/build-artist-pages.js`, 17 new static pages, all other pages stay shells. The static pages are bigger than shells, so they enter the archive (rule 17) and are re-sent whenever their content changes, for example when the top 10 changes. Node checks only, the pages were not opened in a browser. To change the limit edit `STATIC_TOP`.
+
+## [1.31.0] - 2026-10-27
+### Changed
+- `assets/og-image.png` redrawn (open item since v1.14.0): the title now reads "Top-100 Phonk Artists on Pandora", the rest of the design is as in v0.94.0 (1200 x 630, staff and note, site name in New York, SF Pro Rounded, "Snapshot ranking" chip, bar with "Ranked by 28-day listeners" and the site address). No figures, no artist names, no Pandora logo (rule 4). Rendered in headless Chromium only, not seen in a real link preview. After deploy refresh the link preview cache (Facebook Sharing Debugger, Telegram @WebpageBot).
+
 ## [1.30.0] - 2026-10-27
 ### Changed
 - Owner rule: the top list files (`Ledgertone top100.txt` and `.json`) always go inside the archive, in the new folder `top100/`. `scripts/pack.js` writes them from the data with `export-top.js` before zipping and fails if they are missing. Documentation: `AGENTS.md` rule 19, `CLAUDE.md`, `docs/DATA.md`. No site change.

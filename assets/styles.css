@@ -92,6 +92,7 @@ footer p{max-width:70ch;margin:0 0 8px}
 .doc{padding:calc(env(safe-area-inset-top,0px) + 112px) 0 40px}
 .doc h1{max-width:none}
 .doc h2{margin:32px 0 10px;font-size:1.25rem}
+.doc h3{margin:24px 0 8px;font-family:var(--display);font-size:1.05rem}
 .doc p,.doc li{max-width:68ch;color:var(--muted)}
 .doc li{margin-bottom:6px}
 .doc table{border-collapse:collapse;width:100%;max-width:68ch;margin:12px 0}

@@ -5,7 +5,7 @@
 // 6 JSON-LD of index.html, settwor.html, settwor-ru.html and one artist shell parses and every referenced @id is defined on the same page;
 // 7 every local href and src of every HTML page points to an existing file (data/artist-media*.js are expected to be missing, rule 9).
 // 8 feed.xml: one entry per snapshot, unique ids, linked from index.html.
-// 9 ranking files (v1.26.0): one CSV and one JSON per snapshotted genre, row count equals the top list, CSV and JSON agree, linked from index.html, Dataset in the JSON-LD.
+// 9 ranking files (v1.26.0, older snapshots v1.37.0): one CSV and one JSON per snapshotted genre (and per older snapshot), row count equals the top list, CSV and JSON agree, linked from index.html, Dataset in the JSON-LD.
 // Exit code 1 when anything fails.
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const root = path.resolve(__dirname, '..');
@@ -114,6 +114,18 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
     if (j.snapshot !== s.capturedAt || !lines[1] || lines[1].indexOf(s.capturedAt) !== 0) problems.push(g.id + ': snapshot date differs');
     if (j.artists.some((a, i) => a.place !== i + 1)) problems.push(jsonF + ': places are not 1..N');
     if (!/not live data/.test(j.note)) problems.push(jsonF + ': note must say not live data');
+    // older snapshots (v1.37.0): one pair per older snapshot that has numbered artists, listed in the latest JSON
+    core.snapsOf(g.id).slice(1).forEach((o, i) => {
+      const rows = core.rankedAt(g.id, i + 1).filter((a) => a.rank <= core.topLimit).length;
+      if (!rows) return;
+      const stem = 'ranking-' + g.id + '-' + o.capturedAt, c2 = stem + '.csv', j2 = stem + '.json';
+      if (!fs.existsSync(path.join(root, c2)) || !fs.existsSync(path.join(root, j2))) return problems.push(stem + ': file missing');
+      let jj; try { jj = JSON.parse(rd(j2)); } catch (e) { return problems.push(j2 + ' does not parse'); }
+      const ll = rd(c2).split(/\r?\n/).filter(Boolean);
+      if (jj.artists.length !== rows || jj.count !== rows || ll.length - 1 !== rows) problems.push(stem + ': row count differs from the snapshot');
+      if (jj.snapshot !== o.capturedAt || !/not live data/.test(jj.note)) problems.push(stem + ': snapshot date or note');
+      if (!(j.earlier_snapshots || []).some((e) => e.snapshot === o.capturedAt && e.csv === SITE_URL + c2 && e.json === SITE_URL + j2)) problems.push(jsonF + ' does not list ' + o.capturedAt);
+    });
     [csvF, jsonF].forEach((f) => { if (!idx.includes('href="' + f + '"')) problems.push('index.html does not link ' + f); if (!idx.includes(SITE_URL + f)) problems.push('Dataset of index.html lacks ' + f); });
   });
   if (!n) problems.push('no snapshots');

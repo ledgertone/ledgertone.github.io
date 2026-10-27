@@ -1,6 +1,13 @@
 # TODO
 
 ## Done
+- [x] v1.37.0: CSV and JSON for every older snapshot (`ranking-<genre>-<date>.csv` and `.json`, written by `build-ranking-files.js`, checked by `check-release.js`). Nothing new is written until a genre has a second snapshot. Node checks and a scratch test only. Font shrinking tried: subsetting saves only about 2 percent and woff2 is not possible without `brotli`, so the item stays open
+- [x] v1.36.0: TODO cleanup, two "Later" items marked done after checking the code (artist history, Dataset JSON-LD). Documentation only, no site change
+- [x] v1.35.0: static accessibility pass (lang, h1, alt, buttons, headings), one missing `.doc h3` style fixed. Node checks only. NOT a real Lighthouse run: contrast, performance numbers and the font gate timing still need one in Chrome (DevTools, Lighthouse tab) on the live site
+- [x] v1.34.0: Methodology section on `about.html#methodology` (method version 1.0 and a list of method changes). Node checks only. Open: wording and version number are defaults chosen by the agent, the owner may change them
+- [x] v1.33.0: checked the names with non-Latin letters, Cyrillic is covered by SF Pro Rounded, only Japanese, Chinese, Greek and symbols fall back to the system font. Documentation only
+- [x] v1.32.0: static artist pages for places 1 to 10 of every genre (`STATIC_TOP` in `scripts/build-artist-pages.js`), 17 new static pages. Node checks only. Open: the limit 10 is a default chosen by the agent, the owner may change it
+- [x] v1.31.0: `assets/og-image.png` redrawn with the title "Top-100 Phonk Artists on Pandora". Headless Chromium only, not seen in a real link preview. Owner: refresh the link preview cache (Facebook Sharing Debugger, Telegram @WebpageBot)
 - [x] v1.30.0: top list files always inside the archive in `top100/` (pack.js writes them). No site change
 - [x] v1.29.0: six artists (DJ FKU, sma$her, nightfxrce, Chilx, Rubikdice, LXNGVX) moved to Brazilian Phonk only, 1 artist banned and removed (Øneheart). Node checks only
 - [x] v1.28.0: snapshot permalinks `#<genre id>-<YYYY-MM-DD>` and the line "Cite this snapshot" under the table (rule 23). Headless Chromium only (1280 and 390 px), the owner should look at the line on the real iPhone. Open: defaults chosen by the agent (muted line, no copy button, hash not changed by the picker, not in the sitemap), the owner may change them
@@ -157,7 +164,7 @@
 - [ ] Test the theme switch on a real phone and in Safari (saved choice, no flash on load, theme-color bar)
 - [ ] Owner: check the site on an iPhone and a Mac (Safari and Chrome): New York headings, SF Pro body, heading size and wrapping, tracking
 - [ ] Check text legibility on glass rows and tinted buttons in light and dark, and performance of the rankings list with many rows
-- [ ] Artist names with non-Latin letters (for example Cyrillic) fall back to the system font, the subset is Latin only. Extend the subset if such names appear in `data/snapshots.js`
+- [x] (checked in v1.33.0) Artist names with non-Latin letters: Cyrillic is in the font, only Japanese, Chinese, Greek and symbol names use the system font. Nothing to extend unless you want those scripts in the site font
 - [ ] Check the glass cookie banner in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Check the glass in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Owner: decide whether the cookie-free pings before consent are acceptable, or switch back to loading the tag only after Accept (basic mode)
@@ -170,9 +177,9 @@
 - [ ] Test in Safari, Chrome, and Firefox, light and dark, with reduced motion, reduced transparency, and increased contrast
 
 ## Later
-- [ ] Artist detail view with history across snapshots
-- [ ] CSV download of each snapshot (only the latest snapshot per genre has files since v1.26.0, older snapshots do not yet)
-- [ ] Structured data (schema.org Dataset) after the first snapshot exists
+- [x] (done in v0.82.0 and v0.81.0, checked in v1.36.0: artist pages with a "Snapshot history" table) Artist detail view with history across snapshots
+- [x] (done in v1.37.0, files appear when a genre has a second snapshot) CSV download of each snapshot
+- [x] (done in v1.1.0 and v1.26.0, checked in v1.36.0: `Dataset` in the JSON-LD of `index.html` and the artist pages) Structured data (schema.org Dataset) after the first snapshot exists
 - [ ] Lighthouse accessibility and performance pass
 
 ## Assistant ideas (v1.5.0, what I would do next, not started, the owner decides)
@@ -180,10 +187,10 @@ Order is by value for the goal "Google and Gemini quote the site" and for the ow
 - [ ] Real device pass: almost everything since v0.82 was checked in headless Chromium only. One sitting on a real iPhone and in Safari: entrance animation of the search field (v1.0.0), per-link spring (v1.3.0), logo card (v1.4.0), pager row, font gate, "Per page: All". Write down what is off, I fix it in one version.
 - [x] Machine-readable data for the ranking (done in v1.26.0, top 100 instead of the whole list, see Done): `ranking-<genre>.csv` and `.json` of the latest snapshot (the "CSV download of each snapshot" item below), linked from the home page and from a `Dataset` with `distribution` in the home JSON-LD, like SETTWOR got in v1.1.0. Gives Gemini and Dataset Search one clean source for every artist.
 - [x] (done in v1.28.0, see Done) Snapshot permalinks: a stable URL or anchor per snapshot date (for example `index.html#2026-10-25`) and a visible "Cite this data" line with the date. Answers about "how many listeners in October 2026" can then point to a dated address.
-- [ ] Static artist pages for the top artists only (for example the 69 numbered Phonk rows), not just SETTWOR: figures readable without JavaScript where the search traffic will be. `--static` already exists for all pages, the cost is the archive size (rule 17), so a limit by rank is a smaller step.
-- [ ] A short "Methodology" section or page with a version number and a changelog of the method (still only "by hand", rule 3), so a quoted number can be traced to a rule. About already has the four disclosures, this is the same text with a stable address.
+- [x] (done in v1.32.0 for the top 10 of each genre) Static artist pages for the top artists only (for example the 69 numbered Phonk rows), not just SETTWOR: figures readable without JavaScript where the search traffic will be. `--static` already exists for all pages, the cost is the archive size (rule 17), so a limit by rank is a smaller step.
+- [x] (done in v1.34.0 as a section on `about.html`, see Done) A short "Methodology" section or page with a version number and a changelog of the method (still only "by hand", rule 3), so a quoted number can be traced to a rule. About already has the four disclosures, this is the same text with a stable address.
 - [x] Feed of updates (`feed.xml`): done in v1.25.0. The `lastmod` idea needed no change, the dates are already the snapshot date of each page's latest reading.
-- [ ] Shrink the fonts to woff2 with a Latin and Cyrillic subset so the font gate (v0.98.0) releases sooner on a first visit (needs tools I did not have here). The license questions for SF Pro Rounded, New York and Neue Machina in the list above are still open and matter before real traffic.
+- [ ] Shrink the fonts to woff2 so the font gate (v0.98.0) releases sooner on a first visit (v1.37.0: a Latin and Cyrillic subset alone saves only about 2 percent, the gain has to come from woff2, which needs the `brotli` Python module, not available here; run `pyftsubset --flavor=woff2` on a machine that has it). The license questions for SF Pro Rounded, New York and Neue Machina in the list above are still open and matter before real traffic.
 - [ ] Lighthouse accessibility and performance pass with the real numbers, then fix the top items (listed under Later).
 - [x] (done in v1.27.0, see Done) Monthly routine written down in `docs/DATA.md`: collect snapshot, import, `build-all`, request indexing for changed pages, refresh link previews. Makes the monthly update a checklist instead of a conversation.
 

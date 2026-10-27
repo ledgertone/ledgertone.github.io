@@ -35,7 +35,7 @@ window.LEDGERTONE = {
 
 1. Take the 28-day listeners reading of every phonk artist you include (owner-supplied).
 2. Add one snapshot object with the capture date.
-3. Open `index.html` and check the ranking. Run `node scripts/build-all.js`: it also adds an entry for the new snapshot to `feed.xml` and rewrites `ranking-<genre>.csv` and `ranking-<genre>.json` (top 100 of the latest snapshot).
+3. Open `index.html` and check the ranking. Run `node scripts/build-all.js`: it also adds an entry for the new snapshot to `feed.xml` and rewrites `ranking-<genre>.csv` and `ranking-<genre>.json` (top 100 of the latest snapshot, and one pair `ranking-<genre>-<YYYY-MM-DD>` for every older snapshot of the genre, v1.37.0).
 4. Add a line to `CHANGELOG.md`. Suggested commit message: `data: snapshot YYYY-MM-DD`.
 
 ## Rules

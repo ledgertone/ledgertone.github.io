@@ -15,13 +15,17 @@ require(path.join(root, 'data', 'artist-text.js'));
 const AP = require(path.join(root, 'assets', 'artist-page.js'))(core, window.LEDGERTONE_TEXT);
 const VERSION = JSON.parse(fs.readFileSync(path.join(root, 'version.json'), 'utf8')).version;
 const STATIC_ALL = process.argv.includes('--static');
+// Static pages for the best artists (v1.32.0, assistant idea from TODO): places 1 to STATIC_TOP of every genre (latest snapshot, same order as the home page) are written with figures and text, readable without JavaScript.
+const STATIC_TOP = 10;
+const STATIC_KEYS = new Set();
+L.genres.forEach((g) => lib.topOf(g.id).slice(0, STATIC_TOP).forEach((x) => STATIC_KEYS.add(norm(x.name))));
 
 const ARTISTS = pageArtists();
 const tpl = readCRLF('about.html');
 
 function buildPage(a, lang) {
   const ru = lang === 'ru', file = ru ? a.fileRu : a.file;
-  const isStatic = STATIC_ALL || !!a.owner;
+  const isStatic = STATIC_ALL || !!a.owner || STATIC_KEYS.has(norm(a.name));
   const r = AP.model(a, lang);
   if (!r) throw new Error('No reading for ' + a.name + ', page not built');
   let h = tpl;
