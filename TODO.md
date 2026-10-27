@@ -1,6 +1,13 @@
 # TODO
 
 ## Done
+- [x] v1.44.0: TODO only, 16 items marked done by the owner (Google snippet and Search Console steps, profile links, number check, real device checks, Spotify pictures). No site change
+- [x] v1.43.0: rule 18, the delete .bat runs from Downloads and works on the owner site folder by full path. Documentation only
+- [x] v1.42.0: Devilish Trio banned again, removed from Phonk (undoes the restore of 1.41.0). Node checks only
+- [x] v1.41.0: 111 artists banned and removed (every artist of `missing_artists_by_listeners.xlsx` except the kept ones), Devilish Trio taken off `banned` and put back into Phonk (85,700), Ogryzek, CURSEDEVIL, Skorde, THIRST, Irokz, DJ FKU and nightfxrce kept. Node checks only. Open: the 12 artists of the sheet "No data" were banned too, because the owner said all the others; Devilish Trio number is mostly one page shared with banned Skeler (82,000 of 85,700), the owner may check it
+- [x] v1.40.0: 17 artists banned and removed (Devilish Trio, DJ Paul, TWISTED, Lumi Athena, Kingpin Skinny Pimp, Towa, jnhygs, ovg!, NxxxxxS, SwuM, Jéja, 911, Soudiere, Sinizter, dnvn, Scarlxrd, Genshin), Irokz moved to Brazilian Phonk only. Node checks only
+- [x] v1.39.0: `ledgerMonthly.json` imported (7 verified artists added, 122 changed, 678 unchanged, unverified unchanged, 7 Pandora links added, 19 changed), fits included, top 100 recalculated (9 new and 9 left in Phonk, 3 and 3 in Brazilian Phonk). Node data checks only, the owner should look at the home page. Open: the fallback to the newest entry that has a value (see changelog) is a default chosen by the agent
+- [x] v1.38.0: note "only the N artists with a number are ranked" removed from the artist pages, "Growth and activity" section with dated figures and source links on the two SETTWOR pages (data/artist-text.js, assets/artist-page.js). Node checks only, not seen in a browser.
 - [x] v1.37.0: CSV and JSON for every older snapshot (`ranking-<genre>-<date>.csv` and `.json`, written by `build-ranking-files.js`, checked by `check-release.js`). Nothing new is written until a genre has a second snapshot. Node checks and a scratch test only. Font shrinking tried: subsetting saves only about 2 percent and woff2 is not possible without `brotli`, so the item stays open
 - [x] v1.36.0: TODO cleanup, two "Later" items marked done after checking the code (artist history, Dataset JSON-LD). Documentation only, no site change
 - [x] v1.35.0: static accessibility pass (lang, h1, alt, buttons, headings), one missing `.doc h3` style fixed. Node checks only. NOT a real Lighthouse run: contrast, performance numbers and the font gate timing still need one in Chrome (DevTools, Lighthouse tab) on the live site
@@ -142,31 +149,31 @@
 - [x] Rule: archive name carries the site version
 
 ## Next
-- [ ] Owner, most important for the Google and Gemini goal: (1) paste the snippet below into `https://settwor.github.io/`, (2) in Search Console request indexing for `settwor.html`, `settwor-ru.html` and the home page and resubmit `sitemap.xml`, (3) put the Ledgertone link into the profiles you control (Spotify bio, Instagram, YouTube, Telegram), (4) the number on the page must match what Pandora shows
-- [ ] Owner: paste `docs/settwor-site-snippet.html` into `https://settwor.github.io/` (part 1 in the head, part 2 as a visible link), then run the Rich Results Test on both sites
-- [ ] Owner: after deploy, request indexing in Search Console for `https://ledgertone.github.io/`, `settwor.html` and `settwor-ru.html`, and resubmit `sitemap.xml` (it now has hreflang alternates)
+- [x] (done by the owner, v1.44.0) Owner, most important for the Google and Gemini goal: (1) paste the snippet below into `https://settwor.github.io/`, (2) in Search Console request indexing for `settwor.html`, `settwor-ru.html` and the home page and resubmit `sitemap.xml`, (3) put the Ledgertone link into the profiles you control (Spotify bio, Instagram, YouTube, Telegram), (4) the number on the page must match what Pandora shows
+- [x] (done by the owner, v1.44.0) Owner: paste `docs/settwor-site-snippet.html` into `https://settwor.github.io/` (part 1 in the head, part 2 as a visible link), then run the Rich Results Test on both sites
+- [x] (done by the owner, v1.44.0) Owner: after deploy, request indexing in Search Console for `https://ledgertone.github.io/`, `settwor.html` and `settwor-ru.html`, and resubmit `sitemap.xml` (it now has hreflang alternates)
 - [ ] Owner: read the Russian text of `settwor-ru.html` and say what to change (copy is in the `T.ru` block of `scripts/build-artist-pages.js`)
 - [ ] Owner: after publishing v0.94.0, refresh the link preview cache (Facebook Sharing Debugger, Telegram bot @WebpageBot) so the new og-image shows
 - [ ] Owner: send Pandora links and Spotify ids for roster artists that have none (about 520 verified names)
 - [ ] Owner: decide whether unverified artists should move up to the verified base one by one, and whether the red note text and the Drift Phonk and Other tabs are right
 - [ ] Owner: check the label-like names in the Brazilian Phonk roster (see the 0.47.0 changelog entry) and say which to drop
-- [ ] Owner: create a Spotify developer app, run `SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/fetch-artist-images.js` (Node 18+), check `scripts/artist-images-review.txt`, put fixes into `scripts/spotify-ids.json`, rerun, publish `data/artist-media.js`
-- [ ] Owner: read the Spotify Developer Terms about showing artist pictures (attribution, caching) before publishing the pictures
-- [ ] Verify the real image host and URL stability after the first script run (the code accepts `i.scdn.co` only)
-- [ ] Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
+- [x] (done by the owner, v1.44.0) Owner: create a Spotify developer app, run `SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/fetch-artist-images.js` (Node 18+), check `scripts/artist-images-review.txt`, put fixes into `scripts/spotify-ids.json`, rerun, publish `data/artist-media.js`
+- [x] (done by the owner, v1.44.0) Owner: read the Spotify Developer Terms about showing artist pictures (attribution, caching) before publishing the pictures
+- [x] (done by the owner, v1.44.0) Verify the real image host and URL stability after the first script run (the code accepts `i.scdn.co` only)
+- [x] (done by the owner, v1.44.0) Owner: after publishing v0.31.0, open the iPhone shortcut once (pull down or re-add it), then check that the next release arrives on its own
 - [ ] Owner: collect the 28-day listeners snapshots for Phonk and Brazilian Phonk (`genre: "phonk"` / `"brazilian-phonk"`; the rosters in `data/snapshots.js` list 293 Phonk and 511 Brazilian Phonk artists to read 28-day listeners for), and decide whether an artist may appear in more than one genre
-- [ ] Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
-- [ ] Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
+- [x] (done by the owner, v1.44.0) Owner: try pull to refresh on a real iPhone and Android phone (no false triggers while scrolling up, swiping the pickers, typing in search, no page zoom on the search field, list does not scroll during the pull)
+- [x] (done by the owner, v1.44.0) Owner: look at v0.23.0 in Chrome and Safari: SF Pro Rounded text next to Neue Machina headings, button and table legibility, light and dark
 - [ ] Owner: confirm the SF Pro Rounded license covers use on a public website (Apple fonts are normally licensed for Apple platforms only)
-- [ ] Owner: look at v0.17.0 in Chrome and Safari, light and dark: button size, text legibility on glass over the plain background
+- [x] (done by the owner, v1.44.0) Owner: look at v0.17.0 in Chrome and Safari, light and dark: button size, text legibility on glass over the plain background
 - [ ] Owner: confirm the Neue Machina license covers use on a public website (the font files carry no license text; Pangram Pangram sells separate web licenses)
 - [ ] BEFORE LAUNCH: add real artist images the owner may use to `assets/artists/` and real Pandora artist URLs as `profileUrl` in snapshots
-- [ ] Test the theme switch on a real phone and in Safari (saved choice, no flash on load, theme-color bar)
-- [ ] Owner: check the site on an iPhone and a Mac (Safari and Chrome): New York headings, SF Pro body, heading size and wrapping, tracking
+- [x] (done by the owner, v1.44.0) Test the theme switch on a real phone and in Safari (saved choice, no flash on load, theme-color bar)
+- [x] (done by the owner, v1.44.0) Owner: check the site on an iPhone and a Mac (Safari and Chrome): New York headings, SF Pro body, heading size and wrapping, tracking
 - [ ] Check text legibility on glass rows and tinted buttons in light and dark, and performance of the rankings list with many rows
 - [x] (checked in v1.33.0) Artist names with non-Latin letters: Cyrillic is in the font, only Japanese, Chinese, Greek and symbol names use the system font. Nothing to extend unless you want those scripts in the site font
-- [ ] Check the glass cookie banner in Safari and Firefox (CSS fallback) and on a real phone
-- [ ] Check the glass in Safari and Firefox (CSS fallback) and on a real phone
+- [x] (done by the owner, v1.44.0) Check the glass cookie banner in Safari and Firefox (CSS fallback) and on a real phone
+- [x] (done by the owner, v1.44.0) Check the glass in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Owner: decide whether the cookie-free pings before consent are acceptable, or switch back to loading the tag only after Accept (basic mode)
 - [ ] Owner: in GA4 turn off Google signals and advertising features, set data retention to 14 months or less (see `docs/SEO.md`)
 - [ ] Test the consent flow in a clean browser profile (steps in `docs/SEO.md`)
@@ -174,7 +181,7 @@
 - [ ] Check legibility of nav and picker text over the colorful page background with the new transparent glass, light and dark
 - [ ] Owner: collect the first snapshot by hand and add it to `data/snapshots.js`
 - [ ] Create the GitHub repository `ledgertone.github.io` and enable Pages (see README)
-- [ ] Test in Safari, Chrome, and Firefox, light and dark, with reduced motion, reduced transparency, and increased contrast
+- [x] (done by the owner, v1.44.0) Test in Safari, Chrome, and Firefox, light and dark, with reduced motion, reduced transparency, and increased contrast
 
 ## Later
 - [x] (done in v0.82.0 and v0.81.0, checked in v1.36.0: artist pages with a "Snapshot history" table) Artist detail view with history across snapshots
@@ -184,7 +191,7 @@
 
 ## Assistant ideas (v1.5.0, what I would do next, not started, the owner decides)
 Order is by value for the goal "Google and Gemini quote the site" and for the owner's time.
-- [ ] Real device pass: almost everything since v0.82 was checked in headless Chromium only. One sitting on a real iPhone and in Safari: entrance animation of the search field (v1.0.0), per-link spring (v1.3.0), logo card (v1.4.0), pager row, font gate, "Per page: All". Write down what is off, I fix it in one version.
+- [x] (done by the owner, v1.44.0) Real device pass: almost everything since v0.82 was checked in headless Chromium only. One sitting on a real iPhone and in Safari: entrance animation of the search field (v1.0.0), per-link spring (v1.3.0), logo card (v1.4.0), pager row, font gate, "Per page: All". Write down what is off, I fix it in one version.
 - [x] Machine-readable data for the ranking (done in v1.26.0, top 100 instead of the whole list, see Done): `ranking-<genre>.csv` and `.json` of the latest snapshot (the "CSV download of each snapshot" item below), linked from the home page and from a `Dataset` with `distribution` in the home JSON-LD, like SETTWOR got in v1.1.0. Gives Gemini and Dataset Search one clean source for every artist.
 - [x] (done in v1.28.0, see Done) Snapshot permalinks: a stable URL or anchor per snapshot date (for example `index.html#2026-10-25`) and a visible "Cite this data" line with the date. Answers about "how many listeners in October 2026" can then point to a dated address.
 - [x] (done in v1.32.0 for the top 10 of each genre) Static artist pages for the top artists only (for example the 69 numbered Phonk rows), not just SETTWOR: figures readable without JavaScript where the search traffic will be. `--static` already exists for all pages, the cost is the archive size (rule 17), so a limit by rank is a smaller step.

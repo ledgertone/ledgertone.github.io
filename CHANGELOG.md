@@ -2,6 +2,56 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.44.0] - 2026-10-27
+### Changed
+- `TODO.md` only: items the owner finished are marked done. No site change. Version 1.44.0 everywhere.
+
+## [1.43.0] - 2026-10-27
+### Changed
+- Rule 18 (AGENTS.md) and CLAUDE.md: `delete-banned-pages.bat` is run from the Downloads folder, not from the site root, so it changes into the owner's site folder by its full path and checks `index.html` there. Documentation and the .bat only, no data change. Version 1.43.0 everywhere.
+
+## [1.42.0] - 2026-10-27
+### Removed
+- Devilish Trio banned again (owner decision, AGENTS.md rule 8): deleted from the Phonk roster, the Phonk snapshot and `data/links.js`, added to `banned`. His artist page is not generated. This undoes the restore of 1.41.0, so the ban of 1.40.0 stands. Top 100 recalculated. Version 1.42.0 everywhere.
+
+## [1.41.0] - 2026-10-27
+### Removed
+- 111 artists banned (AGENTS.md rule 8) and deleted from every roster, snapshot and `data/links.js`, added to `banned`: every artist of `missing_artists_by_listeners.xlsx` (sheets "Rating" and "No data") except the ones the owner kept. All 111 were in the verified base: 111 in the Phonk roster (106 with a reading in the 2026-10-25 snapshot, 35 numbered and 71 Few) and 11 of them also in the Brazilian Phonk roster (11 readings, 4 numbered and 7 Few). Not in `data/unverified.js`. Their 106 artist pages are deleted (`delete-banned-pages.bat`), Ghostdriving, Lestmor and CAIRO! had no page.
+- Banned: PHNKR, Geoxor, Narvent, Marin Hoxha, DJ Smokey, MXRCVRY, DJ Yung Vamp, QKReign, GXNRC, Kiraw, NXGHT!, Heuse, T-Mass, Willix, Extra Terra, Nuphory, Slowboy, NOIXES, chipbagov, ANGELPLAYA, Igrxs, Floatinurboat, Rizo, HRXSTAL, Itz Daksh Music, CHMCL SOUP, Harddope, Shxpe, Xxephyrr, Godmode, Lowpocus, Lastfragment, Hiraeth, Tommy Wright III, The FifthGuys, SpaceGhostPurrp, Lowx, OhtoPlaya, KoruSe, LAGXNA, ENXK, Sensi Affect, bxkq, Altare, Hugomasked, Vincce, skyfall beats, Strybo, RXMALIAN, HXPETRAIN, HXTTA, HXLARIOUS, KICKSTXP, KNSRK, KVRMVD, PHARAOH, POOTY, SLXSH, TTM, Vinsmoker, crier, erickD, reedleyreaper, sapphyre, nashi, ARTVT, DIPIENS, KILLER MANTIS, mzmff, Ailow, 1$K1, ATSMXN, BLL4X, Brxshi, Crushed Candy, Dashie, DEVIL AARYA, DRXWCHILL, DYNAMIS, Emin Nilsen, HXDES, Jaxxtone, Juan Dileju, Kamran747, LIKEBSNS, MBNDON, MXRCURY, NECROLX, NILXRO, Nomeli, NOCTRIS, REKZ!, Rxf Siemens, Rxm, Sam Ourt, SH3RWIN, SYNTHEZAAR, XTOM, Yarimov (from the sheet "Rating"); Ghostdriving, Mythic, Lestmor, FAROFINAT BEATS, WILLE, nanebo, CASPER, CAIRO!, Freddz808, Kim, Seventaiin, SHIRO (from the sheet "No data").
+- Already banned artists of the same file stay banned: Three 6 Mafia, Skeler, NEFFEX, Rameses B, DJ Screw, Ofdream, NxxxxxS, SwuM, Jeja, Soudiere, SLVG, Bearded Legend.
+### Changed
+- Kept by the owner decision: Ogryzek, CURSEDEVIL, Skorde (Phonk and Brazilian Phonk), THIRST (Phonk), Irokz, DJ FKU and nightfxrce (Brazilian Phonk only, as before).
+- Devilish Trio is taken off `banned` (owner decision, he was banned in 1.40.0) and put back: Phonk roster, reading 85,700 in the Phonk 2026-10-25 snapshot (3,700 own plus 82,000 from the one page in his own list, rule 20, same number as in the xlsx), Pandora link in `data/links.js`. No Spotify id (none known, never guessed). His artist page is generated again.
+- Top 100 recalculated, `top100/` rewritten by `scripts/pack.js`. Version 1.41.0 everywhere.
+
+## [1.40.0] - 2026-10-27
+### Removed
+- 17 artists banned (AGENTS.md rule 8) and deleted from every roster, snapshot, `data/unverified.js` and `data/links.js`, added to `banned`: Devilish Trio, DJ Paul, TWISTED, Lumi Athena, Kingpin Skinny Pimp, Towa, jnhygs, ovg!, NxxxxxS, SwuM, Jéja, 911, Soudiere, Sinizter, dnvn, Scarlxrd, Genshin. 15 of them were in the verified Phonk roster (14 with a reading in the 2026-10-25 snapshot), 911 and Genshin were in the unverified list. Their 17 artist pages are deleted (`delete-banned-pages.bat`).
+### Changed
+- Irokz is no longer in the Phonk roster and the Phonk snapshot, he stays in Brazilian Phonk only (reading 14,771).
+- Top 100 recalculated, `top100/` rewritten by `scripts/pack.js`. Version 1.40.0 everywhere.
+
+## [1.39.0] - 2026-10-27
+### Added
+- `ledgerMonthly.json` imported again (AGENTS.md rules 10, 11, 20, 1,443 entries, readings of 2026-10-25, 26 and 27), fits folded into every artist's number, readings written into the existing 2026-10-25 snapshots (date and period unchanged, like in 1.17.0 and 1.18.0).
+- Verified base: 7 added (DJ ALEX, FXARZ, notdjfake, Beyounger, Mc Luizinho, mc jhenny all Few, qaraqshy 11,953), 122 changed, 678 unchanged, 26 with no reading. Unverified list: 0 added, 0 changed, 336 unchanged, 259 with no reading. Skipped: 0 not in our base, 15 banned. SETTWOR unchanged (24,459).
+- Pandora links in `data/links.js`: 7 added, 19 changed, 1,108 same.
+- Top 100 recalculated: Phonk has 9 new places (dnvn, Phonk King, ARCHEZ, THIRST, Memphis Cult, Marin Hoxha, QKReign, GXNRC, NXGHT!) and 9 left (ROMANE, PlayaPhonk, T-Mass, NUEKI, ChillPanic, Nia.wave, Apoc Krysis, Phonkyrie, lilbubblegum), Brazilian Phonk has 3 new (qaraqshy, Mc Roba Cena, Silo) and 3 left (Nomi XD, Raiden, NUEKI), the order changed in both. `top100/Ledgertone top100.txt` and `.json` in the archive are rewritten by `scripts/pack.js`.
+### Changed
+- Default chosen by the agent, the owner may change it (written into AGENTS.md rule 10): when the newest `history` entry of an artist or of a fit has no number and is not `few` (a failed run), the newest entry that has a value is used instead. Without it Kordhell (newest entry empty, 144,000 on 2026-10-25) would have lost his own number and kept only the fits. It applied to 125 artists and 107 fits.
+- Rules: AGENTS.md rule 10 and `docs/DATA.md` now say in the import steps that fits are always included and that the top 100 files are always refreshed and the changes in the top reported.
+- Version 1.39.0 in `version.json`, footers, meta tag and every `?v=`.
+
+## [1.38.0] - 2026-10-27
+### Removed
+- The note "(only the N artists with a number are ranked)" after the places in the answer sentence of every artist page, English and Russian (owner request). The places stay ("place 10 of 2,752 artists in Phonk"). The Dataset JSON-LD still carries the explanation in the `placeDesc` of each place, owner may remove it too.
+### Added
+- Section "Growth and activity" ("Рост и активность") on `settwor.html` and `settwor-ru.html` only (owner request, rule 13 owner page): the sentence that SETTWOR is an active and fast-growing artist, followed by six dated figures taken from the owner's own biography (`settwor.github.io/bio.html`, `bioRU.html` for the Russian page): total streams (1,000,000 on 21 October 2025, 2,000,000 on 17 May 2026), GOT ME UP 2 milestones, February and April 2026 monthly streams, the release series with its pause, XEREQUINHA NERVOSA 10,000 Spotify streams in 11 days, YouTube 10 million views. Under the list a source line with links to the biography and to the Spotify, Pandora, Apple Music and YouTube pages, saying that the figures are reported by the artist and not measured by Ledgertone, that SETTWOR runs Ledgertone, and that the Ledgertone snapshots on the page are Pandora 28-day listeners only (rule 14).
+- The same facts as a second question in the FAQPage JSON-LD of the two SETTWOR pages.
+### Changed
+- All text lives in `data/artist-text.js` (`growH`, `growLead`, `growItems`, `growSrc`, `growQ`, English and Russian blocks), rendered by `assets/artist-page.js` for the owner page only. Other artist pages are unchanged.
+- Left out on purpose: collaborations (rule 20), the April 2025 places 4 and 5 and the biography's "official" wording (rule 14), and any claim of growth drawn from Ledgertone data, which has one snapshot so far (rule 2).
+
 ## [1.37.0] - 2026-10-27
 ### Added
 - CSV and JSON for every older snapshot (TODO item "CSV download of each snapshot"): `scripts/build-ranking-files.js` now also writes `ranking-<genre>-<YYYY-MM-DD>.csv` and `.json` for each snapshot of a genre except the latest (same columns as the latest files, numbered artists of that snapshot only, places 1 to `topLimit`; unverified artists exist only in the latest snapshot and "Few" rows are not part of older snapshots, so neither appears). The latest `ranking-<genre>.json` lists them in `earlier_snapshots`. `scripts/check-release.js` checks every pair (row count, date, note, listed in the latest JSON).

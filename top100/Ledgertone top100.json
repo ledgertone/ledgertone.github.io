@@ -1,5 +1,5 @@
 {
-  "version": "1.37.0",
+  "version": "1.44.0",
   "topLimit": 100,
   "genres": {
     "phonk": {
@@ -10,7 +10,7 @@
         {
           "place": 1,
           "name": "Kordhell",
-          "listeners": 144000,
+          "listeners": 164242,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/kordhell/ARwdnkdPVtKgg5q"
         },
@@ -24,688 +24,688 @@
         {
           "place": 3,
           "name": "DVRST",
-          "listeners": 120000,
+          "listeners": 120374,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dvrst/ARvqt3l9xtjthV2"
         },
         {
           "place": 4,
+          "name": "SXMPRA",
+          "listeners": 117494,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/sxmpra/ARgKm45gp4c2m5k"
+        },
+        {
+          "place": 5,
           "name": "Ogryzek",
           "listeners": 64521,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/ogryzek/ARqXqpnZtfKK4f9"
         },
         {
-          "place": 5,
-          "name": "SXMPRA",
-          "listeners": 45000,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/sxmpra/ARgKm45gp4c2m5k"
-        },
-        {
           "place": 6,
-          "name": "Dxrk ダーク",
-          "listeners": 33000,
+          "name": "MUPP",
+          "listeners": 41596,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/dxrk-da-ku/ARwjjX5xZ93d5PP"
+          "pandoraUrl": "https://www.pandora.com/artist/mupp/ARxqhgPJpvV6hpZ"
         },
         {
           "place": 7,
+          "name": "Sadfriendd",
+          "listeners": 33491,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/sadfriendd/ARpt7wx5nZ3gt6V"
+        },
+        {
+          "place": 8,
           "name": "INTERWORLD",
-          "listeners": 33000,
+          "listeners": 33248,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/interworld/ARctwbK5PJj7v3X"
         },
         {
-          "place": 8,
+          "place": 9,
+          "name": "Dxrk ダーク",
+          "listeners": 32958,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/dxrk-da-ku/ARwjjX5xZ93d5PP"
+        },
+        {
+          "place": 10,
           "name": "Hensonn",
-          "listeners": 30000,
+          "listeners": 29283,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/hensonn/ARZpb3PZcnzVvxc"
         },
         {
-          "place": 9,
+          "place": 11,
           "name": "g3ox_em",
-          "listeners": 27000,
+          "listeners": 28152,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/g3ox-em/ARghj2K7Kd92bvK"
         },
         {
-          "place": 10,
+          "place": 12,
+          "name": "LXST CXNTURY",
+          "listeners": 26454,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/lxst-cxntury/ARw2tdVqVVbn2vK"
+        },
+        {
+          "place": 13,
           "name": "SETTWOR",
           "listeners": 24459,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c"
         },
         {
-          "place": 11,
-          "name": "PHNKR",
-          "listeners": 21096,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/phnkr/ARfbZKKhhv5zcVc"
-        },
-        {
-          "place": 12,
-          "name": "Ghostface Playa",
-          "listeners": 20000,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/ghostface-playa/ARzz7pX3kn55hz6"
-        },
-        {
-          "place": 13,
+          "place": 14,
           "name": "MoonDeity",
-          "listeners": 20000,
+          "listeners": 23021,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/moondeity/ARjxXgtqc4cmktX"
         },
         {
-          "place": 14,
-          "name": "Lumi Athena",
-          "listeners": 19736,
+          "place": 15,
+          "name": "Ghostface Playa",
+          "listeners": 21270,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/lumi-athena/ARwkwJllglpc6Vm"
+          "pandoraUrl": "https://www.pandora.com/artist/ghostface-playa/ARzz7pX3kn55hz6"
         },
         {
-          "place": 15,
+          "place": 16,
           "name": "Suave Lee",
-          "listeners": 16000,
+          "listeners": 16439,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/suave-lee/ARv9hP74Jb5cbPg"
         },
         {
-          "place": 16,
-          "name": "Irokz",
-          "listeners": 14771,
+          "place": 17,
+          "name": "SCXR SOUL",
+          "listeners": 15946,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/irokz/ARdpxPVV3vwkb7c"
+          "pandoraUrl": "https://www.pandora.com/artist/scxr-soul/ARbZfKf7Jcqvd9P"
         },
         {
-          "place": 17,
+          "place": 18,
+          "name": "Nateki",
+          "listeners": 14778,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/nateki/ARqc4Pwgq6m2xpK"
+        },
+        {
+          "place": 19,
           "name": "Scythermane",
           "listeners": 14636,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/scythermane/ARKr2JqVKZplp4X"
         },
         {
-          "place": 18,
-          "name": "Towa",
-          "listeners": 14481,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/towa/AR94xXg7PP5pmJk"
-        },
-        {
-          "place": 19,
-          "name": "jnhygs",
-          "listeners": 13123,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/jnhygs/ARpKVnpVvkfncjK"
-        },
-        {
           "place": 20,
-          "name": "SCXR SOUL",
-          "listeners": 13024,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/scxr-soul/ARbZfKf7Jcqvd9P"
-        },
-        {
-          "place": 21,
-          "name": "LXST CXNTURY",
-          "listeners": 13000,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/lxst-cxntury/ARw2tdVqVVbn2vK"
-        },
-        {
-          "place": 22,
-          "name": "ovg!",
-          "listeners": 13000,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/ovg/AR7zzXZ44cK3P2P"
-        },
-        {
-          "place": 23,
           "name": "Pharmacist",
-          "listeners": 11000,
+          "listeners": 12501,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/pharmacist/ARXqftKvgq4JK2K"
         },
         {
-          "place": 24,
-          "name": "DJ Paul",
-          "listeners": 10000,
+          "place": 21,
+          "name": "ONIMXRU",
+          "listeners": 10997,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/dj-paul/ARJrwqgk7ZKzzfX"
+          "pandoraUrl": "https://www.pandora.com/artist/onimxru/AR9PkgfwwKgKj5K"
         },
         {
-          "place": 25,
-          "name": "ROMANE",
-          "listeners": 10000,
+          "place": 22,
+          "name": "KUTE",
+          "listeners": 10570,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/romane/ARvKm2Zm6gmZcm6"
+          "pandoraUrl": "https://www.pandora.com/artist/kute/ARktlK99Vl7qj3Z"
         },
         {
-          "place": 26,
-          "name": "NxxxxxS",
-          "listeners": 9700,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/nxxxxxs/ARmlqmj3jjbp5qm"
-        },
-        {
-          "place": 27,
+          "place": 23,
           "name": "ZWE1HVNDXR",
           "listeners": 8400,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/zwe1hvndxr/ARp4mrktmknrjnP"
         },
         {
-          "place": 28,
+          "place": 24,
           "name": "Skorde",
-          "listeners": 8091,
+          "listeners": 8109,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/skorde/ARcJ9mvn9226Jp2"
         },
         {
-          "place": 29,
+          "place": 25,
+          "name": "SHADXWBXRN",
+          "listeners": 7902,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/shadxwbxrn/ARgdrdjz54mkKPP"
+        },
+        {
+          "place": 26,
           "name": "CURSEDEVIL",
           "listeners": 7800,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/cursedevil/ARmpX5b22tzk744"
         },
         {
-          "place": 30,
-          "name": "KUTE",
-          "listeners": 7500,
+          "place": 27,
+          "name": "Kaito Shoma",
+          "listeners": 5842,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/kute/ARktlK99Vl7qj3Z"
+          "pandoraUrl": "https://www.pandora.com/artist/kaito-shoma/ARktglpVlVJVnwZ"
         },
         {
-          "place": 31,
-          "name": "SwuM",
-          "listeners": 7443,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/swum/ARd5V7kr7xhh3w9"
-        },
-        {
-          "place": 32,
-          "name": "MUPP",
-          "listeners": 7100,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/mupp/ARxqhgPJpvV6hpZ"
-        },
-        {
-          "place": 33,
-          "name": "Jéja",
-          "listeners": 7032,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/jeja/ARJbhXjp4pjkzhV"
-        },
-        {
-          "place": 34,
-          "name": "Kingpin Skinny Pimp",
-          "listeners": 6800,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/kingpin-skinny-pimp/ARr3l5PV5wZjqXK"
-        },
-        {
-          "place": 35,
-          "name": "911",
-          "listeners": 6200,
-          "verified": false,
-          "pandoraUrl": "https://www.pandora.com/artist/911/ARt2j4vfzkd5pzm"
-        },
-        {
-          "place": 36,
+          "place": 28,
           "name": "MC ORSEN",
-          "listeners": 5500,
+          "listeners": 5503,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/mc-orsen/ARgf4fkfJb3frc4"
         },
         {
-          "place": 37,
+          "place": 29,
           "name": "$werve",
           "listeners": 5000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/swerve/ARndtXXrtvX59wc"
         },
         {
-          "place": 38,
+          "place": 30,
           "name": "6YNTHMANE",
           "listeners": 4900,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/6ynthmane/ARj59v5PbJ6jcqZ"
         },
         {
-          "place": 39,
+          "place": 31,
+          "name": "HXVRMXN",
+          "listeners": 4785,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/hxvrmxn/AR5Xwnk6wZ7Jpvm"
+        },
+        {
+          "place": 32,
           "name": "DXGGX",
           "listeners": 4600,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/dxggx/ARk6p2bhKfK9qVJ"
         },
         {
-          "place": 40,
+          "place": 33,
           "name": "Phonk.me",
           "listeners": 4600,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/phonkme/AR7rhr3JX5kd53K"
         },
         {
-          "place": 41,
-          "name": "Scarlxrd",
-          "listeners": 4469,
+          "place": 34,
+          "name": "Phonk King",
+          "listeners": 3800,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/scarlxrd/ARqX7zn6K9qm73w"
+          "pandoraUrl": "https://www.pandora.com/artist/phonk-king/ARkbZmcqzk7PkqK"
         },
         {
-          "place": 42,
-          "name": "Sinizter",
-          "listeners": 4400,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/sinizter/ARdltZtK2czqkqm"
-        },
-        {
-          "place": 43,
-          "name": "HXVRMXN",
-          "listeners": 4100,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/hxvrmxn/AR5Xwnk6wZ7Jpvm"
-        },
-        {
-          "place": 44,
-          "name": "Genshin",
-          "listeners": 4000,
-          "verified": false,
-          "pandoraUrl": "https://www.pandora.com/artist/genshin/ARwj73rKpjzXmzg"
-        },
-        {
-          "place": 45,
+          "place": 35,
           "name": "Sibewest",
           "listeners": 3700,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/sibewest/ARPh36f6kj94jJV"
         },
         {
-          "place": 46,
-          "name": "Devilish Trio",
-          "listeners": 3600,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/devilish-trio/ARbZJ2p5pt35xqP"
-        },
-        {
-          "place": 47,
-          "name": "ONIMXRU",
-          "listeners": 3500,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/onimxru/AR9PkgfwwKgKj5K"
-        },
-        {
-          "place": 48,
+          "place": 36,
           "name": "SXCREDMANE",
           "listeners": 2958,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/sxcredmane/ARb3qKl6lkJlrqq"
         },
         {
-          "place": 49,
+          "place": 37,
           "name": "RAIZHELL",
-          "listeners": 2730,
+          "listeners": 2871,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/raizhell/AR6rX6h74txVbhm"
         },
         {
-          "place": 50,
-          "name": "Kaito Shoma",
-          "listeners": 2700,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/kaito-shoma/ARktglpVlVJVnwZ"
-        },
-        {
-          "place": 51,
-          "name": "PlayaPhonk",
-          "listeners": 2500,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/playaphonk/AR4vjV6dtrVxz4K"
-        },
-        {
-          "place": 52,
+          "place": 38,
           "name": "Demon",
           "listeners": 2200,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/demon/ARgrV4dVzxm4q9Z"
         },
         {
-          "place": 53,
-          "name": "SHADXWBXRN",
-          "listeners": 2200,
+          "place": 39,
+          "name": "ARCHEZ",
+          "listeners": 1805,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/shadxwbxrn/ARgdrdjz54mkKPP"
+          "pandoraUrl": "https://www.pandora.com/artist/archez/AR3c9cgfx5x5kbP"
         },
         {
-          "place": 54,
+          "place": 40,
+          "name": "THIRST",
+          "listeners": 1800,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/thirst/ARh4Krrgg4c37VZ"
+        },
+        {
+          "place": 41,
           "name": "Alban Chela",
           "listeners": 1705,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/alban-chela/ARjXh4dz6m324qc"
         },
         {
-          "place": 55,
-          "name": "Soudiere",
-          "listeners": 1600,
+          "place": 42,
+          "name": "Memphis Cult",
+          "listeners": 1480,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/soudiere/ARZP3l6tr92Pw9g"
+          "pandoraUrl": "https://www.pandora.com/artist/memphis-cult/ARk5gxlPP5fvfbm"
         },
         {
-          "place": 56,
-          "name": "Geoxor",
-          "listeners": 1582,
+          "place": 43,
+          "name": "my!lane",
+          "listeners": 1100,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/geoxor/AR2hJmznfbhbngP"
+          "pandoraUrl": "https://www.pandora.com/artist/my-lane/ARZPpqcg73495wm"
         },
         {
-          "place": 57,
-          "name": "Narvent",
-          "listeners": 1300,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/narvent/AR44xfgbm95jllZ"
-        },
-        {
-          "place": 58,
+          "place": 44,
           "name": "KSLV Noh",
           "listeners": 1000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/kslv-noh/ARvp7xXthk27534"
         },
         {
-          "place": 59,
-          "name": "my!lane",
-          "listeners": 1000,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/my-lane/ARZPpqcg73495wm"
-        },
-        {
-          "place": 60,
+          "place": 45,
           "name": "blueberry",
           "listeners": 949,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/blueberry/AR27Xp7V5JmnqvK"
         },
         {
-          "place": 61,
+          "place": 46,
           "name": "H11T",
           "listeners": 940,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/h11t/ARZfm7r64hnglxc"
         },
         {
-          "place": 62,
-          "name": "Nateki",
-          "listeners": 753,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/nateki/ARqc4Pwgq6m2xpK"
-        },
-        {
-          "place": 63,
+          "place": 47,
           "name": "BLESSED MANE",
-          "listeners": 734,
+          "listeners": 717,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/blessed-mane/ARkf63wVPknbdJ6"
         },
         {
-          "place": 64,
-          "name": "DJ Smokey",
-          "listeners": 721,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/dj-smokey/ARhtzfZc5qcfhz2"
-        },
-        {
-          "place": 65,
+          "place": 48,
           "name": "Groove Dealers",
-          "listeners": 706,
+          "listeners": 705,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/groove-dealers/AR3htZf5chtwf7m"
         },
         {
-          "place": 66,
+          "place": 49,
           "name": "ANDROMEDA",
-          "listeners": 665,
+          "listeners": 656,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/andromeda/ARx393gtdqp97bq"
         },
         {
-          "place": 67,
+          "place": 50,
           "name": "VOLT VISION",
-          "listeners": 641,
+          "listeners": 645,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/volt-vision/AR3nhjK4p9l9mlm"
         },
         {
-          "place": 68,
-          "name": "TWISTED",
-          "listeners": 600,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/twisted/AR243hZ5cz2k6x9"
-        },
-        {
-          "place": 69,
+          "place": 51,
           "name": "6EXTERMINATION",
           "listeners": 578,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/6extermination/ARz2JbgvrldVplV"
         },
         {
-          "place": 70,
+          "place": 52,
           "name": "CORE",
           "listeners": 489,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/core/AR446PqpZpJlP7P"
         },
         {
-          "place": 71,
-          "name": "Sadfriendd",
-          "listeners": 352,
+          "place": 53,
+          "name": "Funk Tribu",
+          "listeners": 419,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/sadfriendd/ARrmJ2pckXnvftm"
+          "pandoraUrl": "https://www.pandora.com/artist/funk-tribu/ARwtrrZ6Vkr6vV4"
         },
         {
-          "place": 72,
+          "place": 54,
           "name": "Cursed",
           "listeners": 336,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/cursed/ARhlnlvJZ5rqk56"
         },
         {
-          "place": 73,
+          "place": 55,
           "name": "Big Melancholy",
           "listeners": 290,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/big-melancholy/ARnkxfbjfn2jPdK"
         },
         {
-          "place": 74,
+          "place": 56,
+          "name": "SNYSTA",
+          "listeners": 285,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/snysta/ARmxKzj33dr6d5Z"
+        },
+        {
+          "place": 57,
           "name": "II Tone",
           "listeners": 282,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/2-tone/ARkrXkfhcw9qkJX"
         },
         {
-          "place": 75,
-          "name": "SNYSTA",
-          "listeners": 269,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/snysta/ARmxKzj33dr6d5Z"
-        },
-        {
-          "place": 76,
+          "place": 58,
           "name": "STRLGHT",
           "listeners": 230,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/strlght/AR747kJq6dXmmfP"
         },
         {
-          "place": 77,
+          "place": 59,
           "name": "Varo",
           "listeners": 222,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/varo/ARXvK7qgmP2tX42"
         },
         {
-          "place": 78,
-          "name": "Funk Tribu",
-          "listeners": 206,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/funk-tribu/ARwtrrZ6Vkr6vV4"
-        },
-        {
-          "place": 79,
+          "place": 60,
           "name": "plenka",
-          "listeners": 206,
+          "listeners": 207,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/plenka/ARr6qdcc4gkrdcm"
         },
         {
-          "place": 80,
-          "name": "MXRCVRY",
-          "listeners": 195,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/mxrcvry/ARJvkx93VXhvlxX"
-        },
-        {
-          "place": 81,
-          "name": "DJ Yung Vamp",
-          "listeners": 177,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/dj-yung-vamp/ARfPlgzj9pJ9P2m"
-        },
-        {
-          "place": 82,
+          "place": 61,
           "name": "Isolate.exe",
           "listeners": 173,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/isolateexe/ARX3d73KKljZjkm"
         },
         {
-          "place": 83,
+          "place": 62,
           "name": "BLXCKBUSTA",
-          "listeners": 169,
+          "listeners": 170,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/blxckbusta/ARmgdVwt6PkvkqP"
         },
         {
-          "place": 84,
+          "place": 63,
           "name": "Phonk Killer",
           "listeners": 146,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/phonk-killer/ARjd3xfZPqpgc49"
         },
         {
-          "place": 85,
+          "place": 64,
           "name": "Berrymane",
           "listeners": 144,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/berrymane/AR9Vfhwvb9t2fjV"
         },
         {
-          "place": 86,
+          "place": 65,
+          "name": "SPLYXER",
+          "listeners": 128,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/splyxer/ARfKXgmmqf2cg2V"
+        },
+        {
+          "place": 66,
           "name": "AntXres",
           "listeners": 125,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/antxres/ARtgZ4kmXntnlkK"
         },
         {
-          "place": 87,
+          "place": 67,
           "name": "TOLCHONOV",
           "listeners": 118,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/tolchonov/AR5dtd9597vcwh4"
         },
         {
-          "place": 88,
-          "name": "Kiraw",
-          "listeners": 117,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/kiraw/AR7k2zKhhn4J9ZV"
-        },
-        {
-          "place": 89,
+          "place": 68,
           "name": "CANA",
           "listeners": 107,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/cana/ARqd7qvPjrnKJKV"
         },
         {
-          "place": 90,
+          "place": 69,
           "name": "Xantesha",
           "listeners": 98,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/xantesha/ARlKZc452695JcZ"
         },
         {
-          "place": 91,
+          "place": 70,
           "name": "SAGE",
           "listeners": 95,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/sage/ARK6qgblt3d6xf2"
         },
         {
-          "place": 92,
-          "name": "Heuse",
-          "listeners": 85,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/heuse/AR2fp74hb9knptm"
-        },
-        {
-          "place": 93,
-          "name": "T-Mass",
-          "listeners": 75,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/t-mass/ARgzqk6l73rKfn6"
-        },
-        {
-          "place": 94,
+          "place": 71,
           "name": "NUEKI",
           "listeners": 71,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/nueki/ARftgbPJdwJlkrq"
         },
         {
-          "place": 95,
+          "place": 72,
           "name": "ChillPanic",
           "listeners": 70,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/chillpanic/ARc4VV6hpj34lP6"
         },
         {
-          "place": 96,
+          "place": 73,
           "name": "Nia.wave",
           "listeners": 64,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/niawave/ARXgVhwn9495Pr4"
         },
         {
-          "place": 97,
+          "place": 74,
           "name": "Apoc Krysis",
-          "listeners": 59,
+          "listeners": 60,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/apoc-krysis/ARgmZmq7lPg56p4"
         },
         {
-          "place": 98,
+          "place": 75,
           "name": "Phonkyrie",
-          "listeners": 53,
+          "listeners": 54,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/phonkyrie/ARzklbxV5bxk9dm"
         },
         {
-          "place": 99,
-          "name": "SPLYXER",
-          "listeners": 52,
+          "place": 76,
+          "name": "lilbubblegum",
+          "listeners": 49,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/splyxer/ARfKXgmmqf2cg2V"
+          "pandoraUrl": "https://www.pandora.com/artist/lilbubblegum/ARZ5zw7rgKZ69qZ"
+        },
+        {
+          "place": 77,
+          "name": "CORX",
+          "listeners": 42,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/corx/ARJ6rxXh3w4gKwK"
+        },
+        {
+          "place": 78,
+          "name": "SIGNAL",
+          "listeners": 40,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/signal/ARdrnkZdJ2zKVnm"
+        },
+        {
+          "place": 79,
+          "name": "anti",
+          "listeners": 34,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/anti/ARmnjbrk4K7fx29"
+        },
+        {
+          "place": 80,
+          "name": "Backwhen",
+          "listeners": 32,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/backwhen/ARJvgjmlZgPkf99"
+        },
+        {
+          "place": 81,
+          "name": "Ethan Ross",
+          "listeners": 29,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/ethan-ross/AR5vjwVJPpfw3mV"
+        },
+        {
+          "place": 82,
+          "name": "Christian Davis",
+          "listeners": 27,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/christian-davis/ARPd36V6JkkldJg"
+        },
+        {
+          "place": 83,
+          "name": "Suicideyear",
+          "listeners": 27,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/suicideyear/ARtdw6lg6mrg7lw"
+        },
+        {
+          "place": 84,
+          "name": "DJ Jacob",
+          "listeners": 24,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/dj-jacob/ARqbcJljglm3K36"
+        },
+        {
+          "place": 85,
+          "name": "Mari Ferrari",
+          "listeners": 23,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/mari-ferrari/ARvbzZrv5jPKtnw"
+        },
+        {
+          "place": 86,
+          "name": "Jayanth Ak",
+          "listeners": 21,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/jayanth-ak/ARbXnVttJp5q4p9"
+        },
+        {
+          "place": 87,
+          "name": "E R R O R",
+          "listeners": 18,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/e-r-r-o-r/ARxf3fZn6x4wgZq"
+        },
+        {
+          "place": 88,
+          "name": "Dj Panda Boladao",
+          "listeners": 17,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/dj-panda-boladao/ARfXpmjnnZpxlXP"
+        },
+        {
+          "place": 89,
+          "name": "HOSPICEMANE",
+          "listeners": 17,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/hospicemane/ARt9Kqz4jvPjhlg"
+        },
+        {
+          "place": 90,
+          "name": "niva",
+          "listeners": 17,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/niva/ARKtlm4Jltdlwx2"
+        },
+        {
+          "place": 91,
+          "name": "fkbambam",
+          "listeners": 16,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/fkbambam/ARjfmmx494r9bp2"
+        },
+        {
+          "place": 92,
+          "name": "SHPACKYOU$",
+          "listeners": 16,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/shpackyous/ARPjbnX55Xvlq3Z"
+        },
+        {
+          "place": 93,
+          "name": "The Scandalous Playaz",
+          "listeners": 14,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/the-scandalous-playaz/ARtkKVkmXZKzPgm"
+        },
+        {
+          "place": 94,
+          "name": "KYD_EDITS",
+          "listeners": 13,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/kyd-edits/ARf94cjrPjJ2pgw"
+        },
+        {
+          "place": 95,
+          "name": "Ctrlgang",
+          "listeners": 12,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/ctrlgang/ARn6c2hqngk9mtg"
+        },
+        {
+          "place": 96,
+          "name": "NXRTHSTXR",
+          "listeners": 12,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/nxrthstxr/AR6VpdpPXqfprzq"
+        },
+        {
+          "place": 97,
+          "name": "7oh2",
+          "listeners": 11,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/7oh2/ARZ3lxdnPXtXj6K"
+        },
+        {
+          "place": 98,
+          "name": "Jak3 / Trashman",
+          "listeners": 11,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/jak3-trashman/ARqdn7czdK4k7nm"
+        },
+        {
+          "place": 99,
+          "name": "LAZLOW",
+          "listeners": 11,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/lazlow/AR5K4vj4rPgmbZg"
         },
         {
           "place": 100,
-          "name": "lilbubblegum",
-          "listeners": 50,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/lilbubblegum/ARZ5zw7rgKZ69qZ"
+          "name": "Reezy",
+          "listeners": 11,
+          "verified": false,
+          "pandoraUrl": "https://www.pandora.com/artist/reezy/ARdvwZPrpt6zhvJ"
         }
       ]
     },
@@ -723,178 +723,178 @@
         },
         {
           "place": 2,
+          "name": "slxughter",
+          "listeners": 154575,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/slxughter/ARP4zw2jgqVw77k"
+        },
+        {
+          "place": 3,
           "name": "ZXKAI",
           "listeners": 154569,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/zxkai/ARZ6w9X9rvtxjhq"
         },
         {
-          "place": 3,
+          "place": 4,
           "name": "ATLXS",
           "listeners": 145490,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/atlxs/ARJg5pllKvgXpwc"
         },
         {
-          "place": 4,
+          "place": 5,
           "name": "Ariis",
           "listeners": 120872,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/ariis/ARcp4kct6XlVm5Z"
         },
         {
-          "place": 5,
+          "place": 6,
           "name": "DJ Javi26",
           "listeners": 85734,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-javi26/ARg9vz9595h2zp4"
         },
         {
-          "place": 6,
+          "place": 7,
+          "name": "Dj Samir",
+          "listeners": 84824,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/dj-samir/ARj49jZ6J7dpldq"
+        },
+        {
+          "place": 8,
           "name": "Sayfalse",
-          "listeners": 74549,
+          "listeners": 74551,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/sayfalse/ARmhmPzcZKxct9k"
         },
         {
-          "place": 7,
+          "place": 9,
           "name": "Yb Wasg'ood",
           "listeners": 71998,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/yb-wasgood/ARmrbwkm6xhV5Kk"
         },
         {
-          "place": 8,
+          "place": 10,
           "name": "S3BZS",
           "listeners": 70470,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/s3bzs/ARkcV2l9kPjm9gm"
         },
         {
-          "place": 9,
+          "place": 11,
           "name": "Ogryzek",
           "listeners": 64521,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/ogryzek/ARqXqpnZtfKK4f9"
         },
         {
-          "place": 10,
+          "place": 12,
           "name": "DJ FKU",
           "listeners": 58452,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-fku/AR37xqJp36bP49V"
         },
         {
-          "place": 11,
+          "place": 13,
           "name": "sma$her",
           "listeners": 43000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/smasher/AR59grVjlv9k2XJ"
         },
         {
-          "place": 12,
+          "place": 14,
           "name": "Repsaj",
           "listeners": 42600,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/repsaj/ARrK4bxXx9q99f2"
         },
         {
-          "place": 13,
+          "place": 15,
           "name": "nightfxrce",
-          "listeners": 34905,
+          "listeners": 34809,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/nightfxrce/ARtdwJqgc2tfJV2"
         },
         {
-          "place": 14,
+          "place": 16,
           "name": "JXNDRO",
           "listeners": 32800,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/jxndro/ARlV9ZczwgX4kP4"
         },
         {
-          "place": 15,
+          "place": 17,
           "name": "Chilx",
           "listeners": 29000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/chilx/ARcnwfcz3Vw3l3J"
         },
         {
-          "place": 16,
+          "place": 18,
           "name": "Rubikdice",
           "listeners": 29000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/rubikdice/ARfZ36wX9n9k5qm"
         },
         {
-          "place": 17,
+          "place": 19,
           "name": "Eternxlkz",
           "listeners": 26525,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/eternxlkz/ARhxjwkdXft5h62"
         },
         {
-          "place": 18,
+          "place": 20,
           "name": "Nakama",
           "listeners": 25197,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/nakama/ARX4tgZn2zJ42XX"
         },
         {
-          "place": 19,
+          "place": 21,
           "name": "LXNGVX",
           "listeners": 24498,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/lxngvx/ARvJZZk3cf2XmpZ"
         },
         {
-          "place": 20,
+          "place": 22,
           "name": "SETTWOR",
           "listeners": 24459,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c"
         },
         {
-          "place": 21,
+          "place": 23,
           "name": "TOKYOPHILE",
           "listeners": 21956,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/tokyophile/AR9tph9jhjmPw9q"
         },
         {
-          "place": 22,
+          "place": 24,
           "name": "isq",
           "listeners": 21000,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/isq/ARZVlKb2kt74pdP"
         },
         {
-          "place": 23,
-          "name": "Dj Samir",
-          "listeners": 19824,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/dj-samir/ARj49jZ6J7dpldq"
-        },
-        {
-          "place": 24,
+          "place": 25,
           "name": "Jmilton",
-          "listeners": 19267,
+          "listeners": 19178,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/jmilton/ARZZjKhlK9JXXk2"
         },
         {
-          "place": 25,
+          "place": 26,
           "name": "Mc Jhey",
           "listeners": 18000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/mc-jhey/ARfhqJP3VlhqdP4"
-        },
-        {
-          "place": 26,
-          "name": "FXRR",
-          "listeners": 16002,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/fxrr/AR6pdj46zdJwthq"
         },
         {
           "place": 27,
@@ -912,507 +912,507 @@
         },
         {
           "place": 29,
+          "name": "FXRR",
+          "listeners": 15002,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/fxrr/AR6pdj46zdJwthq"
+        },
+        {
+          "place": 30,
           "name": "Irokz",
           "listeners": 14771,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/irokz/ARdpxPVV3vwkb7c"
         },
         {
-          "place": 30,
+          "place": 31,
           "name": "Scythermane",
           "listeners": 14636,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/scythermane/ARKr2JqVKZplp4X"
         },
         {
-          "place": 31,
+          "place": 32,
           "name": "2KE",
           "listeners": 14000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/2ke/ARPZPPzVhfhXbxZ"
         },
         {
-          "place": 32,
+          "place": 33,
           "name": "Polaris",
           "listeners": 14000,
           "verified": false,
           "pandoraUrl": "https://www.pandora.com/artist/polaris/ARwZZ2ZJdq5mdkJ"
         },
         {
-          "place": 33,
+          "place": 34,
           "name": "TRXVELER",
           "listeners": 12561,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/trxveler/ARrqfq9VVxVwkx6"
         },
         {
-          "place": 34,
+          "place": 35,
+          "name": "qaraqshy",
+          "listeners": 11953,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/qaraqshy/ARP2dfjrjnbk3PJ"
+        },
+        {
+          "place": 36,
           "name": "SXID",
           "listeners": 10289,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/sxid/ARw6t6Xj726rmZg"
         },
         {
-          "place": 35,
+          "place": 37,
+          "name": "Seek",
+          "listeners": 9913,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/seek/ARqj9xxfcvtpkzJ"
+        },
+        {
+          "place": 38,
           "name": "LeoTHM",
-          "listeners": 8740,
+          "listeners": 8739,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/leothm/ARc33plrjKP2c5V"
         },
         {
-          "place": 36,
+          "place": 39,
           "name": "F!xmexed",
           "listeners": 8700,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/f-xmexed/ARjpzgJcpxPb4bg"
         },
         {
-          "place": 37,
+          "place": 40,
+          "name": "1HXSX",
+          "listeners": 8347,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/1hxsx/ARxjJq4VJn5tx7q"
+        },
+        {
+          "place": 41,
           "name": "Fyex",
-          "listeners": 8133,
+          "listeners": 8155,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/fyex/AR5KP6h49phcln4"
         },
         {
-          "place": 38,
+          "place": 42,
           "name": "Skorde",
-          "listeners": 8091,
+          "listeners": 8109,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/skorde/ARcJ9mvn9226Jp2"
         },
         {
-          "place": 39,
+          "place": 43,
+          "name": "Mc Roba Cena",
+          "listeners": 7821,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/mc-roba-cena/ARwl7p7nk65jkj9"
+        },
+        {
+          "place": 44,
           "name": "CURSEDEVIL",
           "listeners": 7800,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/cursedevil/ARmpX5b22tzk744"
         },
         {
-          "place": 40,
+          "place": 45,
           "name": "dvspair",
           "listeners": 7200,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dvspair/ARvjxm2Z22r2gz9"
         },
         {
-          "place": 41,
+          "place": 46,
           "name": "$werve",
           "listeners": 5000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/swerve/ARndtXXrtvX59wc"
         },
         {
-          "place": 42,
+          "place": 47,
           "name": "6YNTHMANE",
           "listeners": 4900,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/6ynthmane/ARj59v5PbJ6jcqZ"
         },
         {
-          "place": 43,
+          "place": 48,
           "name": "RXDXVIL",
           "listeners": 4900,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/rxdxvil/ARwj7fPt7r3pcp4"
         },
         {
-          "place": 44,
+          "place": 49,
           "name": "TRASHXRL",
           "listeners": 4900,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/trashxrl/ARhPrmxw4tdwffm"
         },
         {
-          "place": 45,
+          "place": 50,
           "name": "Eclipse",
           "listeners": 4500,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/eclipse/ARx3bVq266pn4wV"
         },
         {
-          "place": 46,
+          "place": 51,
           "name": "DJZRX",
-          "listeners": 4023,
+          "listeners": 4043,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/djzrx/ARbKx7mpkwKcVgk"
         },
         {
-          "place": 47,
-          "name": "Seek",
-          "listeners": 4011,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/seek/ARqj9xxfcvtpkzJ"
-        },
-        {
-          "place": 48,
+          "place": 52,
           "name": "DJ VTTT77",
           "listeners": 3821,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-vttt77/ARk23dV4bfdmp2Z"
         },
         {
-          "place": 49,
+          "place": 53,
           "name": "KLEAVE",
           "listeners": 3002,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/kleave/ARhfV9Zz2rl7mcP"
         },
         {
-          "place": 50,
+          "place": 54,
           "name": "SXCREDMANE",
           "listeners": 2958,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/sxcredmane/ARb3qKl6lkJlrqq"
         },
         {
-          "place": 51,
+          "place": 55,
           "name": "RAIZHELL",
-          "listeners": 2730,
+          "listeners": 2871,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/raizhell/AR6rX6h74txVbhm"
         },
         {
-          "place": 52,
+          "place": 56,
           "name": "Gill Chang",
-          "listeners": 2513,
+          "listeners": 2518,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/gill-chang/AR5h5PJkJl263x2"
         },
         {
-          "place": 53,
+          "place": 57,
           "name": "Zericxxn",
-          "listeners": 2225,
+          "listeners": 2309,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/zericxxn/ARmzwVtlbkrcm2Z"
         },
         {
-          "place": 54,
+          "place": 58,
           "name": "fennecxx",
           "listeners": 2178,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/fennecxx/ARZXm77ct9gg9JK"
         },
         {
-          "place": 55,
+          "place": 59,
           "name": "Mxng0",
           "listeners": 1900,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/mxng0/ARbJfp3hVX9P356"
         },
         {
-          "place": 56,
+          "place": 60,
           "name": "SCHWVFTY",
           "listeners": 1806,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/schwvfty/ARbrpmwv7gjglrP"
         },
         {
-          "place": 57,
+          "place": 61,
           "name": "DJ VYZ",
           "listeners": 1500,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-vyz/ARwh2zfrcq33dzk"
         },
         {
-          "place": 58,
+          "place": 62,
           "name": "nxtjvr",
           "listeners": 1409,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/nxtjvr/ARj4ddKdd32ktkK"
         },
         {
-          "place": 59,
+          "place": 63,
           "name": "QMIIR",
           "listeners": 1232,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/qmiir/ARkXPbnKZhdZcnw"
         },
         {
-          "place": 60,
+          "place": 64,
           "name": "SoundMusic Original",
-          "listeners": 1146,
+          "listeners": 1194,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/soundmusic-original/ARr6fxqfVmbm7f9"
         },
         {
-          "place": 61,
+          "place": 65,
           "name": "Launch13",
-          "listeners": 1145,
+          "listeners": 1046,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/launch13/ARKvj2V2wlKft9Z"
         },
         {
-          "place": 62,
+          "place": 66,
           "name": "CHAXZER",
-          "listeners": 983,
+          "listeners": 1000,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/chaxzer/ARgJvmbv3mPrv62"
         },
         {
-          "place": 63,
+          "place": 67,
           "name": "blueberry",
           "listeners": 949,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/blueberry/AR27Xp7V5JmnqvK"
         },
         {
-          "place": 64,
+          "place": 68,
           "name": "DJAY VMC",
-          "listeners": 948,
+          "listeners": 942,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/djay-vmc/ARJKxmrXXK9926V"
         },
         {
-          "place": 65,
+          "place": 69,
           "name": "shonci",
-          "listeners": 895,
+          "listeners": 899,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/shonci/AR23qcqptfkPhJZ"
         },
         {
-          "place": 66,
+          "place": 70,
           "name": "Avenxir",
           "listeners": 795,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/avenxir/ARJvt7g7w5wZ7jK"
         },
         {
-          "place": 67,
+          "place": 71,
           "name": "DudePlaya",
-          "listeners": 747,
+          "listeners": 741,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dudeplaya/ARb4t4cKxgvpXhP"
         },
         {
-          "place": 68,
+          "place": 72,
           "name": "rxpid",
-          "listeners": 692,
+          "listeners": 686,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/rxpid/ARt5Zcz632792vq"
         },
         {
-          "place": 69,
+          "place": 73,
           "name": "WXCHSXN",
           "listeners": 673,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/wxchsxn/ARKwmjz9cnqxv6q"
         },
         {
-          "place": 70,
+          "place": 74,
           "name": "DJ DYLANFK",
           "listeners": 670,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-dylanfk/ARk3qpdcpft39kq"
         },
         {
-          "place": 71,
+          "place": 75,
           "name": "ANDROMEDA",
-          "listeners": 665,
+          "listeners": 656,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/andromeda/ARx393gtdqp97bq"
         },
         {
-          "place": 72,
-          "name": "1HXSX",
-          "listeners": 649,
-          "verified": true,
-          "pandoraUrl": null
-        },
-        {
-          "place": 73,
+          "place": 76,
           "name": "merunes",
           "listeners": 628,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/merunes/ARc2zVJr49bK392"
         },
         {
-          "place": 74,
+          "place": 77,
           "name": "wnorg17",
-          "listeners": 585,
+          "listeners": 584,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/wnorg17/ARh3jVlhrPkprmP"
         },
         {
-          "place": 75,
-          "name": "slxughter",
-          "listeners": 575,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/slxughter/ARP4zw2jgqVw77k"
-        },
-        {
-          "place": 76,
+          "place": 78,
           "name": "DJ EXE",
-          "listeners": 399,
+          "listeners": 390,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-exe/AR6X6l3rhdbZfr6"
         },
         {
-          "place": 77,
+          "place": 79,
           "name": "N!GHTvisiøn",
-          "listeners": 354,
+          "listeners": 353,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/n-ghtvision/ARf7ZdV46xmr772"
         },
         {
-          "place": 78,
+          "place": 80,
+          "name": "Mc Kaique SP",
+          "listeners": 346,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/mc-kaique-sp/ARfhtPKr6p9dJX4"
+        },
+        {
+          "place": 81,
           "name": "Rezcaze",
           "listeners": 306,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/rezcaze/ARJJPck5qP77r69"
         },
         {
-          "place": 79,
+          "place": 82,
           "name": "CACAU CHUU",
           "listeners": 301,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/cacau-chuu/ARqkl7drbfj23ng"
         },
         {
-          "place": 80,
+          "place": 83,
           "name": "Prod.Nifour",
           "listeners": 295,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/prodnifour/ARg6v9cXc7vhpjm"
         },
         {
-          "place": 81,
+          "place": 84,
           "name": "MarJan",
-          "listeners": 278,
+          "listeners": 282,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/marjan/ARh9lh6fwh6qxcV"
         },
         {
-          "place": 82,
+          "place": 85,
+          "name": "Mc Gordão",
+          "listeners": 273,
+          "verified": true,
+          "pandoraUrl": "https://www.pandora.com/artist/mc-gordao/ARkdzm3xmpj9xKc"
+        },
+        {
+          "place": 86,
           "name": "VAVA",
           "listeners": 259,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/vava/AR3Zp9445tXwjw9"
         },
         {
-          "place": 83,
+          "place": 87,
           "name": "DJ Zarek",
           "listeners": 241,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-zarek/ARrv3xt9ll7K53P"
         },
         {
-          "place": 84,
+          "place": 88,
           "name": "ZERTAL",
           "listeners": 218,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/zertal/ARJ5qrz4dzl7pgk"
         },
         {
-          "place": 85,
+          "place": 89,
           "name": "VYRUS",
           "listeners": 192,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/vyrus/ARdkrpPfzrtwngc"
         },
         {
-          "place": 86,
+          "place": 90,
           "name": "TEENWXVE",
           "listeners": 191,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/teenwxve/AR73tgffVgrwn9m"
         },
         {
-          "place": 87,
-          "name": "Mc Kaique SP",
-          "listeners": 190,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/mc-kaique-sp/ARfhtPKr6p9dJX4"
-        },
-        {
-          "place": 88,
+          "place": 91,
           "name": "Conexão do Funk",
-          "listeners": 162,
+          "listeners": 168,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/conexao-do-funk/AR7rjlJmxflhzvZ"
         },
         {
-          "place": 89,
+          "place": 92,
           "name": "DJ FallThox",
           "listeners": 147,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/dj-fallthox/ARfrpnJzj7htjd2"
         },
         {
-          "place": 90,
+          "place": 93,
           "name": "Phonk Killer",
           "listeners": 146,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/phonk-killer/ARjd3xfZPqpgc49"
         },
         {
-          "place": 91,
+          "place": 94,
           "name": "As Tequileiras do Funk",
           "listeners": 141,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/as-tequileiras-do-funk/ARX9gj3z5VX57Zm"
         },
         {
-          "place": 92,
+          "place": 95,
           "name": "KINGXND",
-          "listeners": 138,
+          "listeners": 140,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/kingxnd/ARl2qJffX4nlf7X"
         },
         {
-          "place": 93,
-          "name": "Mc Gordão",
-          "listeners": 132,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/mc-gordao/ARkdzm3xmpj9xKc"
-        },
-        {
-          "place": 94,
+          "place": 96,
           "name": "SEKIMANE",
           "listeners": 132,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/sekimane/ARPnb25v5PbVVXq"
         },
         {
-          "place": 95,
+          "place": 97,
           "name": "TOLCHONOV",
           "listeners": 118,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/tolchonov/AR5dtd9597vcwh4"
         },
         {
-          "place": 96,
+          "place": 98,
           "name": "FR3ST",
-          "listeners": 112,
+          "listeners": 111,
           "verified": true,
           "pandoraUrl": "https://www.pandora.com/artist/fr3st/ARJp4zfPPnrj5K2"
         },
         {
-          "place": 97,
-          "name": "TESSAI",
-          "listeners": 88,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/tessai/ARvKh9bwhdhVx6k"
-        },
-        {
-          "place": 98,
-          "name": "Nomi XD",
-          "listeners": 84,
-          "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/nomi-xd/ARlVkcvzc9J5gXJ"
-        },
-        {
           "place": 99,
-          "name": "Raiden",
-          "listeners": 74,
+          "name": "Silo",
+          "listeners": 110,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/raiden/ARhl2r2PlhxPVdc"
+          "pandoraUrl": "https://www.pandora.com/artist/silo/ARfz6J3VdXzh7mP"
         },
         {
           "place": 100,
-          "name": "NUEKI",
-          "listeners": 71,
+          "name": "TESSAI",
+          "listeners": 96,
           "verified": true,
-          "pandoraUrl": "https://www.pandora.com/artist/nueki/ARftgbPJdwJlkrq"
+          "pandoraUrl": "https://www.pandora.com/artist/tessai/ARvKh9bwhdhVx6k"
         }
       ]
     }

@@ -32,8 +32,7 @@
     // a place among fewer than 3 ranked artists stays in the cards but is left out of the sentence and the title
     var sig = places.filter(function (x) { return x.p.ranked >= 3; });
     var placeTail = sig.length ? fmt(t.placeTail, {
-      items: sig.map(function (x) { return fmt(t.placeItem, { place: x.p.place, of: n(x.p.of), genre: x.name }); }).join(t.and),
-      ranked: sig.map(function (x) { return n(x.p.ranked); }).join(t.and)
+      items: sig.map(function (x) { return fmt(t.placeItem, { place: x.p.place, of: n(x.p.of), genre: x.name }); }).join(t.and)
     }) : '';
     var answer = isNum ? fmt(t.answerNum, { name: a.name, listeners: n(top.x.listeners), month: m(latest), text: top.x.text, placeTail: placeTail }) : fmt(t.answerFew, { name: a.name, month: m(latest) });
     var genres = rows.map(function (r) { return genreName(r.genre); });
@@ -54,7 +53,7 @@
       { '@type': 'Dataset', '@id': url + '#data', name: fmt(t.dsName, { name: a.name }), description: fmt(t.dsDesc, { answer: answer, date: latest }), creator: Object.assign({ '@type': 'Organization', name: 'Ledgertone', url: SITE }, a.owner ? { founder: { '@id': url + '#artist' } } : {}), license: 'https://creativecommons.org/licenses/by/4.0/', url: url, isAccessibleForFree: true, publisher: { '@id': SITE + '#org' }, measurementTechnique: t.dsMethod, keywords: fmt(t.dsKeywords, { name: a.name }), distribution: a.csv ? [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: SITE + a.csv }] : undefined, dateModified: latest, temporalCoverage: coverage, inLanguage: lang, about: { '@id': url + '#artist' },
         variableMeasured: (isNum ? [{ '@type': 'PropertyValue', name: t.metric, value: top.x.listeners, unitText: t.unit }] : [{ '@type': 'PropertyValue', name: t.metric, value: 'Few' }])
           .concat(places.map(function (x) { return { '@type': 'PropertyValue', name: fmt(t.placeVar, { genre: x.name, month: m(latest) }), value: x.p.place, description: fmt(t.placeDesc, { of: n(x.p.of), ranked: n(x.p.ranked) }) }; })) },
-      { '@type': 'FAQPage', '@id': url + '#faq', mainEntity: [{ '@type': 'Question', name: fmt(t.q, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: answer + ' ' + second } }] }
+      { '@type': 'FAQPage', '@id': url + '#faq', mainEntity: [{ '@type': 'Question', name: fmt(t.q, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: answer + ' ' + second } }].concat(a.owner && t.growItems ? [{ '@type': 'Question', name: fmt(t.growQ, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: fmt(t.growLead, { name: a.name }) + ' ' + t.growItems.join(' ') } }] : []) }
     ] };
 
     var histRows = hist.map(function (r) {
@@ -79,6 +78,7 @@
       '<h2>' + esc(t.srcH) + '</h2>', '<p>' + t.srcP + '</p>',
       '<h2>' + esc(t.histH) + '</h2>', '<p>' + esc(fmt(t.histLead, vn)) + '</p>', histTable,
       '<p>' + [a.site ? '<a href="' + esc(a.site) + '" rel="noopener">' + esc(fmt(t.linkSite, vn)) + '</a>' : '', lk.pandora ? '<a href="' + esc(lk.pandora) + '" rel="noopener">' + esc(fmt(t.linkPandora, vn)) + '</a>' : '', lk.spotify ? '<a href="' + esc(lk.spotify) + '" rel="noopener">' + esc(fmt(t.linkSpotify, vn)) + '</a>' : '', a.csv ? '<a href="' + esc(a.csv) + '" type="text/csv">' + esc(fmt(t.linkCsv, vn)) + '</a>' : '', '<a href="index.html"' + (ru ? ' hreflang="en"' : '') + '>' + esc(t.linkRank) + '</a>', twin ? '<a href="' + other + '" hreflang="' + (ru ? 'en' : 'ru') + '" lang="' + (ru ? 'en' : 'ru') + '">' + esc(t.otherLang) + '</a>' : ''].filter(Boolean).join(' &middot; ') + '</p>',
+      a.owner && t.growItems ? '<h2>' + esc(t.growH) + '</h2>\n<p>' + esc(fmt(t.growLead, vn)) + '</p>\n<ul>\n' + t.growItems.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('\n') + '\n</ul>\n<p>' + fmtH(t.growSrc, vn) + '</p>' : '',
       a.owner ? '<h2>' + esc(t.ownerH) + '</h2>\n<p>' + fmtH(t.ownerP, vn) + '</p>' + (a.site ? '\n<a class="ownmark glass glass-flat" href="' + esc(a.site) + '" rel="noopener" aria-label="' + esc(fmt(t.ownerLogo, vn)) + '"><span class="ownlogo">' + LOGO + '</span></a>' : '') : '',
       '</section>', '</main>'
     ]).join('\n');
