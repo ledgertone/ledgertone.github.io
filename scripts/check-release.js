@@ -145,5 +145,19 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
   problems.length ? bad('permalink line: ' + problems.join('; ')) : ok('permalink line: index.html and all.html point to #' + g.id + '-' + s.capturedAt);
 })();
 
+// 11 iframes (v1.54.0, rule 27): the only iframes on the site are the CDRA award cards
+(function () {
+  const problems = []; let n = 0;
+  fs.readdirSync(root).filter((f) => f.endsWith('.html')).forEach((f) => {
+    [...rd(f).matchAll(/<iframe\b[^>]*>/g)].forEach((m) => {
+      n++;
+      const src = (m[0].match(/\ssrc=\"([^\"]*)\"/) || [])[1] || '';
+      if (!/^https:\/\/cdras\.github\.io\/embed\/[A-Za-z0-9-]+\.html$/.test(src)) problems.push(f + ': iframe src ' + src);
+      if (!/\sreferrerpolicy=\"no-referrer\"/.test(m[0]) || !/\sloading=\"lazy\"/.test(m[0]) || !/\stitle=\"[^\"]+\"/.test(m[0])) problems.push(f + ': iframe without referrerpolicy, loading or title');
+    });
+  });
+  problems.length ? bad('iframes: ' + problems.slice(0, 5).join('; ')) : ok('iframes: ' + n + ' CDRA award card frames, all from https://cdras.github.io/embed/');
+})();
+
 console.log(fails ? '\n' + fails + ' check(s) failed' : '\nall checks passed');
 process.exit(fails ? 1 : 0);

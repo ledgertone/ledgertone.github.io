@@ -2,6 +2,16 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.54.0] - 2026-10-29
+### Added
+- CDRA award cards on the SETTWOR pages (owner request): the section "Awards" ("Награды" on `settwor-ru.html`) after "Growth and activity", a plain iframe of the light and the dark embed page of the CDRA site per award (`https://cdras.github.io/embed/<AWARD>.html` and `-dark.html`), a lead sentence and a link "All awards on the CDRA site". The theme picks the card (CSS in `assets/styles.css`, `.awards`), no script, `loading="lazy"`, `referrerpolicy="no-referrer"`, `color-scheme` set on each frame so the card stays transparent. The list is `awardsItems` in `data/artist-text.js`; it holds only the one award the owner sent (GOT ME UP 2, 1,000,000 streams), more are one line each. Owner pages only (rule 27).
+- `check-release.js` check 11: every iframe on the site must point to `https://cdras.github.io/embed/`, with `referrerpolicy`, `loading` and `title`.
+### Changed
+- `privacy.html`: new row for requests to `cdras.github.io`, "five ways" in the short version, date 2026-10-29. `AGENTS.md`: exception in the intro and the new rule 27. `docs/SEO.md`: one line.
+### Fixed
+- The CDRA link on `about.html` pointed to `cdra.github.io`; it is `cdras.github.io` now (the host of the widget).
+- Not done: the CDRA side (its JSON-LD `creator` as the bare `@id`, see 1.53.1) is not in this workspace. The cards were not seen with the real CDRA pages (no network here), only the markup, the CSS switch and the checks were tested.
+
 ## [1.53.1] - 2026-10-29
 ### Fixed
 - `sameAs` of the one SETTWOR entity was missing three profiles: Apple Music, YouTube Music and YouTube (owner supplied the links). Added to the key `x` of the `settwor` entry in `data/links.js`; `ownerNode()` and the snippet for `settwor.github.io` pick them up after `build-all.js`. Ten profiles in `x` now, plus Pandora and Spotify.

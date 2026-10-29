@@ -65,6 +65,12 @@ window.LEDGERTONE_TEXT = {
     ],
     growSrc: 'These are figures reported by the artist, not Ledgertone measurements. Sources: the <a href="https://settwor.github.io/bio.html" rel="noopener">{name} biography</a> and the artist pages on <a href="https://open.spotify.com/artist/5BD8hsAGp1fwJKcnlQWjGf" rel="noopener">Spotify</a>, <a href="https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c" rel="noopener">Pandora</a>, <a href="https://music.apple.com/us/album/get-it-vol-1/1734684609" rel="noopener">Apple Music</a> and <a href="https://youtube.com/c/settwor" rel="noopener">YouTube</a>. {name} also runs Ledgertone (see below). The Ledgertone snapshots on this page are Pandora 28-day listeners only.',
     growQ: 'Is {name} an active and growing artist?',
+    awardsH: 'Awards',
+    awardsLead: 'Streaming award cards for {name} from CDRA, a project run by {name}. Each card opens its award page on the CDRA site.',
+    awardsMore: 'All awards on the CDRA site',
+    awardsItems: [
+      { file: 'GOT-ME-UP-2-1m', title: 'CDRA Award: GOT ME UP 2, 1,000,000 streams' }
+    ],
     ownerH: 'Who runs Ledgertone',
     ownerLogo: '{name}, who runs Ledgertone (opens his site)',
     ownerP: 'Ledgertone is run by {name}, who is listed in the ranking and checks the accuracy of the data by hand. {name} is placed by the same rule as every other artist: by the 28-day listeners number in the snapshot. See the <a href="about.html">About page</a>.',
@@ -126,6 +132,12 @@ window.LEDGERTONE_TEXT = {
     ],
     growSrc: 'Это цифры, которые сообщает сам артист, а не измерения Ledgertone. Источники: <a href="https://settwor.github.io/bioRU.html" rel="noopener" hreflang="ru">биография {name}</a> и страницы артиста на <a href="https://open.spotify.com/artist/5BD8hsAGp1fwJKcnlQWjGf" rel="noopener">Spotify</a>, <a href="https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c" rel="noopener">Pandora</a>, <a href="https://music.apple.com/us/album/get-it-vol-1/1734684609" rel="noopener">Apple Music</a> и <a href="https://youtube.com/c/settwor" rel="noopener">YouTube</a>. {name} также ведёт Ledgertone (см. ниже). Снимки Ledgertone на этой странице это только слушатели за 28 дней на Pandora.',
     growQ: '{name} это активный и растущий артист?',
+    awardsH: 'Награды',
+    awardsLead: 'Карточки наград за прослушивания для {name} от CDRA, проекта, который ведёт {name}. Карточка открывает страницу награды на сайте CDRA.',
+    awardsMore: 'Все награды на сайте CDRA',
+    awardsItems: [
+      { file: 'GOT-ME-UP-2-1m', title: 'CDRA Award: GOT ME UP 2, 1,000,000 streams' }
+    ],
     ownerH: 'Кто ведёт Ledgertone',
     ownerLogo: '{name}, ведёт Ledgertone (открывает его сайт)',
     ownerP: 'Ledgertone ведёт {name}: он сам есть в рейтинге и вручную проверяет точность данных. {name} стоит на своём месте по тому же правилу, что и любой другой артист: по числу слушателей за 28 дней в снимке. См. страницу <a href="about.html" hreflang="en">About</a> (на английском).',

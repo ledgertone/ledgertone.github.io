@@ -413,3 +413,11 @@ h1{margin-bottom:16px}
 /* owner line under the home heading (v1.51.3): plain muted text, no panel */
 .ownernote{margin:-4px 0 18px;max-width:60ch;color:var(--muted);font-size:.9375rem;line-height:1.5}
 .ownernote a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+/* v1.54.0 (owner request, AGENTS.md rule 27): CDRA award cards on the owner pages. Plain iframes, light card in the light theme, dark card in the dark theme (same two places as the dark tokens). The cards size themselves to the container with the proportions 504:626 */
+.doc.own .awards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),504px));gap:16px;margin:14px 0 0}
+.doc.own .award{min-width:0}
+.doc.own .award iframe{display:block;width:100%;max-width:504px;height:auto;aspect-ratio:504/626;border:0}
+.doc.own .award .aw-d{display:none}
+:root[data-theme=dark] .doc.own .award .aw-l{display:none}
+:root[data-theme=dark] .doc.own .award .aw-d{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .doc.own .award .aw-l{display:none}:root:not([data-theme=light]) .doc.own .award .aw-d{display:block}}

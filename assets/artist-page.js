@@ -18,6 +18,18 @@
   // owner mark (owner decision, v1.19.0, AGENTS.md rule 21): only the owner page, only while the place is worse than the place with earlierListeners (core.earlierPlaceAt); same markup as in assets/app.js
   var dropMark = function (a, place, e, t) { return a.owner && e !== null && e !== undefined && place > e ? '<span class="dn" aria-label="' + esc(fmt(t.earlier, { place: e })) + '"><svg class="ar" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M6 2v8M2.5 6.5 6 10l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>#' + e + '</span>' : ''; };
 
+  // CDRA award cards (owner decision, v1.54.0, AGENTS.md rule 27): plain iframes of the two embed pages of the CDRA site, no script on this site.
+  // The light card is shown in the light theme, the dark card in the dark theme (CSS in assets/styles.css, .awards); a hidden lazy iframe does not load.
+  var CDRA = 'https://cdras.github.io/';
+  var awardsBlock = function (t, v) {
+    var frame = function (item, dark) {
+      return '<iframe class=\"' + (dark ? 'aw-d' : 'aw-l') + '\" src=\"' + CDRA + 'embed/' + esc(item.file) + (dark ? '-dark' : '') + '.html\" title=\"' + esc(item.title) + '\" loading=\"lazy\" referrerpolicy=\"no-referrer\"' + (dark ? ' style=\"color-scheme:dark\"' : ' style=\"color-scheme:light\"') + '></iframe>';
+    };
+    return '<h2>' + esc(t.awardsH) + '</h2>\n<p>' + esc(fmt(t.awardsLead, v)) + '</p>\n<div class=\"awards\">\n'
+      + t.awardsItems.map(function (it) { return '<div class=\"award\">' + frame(it, false) + frame(it, true) + '</div>'; }).join('\n')
+      + '\n</div>\n<p><a href=\"' + CDRA + '\" rel=\"noopener\">' + esc(t.awardsMore) + '</a></p>';
+  };
+
   function model(a, lang) {
     var t = TEXT[lang], ru = lang === 'ru', n = function (x) { return num(x, lang); }, m = function (d) { return month(d, lang); };
     var file = ru ? a.fileRu : a.file, other = ru ? a.file : a.fileRu, twin = !!a.fileRu;
@@ -85,6 +97,7 @@
       '<h2>' + esc(t.histH) + '</h2>', '<p>' + esc(fmt(t.histLead, vn)) + '</p>', histTable,
       linkRow('<p>', '</p>', ' &middot; ', ''),
       a.owner && t.growItems ? '<h2>' + esc(t.growH) + '</h2>\n<p>' + esc(fmt(t.growLead, vn)) + '</p>\n<ul class="grow">\n' + t.growItems.map(function (x) { return '<li class="glass glass-flat">' + esc(x) + '</li>'; }).join('\n') + '\n</ul>\n<p>' + fmtH(t.growSrc, vn) + '</p>' : '',
+      a.owner && t.awardsItems && t.awardsItems.length ? awardsBlock(t, vn) : '',
       a.owner ? '<div class="ownabout glass glass-flat">\n<h2>' + esc(t.ownerH) + '</h2>\n<p>' + fmtH(t.ownerP, vn) + '</p>\n</div>' : '',
       '</section>', '</main>'
     ]).join('\n');
