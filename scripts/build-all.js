@@ -3,3 +3,5 @@ require('./build-artist-pages.js');
 require('./build-ranking-files.js');
 require('./build-home.js');
 require('./build-feed.js');
+require('./build-spotify.js');
+require('./build-platforms.js');

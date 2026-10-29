@@ -2,6 +2,100 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.53.1] - 2026-10-29
+### Fixed
+- `sameAs` of the one SETTWOR entity was missing three profiles: Apple Music, YouTube Music and YouTube (owner supplied the links). Added to the key `x` of the `settwor` entry in `data/links.js`; `ownerNode()` and the snippet for `settwor.github.io` pick them up after `build-all.js`. Ten profiles in `x` now, plus Pandora and Spotify.
+- Rule wording fixed in `AGENTS.md` rule 26 and `docs/SEO.md`: the entity is one `MusicGroup` that CDRA and Ledgertone refer to by `@id`; the CDRA `creator` is exactly `{"@id": "https://settwor.github.io/#artist"}` without a type; `llms.txt` brings nothing and does no harm, so it is not made; markup is for clarity, not for a boost.
+- Not done: CDRA is not in this workspace, so its JSON-LD still has to get the `creator` line. The Rich Results Test was not run (no network).
+- No visible change on any page.
+
+## [1.53.0] - 2026-10-29
+### Changed
+- The one SETTWOR entity now lists all his profiles in `sameAs` (owner request): Pandora and Spotify as before, plus Shazam, MusicBrainz, Musixmatch, Genius, Deezer, Amazon Music and TikTok, the links the owner supplied. They live in `data/links.js` under the new key `x` of the `settwor` entry (https only, filtered by `safeUrl`), `ownerNode()` and `linksOf()` in `assets/ledger-core.js` read them, so every page that carries the node (home, platforms page, `settwor.html`, `settwor-ru.html`, `docs/settwor-site-snippet.html`) gets the same list after `node scripts/build-all.js`.
+- `genre` of the entity is `["Brazilian Phonk", "Phonk"]` (was Phonk, Brazilian Phonk), the same two main genres as on `settwor.github.io` (site v11.15).
+- Docs: `docs/SEO.md` has the new section "Markup and AI answers" (run the Rich Results Test after every publish, one `MusicGroup` with the single `@id`, Ledgertone and CDRA name it as `creator`, markup is for clarity not for a boost, no llms.txt); `docs/DATA.md` describes the key `x`; AGENTS.md rules 12 and 26 updated.
+- Not done: Apple Music, YouTube and the other profiles of the SETTWOR site are not in `data/links.js` (the owner has not sent them here; never guess a link). CDRA is not in this workspace: it must point to `https://settwor.github.io/#artist` as `creator`. The Rich Results Test was not run (no network), only `scripts/check-release.js`.
+- No visible change on any page.
+
+## [1.52.0] - 2026-10-29
+### Changed
+- One SETTWOR entity in the JSON-LD (owner request): a single `MusicGroup` with the `@id` `https://settwor.github.io/#artist` (the same `@id` the snippet for his own site uses), built by `ownerNode()` in `assets/ledger-core.js`. The home page (`index.html`, `all.html` if it carries the Datasets), `settwor-platforms.html`, `settwor.html`, `settwor-ru.html` and `docs/settwor-site-snippet.html` all carry that same node, no page has its own second SETTWOR `MusicGroup` any more (the platforms page and the two artist pages had one each).
+- The two ranking Datasets on the home page and the Dataset on the SETTWOR pages now name SETTWOR as `creator` by `@id`; the Ledgertone `Organization` (`@id` `https://ledgertone.github.io/#org`, `founder` = SETTWOR) is their `publisher`. Datasets of every other artist page are unchanged (creator Ledgertone).
+- `sameAs` of the entity holds only the Pandora and Spotify links from `data/links.js`. Other profiles (Apple Music, YouTube) are added when the owner supplies the links. His own site is in `url`, no longer in `sameAs`.
+- No llms.txt (owner decision: no benefit). No visible change on any page.
+
+## [1.51.3] - 2026-10-29
+### Added
+- Owner line under the heading of the home page and of `all.html` (owner request): "The ranking is run by SETTWOR, who is #13 in it." with a link to "Who runs Ledgertone" on About, and the same sentence at the end of the meta description (also `og:description`, `twitter:description` and the `WebSite` description in the JSON-LD), so the disclosure travels with the figure in snippets and AI answers. The place is computed, never typed: `scripts/build-home.js` writes it from the ranked list of the latest Phonk snapshot (same order as the table), `render()` in `assets/app.js` recomputes it for the genre and the snapshot on screen (Brazilian Phonk, older snapshots), and if SETTWOR has no number in that snapshot the line says only that he is also listed in the rankings. Style `.ownernote` in `assets/styles.css`, plain muted text. Version 1.51.3.
+
+## [1.51.2] - 2026-10-29
+### Fixed
+- On a phone (up to 700 px wide) the ranking list stopped at 40 rows with "Per page" 50, 75, 100, 200 or "All": the invisible end marker that loads the next 40 rows (`.rowsend`, `assets/app.js`) had no `order` in the flex column of the ranking page (`.rks`, phone block of `assets/styles.css`), so it sat above the table and the next rows never loaded. `.rks>.tbl,.rks>.rowsend{order:1}` puts it right after the table. Found while measuring list performance. Desktop was not affected. Version 1.51.2 everywhere.
+
+## [1.51.1] - 2026-10-29
+### Changed
+- `TODO.md` only: the consent flow test, the text contrast check and the nav and picker legibility check are marked done with what was and was not measured (headless Chromium, the Google tag blocked, so `_ga` cookies were not tested). Lighthouse could not be installed (npm registry unreachable). No site change. Version 1.51.1 everywhere.
+
+## [1.51.0] - 2026-10-29
+### Added
+- `settwor-platforms.html`: SETTWOR listeners on every platform and the platforms added together (owner request). Pandora comes from the latest snapshot (24,459, 28-day listeners, 2026-10-25, counted once), Spotify, Apple Music and YouTube read No data until the owner fills `data/settwor-platforms.js`. The sum counts only platforms with a figure ("1 of 4"), with a note that it is not unique people and that the periods differ. Generated by the new `scripts/build-platforms.js` (run by `build-all.js`), in `sitemap.xml`, linked from the footer of the pages built from `about.html` (`spotify.html` and itself). Styles `.total`, `.nd`, small date under a figure in `assets/styles.css`. AGENTS.md rule 25 and the layout table. Version 1.51.0 everywhere.
+
+## [1.50.0] - 2026-10-29
+### Added
+- `spotify.html`, "Top Phonk Artists on Spotify" with a Phonk and a Brazilian Phonk switch (owner request). There is no Spotify reading yet, so every number reads No data and no place is given; the artists are the top-list roster of each genre, listed alphabetically, SETTWOR linked to his page. Generated by the new `scripts/build-spotify.js` (run by `build-all.js`), JSON-LD with the two lists, in `sitemap.xml`, linked from the nav of `index.html` and `all.html`. AGENTS.md rule 24 and the layout table. Version 1.50.0 everywhere.
+
+## [1.49.0] - 2026-10-29
+### Added
+- The photo of SETTWOR on his artist pages (`settwor.html`, `settwor-ru.html`), a small round picture next to the title, loaded by link from `https://settwor.github.io/images/main.jpg` and not copied into the site (owner request, owner decision to load it by link). The same address is the `image` of the artist in the page JSON-LD. `photo` in `OWNER` (`assets/ledger-core.js`), alt text `photoAlt` in `data/artist-text.js` (English and Russian), markup in `assets/artist-page.js`, styles in `assets/styles.css`. This is a second external request of the site next to Spotify pictures: `privacy.html` has a new row, AGENTS.md (project line) names it. Version 1.49.0 everywhere.
+
+## [1.48.0] - 2026-10-29
+### Added
+- `about.html`, section "How Ledgertone started": the launch dates, in the owner's words: the site was created and launched on 24 October 2026 without the full information, and after many improvements launched in full, with the whole database, on 27 October 2026 (owner request). AGENTS.md rule 15 notes it. Version 1.48.0 everywhere.
+
+## [1.47.7] - 2026-10-29
+### Removed
+- SETTWOR pages: no logo any more (owner request). The title is plain text again, "SETTWOR on Pandora: 28-day listeners", on the left like every other page, with the reduced space under the header kept. The logo code is removed from `assets/artist-page.js` and its styles from `assets/styles.css`. The logo stays on `about.html`. Version 1.47.7 everywhere.
+
+## [1.47.6] - 2026-10-29
+### Changed
+- SETTWOR pages: the logo stands in the title in place of the word SETTWOR (owner request), sized to the capital letters of the title, the title centered. The name stays in the page for readers and search engines as hidden text in the heading. The separate logo above the title is gone. `assets/artist-page.js`, `assets/styles.css`, `assets/motion.js`. Version 1.47.6 everywhere.
+
+## [1.47.5] - 2026-10-29
+### Changed
+- SETTWOR pages: the glass card and the link buttons at the top are gone (owner request). The top holds only the small centered logo and the title, closer to the header (less padding on `.doc.own`). The links are a plain line under the snapshot history again, as on every other artist page. `assets/artist-page.js`, `assets/styles.css`, `assets/motion.js`. Version 1.47.5 everywhere.
+
+## [1.47.4] - 2026-10-29
+### Changed
+- SETTWOR pages: the small logo (104 px, 92 px on a phone) is centered above the top card with more space above and below it, and the title and the link buttons in the card are centered too (owner request). `assets/styles.css` only. Version 1.47.4 everywhere.
+
+## [1.47.3] - 2026-10-29
+### Changed
+- The logo on the SETTWOR pages is taken out of the top card and sits above it, small (92 px, 80 px on a phone), with no plate and no outline (owner request). `assets/artist-page.js`, `assets/styles.css`. Version 1.47.3 everywhere.
+
+## [1.47.2] - 2026-10-29
+### Changed
+- The logo on the SETTWOR pages is small and neat (owner request): a small glass plate with the logo (88 px, 78 px on a phone) above the title, which is the main heading again, the links under it as glass buttons, all left-aligned. The large centered logo and its glow of 1.47.1 are gone. `assets/artist-page.js`, `assets/styles.css`. Version 1.47.2 everywhere.
+
+## [1.47.1] - 2026-10-29
+### Changed
+- The card at the top of the SETTWOR pages is centered (owner request, the logo looked badly placed): the large logo in the middle with a soft glow behind it, the title smaller and quiet under it, the link buttons centered. `assets/styles.css` only. Version 1.47.1 everywhere.
+
+## [1.47.0] - 2026-10-29
+### Changed
+- The SETTWOR pages (`settwor.html`, `settwor-ru.html`) are laid out as a profile (owner request): a glass card at the top with the large SETTWOR logo, the title and the links as glass buttons; the listeners figure is shown large with the other three figures in one row; the growth facts are glass rows with an accent edge; "Who runs Ledgertone" is a card (the small logo at the bottom is gone, the large one at the top links to his site). Markup in `assets/artist-page.js` (owner pages only), styles `.doc.own` in `assets/styles.css`, press effect for the new buttons in `assets/motion.js`. Other artist pages are unchanged. The text is unchanged. Version 1.47.0 everywhere.
+
+## [1.46.0] - 2026-10-29
+### Added
+- `about.html`, section "Who runs Ledgertone": one line that SETTWOR also runs the CDRA project, with a link to cdra.github.io (owner request).
+### Changed
+- On a phone the "Per page" control sits directly under the table, above the pager and the notes (`assets/styles.css`, owner request). Desktop unchanged.
+### Removed
+- The "Under development" warning on Brazilian Phonk: `devwarn` in `data/snapshots.js`, the banner element on `index.html` and `all.html`, its code in `assets/app.js`, its styles, and the matching sentence in the feed and the ranking files (owner request). Version 1.46.0 everywhere.
+
+## [1.45.0] - 2026-10-28
+### Changed
+- The site name in the header (`.brand`) is set in Gloock instead of New York (owner request): `assets/fonts/Gloock-Regular.woff` (one weight, 400, supplied by the owner), `@font-face` and `.brand` in `assets/styles.css`, the preload in every HTML head, the font gate in `assets/theme.js` (waits for Gloock instead of New York), `assets/fonts/README.md` and AGENTS.md. `NewYork.woff` stays in the repository, unused. Version 1.45.0 everywhere. No data change.
+
 ## [1.44.0] - 2026-10-27
 ### Changed
 - `TODO.md` only: items the owner finished are marked done. No site change. Version 1.44.0 everywhere.

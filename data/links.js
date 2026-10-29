@@ -4,6 +4,7 @@
   s: the artist's Spotify id, from the owner's artistBase.json (spotifyId). The page builds https://open.spotify.com/artist/<id>.
   Only artists that are in our base (verified or unverified list) get an entry. This file holds links only, no numbers and no genre,
   so it does not merge the verified and the unverified lists. Update rules: docs/DATA.md, section "Links".
+  x: only for SETTWOR (v1.53.0, extended in v1.53.1): other profile pages of the artist the owner supplied, https only, used for the sameAs of the one shared entity.
 */
 window.LEDGERTONE_LINKS = {
   "!nfnx": { p: "https://www.pandora.com/artist/nfnx/ARfrfwJ2Xw39md4", s: "3OaHCFKRFT4r8o1x6SdgPT" },
@@ -3539,7 +3540,7 @@ window.LEDGERTONE_LINKS = {
   "servphimm": { s: "2h171mgW5ngEHvoC3O1Pke" },
   "sesar a": { s: "5UKC2ilRKl2RzqpH6S13qo" },
   "sesmxc": { s: "1J4Pgh45jPSztpKaYf28IU" },
-  "settwor": { p: "https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c", s: "5BD8hsAGp1fwJKcnlQWjGf" },
+  "settwor": { p: "https://www.pandora.com/artist/settwor/ARZ4r4pddcgPq3c", s: "5BD8hsAGp1fwJKcnlQWjGf", x: ["https://www.shazam.com/artist/settwor/1526983418", "https://musicbrainz.org/artist/895afe57-dd9f-40f1-a761-b7db0b88e6d4", "https://www.musixmatch.com/artist/SETTWOR-1", "https://genius.com/artists/Settwor", "https://www.deezer.com/artist/103506422", "https://www.amazon.com/music/player/artists/B08FH5CSWV/settwor", "https://www.tiktok.com/@settwor", "https://music.apple.com/us/artist/settwor/1526983418", "https://music.youtube.com/@SETTWOR", "https://www.youtube.com/@SETTWOR"] },
   "sevek": { p: "https://www.pandora.com/artist/sevek/ARjff7Zvhqm53JZ" },
   "seven oceans studio": { s: "4jYQ4a45018bhD0mXHCUJp" },
   "sevenspeed": { s: "3D39M5Kih6za1cuSyw6Ct6" },

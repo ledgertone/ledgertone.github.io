@@ -7,7 +7,7 @@
 // node scripts/build-home.js (or node scripts/build-all.js)
 const lib = require('./lib/ledger.js');
 const rankingFiles = require('./build-ranking-files.js'); // v1.26.0: ranking-<genre>.csv and .json, written first, linked below
-const { topLimit, L, SITE, homeId, esc, month, num, snapsOf, rankedAt, artistCount, linksOf, safeUrl, pandoraLink, readCRLF, writeCRLF, LINKS, norm, pageFileOf, earlierPlaceAt, moveAt, OWNER } = lib;
+const { topLimit, L, SITE, homeId, esc, month, num, snapsOf, rankedAt, artistCount, linksOf, safeUrl, pandoraLink, readCRLF, writeCRLF, LINKS, norm, pageFileOf, earlierPlaceAt, moveAt, OWNER, ownerNode } = lib;
 
 const g = L.genres.find((x) => x.id === homeId);
 const snaps = snapsOf(homeId);
@@ -47,10 +47,23 @@ const tr = (a) => {
 
 const ld = { '@context': 'https://schema.org', '@graph': [
   { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', alternateName: 'ledgertone.github.io', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
+  // v1.52.0: the Datasets below name SETTWOR as creator by @id, so the page carries the one shared SETTWOR entity and the Ledgertone organization (publisher)
+  ownerNode(),
+  { '@type': 'Organization', '@id': SITE + '#org', name: 'Ledgertone', url: SITE, logo: SITE + 'assets/icons/favicon-192.png', founder: { '@id': OWNER.site + '#artist' } },
   { '@type': 'ItemList', '@id': SITE + '#ranking', name: 'Top-' + topLimit + ' ' + g.name + ' Artists on Pandora by 28-day listeners, snapshot of ' + month(latest, 'en'), description: 'Artists with a 28-day listeners number in the Ledgertone snapshot of ' + month(latest, 'en') + '. A hand-collected snapshot, not live data.', itemListOrder: 'https://schema.org/ItemListOrderDescending', numberOfItems: rows.length, dateModified: latest,
     itemListElement: rows.map((a) => { const pf = pageFileOf(a.name), u = pf ? SITE + pf : (a.profileUrl && safeUrl(a.profileUrl)) || linksOf(a.name).pandora; return Object.assign({ '@type': 'ListItem', position: a.rank, name: a.name, description: num(a.listeners, 'en') + ' listeners over 28 days on Pandora' }, u ? { url: u } : {}); }) }
-].concat(rankingFiles.map((f) => ({ '@type': 'Dataset', '@id': SITE + '#data-' + f.id, name: 'Ledgertone ' + f.genre + ' ranking on Pandora by 28-day listeners, snapshot of ' + month(f.snapshot, 'en'), description: 'The top ' + f.count + ' ' + f.genre + ' artists on Pandora by 28-day listeners in the Ledgertone snapshot of ' + month(f.snapshot, 'en') + '. A hand-collected snapshot, not live data.', url: SITE, creator: { '@type': 'Organization', name: 'Ledgertone', url: SITE }, license: 'https://creativecommons.org/licenses/by/4.0/', isAccessibleForFree: true, keywords: 'phonk, Pandora, 28-day listeners, ranking, ' + f.genre, dateModified: f.snapshot, temporalCoverage: f.snapshot, inLanguage: 'en', distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: SITE + f.csv }, { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: SITE + f.json }] }))) };
+].concat(rankingFiles.map((f) => ({ '@type': 'Dataset', '@id': SITE + '#data-' + f.id, name: 'Ledgertone ' + f.genre + ' ranking on Pandora by 28-day listeners, snapshot of ' + month(f.snapshot, 'en'), description: 'The top ' + f.count + ' ' + f.genre + ' artists on Pandora by 28-day listeners in the Ledgertone snapshot of ' + month(f.snapshot, 'en') + '. A hand-collected snapshot, not live data.', url: SITE, creator: { '@id': OWNER.site + '#artist' }, publisher: { '@id': SITE + '#org' }, license: 'https://creativecommons.org/licenses/by/4.0/', isAccessibleForFree: true, keywords: 'phonk, Pandora, 28-day listeners, ranking, ' + f.genre, dateModified: f.snapshot, temporalCoverage: f.snapshot, inLanguage: 'en', distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: SITE + f.csv }, { '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: SITE + f.json }] }))) };
 
+// owner line (owner request, v1.51.3): "The ranking is run by SETTWOR, who is #N in it", under the heading and in the meta description, so the
+// disclosure travels with the figure in snippets and AI answers. The place is computed from the same ranked list as the table (never typed),
+// the same count as render() in assets/app.js. If he has no number in this snapshot the line says only that he is also listed.
+const ownerRow = rankedAt(homeId, 0).find((r) => norm(r.name) === norm(OWNER.name));
+const ownerTail = ownerRow ? ', who is #' + ownerRow.rank + ' in it.' : ', who is also listed in the rankings.';
+const ownerNote = '<p class="ownernote" id="ownernote">The ranking is run by ' + esc(OWNER.name) + esc(ownerTail) + ' <a href="about.html">Who runs Ledgertone</a></p>';
+const DESC_OLD = 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.';
+const DESC_NEW = DESC_OLD + ' The ranking is run by ' + OWNER.name + ownerTail;
+
+ld['@graph'][0].description = DESC_NEW;
 let h = readCRLF('index.html');
 const sub = (re, s) => { if (!re.test(h)) throw new Error('index.html changed, pattern missing: ' + re); h = h.replace(re, () => s); };
 const feedRe = /(<link rel="alternate" type="application\/atom\+xml"[^>]*>)(\n<link rel="alternate" type="(?:text\/csv|application\/json)"[^>]*>)*/;
@@ -70,7 +83,8 @@ const sizesAll = '<div class="picker glass glass-flat sizes" id="sizes" role="gr
 const sizesRe = /<div class="picker glass glass-flat sizes" id="sizes"[^>]*>.*?<\/div>/;
 sub(sizesRe, sizesTop);
 const top = 'Top-' + num(topLimit, 'en');
-sub(/<h1 class="gh">.*?<\/h1>/, '<h1 class="gh">' + top + ' <span class="gn">' + esc(g.name) + '</span> Artists <span class="lt">on Pandora</span></h1>');
+sub(/<h1 class="gh">.*?<\/h1>(\n    <p class="ownernote"[^>]*>.*?<\/p>)?/, '<h1 class="gh">' + top + ' <span class="gn">' + esc(g.name) + '</span> Artists <span class="lt">on Pandora</span></h1>\n    ' + ownerNote);
+h = h.replace(/(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")A snapshot ranking of phonk artists on Pandora by 28-day listeners\.[^"]*(">)/g, (m0, a1, a2) => a1 + esc(DESC_NEW) + a2);
 h = h.replace(/Top Phonk Artists on Pandora/g, top + ' ' + g.name + ' Artists on Pandora');
 sub(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '</script>');
 writeCRLF('index.html', h);
@@ -82,7 +96,7 @@ asub(/<body>/, '<body data-view="all">');
 a = a.split(top + ' ' + g.name + ' Artists on Pandora').join('All ' + g.name + ' Artists on Pandora');
 asub(/<link rel="canonical" href="[^"]*">/, '<link rel="canonical" href="' + SITE + 'all.html">');
 asub(/<meta property="og:url" content="[^"]*">/, '<meta property="og:url" content="' + SITE + 'all.html">');
-asub(/<h1 class="gh">.*?<\/h1>/, '<h1 class="gh">All <span class="gn">' + esc(g.name) + '</span> Artists <span class="lt">on Pandora</span></h1>');
+asub(/<h1 class="gh">.*?<\/h1>(\n    <p class="ownernote"[^>]*>.*?<\/p>)?/, '<h1 class="gh">All <span class="gn">' + esc(g.name) + '</span> Artists <span class="lt">on Pandora</span></h1>\n    ' + ownerNote);
 asub(sizesRe, sizesAll);
 asub(/<p class="meta" id="meta">.*?<\/p>/, '<p class="meta" id="meta">' + month(latest, 'en') + ' \u00b7 ' + num(total, 'en') + ' artists</p>');
 asub(/<p class="topnote" id="topnote"[^>]*>.*?<\/p>/, '<p class="topnote" id="topnote">This is the full list. Ledgertone follows only the top ' + num(topLimit, 'en') + ' artists of each genre, the figures of all other artists are not updated. <a href="index.html">Back to the top ' + num(topLimit, 'en') + '</a></p>');

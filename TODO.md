@@ -1,6 +1,26 @@
 # TODO
 
 ## Done
+- [x] v1.53.1: Apple Music, YouTube Music and YouTube added to `sameAs` of the one SETTWOR entity; rule 26 and docs/SEO.md reworded (CDRA `creator` is the bare `@id`). Open: put `{"@id": "https://settwor.github.io/#artist"}` as `creator` in the CDRA JSON-LD; run the Rich Results Test.
+- [x] v1.53.0: `sameAs` of the one SETTWOR entity holds Pandora, Spotify and the seven profiles from `data/links.js` key `x`; genre order Brazilian Phonk, Phonk; docs/SEO.md section "Markup and AI answers". Node checks only. Open: the owner runs the Rich Results Test on the live home page, `settwor.html` and `settwor-platforms.html`; the owner sends Apple Music, YouTube (and any other) profile links for `x`; CDRA points to `https://settwor.github.io/#artist` as `creator` (its archive is not in this workspace)
+- [x] v1.52.0: one SETTWOR entity in the JSON-LD (`@id` https://settwor.github.io/#artist, `ownerNode()` in `assets/ledger-core.js`), Datasets name him as `creator`, Ledgertone is `publisher`. Node checks only. Open: the owner runs the Rich Results Test on the live home page, `settwor.html` and `settwor-platforms.html` (the workspace has no network); the owner supplies Apple Music, YouTube and other profile links for `sameAs` (through `data/links.js`); the same `@id` must be put in the JSON-LD of the SETTWOR site and the CDRA site (their archives are not in this workspace), CDRA names SETTWOR as `creator` by that `@id`
+- [x] v1.51.3: owner line under the home heading and in the meta description, place computed. Open: the owner may check the line on a real phone; the place in the meta description changes with every build, so a snippet shows it only after the next crawl
+- [x] v1.51.2: phone bug fixed, see CHANGELOG. Open: the owner may check "Per page: 100" and "All" on a real phone, the list should keep growing while scrolling
+- [x] v1.51.1: TODO only, three checks done by the agent (consent flow, text contrast, nav and picker legibility), Lighthouse and woff2 fonts still open (no network for npm and pip packages here). No site change
+- [x] v1.51.0: platforms page (`settwor-platforms.html`), only Pandora has a number. Headless Chromium only. Open: the owner fills Spotify, Apple Music and YouTube in `data/settwor-platforms.js` with the date of each reading
+- [x] v1.50.0: Spotify page (`spotify.html`), names only, every number No data. Headless Chromium only. Open: the owner supplies Spotify monthly listeners with a snapshot date (then the page can be ranked), says if the nav link should also go on About and the artist pages (changes every page, rule 17)
+- [x] v1.49.0: photo of SETTWOR by link on his pages. Not seen with the real picture (the workspace cannot reach settwor.github.io), checked with a stand-in picture only. Open: the owner should look at the crop on the live site
+- [x] v1.48.0: launch dates (24 and 27 October 2026) added to the About page history. Text only
+- [x] v1.47.7: logo removed from the SETTWOR pages, plain title. Headless Chromium only
+- [x] v1.47.6: SETTWOR logo inside the title instead of the word. Headless Chromium only, the owner may check the alignment on a real phone
+- [x] v1.47.5: SETTWOR top: no card, no buttons, logo and title only, less space under the header, links back under the history. Headless Chromium only
+- [x] v1.47.4: SETTWOR logo centered with more space, card content centered. CSS only, headless Chromium
+- [x] v1.47.3: SETTWOR logo above the top card, no plate, no outline. Headless Chromium only
+- [x] v1.47.2: SETTWOR logo small in a glass plate above the title (the large one of 1.47.1 removed). Headless Chromium only
+- [x] v1.47.1: SETTWOR top card centered, logo with a glow, quieter title. CSS only, headless Chromium at 1280 and 390 px, light and dark
+- [x] v1.47.0: SETTWOR page redesigned as a profile, large logo in a card at the top. Checked in headless Chromium at 1280 and 390 px only. Open: the owner may look at it on a real phone and in dark mode
+- [x] v1.46.0: CDRA line on About, "Per page" under the table on phones, "Under development" warning removed. Node checks only. Open: the owner may check the phone layout on a real device
+- [x] v1.45.0: site name font changed from New York to Gloock (owner file). Open: the owner may check the header on a phone, and say if `NewYork.woff` can be deleted
 - [x] v1.44.0: TODO only, 16 items marked done by the owner (Google snippet and Search Console steps, profile links, number check, real device checks, Spotify pictures). No site change
 - [x] v1.43.0: rule 18, the delete .bat runs from Downloads and works on the owner site folder by full path. Documentation only
 - [x] v1.42.0: Devilish Trio banned again, removed from Phonk (undoes the restore of 1.41.0). Node checks only
@@ -170,15 +190,16 @@
 - [ ] BEFORE LAUNCH: add real artist images the owner may use to `assets/artists/` and real Pandora artist URLs as `profileUrl` in snapshots
 - [x] (done by the owner, v1.44.0) Test the theme switch on a real phone and in Safari (saved choice, no flash on load, theme-color bar)
 - [x] (done by the owner, v1.44.0) Owner: check the site on an iPhone and a Mac (Safari and Chrome): New York headings, SF Pro body, heading size and wrapping, tracking
-- [ ] Check text legibility on glass rows and tinted buttons in light and dark, and performance of the rankings list with many rows
+- [x] (text contrast checked in v1.51.1, headless Chromium, light and dark: nav, brand, pickers, table headers and cells, notes, footer on index, spotify and settwor-platforms, every measured pair at least 8.9:1 against the dominant background behind the text) Check text legibility on glass rows and tinted buttons in light and dark
+- [x] (v1.51.2, headless Chromium at 390 px, scrolling through the list: 95th percentile frame time 32 to 33 ms, no long task over 60 ms on this machine, 240 rows and 4,538 DOM nodes after scrolling `all.html` with "All"; not measured with a throttled CPU or on a real phone, Lighthouse cannot be installed here) Performance of the rankings list with many rows. Found and fixed a phone bug on the way: the list stopped at 40 rows
 - [x] (checked in v1.33.0) Artist names with non-Latin letters: Cyrillic is in the font, only Japanese, Chinese, Greek and symbol names use the system font. Nothing to extend unless you want those scripts in the site font
 - [x] (done by the owner, v1.44.0) Check the glass cookie banner in Safari and Firefox (CSS fallback) and on a real phone
 - [x] (done by the owner, v1.44.0) Check the glass in Safari and Firefox (CSS fallback) and on a real phone
 - [ ] Owner: decide whether the cookie-free pings before consent are acceptable, or switch back to loading the tag only after Accept (basic mode)
 - [ ] Owner: in GA4 turn off Google signals and advertising features, set data retention to 14 months or less (see `docs/SEO.md`)
-- [ ] Test the consent flow in a clean browser profile (steps in `docs/SEO.md`)
+- [x] (v1.51.1, headless Chromium, a fresh profile per page, the Google tag blocked, so `_ga` cookies could NOT be tested: the owner still has to look for them in DevTools) Test the consent flow in a clean browser profile (steps in `docs/SEO.md`). Passed on index, spotify, settwor-platforms and settwor-ru: banner on the first visit, no `_ga` cookie before a choice, default consent denied, Reject and Accept the same size, Accept sends granted and stores it, no banner after reload, Cookie settings reopens it, Reject sends denied and stores it
 - [ ] Verify the site in Search Console, submit `sitemap.xml`, request indexing after the first snapshot is live
-- [ ] Check legibility of nav and picker text over the colorful page background with the new transparent glass, light and dark
+- [x] (v1.51.1, same measurement as above, nav and picker text at least 14.7:1 in light and dark) Check legibility of nav and picker text over the colorful page background with the new transparent glass, light and dark
 - [ ] Owner: collect the first snapshot by hand and add it to `data/snapshots.js`
 - [ ] Create the GitHub repository `ledgertone.github.io` and enable Pages (see README)
 - [x] (done by the owner, v1.44.0) Test in Safari, Chrome, and Firefox, light and dark, with reduced motion, reduced transparency, and increased contrast

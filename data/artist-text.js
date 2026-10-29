@@ -11,6 +11,7 @@
 window.LEDGERTONE_TEXT = {
   en: {
     h1: '{name} on Pandora: 28-day listeners',
+    photoAlt: 'Photo of {name}',
     q: 'How many listeners does {name} have on Pandora?',
     answerNum: '{name} had {listeners} listeners over 28 days on Pandora in the Ledgertone snapshot of {month} (Pandora showed {text}){placeTail}.',
     answerFew: 'In the Ledgertone snapshot of {month}, Pandora showed "Few" as the 28-day listeners of {name}, not a number.',
@@ -71,6 +72,7 @@ window.LEDGERTONE_TEXT = {
   },
   ru: {
     h1: '{name} на Pandora: слушатели за 28 дней',
+    photoAlt: 'Фото {name}',
     q: 'Сколько слушателей у {name} на Pandora?',
     answerNum: 'У {name} было {listeners} слушателей за 28 дней на Pandora в снимке Ledgertone за {month} (Pandora показывала {text}){placeTail}.',
     answerFew: 'В снимке Ledgertone за {month} Pandora показывала у {name} «Few» вместо числа слушателей за 28 дней.',

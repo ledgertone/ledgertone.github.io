@@ -20,7 +20,7 @@ const writePair = (g, s, rows, stem, older) => {
     url: SITE,
     genre: genreName(g.id),
     snapshot: s.capturedAt,
-    note: 'A hand-collected snapshot of ' + month(s.capturedAt, 'en') + ', not live data. ' + (older ? 'An earlier snapshot: the top ' + topLimit + ' of the artists with a 28-day listeners number in it, places counted by 28-day listeners.' : 'The top ' + topLimit + ' of the list, places counted by 28-day listeners, \"Few\" artists follow the numbered ones.') + (g.devwarn ? ' This section is under development, the data is raw and incomplete.' : ''),
+    note: 'A hand-collected snapshot of ' + month(s.capturedAt, 'en') + ', not live data. ' + (older ? 'An earlier snapshot: the top ' + topLimit + ' of the artists with a 28-day listeners number in it, places counted by 28-day listeners.' : 'The top ' + topLimit + ' of the list, places counted by 28-day listeners, \"Few\" artists follow the numbered ones.'),
     license: 'https://creativecommons.org/licenses/by/4.0/',
     count: rows.length,
     artists: rows.map((r) => ({ place: r.place, artist: r.artist, listeners_28d: r.listeners, genre_verified: r.verified, pandora_url: r.pandora || null }))

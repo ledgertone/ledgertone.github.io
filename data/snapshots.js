@@ -411,8 +411,7 @@ window.LEDGERTONE = {
     {
       id: "brazilian-phonk",
       name: "Brazilian Phonk",
-      // Unlocked by the owner (v0.84.0). The table is no longer dimmed (pending removed), and the page shows a large warning (devwarn) that this section is under development and the data is raw.
-      devwarn: { title: "Under development", text: "This Brazilian Phonk section is under development. The information here is raw and incomplete: only part of the artists has a 28-day Pandora reading, and the data may contain mistakes. Do not treat it as final." },
+      // Unlocked by the owner (v0.84.0). The table is no longer dimmed (pending removed). The "Under development" warning was removed at the owner request (v1.49.0).
       // Roster: names only, NO numbers, listed on the site with "No data" until a snapshot has hand-read stream counts.
       // Supplied by the owner as Spotify playlist exports (BRAZILIAN PHONK, BRAZILIAN PHONK 2022-2023, BRAZILIAN PHONK 2026, BRAZILIAN PHONK/FUNK VIRAL 2026, Latest Phonk Songs OCTOBER 2026); every credited artist, duplicates removed.
       roster: [

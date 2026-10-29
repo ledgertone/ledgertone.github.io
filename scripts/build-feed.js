@@ -11,7 +11,7 @@ L.genres.forEach((g) => {
     const ranked = rankedAt(g.id, i).filter((a) => a.rank <= topLimit);
     const top = ranked.slice(0, 3).map((a) => a.rank + '. ' + a.name + ' (' + num(a.listeners) + ')').join(', ');
     const when = month(s.capturedAt);
-    const summary = 'Snapshot of ' + when + ' for ' + g.name + ' on Pandora by 28-day listeners. ' + ranked.length + ' artists in the top list.' + (top ? ' Top 3: ' + top + '.' : '') + (g.devwarn ? ' This section is under development, the data is raw and incomplete.' : '') + ' A hand-collected snapshot, not live data.';
+    const summary = 'Snapshot of ' + when + ' for ' + g.name + ' on Pandora by 28-day listeners. ' + ranked.length + ' artists in the top list.' + (top ? ' Top 3: ' + top + '.' : '') + ' A hand-collected snapshot, not live data.';
     entries.push({ date: s.capturedAt, gi: L.genres.indexOf(g), id: 'tag:ledgertone.github.io,' + s.capturedAt + ':' + g.id, title: g.name + ' snapshot, ' + when, summary });
   });
 });

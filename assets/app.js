@@ -16,7 +16,7 @@
   const VIEW_ALL = !!(document.body && document.body.dataset.view === 'all');
   const TOP = !VIEW_ALL && Number.isFinite(data.topLimit) && data.topLimit > 0 ? data.topLimit : Infinity;
   const TOPN = Number.isFinite(data.topLimit) && data.topLimit > 0 ? data.topLimit : 100;
-  const topnote = $('#topnote'), cite = $('#cite');
+  const topnote = $('#topnote'), cite = $('#cite'), ownernote = $('#ownernote');
   const noteFor = (g) => {
     const wrap = document.createDocumentFragment(), a = el('a', '', VIEW_ALL ? 'Back to the top ' + nf.format(TOPN) : 'See the list of all artists');
     a.href = (VIEW_ALL ? 'index.html' : 'all.html') + (g.id === homeId ? '' : '#' + g.id);
@@ -192,6 +192,13 @@
     if (Number.isFinite(TOP)) state.rows = state.rows.filter((r) => r.rank !== null && r.rank <= TOP);
     // owner mark (rule 21): the place SETTWOR would have with data.earlierListeners, from the full ranked list (same count as earlierPlaceAt in assets/ledger-core.js)
     state.earlier = Number.isFinite(data.earlierListeners) ? 1 + ranked.filter((a) => norm(a.name) !== 'settwor' && (a.listeners > data.earlierListeners || (a.listeners === data.earlierListeners && String(a.name).localeCompare('SETTWOR', 'en') < 0))).length : null;
+    // owner line (v1.51.3): "The ranking is run by SETTWOR, who is #N in it", the place counted in this snapshot from the same ranked list as the table
+    // (same count as ownerRow in scripts/build-home.js); without a number in this snapshot it says only that he is also listed
+    if (ownernote) {
+      const oi = ranked.findIndex((a) => norm(a.name) === 'settwor');
+      const ol = el('a', '', 'Who runs Ledgertone'); ol.href = 'about.html';
+      ownernote.replaceChildren('The ranking is run by SETTWOR' + (oi > -1 ? ', who is #' + (oi + 1) + ' in it. ' : ', who is also listed in the rankings. '), ol);
+    }
     state.page = 1;
     draw();
   }
@@ -331,7 +338,7 @@
     render(i);
   }
 
-  const devwarn = $('#devwarn'), devwarnTitle = $('#devwarn-title'), devwarnText = $('#devwarn-text'), caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
+  const caption = document.querySelector('#tbl caption'), gbox = $('#genres'), h1 = $('h1'), more = $('#more'), emptyTitle = $('#empty h3');
   const homeId = genres[0].id;
   // The chip above the title shows only a warning (no snapshot yet, sample data). The normal "Latest Pandora snapshot" label was removed by the owner (v0.86.0), so an empty text hides the chip.
   const setStatus = (t) => { if (status) { status.textContent = t; status.hidden = !t; } };
@@ -360,8 +367,6 @@
     const has = snaps.length > 0 || rosterOf(g).length > 0 || unverifiedOf(g).length > 0;
     [[empty, !has], [tbl, has], [meta, has], [tools, has], [foot, has]].forEach(([n, show]) => { if (n) n.hidden = !show; });
     if (tbl) tbl.classList.toggle('pending', !!g.pending);
-    // Large warning for a genre the owner unlocked while it is still raw (genre.devwarn, v0.84.0)
-    if (devwarn) { const w = g.devwarn; devwarn.hidden = !(w && w.text); if (w && w.text) { devwarnTitle.textContent = w.title || 'Under development'; devwarnText.textContent = w.text; } }
     if (more) more.hidden = snaps.length < 2;
     picker.hidden = snaps.length < 2;
     if (!has) {

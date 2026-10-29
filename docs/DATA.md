@@ -71,6 +71,7 @@ Every artist with a reading gets a generated page (AGENTS.md rule 13). Since v0.
 - `p`: from `pandoraUrl` of `artistMonthly.json`, `https://www.pandora.com` only. Filled by the artistMonthly import (step 7 above).
 - `s`: from `spotifyId` of `artistBase.json` (22 letters and digits). Filled by the artistBase import: for every artist of that file that is in our base (verified or unverified list), add or replace the id. Never use `profileUrl` of that file, it is a musicmetricsvault link.
 - Only artists in our base get an entry, never banned ones. Never guess a link or an id, a missing link just means no link on the page. Keep the entries sorted by key, one per line, and keep the header comment.
+- `x` (v1.53.0, three links added in v1.53.1): only the SETTWOR entry has it. A list of https profile URLs the owner supplied (Shazam, MusicBrainz, Musixmatch, Genius, Deezer, Amazon Music, TikTok, Apple Music, YouTube Music, YouTube). They go into `sameAs` of the one SETTWOR entity (AGENTS.md rule 26) and nowhere else. Never guess a profile URL; add only what the owner sends. Keep the entry on one line.
 - Known gaps (v0.61.0): SETTWOR has a Pandora link but no Spotify id (the owner's file has none), artists that only exist in the verified roster have no Pandora link until a reading with `pandoraUrl` arrives.
 
 ## Top list

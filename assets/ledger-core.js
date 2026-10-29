@@ -87,10 +87,10 @@
   var safeUrl = function (u) { try { var x = new URL(u); return x.protocol === 'https:' ? x.href : null; } catch (e) { return null; } };
   var pandoraLink = function (u) { var x = safeUrl(u); try { return x && /^(www\.)?pandora\.com$/.test(new URL(x).hostname) ? x : null; } catch (e) { return null; } };
   var spotifyLink = function (id) { return (typeof id === 'string' && /^[A-Za-z0-9]{22}$/.test(id)) ? 'https://open.spotify.com/artist/' + id : null; };
-  var linksOf = function (name) { var lk = LINKS[norm(name)] || {}; return { pandora: pandoraLink(lk.p), spotify: spotifyLink(lk.s) }; };
+  var linksOf = function (name) { var lk = LINKS[norm(name)] || {}; return { pandora: pandoraLink(lk.p), spotify: spotifyLink(lk.s), extra: (Array.isArray(lk.x) ? lk.x : []).map(safeUrl).filter(Boolean) }; };
 
   var RESERVED = new Set(['index', 'about', 'privacy', '404', 'settwor', 'settwor-ru', 'artist-pages', 'all']);
-  var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', owner: true, csv: 'settwor-listeners.csv' };
+  var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', photo: 'https://settwor.github.io/images/main.jpg', owner: true, csv: 'settwor-listeners.csv' };
   var slugOf = function (n) { return norm(n).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); };
   var hasReading = function (x) { return Number.isFinite(x.listeners) || x.few === true; };
   var pageArtists = function () {
@@ -135,7 +135,17 @@
     return out.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : a.gi - b.gi; });
   };
 
+  // ONE JSON-LD entity for the owner (v1.52.0, owner request: one MusicGroup with one @id and sameAs for every profile). Every page that
+  // names SETTWOR as creator, publisher's founder or subject points at this @id (https://settwor.github.io/#artist, the same @id the
+  // snippet for his own site uses) and carries this same node, so crawlers join them into one entity. sameAs holds only profile links
+  // that exist in data/links.js (Pandora p, Spotify s, other profiles x), never typed by hand. genre: main genres first (owner decision, v1.53.0).
+  function ownerNode(lk) {
+    lk = lk || linksOf(OWNER.name);
+    var same = [lk.pandora, lk.spotify].concat(lk.extra || []).filter(function (u, i, all) { return u && all.indexOf(u) === i; });
+    return { '@type': 'MusicGroup', '@id': OWNER.site + '#artist', name: OWNER.name, url: OWNER.site, image: OWNER.photo, genre: ['Brazilian Phonk', 'Phonk'], sameAs: same };
+  }
+
   return { L: L, LINKS: LINKS, homeId: homeId, norm: norm, esc: esc, banned: banned, genreName: genreName, byName: byName, month: month, num: num, snapsOf: snapsOf, verifiedKeys: verifiedKeys,
     rosterOf: rosterOf, unverifiedOf: unverifiedOf, rankedAt: rankedAt, topLimit: topLimit, topOf: topOf, artistCount: artistCount, safeUrl: safeUrl, pandoraLink: pandoraLink, spotifyLink: spotifyLink, linksOf: linksOf,
-    OWNER: OWNER, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
+    OWNER: OWNER, ownerNode: ownerNode, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
 });

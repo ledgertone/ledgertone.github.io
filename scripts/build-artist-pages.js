@@ -76,8 +76,8 @@ ARTISTS.forEach((a) => {
   // Fragment for the artist's own site (no numbers in it, so it never goes stale). Paste it by hand, nothing here touches that site.
   const url = SITE + a.file, urlRu = SITE + a.fileRu, lk = en.lk;
   const ld = { '@context': 'https://schema.org', '@graph': [
-    { '@type': 'MusicGroup', '@id': a.site + '#artist', name: a.name, url: a.site, sameAs: [lk.pandora, lk.spotify].filter(Boolean),
-      subjectOf: [{ '@type': 'WebPage', '@id': url + '#page', url, name: a.name + ' on Pandora: 28-day listeners', inLanguage: 'en' }, { '@type': 'WebPage', '@id': urlRu + '#page', url: urlRu, name: a.name + ' на Pandora: слушатели за 28 дней', inLanguage: 'ru' }] },
+    Object.assign(lib.ownerNode(lk), { // the one shared SETTWOR entity (v1.52.0), same node as on every Ledgertone page
+      subjectOf: [{ '@type': 'WebPage', '@id': url + '#page', url, name: a.name + ' on Pandora: 28-day listeners', inLanguage: 'en' }, { '@type': 'WebPage', '@id': urlRu + '#page', url: urlRu, name: a.name + ' на Pandora: слушатели за 28 дней', inLanguage: 'ru' }] }),
     { '@type': 'Organization', '@id': SITE + '#org', name: 'Ledgertone', url: SITE, founder: { '@id': a.site + '#artist' } }
   ] };
   writeCRLF('docs/settwor-site-snippet.html', [
@@ -110,7 +110,7 @@ const allDates = L.snapshots.map((x) => x.capturedAt).filter(Boolean).sort();
 const lastAll = allDates[allDates.length - 1];
 const loc = (f, d, alts) => '  <url><loc>' + SITE + f + '</loc><lastmod>' + d + '</lastmod>' + (alts ? '\n' + alts + '\n  ' : '') + '</url>';
 const altX = (a) => ['en', 'ru', 'x-default'].map((h) => '    <xhtml:link rel="alternate" hreflang="' + h + '" href="' + SITE + (h === 'ru' ? a.fileRu : a.file) + '"/>').join('\n');
-const urls = [loc('', lastAll), loc('all.html', lastAll)];
+const urls = [loc('', lastAll), loc('all.html', lastAll), loc('spotify.html', '2026-10-29'), loc('settwor-platforms.html', '2026-10-29')];
 ARTISTS.forEach((a) => { urls.push(loc(a.file, dateOf(a), a.fileRu ? altX(a) : null)); if (a.fileRu) urls.push(loc(a.fileRu, dateOf(a), altX(a))); });
 urls.push(loc('about.html', '2026-10-24'), loc('privacy.html', '2026-10-24'));
 writeCRLF('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls.join('\n') + '\n</urlset>\n');
