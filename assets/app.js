@@ -159,7 +159,7 @@
     if (all) parts.push(capped ? 'Top ' + nf.format(TOP) + ' of ' + nf.format(all) + ' artists' : nf.format(all) + (all === 1 ? ' artist' : ' artists'));
     if (topnote) { topnote.hidden = !(capped || (VIEW_ALL && i === 0 && all > TOPN)); if (!topnote.hidden) topnote.replaceChildren(noteFor(cur)); }
     // permalink line (v1.28.0, AGENTS.md rule 23): a stable address of the snapshot on screen, #<genre id>-<capture date>
-    if (cite) { cite.hidden = !s; if (s) { const f = (VIEW_ALL ? 'all.html' : '') + '#' + cur.id + '-' + s.capturedAt; const a = el('a', '', 'https://ledgertone.github.io/' + f); a.href = f; cite.replaceChildren('Cite this snapshot: ', a); } }
+    if (cite) { cite.hidden = !s; if (s) { const f = (VIEW_ALL ? 'all.html' : '') + '#' + cur.id + '-' + s.capturedAt; const a = el('a', '', 'https://ledgertone.settwor.com.pl/' + f); a.href = f; cite.replaceChildren('Cite this snapshot: ', a); } }
     if (!s) parts.push('No data yet');
     if (s && s.note && !s.sample) parts.push(s.note);
     meta.textContent = parts.join(' \u00b7 ');

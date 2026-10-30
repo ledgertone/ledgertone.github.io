@@ -10,7 +10,7 @@
   if (root.LEDGERTONE && root.LedgerCore && root.LEDGERTONE_TEXT) factory(root.LedgerCore(root), root.LEDGERTONE_TEXT);
 })(typeof window !== 'undefined' ? window : this, function (core, TEXT) {
   'use strict';
-  var SITE = 'https://ledgertone.github.io/';
+  var SITE = 'https://ledgertone.settwor.com.pl/';
   var esc = core.esc, num = core.num, month = core.month, genreName = core.genreName;
   var fmt = function (s, v) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return Object.prototype.hasOwnProperty.call(v, k) ? v[k] : m; }); };
   var fmtH = function (s, v) { var e = {}; Object.keys(v).forEach(function (k) { e[k] = esc(v[k]); }); return fmt(s, e); };
@@ -20,7 +20,7 @@
 
   // CDRA award cards (owner decision, v1.54.0, AGENTS.md rule 27): plain iframes of the two embed pages of the CDRA site, no script on this site.
   // The light card is shown in the light theme, the dark card in the dark theme (CSS in assets/styles.css, .awards); a hidden lazy iframe does not load.
-  var CDRA = 'https://cdras.github.io/';
+  var CDRA = 'https://cdra.settwor.com.pl/';
   var awardsBlock = function (t, v) {
     var frame = function (item, dark) {
       return '<iframe class=\"' + (dark ? 'aw-d' : 'aw-l') + '\" src=\"' + CDRA + 'embed/' + esc(item.file) + (dark ? '-dark' : '') + '.html\" title=\"' + esc(item.title) + '\" loading=\"lazy\" referrerpolicy=\"no-referrer\"' + (dark ? ' style=\"color-scheme:dark\"' : ' style=\"color-scheme:light\"') + '></iframe>';
@@ -56,7 +56,7 @@
     var desc = answer + t.descTail;
     var dates = hist.map(function (r) { return r.date; }).sort();
     var coverage = dates[0] === dates[dates.length - 1] ? dates[0] : dates[0] + '/' + dates[dates.length - 1];
-    // v1.52.0: on the owner pages the artist is the ONE shared entity (core.ownerNode, @id https://settwor.github.io/#artist), on every other
+    // v1.52.0: on the owner pages the artist is the ONE shared entity (core.ownerNode, @id https://settwor.com.pl/#artist), on every other
     // page it stays the page's own #artist node.
     var artistId = a.owner ? a.site + '#artist' : url + '#artist';
     var ld = { '@context': 'https://schema.org', '@graph': [

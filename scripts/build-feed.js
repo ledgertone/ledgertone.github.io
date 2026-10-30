@@ -12,7 +12,7 @@ L.genres.forEach((g) => {
     const top = ranked.slice(0, 3).map((a) => a.rank + '. ' + a.name + ' (' + num(a.listeners) + ')').join(', ');
     const when = month(s.capturedAt);
     const summary = 'Snapshot of ' + when + ' for ' + g.name + ' on Pandora by 28-day listeners. ' + ranked.length + ' artists in the top list.' + (top ? ' Top 3: ' + top + '.' : '') + ' A hand-collected snapshot, not live data.';
-    entries.push({ date: s.capturedAt, gi: L.genres.indexOf(g), id: 'tag:ledgertone.github.io,' + s.capturedAt + ':' + g.id, title: g.name + ' snapshot, ' + when, summary });
+    entries.push({ date: s.capturedAt, gi: L.genres.indexOf(g), id: 'tag:ledgertone.settwor.com.pl,' + s.capturedAt + ':' + g.id, title: g.name + ' snapshot, ' + when, summary });
   });
 });
 entries.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.gi - b.gi));

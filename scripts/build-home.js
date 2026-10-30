@@ -46,7 +46,7 @@ const tr = (a) => {
 };
 
 const ld = { '@context': 'https://schema.org', '@graph': [
-  { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', alternateName: 'ledgertone.github.io', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
+  { '@type': 'WebSite', '@id': SITE + '#site', name: 'Ledgertone', alternateName: 'ledgertone.settwor.com.pl', url: SITE, description: 'A snapshot ranking of phonk artists on Pandora by 28-day listeners.', inLanguage: 'en' },
   // v1.52.0: the Datasets below name SETTWOR as creator by @id, so the page carries the one shared SETTWOR entity and the Ledgertone organization (publisher)
   ownerNode(),
   { '@type': 'Organization', '@id': SITE + '#org', name: 'Ledgertone', url: SITE, logo: SITE + 'assets/icons/favicon-192.png', founder: { '@id': OWNER.site + '#artist' } },

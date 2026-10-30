@@ -90,7 +90,7 @@
   var linksOf = function (name) { var lk = LINKS[norm(name)] || {}; return { pandora: pandoraLink(lk.p), spotify: spotifyLink(lk.s), extra: (Array.isArray(lk.x) ? lk.x : []).map(safeUrl).filter(Boolean) }; };
 
   var RESERVED = new Set(['index', 'about', 'privacy', '404', 'settwor', 'settwor-ru', 'artist-pages', 'all']);
-  var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.github.io/', photo: 'https://settwor.github.io/images/main.jpg', owner: true, csv: 'settwor-listeners.csv' };
+  var OWNER = { name: 'SETTWOR', file: 'settwor.html', fileRu: 'settwor-ru.html', site: 'https://settwor.com.pl/', photo: 'https://settwor.com.pl/images/main.jpg', owner: true, csv: 'settwor-listeners.csv' };
   var slugOf = function (n) { return norm(n).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); };
   var hasReading = function (x) { return Number.isFinite(x.listeners) || x.few === true; };
   var pageArtists = function () {
@@ -136,7 +136,7 @@
   };
 
   // ONE JSON-LD entity for the owner (v1.52.0, owner request: one MusicGroup with one @id and sameAs for every profile). Every page that
-  // names SETTWOR as creator, publisher's founder or subject points at this @id (https://settwor.github.io/#artist, the same @id the
+  // names SETTWOR as creator, publisher's founder or subject points at this @id (https://settwor.com.pl/#artist, the same @id the
   // snippet for his own site uses) and carries this same node, so crawlers join them into one entity. sameAs holds only profile links
   // that exist in data/links.js (Pandora p, Spotify s, other profiles x), never typed by hand. genre: main genres first (owner decision, v1.53.0).
   function ownerNode(lk) {

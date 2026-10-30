@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ledgertone.github.io/sitemap.xml
+Sitemap: https://ledgertone.settwor.com.pl/sitemap.xml

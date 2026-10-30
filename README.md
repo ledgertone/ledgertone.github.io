@@ -8,7 +8,7 @@ Open `index.html` in a browser, or run `python3 -m http.server` in this folder a
 
 ## Deploy on GitHub Pages
 
-1. Create a repository named `ledgertone.github.io` (a user site) and push this folder to the `main` branch.
+1. Create a repository named `ledgertone.settwor.com.pl` (a user site) and push this folder to the `main` branch.
 2. Open Settings, then Pages. Under Source choose "Deploy from a branch", branch `main`, folder `/ (root)`.
 3. The site is served at `https://<your-username>.github.io/`. Page paths are relative, but `404.html`, the consent banner link, and the canonical tags assume the site root. Launch steps: `docs/SEO.md`.
 

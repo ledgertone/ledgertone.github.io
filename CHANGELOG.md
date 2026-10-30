@@ -4,33 +4,33 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
 ## [1.54.0] - 2026-10-29
 ### Added
-- CDRA award cards on the SETTWOR pages (owner request): the section "Awards" ("Награды" on `settwor-ru.html`) after "Growth and activity", a plain iframe of the light and the dark embed page of the CDRA site per award (`https://cdras.github.io/embed/<AWARD>.html` and `-dark.html`), a lead sentence and a link "All awards on the CDRA site". The theme picks the card (CSS in `assets/styles.css`, `.awards`), no script, `loading="lazy"`, `referrerpolicy="no-referrer"`, `color-scheme` set on each frame so the card stays transparent. The list is `awardsItems` in `data/artist-text.js`; it holds only the one award the owner sent (GOT ME UP 2, 1,000,000 streams), more are one line each. Owner pages only (rule 27).
-- `check-release.js` check 11: every iframe on the site must point to `https://cdras.github.io/embed/`, with `referrerpolicy`, `loading` and `title`.
+- CDRA award cards on the SETTWOR pages (owner request): the section "Awards" ("Награды" on `settwor-ru.html`) after "Growth and activity", a plain iframe of the light and the dark embed page of the CDRA site per award (`https://cdra.settwor.com.pl/embed/<AWARD>.html` and `-dark.html`), a lead sentence and a link "All awards on the CDRA site". The theme picks the card (CSS in `assets/styles.css`, `.awards`), no script, `loading="lazy"`, `referrerpolicy="no-referrer"`, `color-scheme` set on each frame so the card stays transparent. The list is `awardsItems` in `data/artist-text.js`; it holds only the one award the owner sent (GOT ME UP 2, 1,000,000 streams), more are one line each. Owner pages only (rule 27).
+- `check-release.js` check 11: every iframe on the site must point to `https://cdra.settwor.com.pl/embed/`, with `referrerpolicy`, `loading` and `title`.
 ### Changed
-- `privacy.html`: new row for requests to `cdras.github.io`, "five ways" in the short version, date 2026-10-29. `AGENTS.md`: exception in the intro and the new rule 27. `docs/SEO.md`: one line.
+- `privacy.html`: new row for requests to `cdra.settwor.com.pl`, "five ways" in the short version, date 2026-10-29. `AGENTS.md`: exception in the intro and the new rule 27. `docs/SEO.md`: one line.
 ### Fixed
-- The CDRA link on `about.html` pointed to `cdra.github.io`; it is `cdras.github.io` now (the host of the widget).
+- The CDRA link on `about.html` pointed to a wrong host; it is `cdra.settwor.com.pl` now.
 - Not done: the CDRA side (its JSON-LD `creator` as the bare `@id`, see 1.53.1) is not in this workspace. The cards were not seen with the real CDRA pages (no network here), only the markup, the CSS switch and the checks were tested.
 
 ## [1.53.1] - 2026-10-29
 ### Fixed
-- `sameAs` of the one SETTWOR entity was missing three profiles: Apple Music, YouTube Music and YouTube (owner supplied the links). Added to the key `x` of the `settwor` entry in `data/links.js`; `ownerNode()` and the snippet for `settwor.github.io` pick them up after `build-all.js`. Ten profiles in `x` now, plus Pandora and Spotify.
-- Rule wording fixed in `AGENTS.md` rule 26 and `docs/SEO.md`: the entity is one `MusicGroup` that CDRA and Ledgertone refer to by `@id`; the CDRA `creator` is exactly `{"@id": "https://settwor.github.io/#artist"}` without a type; `llms.txt` brings nothing and does no harm, so it is not made; markup is for clarity, not for a boost.
+- `sameAs` of the one SETTWOR entity was missing three profiles: Apple Music, YouTube Music and YouTube (owner supplied the links). Added to the key `x` of the `settwor` entry in `data/links.js`; `ownerNode()` and the snippet for `settwor.com.pl` pick them up after `build-all.js`. Ten profiles in `x` now, plus Pandora and Spotify.
+- Rule wording fixed in `AGENTS.md` rule 26 and `docs/SEO.md`: the entity is one `MusicGroup` that CDRA and Ledgertone refer to by `@id`; the CDRA `creator` is exactly `{"@id": "https://settwor.com.pl/#artist"}` without a type; `llms.txt` brings nothing and does no harm, so it is not made; markup is for clarity, not for a boost.
 - Not done: CDRA is not in this workspace, so its JSON-LD still has to get the `creator` line. The Rich Results Test was not run (no network).
 - No visible change on any page.
 
 ## [1.53.0] - 2026-10-29
 ### Changed
 - The one SETTWOR entity now lists all his profiles in `sameAs` (owner request): Pandora and Spotify as before, plus Shazam, MusicBrainz, Musixmatch, Genius, Deezer, Amazon Music and TikTok, the links the owner supplied. They live in `data/links.js` under the new key `x` of the `settwor` entry (https only, filtered by `safeUrl`), `ownerNode()` and `linksOf()` in `assets/ledger-core.js` read them, so every page that carries the node (home, platforms page, `settwor.html`, `settwor-ru.html`, `docs/settwor-site-snippet.html`) gets the same list after `node scripts/build-all.js`.
-- `genre` of the entity is `["Brazilian Phonk", "Phonk"]` (was Phonk, Brazilian Phonk), the same two main genres as on `settwor.github.io` (site v11.15).
+- `genre` of the entity is `["Brazilian Phonk", "Phonk"]` (was Phonk, Brazilian Phonk), the same two main genres as on `settwor.com.pl` (site v11.15).
 - Docs: `docs/SEO.md` has the new section "Markup and AI answers" (run the Rich Results Test after every publish, one `MusicGroup` with the single `@id`, Ledgertone and CDRA name it as `creator`, markup is for clarity not for a boost, no llms.txt); `docs/DATA.md` describes the key `x`; AGENTS.md rules 12 and 26 updated.
-- Not done: Apple Music, YouTube and the other profiles of the SETTWOR site are not in `data/links.js` (the owner has not sent them here; never guess a link). CDRA is not in this workspace: it must point to `https://settwor.github.io/#artist` as `creator`. The Rich Results Test was not run (no network), only `scripts/check-release.js`.
+- Not done: Apple Music, YouTube and the other profiles of the SETTWOR site are not in `data/links.js` (the owner has not sent them here; never guess a link). CDRA is not in this workspace: it must point to `https://settwor.com.pl/#artist` as `creator`. The Rich Results Test was not run (no network), only `scripts/check-release.js`.
 - No visible change on any page.
 
 ## [1.52.0] - 2026-10-29
 ### Changed
-- One SETTWOR entity in the JSON-LD (owner request): a single `MusicGroup` with the `@id` `https://settwor.github.io/#artist` (the same `@id` the snippet for his own site uses), built by `ownerNode()` in `assets/ledger-core.js`. The home page (`index.html`, `all.html` if it carries the Datasets), `settwor-platforms.html`, `settwor.html`, `settwor-ru.html` and `docs/settwor-site-snippet.html` all carry that same node, no page has its own second SETTWOR `MusicGroup` any more (the platforms page and the two artist pages had one each).
-- The two ranking Datasets on the home page and the Dataset on the SETTWOR pages now name SETTWOR as `creator` by `@id`; the Ledgertone `Organization` (`@id` `https://ledgertone.github.io/#org`, `founder` = SETTWOR) is their `publisher`. Datasets of every other artist page are unchanged (creator Ledgertone).
+- One SETTWOR entity in the JSON-LD (owner request): a single `MusicGroup` with the `@id` `https://settwor.com.pl/#artist` (the same `@id` the snippet for his own site uses), built by `ownerNode()` in `assets/ledger-core.js`. The home page (`index.html`, `all.html` if it carries the Datasets), `settwor-platforms.html`, `settwor.html`, `settwor-ru.html` and `docs/settwor-site-snippet.html` all carry that same node, no page has its own second SETTWOR `MusicGroup` any more (the platforms page and the two artist pages had one each).
+- The two ranking Datasets on the home page and the Dataset on the SETTWOR pages now name SETTWOR as `creator` by `@id`; the Ledgertone `Organization` (`@id` `https://ledgertone.settwor.com.pl/#org`, `founder` = SETTWOR) is their `publisher`. Datasets of every other artist page are unchanged (creator Ledgertone).
 - `sameAs` of the entity holds only the Pandora and Spotify links from `data/links.js`. Other profiles (Apple Music, YouTube) are added when the owner supplies the links. His own site is in `url`, no longer in `sameAs`.
 - No llms.txt (owner decision: no benefit). No visible change on any page.
 
@@ -56,7 +56,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
 ## [1.49.0] - 2026-10-29
 ### Added
-- The photo of SETTWOR on his artist pages (`settwor.html`, `settwor-ru.html`), a small round picture next to the title, loaded by link from `https://settwor.github.io/images/main.jpg` and not copied into the site (owner request, owner decision to load it by link). The same address is the `image` of the artist in the page JSON-LD. `photo` in `OWNER` (`assets/ledger-core.js`), alt text `photoAlt` in `data/artist-text.js` (English and Russian), markup in `assets/artist-page.js`, styles in `assets/styles.css`. This is a second external request of the site next to Spotify pictures: `privacy.html` has a new row, AGENTS.md (project line) names it. Version 1.49.0 everywhere.
+- The photo of SETTWOR on his artist pages (`settwor.html`, `settwor-ru.html`), a small round picture next to the title, loaded by link from `https://settwor.com.pl/images/main.jpg` and not copied into the site (owner request, owner decision to load it by link). The same address is the `image` of the artist in the page JSON-LD. `photo` in `OWNER` (`assets/ledger-core.js`), alt text `photoAlt` in `data/artist-text.js` (English and Russian), markup in `assets/artist-page.js`, styles in `assets/styles.css`. This is a second external request of the site next to Spotify pictures: `privacy.html` has a new row, AGENTS.md (project line) names it. Version 1.49.0 everywhere.
 
 ## [1.48.0] - 2026-10-29
 ### Added
@@ -96,7 +96,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
 ## [1.46.0] - 2026-10-29
 ### Added
-- `about.html`, section "Who runs Ledgertone": one line that SETTWOR also runs the CDRA project, with a link to cdra.github.io (owner request).
+- `about.html`, section "Who runs Ledgertone": one line that SETTWOR also runs the CDRA project, with a link to cdra.settwor.com.pl (owner request).
 ### Changed
 - On a phone the "Per page" control sits directly under the table, above the pager and the notes (`assets/styles.css`, owner request). Desktop unchanged.
 ### Removed
@@ -150,7 +150,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 ### Removed
 - The note "(only the N artists with a number are ranked)" after the places in the answer sentence of every artist page, English and Russian (owner request). The places stay ("place 10 of 2,752 artists in Phonk"). The Dataset JSON-LD still carries the explanation in the `placeDesc` of each place, owner may remove it too.
 ### Added
-- Section "Growth and activity" ("Рост и активность") on `settwor.html` and `settwor-ru.html` only (owner request, rule 13 owner page): the sentence that SETTWOR is an active and fast-growing artist, followed by six dated figures taken from the owner's own biography (`settwor.github.io/bio.html`, `bioRU.html` for the Russian page): total streams (1,000,000 on 21 October 2025, 2,000,000 on 17 May 2026), GOT ME UP 2 milestones, February and April 2026 monthly streams, the release series with its pause, XEREQUINHA NERVOSA 10,000 Spotify streams in 11 days, YouTube 10 million views. Under the list a source line with links to the biography and to the Spotify, Pandora, Apple Music and YouTube pages, saying that the figures are reported by the artist and not measured by Ledgertone, that SETTWOR runs Ledgertone, and that the Ledgertone snapshots on the page are Pandora 28-day listeners only (rule 14).
+- Section "Growth and activity" ("Рост и активность") on `settwor.html` and `settwor-ru.html` only (owner request, rule 13 owner page): the sentence that SETTWOR is an active and fast-growing artist, followed by six dated figures taken from the owner's own biography (`settwor.com.pl/bio.html`, `bioRU.html` for the Russian page): total streams (1,000,000 on 21 October 2025, 2,000,000 on 17 May 2026), GOT ME UP 2 milestones, February and April 2026 monthly streams, the release series with its pause, XEREQUINHA NERVOSA 10,000 Spotify streams in 11 days, YouTube 10 million views. Under the list a source line with links to the biography and to the Spotify, Pandora, Apple Music and YouTube pages, saying that the figures are reported by the artist and not measured by Ledgertone, that SETTWOR runs Ledgertone, and that the Ledgertone snapshots on the page are Pandora 28-day listeners only (rule 14).
 - The same facts as a second question in the FAQPage JSON-LD of the two SETTWOR pages.
 ### Changed
 - All text lives in `data/artist-text.js` (`growH`, `growLead`, `growItems`, `growSrc`, `growQ`, English and Russian blocks), rendered by `assets/artist-page.js` for the owner page only. Other artist pages are unchanged.
@@ -203,7 +203,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
 ## [1.28.0] - 2026-10-27
 ### Added
-- Snapshot permalinks (assistant idea from TODO, AGENTS.md rule 23): `#<genre id>-<YYYY-MM-DD>` opens that snapshot of the genre on `index.html` and `all.html` (for example `#phonk-2026-10-25`, `all.html#brazilian-phonk-2026-10-25`). `#<genre id>` still opens the latest one, an unknown date falls back to the latest. New muted line under the table, "Cite this snapshot: https://ledgertone.github.io/#phonk-2026-10-25", drawn by `render()` in `assets/app.js` (follows the genre and the snapshot on screen), written statically by `scripts/build-home.js` for the first genre and its latest snapshot (index and all), style `.cite` in `assets/styles.css`.
+- Snapshot permalinks (assistant idea from TODO, AGENTS.md rule 23): `#<genre id>-<YYYY-MM-DD>` opens that snapshot of the genre on `index.html` and `all.html` (for example `#phonk-2026-10-25`, `all.html#brazilian-phonk-2026-10-25`). `#<genre id>` still opens the latest one, an unknown date falls back to the latest. New muted line under the table, "Cite this snapshot: https://ledgertone.settwor.com.pl/#phonk-2026-10-25", drawn by `render()` in `assets/app.js` (follows the genre and the snapshot on screen), written statically by `scripts/build-home.js` for the first genre and its latest snapshot (index and all), style `.cite` in `assets/styles.css`.
 - `scripts/check-release.js` checks the static line on `index.html` and `all.html`.
 ### Changed
 - Defaults chosen by the agent, the owner may change them: plain muted text with the address as link text, no copy button, no hash change when the picker or the genre buttons are used (only the line shows the address), not in `sitemap.xml`, not on the artist pages. Checked in headless Chromium at 1280 and 390 px (all hash forms, click on the line, no horizontal scroll, no script errors), not on a real iPhone. Documentation: `AGENTS.md` rule 23, `CLAUDE.md`.
@@ -357,12 +357,12 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
 ## [1.2.0] - 2026-10-26
 ### Added
-- SETTWOR logo (owner request): the wordmark sits in a glass card under the text of the "Who runs Ledgertone" section on `about.html` and on both SETTWOR pages (and so on every page that shows the owner block); the card links to `https://settwor.github.io/`, with an accessible name (`ownerLogo` in `data/artist-text.js`, English and Russian). The owner's file is `assets/settwor-logo.svg`, unchanged; it is drawn as a CSS mask so it takes the ink color in light and dark (`.ownmark` in `assets/styles.css`, press feedback through the `PRESS` list in `assets/motion.js`). The logo is not in the header and not on the home page (strict style, rules 3 and 14 unchanged).
+- SETTWOR logo (owner request): the wordmark sits in a glass card under the text of the "Who runs Ledgertone" section on `about.html` and on both SETTWOR pages (and so on every page that shows the owner block); the card links to `https://settwor.com.pl/`, with an accessible name (`ownerLogo` in `data/artist-text.js`, English and Russian). The owner's file is `assets/settwor-logo.svg`, unchanged; it is drawn as a CSS mask so it takes the ink color in light and dark (`.ownmark` in `assets/styles.css`, press feedback through the `PRESS` list in `assets/motion.js`). The logo is not in the header and not on the home page (strict style, rules 3 and 14 unchanged).
 - Checked in headless Chromium: light and dark, 1280 and 390 px, no console errors. Not seen in Safari or on a real iPhone (mask with `-webkit-mask` prefix is set).
 
 ## [1.1.0] - 2026-10-26
 ### Added
-- Search and AI answers (owner goal: Google and Gemini should find the site for "how many listeners does SETTWOR have on Pandora" and answer from it). More machine-readable evidence on every artist page, from the one renderer `assets/artist-page.js`: an `Organization` node for Ledgertone (`@id` `https://ledgertone.github.io/#org`, logo, for the SETTWOR pages with the founder link), a `BreadcrumbList`, `publisher` and `breadcrumb` on the `WebPage`, and on the `Dataset` the `url`, `isAccessibleForFree`, `publisher`, `keywords`, `measurementTechnique` ("read by hand from the artist profile page on Pandora", nothing more about how, rule 3) and, for SETTWOR only, `distribution` with a CSV download.
+- Search and AI answers (owner goal: Google and Gemini should find the site for "how many listeners does SETTWOR have on Pandora" and answer from it). More machine-readable evidence on every artist page, from the one renderer `assets/artist-page.js`: an `Organization` node for Ledgertone (`@id` `https://ledgertone.settwor.com.pl/#org`, logo, for the SETTWOR pages with the founder link), a `BreadcrumbList`, `publisher` and `breadcrumb` on the `WebPage`, and on the `Dataset` the `url`, `isAccessibleForFree`, `publisher`, `keywords`, `measurementTechnique` ("read by hand from the artist profile page on Pandora", nothing more about how, rule 3) and, for SETTWOR only, `distribution` with a CSV download.
 - `settwor-listeners.csv` (new, generated by `scripts/build-artist-pages.js`, English column names, one row per snapshot and genre: date, genre, 28-day listeners, the value Pandora showed, place, ranked artists, artists in the genre). Linked from both SETTWOR pages ("Download the SETTWOR readings as CSV") and from the Dataset. New text keys `linkCsv`, `dsMethod`, `dsKeywords` (English and Russian) in `data/artist-text.js`.
 - Checked in headless Chromium: the JSON-LD graph of `settwor.html`, `settwor-ru.html` and a shell page parses and every `@id` reference resolves, the CSV link is on both SETTWOR pages, no console errors. The Rich Results Test and Search Console were not run (no network here), the owner should run them. Nobody can promise that Google or Gemini will show or quote the page.
 
@@ -398,7 +398,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 ### Changed
 - Banned artist (owner request): "líue" removed from `data/unverified.js` and `data/links.js`, added to `banned` in `data/snapshots.js`, his page `liue.html` deleted, `data/artist-pages.js` and `sitemap.xml` rebuilt (AGENTS.md rule 8). `node scripts/check-banned.js` prints ok.
 - Fonts (owner report: text jumped while fonts loaded): every `@font-face` in `assets/styles.css` uses `font-display:optional` instead of `swap`; `SFProRounded-Semibold.woff` and `NewYork.woff` are now preloaded in `index.html`, `about.html`, `404.html` (and so in every artist page). Not yet shrunk to woff2 or subset (no tools here); on a first visit with a slow connection the fallback font may stay until the next load.
-- Search appearance: `favicon.ico` rebuilt with 16, 32 and 48 px; `assets/icons/favicon-192.png` linked in every head (Google wants a multiple of 48 px); the missing `apple-touch-icon.png` (180 px, from the 192 px icon) added; `alternateName` `ledgertone.github.io` added to the `WebSite` JSON-LD of the home page (`scripts/build-home.js`). The site name in Google may still read "GitHub" for a github.io subdomain, only a custom domain fixes it for sure.
+- Search appearance: `favicon.ico` rebuilt with 16, 32 and 48 px; `assets/icons/favicon-192.png` linked in every head (Google wants a multiple of 48 px); the missing `apple-touch-icon.png` (180 px, from the 192 px icon) added; `alternateName` `ledgertone.settwor.com.pl` added to the `WebSite` JSON-LD of the home page (`scripts/build-home.js`). The site name in Google may still read "GitHub" for a github.io subdomain, only a custom domain fixes it for sure.
 - Structured data: `license` (CC BY 4.0, `https://creativecommons.org/licenses/by/4.0/`) added to the `Dataset` JSON-LD of every artist page (`assets/artist-page.js`), the optional field the Rich Results Test reported as missing. Licence chosen by the assistant, the owner may change it.
 - Archive naming rule changed (owner decision): `Ledgertone vX.Y.Z.zip`, always the whole site (AGENTS.md rule 5 and `CLAUDE.md`). The owner shorthand "<name> - бан" is written down in `CLAUDE.md`.
 - Note: the icon, font and licence changes of this version were first handed out as unnumbered patch archives that broke rules 5 and 9; this version replaces them.
@@ -508,7 +508,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 - Static ranking on the home page (owner request, "do all of it" for the search plan): `index.html` now holds the numbered Phonk rows (38 artists with a 28-day listeners number), the status chip, the meta line and an `ItemList` in the JSON-LD as plain HTML, generated by the new `scripts/build-home.js` from the data files (AGENTS.md rule 16). `assets/app.js` replaces it on load, so visitors with JavaScript see the same table as before. Checked in headless Chromium: the static rows and the rows `app.js` renders are identical (38 of 38, 0 differences), same status and meta text. Without JavaScript the search and paging controls stay hidden and the `noscript` text says what needs JavaScript. "Few" and "No data" rows are not in the static HTML.
 - Snapshot history on `settwor.html` (owner request): a glass table with one row per snapshot and genre that has a reading for SETTWOR (month, date, genre, 28-day listeners, place), newest first. The place is counted inside that snapshot with the same logic as the home page. Today it has two rows, both from the snapshot of 2026-10-25 (Phonk place 8, Brazilian Phonk place 1), more rows appear with every new snapshot. The Dataset `temporalCoverage` becomes a date range once there are several dates. New CSS at the end of `assets/styles.css` (`.tbl.hist` and `.doc .tbl`, no new colors or effects).
 - Russian twin of the artist page `settwor-ru.html` (owner request): same data and the same four disclosures, owner disclosure and non-affiliation footer in Russian, FAQ question "Сколько слушателей у SETTWOR на Pandora?", own title, description, canonical, `og:locale`, JSON-LD with `inLanguage: ru`. `hreflang` (en, ru, x-default) links in the head of both pages and in `sitemap.xml`, and a link between the pages. The cookie banner and the theme button labels are in Russian on this page only (`assets/consent.js` and `assets/theme.js` read `<html lang>`), same choices, Reject as prominent as Accept. `privacy.html` is unchanged: no new data is collected and no new tracker. Footer links that lead to English-only pages are marked "(English)".
-- `docs/settwor-site-snippet.html` (owner request): a fragment for `https://settwor.github.io/` with JSON-LD (MusicGroup with `subjectOf` pointing to both Ledgertone pages, Ledgertone as an Organization with SETTWOR as founder) and a visible link. It holds no figures, so it does not go stale. Generated by `scripts/build-artist-pages.js`, pasted into the owner's site by the owner, nothing in this repository touches that site.
+- `docs/settwor-site-snippet.html` (owner request): a fragment for `https://settwor.com.pl/` with JSON-LD (MusicGroup with `subjectOf` pointing to both Ledgertone pages, Ledgertone as an Organization with SETTWOR as founder) and a visible link. It holds no figures, so it does not go stale. Generated by `scripts/build-artist-pages.js`, pasted into the owner's site by the owner, nothing in this repository touches that site.
 - `scripts/lib/ledger.js` (data loading and the ranking logic shared with `assets/app.js`), `scripts/build-all.js` (runs both build scripts).
 ### Changed
 - AGENTS.md rule 1: the Russian twin page is the one exception to "everything is English" (owner decision). New rule 16 (static home ranking). Rule 13, Layout and "Before you finish" updated, `CLAUDE.md` and `docs/SEO.md` too.
@@ -526,7 +526,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 ## [0.78.0] - 2026-10-25
 ### Changed
 - `settwor.html` (owner request): the page now states SETTWOR's place, computed by `scripts/build-artist-pages.js` exactly as the home page does (latest snapshot of the genre plus unverified artists with a number, by listeners, then name): place 8 of 38 ranked artists in Phonk, place 1 of 1 in Brazilian Phonk. The place is in the answer sentence, in the page title ("23K listeners, No. 8 in Phonk"), in the JSON-LD (Dataset `variableMeasured`) and in four glass cards (listeners, snapshot, place per genre, existing `.stats` and `.stat` styles, no new CSS). A place out of fewer than 3 ranked artists stays in the cards but is left out of the sentence and the title.
-- Link to the owner's site `https://settwor.github.io/` on the page ("SETTWOR website") and in the JSON-LD (`url` and `sameAs` of the MusicGroup), so search engines can tie the artist to his own site.
+- Link to the owner's site `https://settwor.com.pl/` on the page ("SETTWOR website") and in the JSON-LD (`url` and `sameAs` of the MusicGroup), so search engines can tie the artist to his own site.
 
 ## [0.77.0] - 2026-10-25
 ### Changed
@@ -1038,7 +1038,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
 ## [0.2.1] - 2026-10-24
 ### Changed
-- `privacy.html`: contact email filled in. Final URL confirmed as `https://ledgertone.github.io/`.
+- `privacy.html`: contact email filled in. Final URL confirmed as `https://ledgertone.settwor.com.pl/`.
 
 ## [0.2.0] - 2026-10-24
 ### Added

@@ -11,7 +11,7 @@ const fs = require('fs'), path = require('path'), cp = require('child_process');
 const root = path.resolve(__dirname, '..');
 const rd = (f) => fs.readFileSync(path.join(root, f), 'utf8');
 let fails = 0;
-const SITE_URL = 'https://ledgertone.github.io/';
+const SITE_URL = 'https://ledgertone.settwor.com.pl/';
 const ok = (m) => console.log('ok    ' + m);
 const bad = (m) => { fails++; console.log('FAIL  ' + m); };
 const run = (args) => { try { return { ok: true, out: cp.execFileSync('node', args, { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] }).toString() }; } catch (e) { return { ok: false, out: String(e.stdout || '') + String(e.stderr || '') }; } };
@@ -156,7 +156,7 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
       if (!/\sreferrerpolicy=\"no-referrer\"/.test(m[0]) || !/\sloading=\"lazy\"/.test(m[0]) || !/\stitle=\"[^\"]+\"/.test(m[0])) problems.push(f + ': iframe without referrerpolicy, loading or title');
     });
   });
-  problems.length ? bad('iframes: ' + problems.slice(0, 5).join('; ')) : ok('iframes: ' + n + ' CDRA award card frames, all from https://cdras.github.io/embed/');
+  problems.length ? bad('iframes: ' + problems.slice(0, 5).join('; ')) : ok('iframes: ' + n + ' CDRA award card frames, all from https://cdra.settwor.com.pl/embed/');
 })();
 
 console.log(fails ? '\n' + fails + ' check(s) failed' : '\nall checks passed');

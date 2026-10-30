@@ -9,7 +9,7 @@ const root = path.join(__dirname, '..', '..');
 
 const core = require(path.join(root, 'assets', 'ledger-core.js'))(window);
 const { L, LINKS, homeId, norm, esc, banned, genreName, byName, month, num, snapsOf, verifiedKeys, rosterOf, unverifiedOf, rankedAt, topLimit, topOf, artistCount, safeUrl, pandoraLink, spotifyLink, linksOf, OWNER, ownerNode, hasReading, earlierPlaceAt, moveAt, pageArtists, pageFileOf, historyOf } = core;
-const SITE = 'https://ledgertone.github.io/';
+const SITE = 'https://ledgertone.settwor.com.pl/';
 
 const CRLF = (s) => s.replace(/\r?\n/g, '\r\n');
 const readCRLF = (f) => fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n');
