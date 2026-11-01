@@ -5,6 +5,7 @@
   if (typeof module === 'object' && module.exports) module.exports = factory; else root.LedgerCore = factory;
 })(typeof window !== 'undefined' ? window : this, function (W) {
   'use strict';
+  var PLATFORMS = W.LEDGERTONE_PLATFORMS || [];
   var L = W.LEDGERTONE, LINKS = W.LEDGERTONE_LINKS || {}, UNV = (W.LEDGERTONE_UNVERIFIED || {}).groups || {};
   var homeId = L.genres[0].id;
   var norm = function (t) { return String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); };
@@ -151,5 +152,5 @@
 
   return { L: L, LINKS: LINKS, homeId: homeId, norm: norm, esc: esc, banned: banned, genreName: genreName, byName: byName, month: month, num: num, snapsOf: snapsOf, verifiedKeys: verifiedKeys,
     rosterOf: rosterOf, unverifiedOf: unverifiedOf, rankedAt: rankedAt, topLimit: topLimit, topOf: topOf, artistCount: artistCount, safeUrl: safeUrl, pandoraLink: pandoraLink, spotifyLink: spotifyLink, linksOf: linksOf,
-    OWNER: OWNER, ownerNode: ownerNode, ownerCreator: ownerCreator, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
+    OWNER: OWNER, PLATFORMS: PLATFORMS, ownerNode: ownerNode, ownerCreator: ownerCreator, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
 });

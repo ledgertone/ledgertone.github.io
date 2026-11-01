@@ -38,6 +38,8 @@ function buildPage(a, lang) {
     sub(/<meta name="description" content=".*?">/, '<meta name="description" content="' + esc(r.desc) + '">');
     sub(/<link rel="canonical" href=".*?">/, '<link rel="canonical" href="' + r.url + '">\n' + (altBlock ? altBlock + '\n' : '') + AP.ogBlock(r) + '\n' + AP.ldTag(r));
     sub(/<main>[\s\S]*?<\/main>/, r.body);
+    // v1.57.0 (rule 28): the owner pages also read the streams of the owner's site in the browser (text file first, then the loader)
+    if (a.owner) sub(/<script src="assets\/motion\.js\?v=[^"]*"><\/script>/, ['data/artist-text.js', 'assets/streams.js', 'assets/motion.js'].map((f) => '<script src="' + f + '?v=' + VERSION + '"></script>').join('\n'));
   } else {
     // shell: no figures and no text, assets/artist-page.js fills title, description, og tags, JSON-LD and <main> from the database
     sub(/<title>.*?<\/title>/, '<title>Ledgertone</title>');
@@ -110,7 +112,7 @@ const allDates = L.snapshots.map((x) => x.capturedAt).filter(Boolean).sort();
 const lastAll = allDates[allDates.length - 1];
 const loc = (f, d, alts) => '  <url><loc>' + SITE + f + '</loc><lastmod>' + d + '</lastmod>' + (alts ? '\n' + alts + '\n  ' : '') + '</url>';
 const altX = (a) => ['en', 'ru', 'x-default'].map((h) => '    <xhtml:link rel="alternate" hreflang="' + h + '" href="' + SITE + (h === 'ru' ? a.fileRu : a.file) + '"/>').join('\n');
-const urls = [loc('', lastAll), loc('all.html', lastAll), loc('spotify.html', '2026-10-29'), loc('settwor-platforms.html', '2026-10-29')];
+const urls = [loc('', lastAll), loc('all.html', lastAll), loc('spotify.html', '2026-10-29')];
 ARTISTS.forEach((a) => { urls.push(loc(a.file, dateOf(a), a.fileRu ? altX(a) : null)); if (a.fileRu) urls.push(loc(a.fileRu, dateOf(a), altX(a))); });
 urls.push(loc('about.html', '2026-10-24'), loc('privacy.html', '2026-10-24'));
 writeCRLF('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls.join('\n') + '\n</urlset>\n');

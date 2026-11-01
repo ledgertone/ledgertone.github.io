@@ -74,6 +74,22 @@ Every artist with a reading gets a generated page (AGENTS.md rule 13). Since v0.
 - `x` (v1.53.0, three links added in v1.53.1): only the SETTWOR entry has it. A list of https profile URLs the owner supplied (Shazam, MusicBrainz, Musixmatch, Genius, Deezer, Amazon Music, TikTok, Apple Music, YouTube Music, YouTube). They go into `sameAs` of the one SETTWOR entity (AGENTS.md rule 26) and nowhere else. Never guess a profile URL; add only what the owner sends. Keep the entry on one line.
 - Known gaps (v0.61.0): SETTWOR has a Pandora link but no Spotify id (the owner's file has none), artists that only exist in the verified roster have no Pandora link until a reading with `pandoraUrl` arrives.
 
+## Streams from settwor.com.pl
+The section "Streams" of `settwor.html` and `settwor-ru.html` is filled in the browser by `assets/streams.js` from `https://settwor.com.pl/streams.json` (AGENTS.md rule 28). Nothing is built into this site, so changing a number on the main site needs no Ledgertone version.
+
+One-time step on the main site (owner): create the file `streams.json` in the ROOT of the settwor.com.pl repository with exactly this content, commit it, and GitHub Pages builds it. After that every edit of `_data` (Pages CMS or by hand) updates the file by itself.
+
+```
+---
+layout: null
+permalink: /streams.json
+sitemap: false
+---
+{"generated":"{{ site.time | date_to_xmlschema }}","platforms":{{ site.data.platforms | jsonify }},"auto_stats":{{ site.data.auto_stats | jsonify }},"streams":{{ site.data.streams | jsonify }}}
+```
+
+What the loader reads: `platforms.<name>.yYYYY` and `platforms.<name>.earlier` (whole numbers, an empty value is skipped), `platforms.<name>.url` (https only), `auto_stats.youtube.clips_views` (release videos, `streams.youtube.clips_views_fallback` when missing), `auto_stats.youtube.channel_total_views` and `auto_stats.updated`. A new platform file in `_data/platforms/` appears by itself; its name comes from the file name (known names are in `NAMES` in `assets/streams.js`). Total streams = all platform plays + release videos, the same sum as the page settwor.com.pl/streams. Check after the upload: open `https://settwor.com.pl/streams.json` in a browser, it must show JSON. The site must answer with `Access-Control-Allow-Origin` (GitHub Pages does by default).
+
 ## Top list
 
 `topLimit` in `data/snapshots.js` (100) cuts the home page ranking to the places 1 to 100 of each genre, `all.html` lists everyone (AGENTS.md rule 19). The data of all other artists stays and imports still fill it, only the display is cut. `node scripts/export-top.js --out <dir>` writes the current top list (`Ledgertone top100.txt`, `Ledgertone top100.json`) to run the next snapshot over.

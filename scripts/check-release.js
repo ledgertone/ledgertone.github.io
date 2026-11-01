@@ -159,5 +159,20 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
   problems.length ? bad('iframes: ' + problems.slice(0, 5).join('; ')) : ok('iframes: ' + n + ' CDRA award card frames, all from https://cdra.settwor.com.pl/embed/');
 })();
 
+// 12 streams loader (v1.57.0, rule 28): assets/streams.js asks exactly one address, stores nothing, and only the two owner pages load it
+(function () {
+  const problems = [];
+  const js = rd('assets/streams.js');
+  const urls = [...new Set([...js.matchAll(/https?:\/\/[^\s'"`)]+/g)].map((m) => m[0]))];
+  if (urls.length !== 1 || urls[0] !== 'https://settwor.com.pl/streams.json') problems.push('addresses in assets/streams.js: ' + urls.join(', '));
+  if (/localStorage|sessionStorage|document\.cookie|indexedDB/.test(js)) problems.push('assets/streams.js stores something');
+  fs.readdirSync(root).filter((f) => f.endsWith('.html')).forEach((f) => {
+    const has = /assets\/streams\.js/.test(rd(f)), own = f === 'settwor.html' || f === 'settwor-ru.html';
+    if (has !== own) problems.push(f + (has ? ': loads streams.js but is not an owner page' : ': owner page without streams.js'));
+    if (own && !/id="streams-live"/.test(rd(f))) problems.push(f + ': no streams-live container');
+  });
+  problems.length ? bad('streams loader: ' + problems.join('; ')) : ok('streams loader: one address (https://settwor.com.pl/streams.json), no storage, only on settwor.html and settwor-ru.html');
+})();
+
 console.log(fails ? '\n' + fails + ' check(s) failed' : '\nall checks passed');
 process.exit(fails ? 1 : 0);

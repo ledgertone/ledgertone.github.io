@@ -54,10 +54,26 @@
     var titlePlace = isNum && sig.length ? fmt(t.titlePlace, { place: sig[0].p.place, genre: sig[0].name }) : '';
     var title = isNum ? fmt(t.titleNum, { name: a.name, text: top.x.text, titlePlace: titlePlace, month: m(latest) }) : fmt(t.titleFew, { name: a.name, month: m(latest) });
     var desc = answer + t.descTail;
+    // owner page (v1.56.0): the page is a profile with every platform, so title and description say so
+    if (a.owner && t.ownTitle) { title = fmt(t.ownTitle, { name: a.name, month: m(latest) }); desc = fmt(t.ownDesc, { name: a.name, answer: answer }); }
     var dates = hist.map(function (r) { return r.date; }).sort();
     var coverage = dates[0] === dates[dates.length - 1] ? dates[0] : dates[0] + '/' + dates[dates.length - 1];
     // v1.52.0: on the owner pages the artist is the ONE shared entity (core.ownerNode, @id https://settwor.com.pl/#artist), on every other
     // page it stays the page's own #artist node.
+    // profile links of the owner by host (brand names, not translated) and the listeners on every platform (data/settwor-platforms.js, Pandora from the latest snapshot)
+    var HOSTS = { 'www.pandora.com': 'Pandora', 'open.spotify.com': 'Spotify', 'www.shazam.com': 'Shazam', 'musicbrainz.org': 'MusicBrainz', 'www.musixmatch.com': 'Musixmatch', 'genius.com': 'Genius', 'www.deezer.com': 'Deezer', 'www.amazon.com': 'Amazon Music', 'www.tiktok.com': 'TikTok', 'music.apple.com': 'Apple Music', 'music.youtube.com': 'YouTube Music', 'www.youtube.com': 'YouTube' };
+    var profiles = [], plat = [], counted = [], sum = 0;
+    if (a.owner) {
+      profiles = [lk.pandora, lk.spotify].concat(lk.extra || []).filter(Boolean).map(function (u) { var h = ''; try { h = new URL(u).hostname; } catch (e) {} return { label: HOSTS[h] || h, url: u }; });
+      var ph = hist.filter(function (r) { return Number.isFinite(r.x.listeners); })[0];
+      var has = function (p) { return Number.isFinite(p.listeners) && p.listeners >= 0 && /^\d{4}-\d{2}-\d{2}$/.test(p.date || ''); };
+      plat = [{ name: 'Pandora', metric: '28-day listeners', listeners: ph ? ph.x.listeners : null, date: ph ? ph.date : null }].concat((core.PLATFORMS || []).map(function (p) { return Object.assign({}, p); }))
+        .map(function (p) { var pr = profiles.filter(function (x) { return x.label === p.name; })[0]; p.url = pr ? pr.url : null; p.has = has(p); return p; });
+      counted = plat.filter(function (p) { return p.has; });
+      sum = counted.reduce(function (x, p) { return x + p.listeners; }, 0);
+    }
+    var metricName = function (x) { return (t.metrics && t.metrics[x]) || x; };
+    var platAnswer = a.owner && counted.length && t.platA ? fmt(t.platA, { name: a.name, items: counted.map(function (p) { return fmt(t.platItem, { platform: p.name, n: n(p.listeners), metric: metricName(p.metric), date: p.date }); }).join('; '), sum: n(sum), k: counted.length, all: plat.length }) : '';
     var artistId = a.owner ? a.site + '#artist' : url + '#artist';
     var ld = { '@context': 'https://schema.org', '@graph': [
       { '@type': 'WebPage', '@id': url + '#page', url: url, name: title, description: desc, inLanguage: lang, dateModified: latest, isPartOf: { '@type': 'WebSite', name: 'Ledgertone', url: SITE }, publisher: { '@id': SITE + '#org' }, breadcrumb: { '@id': url + '#crumbs' }, about: { '@id': artistId }, mainEntity: { '@id': url + '#faq' } },
@@ -67,7 +83,7 @@
       { '@type': 'Dataset', '@id': url + '#data', name: fmt(t.dsName, { name: a.name }), description: fmt(t.dsDesc, { answer: answer, date: latest }), creator: a.owner ? core.ownerCreator() : { '@type': 'Organization', name: 'Ledgertone', url: SITE }, license: 'https://creativecommons.org/licenses/by/4.0/', url: url, isAccessibleForFree: true, publisher: { '@id': SITE + '#org' }, measurementTechnique: t.dsMethod, keywords: fmt(t.dsKeywords, { name: a.name }), distribution: a.csv ? [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: SITE + a.csv }] : undefined, dateModified: latest, temporalCoverage: coverage, inLanguage: lang, about: { '@id': artistId },
         variableMeasured: (isNum ? [{ '@type': 'PropertyValue', name: t.metric, value: top.x.listeners, unitText: t.unit }] : [{ '@type': 'PropertyValue', name: t.metric, value: 'Few' }])
           .concat(places.map(function (x) { return { '@type': 'PropertyValue', name: fmt(t.placeVar, { genre: x.name, month: m(latest) }), value: x.p.place, description: fmt(t.placeDesc, { of: n(x.p.of), ranked: n(x.p.ranked) }) }; })) },
-      { '@type': 'FAQPage', '@id': url + '#faq', mainEntity: [{ '@type': 'Question', name: fmt(t.q, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: answer + ' ' + second } }].concat(a.owner && t.growItems ? [{ '@type': 'Question', name: fmt(t.growQ, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: fmt(t.growLead, { name: a.name }) + ' ' + t.growItems.join(' ') } }] : []) }
+      { '@type': 'FAQPage', '@id': url + '#faq', mainEntity: [{ '@type': 'Question', name: fmt(t.q, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: answer + ' ' + second } }].concat(platAnswer ? [{ '@type': 'Question', name: fmt(t.platQ, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: platAnswer } }] : []).concat(a.owner && t.growItems ? [{ '@type': 'Question', name: fmt(t.growQ, { name: a.name }), acceptedAnswer: { '@type': 'Answer', text: fmt(t.growLead, { name: a.name }) + ' ' + t.growItems.join(' ') } }] : []) }
     ] };
 
     var histRows = hist.map(function (r) {
@@ -101,6 +117,50 @@
       a.owner ? '<div class="ownabout glass glass-flat">\n<h2>' + esc(t.ownerH) + '</h2>\n<p>' + fmtH(t.ownerP, vn) + '</p>\n</div>' : '',
       '</section>', '</main>'
     ]).join('\n');
+    if (a.owner && t.ownTitle) {
+      var sec = function (id, inner) { return '<section class="blk" id="' + id + '">\n' + inner + '\n</section>'; };
+      var cards = [];
+      if (isNum) cards.push(statCard(t.cardL, n(top.x.listeners), fmt(t.cardShown, { text: top.x.text })));
+      counted.forEach(function (p) {
+        if (p.name === 'Pandora') return;
+        cards.push(statCard(p.name + ': ' + metricName(p.metric), n(p.listeners), p.date));
+        if (Number.isFinite(p.followers) && p.followers >= 0) cards.push(statCard(p.name + ': ' + t.followers, n(p.followers), p.date));
+        if (Number.isFinite(p.popularity) && p.popularity >= 0 && p.popularity <= 100) cards.push(statCard(p.name + ': ' + t.popularity, String(p.popularity), t.popOf, '<span class="of"> ' + esc(p.date) + '</span>'));
+      });
+      var platRows = plat.map(function (p) {
+        var nm = p.url ? '<a class="nm" href="' + esc(p.url) + '" rel="noopener">' + esc(p.name) + '</a>' : '<span class="nm">' + esc(p.name) + '</span>';
+        var ex = [];
+        if (p.has && Number.isFinite(p.followers) && p.followers >= 0) ex.push(t.followers + ' ' + n(p.followers));
+        if (p.has && Number.isFinite(p.popularity) && p.popularity >= 0 && p.popularity <= 100) ex.push(t.popularity + ' ' + p.popularity + ' ' + t.popOf);
+        return '<tr><td class="who">' + nm + '</td><td>' + esc(metricName(p.metric)) + (ex.length ? '<small class="ex">' + esc(ex.join(' \u00b7 ')) + '</small>' : '') + '</td><td class="st">' + (p.has ? esc(n(p.listeners)) + '<small>' + esc(p.date) + '</small>' : '<span class="nd">' + esc(t.noData) + '</span>') + '</td></tr>';
+      }).join('\n');
+      var platTable = '<div class="tbl hist glass glass-flat"><table><caption class="sr">' + esc(fmt(t.platCap, vn)) + '</caption>\n<thead><tr><th scope="col">' + esc(t.platTh[0]) + '</th><th scope="col">' + esc(t.platTh[1]) + '</th><th scope="col" class="c-st">' + esc(t.platTh[2]) + '</th></tr></thead>\n<tbody>\n' + platRows + '\n</tbody></table></div>';
+      var sumCard = '<div class="stats sumrow" role="group" aria-label="' + esc(t.sumL) + '">' + statCard(t.sumL, counted.length ? n(sum) : t.noData, counted.length ? fmt(t.sumOf, { k: counted.length, all: plat.length }) : '') + '</div>';
+      var chips = genres.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('');
+      var links = [];
+      if (a.site) links.push([fmt(t.linkSite, vn), a.site]);
+      links.push([t.profBio, a.site + 'bio.html']);
+      links.push([t.profCdra, CDRA]);
+      profiles.forEach(function (p) { links.push([p.label, p.url]); });
+      var plinks = '<ul class="plinks">\n' + links.map(function (x) { return '<li><a class="plink glass glass-flat" href="' + esc(x[1]) + '" rel="noopener"><span class="pl-n">' + esc(x[0]) + '</span></a></li>'; }).join('\n') + '\n</ul>';
+      var jump = '<nav class="jump" aria-label="' + esc(t.jumpL) + '">' + t.jump.map(function (x) { return '<a class="glass glass-flat" href="#' + x[0] + '">' + esc(x[1]) + '</a>'; }).join('') + '</nav>';
+      body = [
+        '<main>', '<section class="wrap doc own prof">',
+        '<div class="ownhead">\n' + (a.photo ? '<img class="ownphoto" src="' + esc(a.photo) + '" alt="' + esc(fmt(t.photoAlt, vn)) + '" width="160" height="160" decoding="async" referrerpolicy="no-referrer">\n' : '') + '<div class="ownid">\n<h1>' + esc(fmt(t.ownH1, vn)) + '</h1>\n<p class="tagline">' + esc(fmt(t.tagline, vn)) + '</p>\n</div>\n</div>',
+        '<ul class="chips" aria-label="' + esc(t.genresL) + '">' + chips + '</ul>',
+        jump,
+        '<div class="stats" role="group" aria-label="' + esc(t.keyL) + '">\n' + cards.join('\n') + '\n</div>',
+        sec('platforms', '<h2>' + esc(t.platH) + '</h2>\n<p>' + esc(fmt(t.platLead, vn)) + '</p>\n' + platTable + '\n' + sumCard + '\n<p>' + esc(t.platNote) + '</p>'),
+        // v1.57.0 (rule 28): plays and views from the owner's site, filled in the browser by assets/streams.js, so no figure is written here
+        t.strH ? sec('streams', '<h2>' + esc(t.strH) + '</h2>\n<p>' + esc(fmt(t.strLead, vn)) + '</p>\n<div id="streams-live" data-state="loading" aria-live="polite"><p class="nd">' + esc(t.strLoad) + '</p></div>\n<noscript><p class="nd">' + esc(t.strNoJs) + '</p></noscript>\n<p><a href="' + esc(a.site + 'streams') + '" rel="noopener">' + esc(t.strOpen) + '</a></p>') : '',
+        sec('pandora', '<h2>' + esc(fmt(t.pandoraH, vn)) + '</h2>\n<p>' + esc(answer) + ' ' + esc(second) + '</p>\n<div class="stats" role="group" aria-label="' + esc(fmt(t.aria, vn)) + '">\n' + statCard(t.cardL, isNum ? n(top.x.listeners) : 'Few', isNum ? fmt(t.cardShown, { text: top.x.text }) : '') + '\n' + statCard(t.cardSnap, m(latest), latest) + '\n' + places.map(function (x) { return statCard(fmt(t.cardPlace, { genre: x.name }), String(x.p.place), fmt(t.cardOf, { of: n(x.p.of) }), dropMark(a, x.p.place, x.e, t)); }).join('\n') + '\n</div>\n<h3>' + esc(t.srcH) + '</h3>\n<p>' + t.srcP + '</p>\n<h3>' + esc(t.histH) + '</h3>\n<p>' + esc(fmt(t.histLead, vn)) + '</p>\n' + histTable + '\n' + linkRow('<p>', '</p>', ' &middot; ', '')),
+        t.growItems ? sec('growth', '<h2>' + esc(t.growH) + '</h2>\n<p>' + esc(fmt(t.growLead, vn)) + '</p>\n<ul class="grow">\n' + t.growItems.map(function (x) { return '<li class="glass glass-flat">' + esc(x) + '</li>'; }).join('\n') + '\n</ul>\n<p>' + fmtH(t.growSrc, vn) + '</p>') : '',
+        t.awardsItems && t.awardsItems.length ? sec('awards', awardsBlock(t, vn)) : '',
+        sec('profiles', '<h2>' + esc(t.profH) + '</h2>\n<p>' + esc(fmt(t.profLead, vn)) + '</p>\n' + plinks),
+        sec('about', '<div class="ownabout glass glass-flat">\n<h2>' + esc(t.ownerH) + '</h2>\n<p>' + fmtH(t.ownerP, vn) + '</p>\n</div>'),
+        '</section>', '</main>'
+      ].filter(Boolean).join('\n');
+    }
     return { lang: lang, locale: ru ? 'ru_RU' : 'en_US', url: url, file: file, answer: answer, second: second, title: title, desc: desc, ld: ld, body: body, hist: hist, latest: latest, lk: lk, twin: twin, urlEn: urlEn, urlRu: urlRu };
   }
 

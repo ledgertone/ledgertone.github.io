@@ -141,7 +141,7 @@
   }
 
   /* ---------- pointer feedback ---------- */
-  var PRESS = ".link,.btn,.text,.theme,.picker button,.cbtn,.linkbtn,.brand,.ownmark,.tbl .lk,.flinks a,.consent a";
+  var PRESS = ".link,.btn,.text,.jump a,.plink,.theme,.picker button,.cbtn,.linkbtn,.brand,.ownmark,.tbl .lk,.flinks a,.consent a";
   var NAME = ".tbl .nm";
   var PUCK = ".av,.mono,.mdl";
   var CARD = ".stat,.status,.empty";

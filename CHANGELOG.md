@@ -2,9 +2,27 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
-## [Unreleased]
+## [1.57.0] - 2026-11-01
+### Added
+- Section "Streams" (Russian page: "Прослушивания") on `settwor.html` and `settwor-ru.html` (owner request): plays per platform and per year, total streams, YouTube release videos and the whole channel, read from the owner's own site every time the page opens. New `assets/streams.js` fetches `https://settwor.com.pl/streams.json`, which the main site builds from its `_data` folder (`platforms/*.yml`, `auto_stats.json`, `streams.yml`). So a figure changed on the main site shows here without a new Ledgertone version and without `build-all.js`. The page holds no figure (rule 13); text keys `str*` in `data/artist-text.js`; new jump link "Streams".
+- The main site needs ONE new file once: `main-site/streams.json` (a Jekyll template, not in the archive) placed in the root of settwor.com.pl. After that GitHub Pages rebuilds it by itself whenever `_data` changes.
+- `privacy.html` lists the new request to settwor.com.pl; AGENTS.md rule 28 and the exceptions line; `docs/DATA.md` section "Streams from settwor.com.pl"; `scripts/check-release.js` check 12 (the loader has exactly one address).
 ### Fixed
-- Search Console, Dataset structured data: "Invalid object type in the field creator". The Datasets on the home page and on the SETTWOR pages had `creator` as a bare `{"@id"}`. It is now `ownerCreator()` from `assets/ledger-core.js`: `{"@type":"Organization","@id":"https://settwor.com.pl/#artist","name":"SETTWOR","url":"https://settwor.com.pl/"}`; the `MusicGroup` node stays the one full entity. Pages rebuilt, `check-release.js` passes. Not done: Rich Results Test (no network); version not bumped.
+- Not done: the real `streams.json` of settwor.com.pl was not reachable from this workspace (network allowlist), so it was tested on a copy built from the sent `_data` folder, in headless Chromium with the request stubbed. Whether the live file answers with CORS (GitHub Pages does by default) must be checked on the real site after the upload.
+
+## [1.56.1] - 2026-11-01
+### Changed
+- SETTWOR page: the photo is larger (160 px, 104 px on phones), the genres are a plain muted text label separated by a slash instead of pills, so they no longer look like the glass jump buttons under them (a thin line separates the two). Only `assets/artist-page.js` and `assets/styles.css` changed.
+
+## [1.56.0] - 2026-11-01
+### Changed
+- The SETTWOR pages (`settwor.html`, `settwor-ru.html`) are now a profile page, like a small site of their own (owner request): header with photo, name, tagline and genre chips, jump links to the sections, key figures (Pandora, Spotify monthly listeners, followers, popularity), then the sections Listeners on every platform, Pandora (answer, places, source, snapshot history), Growth and activity, Awards, Profiles and links (website, biography, CDRA and every profile from `data/links.js`) and Who runs Ledgertone. Same renderer for both languages (`model()` in `assets/artist-page.js`, new keys in `data/artist-text.js`, new `.prof` rules at the end of `assets/styles.css`). Title and description now name every platform; the FAQ JSON-LD has a new question about every platform. This replaces the v1.49.0 rule of no buttons at the top of the owner page.
+- The page "SETTWOR on every platform" is merged into the SETTWOR pages (table, sum card, notes, Spotify followers and popularity). `settwor-platforms.html` and `scripts/build-platforms.js` are removed, the link is gone from `spotify.html` and `sitemap.xml`. Delete `settwor-platforms.html` from the site folder (`delete-banned-pages.bat`).
+- AGENTS.md rule 25 and the layout table rewritten; `docs/SEO.md` no longer names the removed page.
+### Fixed
+- Dataset `creator` is a typed `Organization` (`ownerCreator()`), the Search Console error "Invalid object type in creator" (`scripts/lib/ledger.js` and `assets/ledger-core.js` export it).
+- `apple-touch-icon.png`: white background, the letters smaller and centered (they filled the whole square on a transparent background, so iOS painted it black).
+- Not done: seen only in headless Chromium without network (photo and CDRA cards do not load there), light and dark, 1280 px and 390 px, no horizontal scroll. The owner looks at the page on a real phone and runs the Rich Results Test.
 
 ## [1.55.4] - 2026-11-01
 ### Changed

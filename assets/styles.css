@@ -372,9 +372,6 @@ h1{margin-bottom:16px}
 
 /* v1.47.0 (owner request): the owner page (SETTWOR) is laid out as a profile. A glass card at the top holds the large logo, the title and the links as glass buttons; the first figure is large; the growth facts are glass rows; "Who runs Ledgertone" is a card. Only pages with section.doc.own */
 .doc.own .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
-.doc.own .stats .stat:first-child{grid-column:1/-1;padding:18px 22px 20px;gap:8px}
-.doc.own .stats .stat:first-child .v{font-size:2.5rem;line-height:1.1}
-.doc.own .stats .stat:first-child .of{font-size:1rem}
 .doc.own ul.grow{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
 .doc.own ul.grow li{max-width:none;margin:0;padding:14px 20px 15px;border-radius:18px;border-left:4px solid var(--accent);color:var(--ink);line-height:1.55}
 .doc.own .ownabout{margin:40px 0 0;padding:24px 28px 26px;border-radius:26px}
@@ -382,9 +379,7 @@ h1{margin-bottom:16px}
 .doc.own .ownabout p{margin:0}
 @media(max-width:700px){
 .doc.own .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-.doc.own .stats .stat:nth-child(2){grid-column:1/-1}
 .doc.own .ownlogo{width:92px}
-.doc.own .stats .stat:first-child .v{font-size:2rem}
 .doc.own ul.grow li{padding:13px 16px 14px}
 .doc.own .ownabout{margin-top:32px;padding:20px 20px 22px;border-radius:22px}
 }
@@ -421,3 +416,45 @@ h1{margin-bottom:16px}
 :root[data-theme=dark] .doc.own .award .aw-l{display:none}
 :root[data-theme=dark] .doc.own .award .aw-d{display:block}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .doc.own .award .aw-l{display:none}:root:not([data-theme=light]) .doc.own .award .aw-d{display:block}}
+
+/* v1.56.0 (owner request): the owner page is a profile, like a small site of its own. Header with photo, name and tagline, genre chips, jump links to the sections, key figures, then the sections (platforms, Pandora, growth, awards, profiles, Ledgertone).
+   All glass-flat, no decoration. The sum of the platforms is a card of the same size as every other figure (AGENTS.md rule 25). */
+.doc.own.prof{padding-top:calc(env(safe-area-inset-top,0px) + 104px)}
+.doc.own.prof .ownhead{align-items:center;gap:28px;margin:0 0 16px}
+.doc.own.prof .ownphoto{width:160px;height:160px}
+.prof .ownid{min-width:0}
+.prof .ownid h1{margin:0;letter-spacing:-.01em}
+.prof .tagline{margin:8px 0 0;max-width:56ch;color:var(--muted);font-size:1.0625rem;line-height:1.5}
+/* genres are a plain text label, not buttons: small caps in the muted color, separated by a slash, no glass */
+.prof ul.chips{list-style:none;display:flex;flex-wrap:wrap;align-items:center;margin:0 0 18px;padding:0}
+.prof ul.chips li{margin:0;max-width:none;font-size:.8125rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.prof ul.chips li+li::before{content:"/";margin:0 .75em;font-weight:400;opacity:.6}
+.prof .jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding-top:16px;border-top:1px solid var(--line)}
+.prof .jump a{display:inline-flex;align-items:center;min-height:36px;padding:0 16px;border-radius:999px;font-size:.9375rem;font-weight:500;color:var(--ink);text-decoration:none}
+.prof .jump a:focus-visible,.prof .plink:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.doc.own.prof .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 6px}
+.doc.own.prof .stats.sumrow{grid-template-columns:minmax(0,1fr);max-width:320px;margin:14px 0 8px}
+.prof .blk{margin:36px 0 0;scroll-margin-top:96px}
+.prof .blk h2{margin:0 0 10px;font-size:1.5rem}
+.prof .blk h3{margin:26px 0 8px}
+.prof .blk .stats{margin:14px 0 6px}
+.prof td.who .nm{color:var(--ink);font-weight:600;text-decoration:none}
+.prof td.who a.nm{text-decoration:underline;text-underline-offset:3px}
+.prof .tbl td small{display:block;margin-top:2px;font-size:.75rem;font-weight:400;color:var(--muted)}
+.prof .tbl td.st{text-align:right;font-variant-numeric:tabular-nums}
+.prof ul.plinks{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;margin:14px 0 0;padding:0}
+.prof ul.plinks li{margin:0;max-width:none}
+.prof .plink{display:flex;align-items:center;min-height:48px;padding:0 18px;border-radius:16px;color:var(--ink);font-weight:500;text-decoration:none}
+.prof .ownabout{margin:0}
+@media(max-width:900px){.doc.own.prof .stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+.doc.own.prof{padding-top:calc(env(safe-area-inset-top,0px) + 92px)}
+.doc.own.prof .ownhead{gap:16px;align-items:center}
+.doc.own.prof .ownphoto{width:104px;height:104px}
+.prof .tagline{font-size:.9375rem}
+.prof .blk{margin-top:34px;scroll-margin-top:84px}
+.prof .blk h2{font-size:1.3125rem}
+.prof ul.plinks{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.prof .plink{min-height:44px;padding:0 14px}
+}
+
