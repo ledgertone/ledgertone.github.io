@@ -432,13 +432,14 @@
       if (n.getClientRects().length) nodes.push(n);
     });
     var vh = window.innerHeight, n = 0, io = null, waiting = [];
+    var unwait = function (el) { var i = waiting.indexOf(el); if (i > -1) waiting.splice(i, 1); };
     nodes.forEach(function (el) {
       var top = el.getBoundingClientRect().top, nav = el.classList.contains("nav");
       var from = nav ? { y: -10, s: 0.96 } : { y: 14 };
       if (top < vh) { enter(el, n++, from); return; }
       if (!("IntersectionObserver" in window)) return;
       if (!io) io = new IntersectionObserver(function (es) {
-        es.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); enter(en.target, 0, { y: 14 }); } });
+        es.forEach(function (en) { if (en.isIntersecting) { io.unobserve(en.target); unwait(en.target); enter(en.target, 0, { y: 14 }); } });
       }, { rootMargin: "0px 0px -6% 0px" });
       var g = glassy(el);
       if (!(g && rm.matches)) set(el, rm.matches ? { o: 0 } : (g ? { y: 14 } : { y: 14, o: 0 }));
@@ -447,6 +448,23 @@
     // safety net: printing and tools that never scroll must still see everything
     var all = function () { waiting.forEach(function (el) { forget(el); el.style.transform = ""; el.style.opacity = ""; }); waiting = []; };
     addEventListener("beforeprint", all); setTimeout(function () { if (waiting.length && document.hidden) all(); }, 6000);
+    // v1.55.0: the last lines of the footer (the version) sit in the bottom 6 percent of the screen when the page is scrolled to its end,
+    // so the observer above never saw them cross its margin and they stayed hidden (phones) or came late (desktop). At the end of the
+    // page everything still waiting enters at once. Also checked after load and after the list was drawn, when the page height changes.
+    var fl = 0;
+    function atEnd() { var de = document.documentElement; return window.innerHeight + (window.pageYOffset || de.scrollTop || 0) >= de.scrollHeight - 24; }
+    function flush() {
+      fl = 0;
+      if (!waiting.length || !atEnd()) return;
+      var w = waiting; waiting = [];
+      w.forEach(function (el, i) { if (io) io.unobserve(el); enter(el, i, { y: 14 }); });
+    }
+    function queueFlush() { if (!fl && waiting.length) fl = requestAnimationFrame(flush); }
+    addEventListener("scroll", queueFlush, { passive: true });
+    addEventListener("resize", queueFlush);
+    addEventListener("load", queueFlush);
+    addEventListener("pageshow", queueFlush);
+    setTimeout(queueFlush, 800); setTimeout(queueFlush, 2500);
   }
 
   /* ---------- wire up ---------- */

@@ -16,9 +16,10 @@ const has = (p) => Number.isFinite(p.listeners) && p.listeners >= 0 && /^\d{4}-\
 const n = (v) => v.toLocaleString('en-US');
 const counted = platforms.filter(has), sum = counted.reduce((s, p) => s + p.listeners, 0);
 
+const extras = (p) => { const x = []; if (Number.isFinite(p.followers) && p.followers >= 0) x.push('Followers ' + n(p.followers)); if (Number.isFinite(p.popularity) && p.popularity >= 0 && p.popularity <= 100) x.push('Popularity ' + p.popularity + ' of 100'); return x.length ? '<small class="ex">' + x.join(' · ') + ', read ' + p.date + '</small>' : ''; };
 const rows = platforms.map((p) => {
   const nm = p.url ? '<a class="nm" href="' + esc(p.url) + '" rel="noopener">' + esc(p.name) + '</a>' : '<span class="nm">' + esc(p.name) + '</span>';
-  return '<tr><td class="who">' + nm + '</td><td>' + esc(p.metric) + '</td><td class="st">' + (has(p) ? n(p.listeners) + '<small>' + p.date + '</small>' : '<span class="nd">No data</span>') + '</td></tr>';
+  return '<tr><td class="who">' + nm + '</td><td>' + esc(p.metric) + (has(p) ? extras(p) : '') + '</td><td class="st">' + (has(p) ? n(p.listeners) + '<small>' + p.date + '</small>' : '<span class="nd">No data</span>') + '</td></tr>';
 }).join('\n          ');
 
 const TITLE = 'SETTWOR listeners on every platform | Ledgertone';

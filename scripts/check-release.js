@@ -152,7 +152,7 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
     [...rd(f).matchAll(/<iframe\b[^>]*>/g)].forEach((m) => {
       n++;
       const src = (m[0].match(/\ssrc=\"([^\"]*)\"/) || [])[1] || '';
-      if (!/^https:\/\/cdras\.github\.io\/embed\/[A-Za-z0-9-]+\.html$/.test(src)) problems.push(f + ': iframe src ' + src);
+      if (!/^https:\/\/cdra\.settwor\.com\.pl\/embed\/[A-Za-z0-9-]+\.html$/.test(src)) problems.push(f + ': iframe src ' + src);
       if (!/\sreferrerpolicy=\"no-referrer\"/.test(m[0]) || !/\sloading=\"lazy\"/.test(m[0]) || !/\stitle=\"[^\"]+\"/.test(m[0])) problems.push(f + ': iframe without referrerpolicy, loading or title');
     });
   });

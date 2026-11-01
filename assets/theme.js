@@ -1,5 +1,5 @@
 /*
-  Font gate (owner request, v0.98.0): SF Pro Rounded and Gloock must always be used, and the text must not blink or jump while they load.
+  Font gate (owner request, v0.98.0): Geologica and Gloock must always be used, and the text must not blink or jump while they load.
   This script runs in the <head> after the stylesheet. It hides the page body (visibility, never opacity: opacity on a parent breaks the glass blur in Safari)
   until the font files are loaded, then shows everything at once. Safety net: after 2.5 s the page is shown anyway. Without JavaScript nothing is hidden.
 */
@@ -11,7 +11,7 @@
   var shown = false;
   function show() { if (shown) return; shown = true; clearTimeout(t); root.classList.remove("fw"); }
   var t = setTimeout(show, 2500);
-  var faces = ['400 16px "SF Pro Rounded"', '500 16px "SF Pro Rounded"', '600 16px "SF Pro Rounded"', '700 16px "SF Pro Rounded"', '400 16px "Gloock"'];
+  var faces = ['400 16px "Geologica"', '700 16px "Geologica"', '400 16px "Gloock"'];
   Promise.all(faces.map(function (f) { return d.fonts.load(f, "Aa"); })).then(show, show);
 })();
 /*
@@ -26,7 +26,7 @@
   var ORDER = ["auto", "light", "dark"];
   var RU = document.documentElement.lang === "ru"; // Russian page (settwor-ru.html, v0.81.0)
   var LABEL = RU ? { auto: "Авто", light: "Светлая", dark: "Тёмная" } : { auto: "Auto", light: "Light", dark: "Dark" };
-  var BAR = { light: "#F1EEFB", dark: "#120E26" };
+  var BAR = { light: "#FFFFFF", dark: "#120E26" };
   var root = document.documentElement;
   var mode = "auto";
 

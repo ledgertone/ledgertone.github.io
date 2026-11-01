@@ -2,6 +2,51 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [Unreleased]
+### Fixed
+- Search Console, Dataset structured data: "Invalid object type in the field creator". The Datasets on the home page and on the SETTWOR pages had `creator` as a bare `{"@id"}`. It is now `ownerCreator()` from `assets/ledger-core.js`: `{"@type":"Organization","@id":"https://settwor.com.pl/#artist","name":"SETTWOR","url":"https://settwor.com.pl/"}`; the `MusicGroup` node stays the one full entity. Pages rebuilt, `check-release.js` passes. Not done: Rich Results Test (no network); version not bumped.
+
+## [1.55.4] - 2026-11-01
+### Changed
+- CDRA award cards on `settwor.html` and `settwor-ru.html` are smaller (owner request): at most 260 px wide each, three in one row on desktop and tablet (`.doc.own .awards` is `repeat(3,minmax(0,260px))`, gap 14 px), two in one row on phones up to 560 px wide (`repeat(2,minmax(0,1fr))`, gap 10 px, card fills its column). Proportions 504:626 and the light and dark card switch are unchanged. Only `assets/styles.css` changed, plus the version.
+### Fixed
+- Checked in headless Chromium with the CDRA host stubbed (no network): at 1280 px three cards of 260 px in a row, at 768 px three of 233 px, at 390 px and 360 px two per row (170 px and 155 px), no horizontal scroll at any width. Not done: the real card content was not seen, so whether the text on a 155 px card stays readable depends on the CDRA embed page. The owner should look at it on a real phone.
+
+## [1.55.3] - 2026-11-01
+### Changed
+- Awards section on `settwor.html` and `settwor-ru.html` now shows all three distinct CDRA awards from the `embed/` folder the owner sent: SETTWOR 2,500,000 streams (`SETTWOR-2-5m`), GOT ME UP 2 1,000,000 streams (`GOT-ME-UP-2-1m`), GET IT, Vol.1 1,000,000 streams (`GET-IT-Vol-1-1m`). One `{ file, title }` line per award in both blocks of `awardsItems` in `data/artist-text.js`; titles are the `aria-label` of each embed card without the closing sentence. Rule 27 is unchanged.
+### Fixed
+- Not added on purpose: `GOT-ME-UP-2-250k` and `GOT-ME-UP-2-500k` (light and dark). Their files in `embed/` are byte for byte copies of `GOT-ME-UP-2-1m` (same title, same code `SGL-GLD-26-0003-7`, 1,000,000 streams), so they would show the same card three times. Open: the owner checks these two embed pages in the CDRA project.
+- Not done: the cards were not seen in a browser, the CDRA host is not reachable from this workspace. The new `file` names were checked against the files of the sent `embed/` folder only.
+
+## [1.55.2] - 2026-11-01
+### Changed
+- Main font is now Geologica (owner request, `assets/fonts/Geologica-VariableFont.woff2`, one variable file for weights 100 to 900, Latin and Cyrillic). `--sans` is `"Geologica",system-ui,...`, headings follow through `--display`. Every weight now has a real cut, so Medium and Semibold are no longer folded into Regular and Bold.
+- Outfit and SF Pro Rounded are removed completely: the font files, their `@font-face` rules, the preloads in every HTML head (replaced by one Geologica preload), the font gate faces in `assets/theme.js` and the Russian-page branch there, and their text in `assets/fonts/README.md`, `AGENTS.md` and `TODO.md`. Older entries below stay as history.
+- Gloock (`.brand`) and Neue Machina (switched off, kept) are unchanged.
+### Fixed
+- Not done: Safari and a real iPhone were not tested. The font file could not be opened with fontTools here (no Brotli module), so it was checked in headless Chromium only: it loads, the width changes with the weight and Cyrillic letters come from it. The owner should confirm the Geologica license covers the site (the Google Fonts version is under SIL OFL).
+
+## [1.55.1] - 2026-11-01
+### Changed
+- Main font changed from SF Pro Rounded to Outfit (owner request, files `Outfit-Regular.woff` and `Outfit-Bold.woff` in `assets/fonts/`). Only two weights exist: Regular for weights 100 to 599, Bold for 600 and up, so the old Medium and Semibold steps now render as Regular and Bold. `--sans` is `"Outfit","SF Pro Rounded",system-ui,...`; headings follow it through `--display`.
+- SF Pro Rounded stays only as a per-glyph fallback, because Outfit has no Cyrillic (0 of 64 letters checked in both files): the Russian page and Cyrillic artist names keep SF Pro Rounded, its `@font-face` rules and files are kept. Its four faces are loaded lazily, only when a Cyrillic character is drawn.
+- `assets/theme.js` font gate waits for Outfit 400 and 700 and Gloock; on `<html lang="ru">` it also waits for the four SF Pro Rounded faces. The font preloads in every HTML head are now Outfit Regular and Bold (the four SF Pro Rounded preloads were removed).
+- `assets/fonts/README.md` and `AGENTS.md` (Type rule) describe the new setup. Gloock for `.brand` is unchanged.
+### Fixed
+- Not done: Safari and a real iPhone were not tested, no browser check of the Outfit rendering was made (the files were checked with fontTools only). The owner should confirm the Outfit license covers the site (the Google Fonts version is under SIL OFL).
+
+## [1.55.0] - 2026-11-01
+### Changed
+- White light theme (owner request): the page background is pure white (`--bg:#FFFFFF`), the ranking table and every other glass panel is white with a thin grey edge and a soft neutral shadow. The violet-tinted ink, muted text, lines and shadows are now neutral greys (`--ink:#1D1D1F`, `--muted:#6E6E73`, `--line` and `--edge` black at 9 and 10 percent). Selected states (genre and page size pickers, the current nav link, the sliding indicator) are a light grey fill instead of a white one, which would vanish on white (new tokens `--sel`, `--sel2`, `--selbox`, `--selbox2`, `--selsolid`). The artist monograms, the row hover highlight and the tap ripple are grey in the light theme (`--mono`, `--lens`, `--rip`). The pending-genre panel is neutral grey. The violet accent (primary button, bar fill, focus ring) is unchanged.
+- Dark theme unchanged: its old values moved into the same new tokens (`--sh1`, `--sh2`, `--sel`, `--sel2`, `--selbox`, `--selbox2`, `--selsolid`, `--mono`, `--lens`, `--rip`) in both dark places of `assets/styles.css`, kept identical.
+- Browser bar colour in the light theme is white: `theme-color` in `index.html` (and `all.html` by the build) and `BAR.light` in `assets/theme.js`.
+### Fixed
+- The version line in the footer did not always appear on the first view. `reveal()` in `assets/motion.js` hides everything below the first screen until an `IntersectionObserver` (bottom margin 6 percent) sees it. The last footer line sits inside that bottom band when the page is scrolled to its end, so it stayed at opacity 0 on phones and came late on desktop. Now, when the page is at its end, everything still waiting enters at once (checked on scroll, resize, load, pageshow and twice shortly after load, because the list changes the page height). Items already shown are removed from the waiting list so nothing blinks twice. Checked in Chromium at 390, 1280 and 1440 px on the home page, About, Privacy, Spotify, the full list, an artist page and 404: the version line is fully visible after scrolling to the bottom.
+- `scripts/check-release.js` check 11 still expected the old CDRA host `cdras.github.io`, so it failed on the correct `https://cdra.settwor.com.pl/embed/` frames; the pattern now matches the host of AGENTS.md rule 27.
+- `liue.html`, the page of the banned artist "líue" (rule 8, deleted in an earlier version), was back in the archive with the stamp 0.94.0 and failed the version check. Removed again; the owner deletes it from the site folder with `delete-banned-pages.bat`.
+- Not done: Safari and a real iPhone were not tested (Chromium only).
+
 ## [1.54.0] - 2026-10-29
 ### Added
 - CDRA award cards on the SETTWOR pages (owner request): the section "Awards" ("Награды" on `settwor-ru.html`) after "Growth and activity", a plain iframe of the light and the dark embed page of the CDRA site per award (`https://cdra.settwor.com.pl/embed/<AWARD>.html` and `-dark.html`), a lead sentence and a link "All awards on the CDRA site". The theme picks the card (CSS in `assets/styles.css`, `.awards`), no script, `loading="lazy"`, `referrerpolicy="no-referrer"`, `color-scheme` set on each frame so the card stays transparent. The list is `awardsItems` in `data/artist-text.js`; it holds only the one award the owner sent (GOT ME UP 2, 1,000,000 streams), more are one line each. Owner pages only (rule 27).

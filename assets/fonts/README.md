@@ -6,4 +6,4 @@ The font files carry no license text. The owner is responsible for holding a lic
 
 Gloock (Google Fonts, SIL Open Font License), `Gloock-Regular.woff`, one weight (400). Used only for the site name (`.brand`) in the header, supplied by the owner (replaced New York in v1.45.0). `NewYork.woff` stays in the folder, unused.
 
-SF Pro Rounded (Apple), `SFProRounded-Regular.woff`, `-Medium.woff`, `-Semibold.woff`, `-Bold.woff`, supplied by the owner. Used for body text and the interface (buttons, nav, table, banner, long-form pages): Regular up to weight 450, Medium 451 to 550, Semibold 551 to 650, Bold 651 and up. Latin and Cyrillic. Neue Machina now serves headings only. The owner is responsible for holding a license that covers use on a public website.
+Geologica (Google Fonts, SIL Open Font License), `Geologica-VariableFont.woff2`, supplied by the owner (v1.55.2). One variable file for every weight (100 to 900), Latin and Cyrillic. The main font for body text, the interface and headings (`--sans`, `--display`); the HTML heads preload it. Never replace it without the owner asking.

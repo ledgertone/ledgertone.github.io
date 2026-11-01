@@ -145,7 +145,11 @@
     return { '@type': 'MusicGroup', '@id': OWNER.site + '#artist', name: OWNER.name, url: OWNER.site, image: OWNER.photo, genre: ['Brazilian Phonk', 'Phonk'], sameAs: same };
   }
 
+  // creator of a Dataset (v1.55.5): Google's Dataset rich result accepts only Person or Organization as creator, a bare {"@id"} reference is
+  // reported as "Invalid object type". So the creator is a typed Organization stub with the SAME @id as the MusicGroup node (the node stays the only one with sameAs, genre, image).
+  function ownerCreator() { return { '@type': 'Organization', '@id': OWNER.site + '#artist', name: OWNER.name, url: OWNER.site }; }
+
   return { L: L, LINKS: LINKS, homeId: homeId, norm: norm, esc: esc, banned: banned, genreName: genreName, byName: byName, month: month, num: num, snapsOf: snapsOf, verifiedKeys: verifiedKeys,
     rosterOf: rosterOf, unverifiedOf: unverifiedOf, rankedAt: rankedAt, topLimit: topLimit, topOf: topOf, artistCount: artistCount, safeUrl: safeUrl, pandoraLink: pandoraLink, spotifyLink: spotifyLink, linksOf: linksOf,
-    OWNER: OWNER, ownerNode: ownerNode, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
+    OWNER: OWNER, ownerNode: ownerNode, ownerCreator: ownerCreator, hasReading: hasReading, earlierPlaceAt: earlierPlaceAt, moveAt: moveAt, pageArtists: pageArtists, pageFileOf: pageFileOf, historyOf: historyOf };
 });

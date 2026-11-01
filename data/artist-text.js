@@ -69,7 +69,9 @@ window.LEDGERTONE_TEXT = {
     awardsLead: 'Streaming award cards for {name} from CDRA, a project run by {name}. Each card opens its award page on the CDRA site.',
     awardsMore: 'All awards on the CDRA site',
     awardsItems: [
-      { file: 'GOT-ME-UP-2-1m', title: 'CDRA Award: GOT ME UP 2, 1,000,000 streams' }
+      { file: 'SETTWOR-2-5m', title: 'CDRA Award: SETTWOR, 2,500,000 streams' },
+      { file: 'GOT-ME-UP-2-1m', title: 'CDRA Award: GOT ME UP 2, 1,000,000 streams' },
+      { file: 'GET-IT-Vol-1-1m', title: 'CDRA Award: GET IT, Vol.1, 1,000,000 streams' }
     ],
     ownerH: 'Who runs Ledgertone',
     ownerLogo: '{name}, who runs Ledgertone (opens his site)',
@@ -136,7 +138,9 @@ window.LEDGERTONE_TEXT = {
     awardsLead: 'Карточки наград за прослушивания для {name} от CDRA, проекта, который ведёт {name}. Карточка открывает страницу награды на сайте CDRA.',
     awardsMore: 'Все награды на сайте CDRA',
     awardsItems: [
-      { file: 'GOT-ME-UP-2-1m', title: 'CDRA Award: GOT ME UP 2, 1,000,000 streams' }
+      { file: 'SETTWOR-2-5m', title: 'CDRA Award: SETTWOR, 2,500,000 streams' },
+      { file: 'GOT-ME-UP-2-1m', title: 'CDRA Award: GOT ME UP 2, 1,000,000 streams' },
+      { file: 'GET-IT-Vol-1-1m', title: 'CDRA Award: GET IT, Vol.1, 1,000,000 streams' }
     ],
     ownerH: 'Кто ведёт Ledgertone',
     ownerLogo: '{name}, ведёт Ledgertone (открывает его сайт)',
