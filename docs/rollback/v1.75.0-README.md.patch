@@ -1,0 +1,11 @@
+--- docs/rollback/README.md.v1.74.0	2026-11-01 20:53:41.233011310 +0000
++++ README.md	2026-11-01 20:53:41.255520013 +0000
+@@ -10,7 +10,7 @@
+ 
+ 1. Create a repository named `ledgertone.settwor.com.pl` (a user site) and push this folder to the `main` branch.
+ 2. Open Settings, then Pages. Under Source choose "Deploy from a branch", branch `main`, folder `/ (root)`.
+-3. The site is served at `https://<your-username>.github.io/`. Page paths are relative, but `404.html`, the consent banner link, and the canonical tags assume the site root. Launch steps: `docs/SEO.md`.
++3. The site is served at `https://ledgertone.settwor.com.pl/`. Page paths are relative, but `404.html`, the consent banner link, and the canonical tags assume the site root. Launch steps: `docs/SEO.md`.
+ 
+ ## Add a snapshot
+ 

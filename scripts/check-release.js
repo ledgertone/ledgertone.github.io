@@ -6,6 +6,8 @@
 // 7 every local href and src of every HTML page points to an existing file (data/artist-media*.js are expected to be missing, rule 9).
 // 8 feed.xml: one entry per snapshot, unique ids, linked from index.html.
 // 9 ranking files (v1.26.0, older snapshots v1.37.0): one CSV and one JSON per snapshotted genre (and per older snapshot), row count equals the top list, CSV and JSON agree, linked from index.html, Dataset in the JSON-LD.
+// 15 No github.io in any text file of the site (v1.75.0, rule 31).
+// 14 Unslop skill (v1.69.0, rule 30): skills/unslop is present, SKILL.md is the unedited upstream file with its credit, rule 30 is in AGENTS.md and CLAUDE.md.
 // Exit code 1 when anything fails.
 const fs = require('fs'), path = require('path'), cp = require('child_process');
 const root = path.resolve(__dirname, '..');
@@ -41,7 +43,7 @@ chars.length ? bad('forbidden characters: ' + chars.join(', ')) : ok('no em-dash
 
 // 5 version
 const ver = (rd('CHANGELOG.md').match(/^## \[([0-9.]+)\]/m) || [])[1];
-const htmls = fs.readdirSync(root).filter((f) => f.endsWith('.html'));
+const htmls = fs.readdirSync(root).filter((f) => f.endsWith('.html')).concat(fs.existsSync(path.join(root, 'artists')) ? fs.readdirSync(path.join(root, 'artists')).filter((f) => f.endsWith('.html')).map((f) => 'artists/' + f) : []); // v1.58.0: the artist pages are in artists/
 const verBad = [];
 if (JSON.parse(rd('version.json')).version !== ver) verBad.push('version.json');
 htmls.forEach((f) => {
@@ -74,7 +76,8 @@ htmls.forEach((f) => {
     const u = m[1];
     if (/^(https?:|mailto:|tel:|data:|javascript:|spotify:|\/\/)/.test(u)) return;
     if (/^data\/artist-media[a-z0-9-]*\.js$/.test(u)) return;
-    if (!fs.existsSync(path.join(root, u))) { const k = u; missing.set(k, (missing.get(k) || []).concat(f)); }
+    const target = u[0] === '/' ? path.join(root, u) : path.join(root, path.dirname(f), u);
+    if (!fs.existsSync(target)) { const k = u; missing.set(k, (missing.get(k) || []).concat(f)); }
   });
 });
 missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([u, fs2]) => u + ' (in ' + fs2[0] + (fs2.length > 1 ? ' and ' + (fs2.length - 1) + ' more' : '') + ')').join(', ')) : ok('every local href and src of ' + htmls.length + ' pages exists');
@@ -148,7 +151,7 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
 // 11 iframes (v1.54.0, rule 27): the only iframes on the site are the CDRA award cards
 (function () {
   const problems = []; let n = 0;
-  fs.readdirSync(root).filter((f) => f.endsWith('.html')).forEach((f) => {
+  htmls.forEach((f) => {
     [...rd(f).matchAll(/<iframe\b[^>]*>/g)].forEach((m) => {
       n++;
       const src = (m[0].match(/\ssrc=\"([^\"]*)\"/) || [])[1] || '';
@@ -166,12 +169,57 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
   const urls = [...new Set([...js.matchAll(/https?:\/\/[^\s'"`)]+/g)].map((m) => m[0]))];
   if (urls.length !== 1 || urls[0] !== 'https://settwor.com.pl/streams.json') problems.push('addresses in assets/streams.js: ' + urls.join(', '));
   if (/localStorage|sessionStorage|document\.cookie|indexedDB/.test(js)) problems.push('assets/streams.js stores something');
-  fs.readdirSync(root).filter((f) => f.endsWith('.html')).forEach((f) => {
+  htmls.forEach((f) => {
     const has = /assets\/streams\.js/.test(rd(f)), own = f === 'settwor.html' || f === 'settwor-ru.html';
     if (has !== own) problems.push(f + (has ? ': loads streams.js but is not an owner page' : ': owner page without streams.js'));
     if (own && !/id="streams-live"/.test(rd(f))) problems.push(f + ': no streams-live container');
   });
   problems.length ? bad('streams loader: ' + problems.join('; ')) : ok('streams loader: one address (https://settwor.com.pl/streams.json), no storage, only on settwor.html and settwor-ru.html');
+})();
+
+// 13 artist pages folder (v1.58.0): every artist page except the two SETTWOR pages is in artists/, and no old copy of a moved page is left in the root
+(function () {
+  const problems = [];
+  const files = [...rd('data/artist-pages.js').matchAll(/: "([^"]+\.html)"/g)].map((m) => m[1]);
+  files.forEach((f) => {
+    if (f === 'settwor.html') return;
+    if (!/^artists\/[a-z0-9-]+\.html$/.test(f)) problems.push(f + ' is not in artists/');
+    else if (!fs.existsSync(path.join(root, f))) problems.push(f + ' is missing');
+    else if (fs.existsSync(path.join(root, f.slice('artists/'.length)))) problems.push('old copy in the root: ' + f.slice('artists/'.length));
+  });
+  problems.length ? bad('artist pages folder: ' + problems.slice(0, 6).join('; ') + (problems.length > 6 ? ' and ' + (problems.length - 6) + ' more' : '')) : ok('artist pages folder: ' + files.length + ' pages in the map, all in artists/ (SETTWOR in the root), no old copy in the root');
+})();
+
+// 14 Unslop skill (v1.69.0, rule 30): the folder skills/unslop exists unedited with its credit (SKILL.md hash, LICENSE, CITATION.cff, all reference files), and the rule is in AGENTS.md and CLAUDE.md
+(function () {
+  const problems = [];
+  const crypto = require('crypto');
+  const base = 'skills/unslop/';
+  ['SKILL.md', 'LICENSE', 'CITATION.cff', 'agents/openai.yaml', 'references/tokens.md', 'references/signs.md', 'references/visuals.md', 'references/effects.md', 'references/refs.md', 'scripts/snapshot.mjs', 'scripts/story.mjs'].forEach((f) => { if (!fs.existsSync(path.join(root, base + f))) problems.push(base + f + ' is missing'); });
+  if (!problems.length) {
+    const hash = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, base + 'SKILL.md'))).digest('hex');
+    if (hash !== '9e49b2ff7643fa09729e8665890a18f6bfa58a82e6fcbba330da38136ccdc393') problems.push('SKILL.md was edited (upstream copy, never edit it, AGENTS.md rule 30)');
+    if (!/Damir Sokolovsky/.test(rd(base + 'SKILL.md')) || !/CC BY 4\.0/.test(rd(base + 'SKILL.md'))) problems.push('credit missing in SKILL.md');
+  }
+  if (!/^30\. Unslop skill/m.test(rd('AGENTS.md'))) problems.push('rule 30 missing in AGENTS.md');
+  if (!/skills\/unslop\/SKILL\.md/.test(rd('CLAUDE.md'))) problems.push('Unslop line missing in CLAUDE.md');
+  problems.length ? bad('unslop skill: ' + problems.join('; ')) : ok('unslop skill: folder, credit and rule 30 in place, SKILL.md unedited');
+})();
+
+// 15 No github.io anywhere on the site (v1.75.0, rule 31)
+(function () {
+  const hits = [];
+  const skipFiles = new Set(['AGENTS.md', 'CLAUDE.md']);
+  const skipDirs = new Set(['node_modules', '.git', 'skills', 'scripts']);
+  (function walk(dir) {
+    fs.readdirSync(path.join(root, dir), { withFileTypes: true }).forEach((e) => {
+      const rel = dir ? dir + '/' + e.name : e.name;
+      if (e.isDirectory()) { if (!skipDirs.has(e.name) && rel !== 'docs/rollback') walk(rel); return; }
+      if (skipFiles.has(rel) || !/\.(html|js|css|json|xml|txt|csv|md|svg|webmanifest|bat)$/i.test(e.name)) return;
+      if (/github\.io/i.test(fs.readFileSync(path.join(root, rel), 'utf8'))) hits.push(rel);
+    });
+  })('');
+  hits.length ? bad('github.io found in ' + hits.slice(0, 5).join(', ') + (hits.length > 5 ? ' and ' + (hits.length - 5) + ' more' : '') + ' (AGENTS.md rule 31)') : ok('no github.io in any text file of the site (the text inside og-image.png is checked by eye)');
 })();
 
 console.log(fails ? '\n' + fails + ' check(s) failed' : '\nall checks passed');

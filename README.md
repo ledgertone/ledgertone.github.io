@@ -10,7 +10,7 @@ Open `index.html` in a browser, or run `python3 -m http.server` in this folder a
 
 1. Create a repository named `ledgertone.settwor.com.pl` (a user site) and push this folder to the `main` branch.
 2. Open Settings, then Pages. Under Source choose "Deploy from a branch", branch `main`, folder `/ (root)`.
-3. The site is served at `https://<your-username>.github.io/`. Page paths are relative, but `404.html`, the consent banner link, and the canonical tags assume the site root. Launch steps: `docs/SEO.md`.
+3. The site is served at `https://ledgertone.settwor.com.pl/`. Page paths are relative, but `404.html`, the consent banner link, and the canonical tags assume the site root. Launch steps: `docs/SEO.md`.
 
 ## Add a snapshot
 
@@ -28,7 +28,7 @@ See `docs/DATA.md`.
 | `assets/glass.js` | Real refraction for Liquid Glass in Chromium browsers |
 | `assets/theme.js` | Auto, Light, Dark theme switch |
 | `assets/consent.js` | Cookie banner, passes the consent choice to the Google tag |
-| `<slug>.html`, `data/artist-pages.js` | Generated artist pages (one per artist with a reading) and the map the ranking uses to link to them |
+| `artists/<slug>.html`, `data/artist-pages.js` | Generated artist pages (one per artist with a reading) and the map the ranking uses to link to them |
 | `privacy.html`, `404.html`, `robots.txt`, `sitemap.xml` | Privacy policy, error page, search files |
 | `AGENTS.md`, `CLAUDE.md` | Instructions for AI agents |
 | `skills/` | Design skills used for this project |

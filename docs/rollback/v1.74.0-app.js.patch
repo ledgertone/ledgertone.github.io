@@ -1,0 +1,20 @@
+--- docs/rollback/app.js.v1.73.0	2026-11-01 20:48:01.346075908 +0000
++++ assets/app.js	2026-11-01 20:47:12.271859473 +0000
+@@ -137,7 +137,7 @@
+       const v = el('div', 'v', nf.format(n)); v.append(el('span', 'of', ' / ' + nf.format(t)));
+       const bar = el('div', 'bar'), fill = el('i'); fill.style.transform = 'scaleX(' + (t ? n / t : 0) + ')'; bar.append(fill);
+       c.append(el('div', 'k', label), v, bar); statsBox.append(c);
+-      if (!reduce.matches) fill.animate([{ transform: 'scaleX(0)' }, { transform: fill.style.transform }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' });
++      if (!reduce.matches) fill.animate([{ transform: 'scaleX(0)' }, { transform: fill.style.transform }], { duration: 500, easing: 'cubic-bezier(.2,.8,.2,1)' });
+     });
+   }
+ 
+@@ -306,7 +306,7 @@
+       const end = Math.min(slice.length, shown + CHUNK), frag = document.createDocumentFragment(), start = shown;
+       for (; shown < end; shown++) frag.append(makeRow(slice[shown], shown));
+       list.append(frag);
+-      if (start === 0 && !reduce.matches && !window.LTMotion) Array.from(list.children).slice(0, 15).forEach((tr, n) => tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: n * 20, easing: 'ease-out', fill: 'backwards' }));
++      if (start === 0 && !reduce.matches && !window.LTMotion) Array.from(list.children).slice(0, 6).forEach((tr, n) => tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: n * 50, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }));
+     };
+     if (!window.IntersectionObserver) { shown = 0; while (shown < slice.length) addChunk(); }
+     else {

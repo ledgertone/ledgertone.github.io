@@ -1,0 +1,22 @@
+--- docs/rollback/styles.css.v1.74.0	2026-11-01 20:53:41.228341559 +0000
++++ assets/styles.css	2026-11-01 20:53:41.253592995 +0000
+@@ -47,14 +47,6 @@
+ .actions{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+ .btn{display:inline-flex;align-items:center;min-height:52px;padding:0 32px;border-radius:999px;color:var(--on-accent);font-weight:500;text-decoration:none}
+ .text{display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border-radius:999px;color:var(--ink);font-weight:500;text-decoration:none}
+-.staff{display:block;width:100%;max-width:760px;margin-top:40px;overflow:visible;color:var(--ink)}
+-.sl,.lg{stroke:currentColor;stroke-width:1.5;stroke-opacity:.4;transform-origin:left;transform-box:fill-box}
+-.sl{animation:draw .9s var(--ease) both;animation-delay:calc(var(--i) * 70ms)}
+-.nt{transform-origin:center;transform-box:fill-box;animation:pop .6s var(--ease) .55s both}
+-.nt .lg{stroke-opacity:.7;stroke-width:2}
+-.nt ellipse{fill:var(--accent)}
+-@keyframes draw{from{transform:scaleX(0)}}
+-@keyframes pop{from{transform:scale(.5);opacity:0}}
+ section{padding:56px 0}
+ .hero{padding-bottom:24px;position:relative}
+ @keyframes spin{to{transform:rotate(360deg)}}
+@@ -470,3 +462,4 @@
+ .prof .tagline{grid-column:1 / -1;margin:0;max-width:none}
+ }
+ .search input::-webkit-search-cancel-button{filter:grayscale(1)}
++a{color:var(--ink);text-underline-offset:3px}

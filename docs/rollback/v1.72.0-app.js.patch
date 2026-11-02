@@ -1,0 +1,11 @@
+--- assets/app.js	2026-11-01 19:08:45.614252048 +0000
++++ assets/app.js
+@@ -241,7 +241,7 @@
+     const slice = rows.slice(from, from + size);
+     list.replaceChildren();
+     if (!slice.length) {
+-      const tr = el('tr'), td = el('td', 'none', 'No artists match your search.');
++      const tr = el('tr'), td = el('td', 'none', 'No artists match your search');
+       td.colSpan = 3; tr.append(td); list.append(tr);
+     }
+     // Performance (owner request, v0.93.0): "All" made the iPhone freeze (thousands of rows, each with two glass buttons). Rows are now built in small chunks, the next chunk

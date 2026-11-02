@@ -2,6 +2,107 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.75.0] - 2026-11-01
+### Changed
+- The old shared GitHub Pages domain is gone from the site (owner decision, new rule 31 in `AGENTS.md`, line in `CLAUDE.md`, check 15 in `scripts/check-release.js`). The domain text in `assets/og-image.png` is now `ledgertone.settwor.com.pl`; the README launch line and the history lines no longer name the old domain.
+- Links without a class (the snapshot address under the table, the "all.html" and "index.html" links in the top note, the note of `spotify.html`) used the browser blue. All plain links now use the page ink with a 3px underline offset, like the links of the long pages.
+- Removed the unused CSS of the staff drawing (`.staff`, `.sl`, `.nt`, `draw`, `pop`; no page used it). The motion bullet of `AGENTS.md` no longer mentions it. Checked in headless Chromium at 360, 768 and 1280 px, light and dark, five pages: no horizontal overflow, no script errors, no browser-blue link on nine pages.
+- Way back: `docs/rollback/v1.75.0.md`, reverse patches and copies of the changed files.
+
+## [1.74.0] - 2026-11-01
+### Changed
+- Motion pass of the Unslop skill. CSS press transitions are 120 ms (were 100), the pull-to-refresh return is 200 ms (was 250), the stat bar fill is 500 ms (was 600). The row fade-in used only without `assets/motion.js` has 6 rows, 400 ms, 50 ms step and the site curve (was 15 rows, 360 ms, 20 ms, `ease-out`). All transitions name their property (no `all`), one easing curve. `assets/motion.js` untouched. Checked in headless Chromium at 360, 768 and 1280 px, light and dark, five pages: no horizontal overflow, no script errors.
+- Way back: `docs/rollback/v1.74.0.md`, reverse patches and copies of the two changed files.
+
+## [1.73.0] - 2026-11-01
+### Changed
+- `assets/og-image.png` redrawn in neutral colors (the old one was lavender with a violet dot, which broke the v1.71.0 no-violet decision). Same title "Top-100 Phonk Artists on Pandora", Geologica, sentence case label, no decorative dot and staff lines, white glass-like card. Rendered with grayscale antialiasing in headless Chromium; the largest difference between color channels is 5 of 255. No other visual change.
+- Way back: `docs/rollback/v1.73.0.md` and `docs/rollback/og-image.png.v1.72.0`.
+
+## [1.72.0] - 2026-11-01
+### Changed
+- Second Unslop pass. Spacing: all off-grid `margin`, `padding` and `gap` values in px in `assets/styles.css` are on the 4px scale (139 values, list in `docs/rollback/v1.72.0.md`); heights, widths, hit areas and the pills of rules 21 and 22 are not touched. Rows and the top bar grow by about 2 to 4px. Checked in headless Chromium at 360, 768 and 1280 px, light and dark, seven pages: no horizontal overflow, layout intact.
+- Copy: search placeholder is "Search" (the field keeps `aria-label="Search artists"`), the empty state has no trailing period.
+- One easing curve for CSS motion (`--ease`), and the native blue clear cross of the search field is gray.
+- Way back: `docs/rollback/v1.72.0.md`, reverse patches and copies of the three changed files as in v1.71.0.
+
+## [1.71.0] - 2026-11-01
+### Changed
+- No violet (owner decision). Light theme tokens in `assets/styles.css`: `--accent` near black `#1D1D1F` (was violet `#5B34E0`), `--btn2`, `--f1` to `--f5` and `--ring` neutral greys (were magenta, cyan, pink, blue, peach and a violet ring). The primary button, Accept, focus rings, the progress bars and the note on the staff are near black in the light theme and light grey in the dark theme, as before. No violet is left in the styles.
+- The red pill of unverified artists (`.flag`) is flat (owner decision): light red tint, thin red edge, red text, no gradient, no glow, no shadow, the same recipe as the change pills; the `!` mark is a solid red circle. Wording of rule 11 and of rule 30 item 4 in `AGENTS.md` updated, and the Color line of Design rules (no violet).
+- Glass and its edge gradients stay (owner decision).
+- Way back: `docs/rollback/v1.71.0.md`, reverse patches and copies of both changed files as they were in v1.70.0. Checked in headless Chromium, see TODO.
+
+## [1.70.0] - 2026-11-01
+### Changed
+- First Unslop pass (owner request: do what does not conflict with the owner decisions, with a way back). Only `assets/styles.css`: no gradient text (`h1 .soft` is plain muted, `--hg` removed); the labels that were uppercase with wide tracking are sentence case with letter-spacing 0 (status chip, snapshot picker label, meta line, table headers, \"Earlier snapshots\" heading, stat labels, profile chips, phone table cells); table headers on phones 11px instead of 9px; weights 400 to 600 only (headings and rank 600, names, buttons and figures 500); no negative tracking on small text; the note on the staff no longer overshoots; the three medals are flat colors instead of gradients. Checked in headless Chromium (home, 1280 px light and 390 px dark), no script errors. Kept: Liquid Glass, fonts, the red `.flag` pill, the `.dn` and `.up` pills, the light theme accent.
+### Added
+- `docs/rollback/` (goes into the archive): `v1.70.0.md` (every old and new value, how to go back), `v1.70.0-styles.css.patch` (reverse with `patch -R`, tested: gives back the v1.69.0 file byte for byte) and `styles.css.v1.69.0` (the exact old file). AGENTS.md rule 30 now requires the same for every later Unslop change.
+
+## [1.69.0] - 2026-11-01
+### Added
+- The Unslop skill is built into the site (owner request: all its rules, strictly). `skills/unslop/` is the upstream skill by Damir Sokolovsky (CC BY 4.0) copied unedited, with `LICENSE` and `CITATION.cff` so the credit stays. New rule 30 in `AGENTS.md`: every change of look, layout, type, color, motion or interface copy follows the skill (read it, audit against `signs.md`, write the five Direction lines, fix in the nine passes in order, run its checklist); a whole-screen or whole-site pass waits for the owner's answer after the audit and the direction, a single element or one line of text needs no round trip. The owner decisions of `AGENTS.md` win only where they say the opposite: Liquid Glass, Signature None (no hero scene, no generated image, no story video unless asked), the fonts, the pills of rules 11, 21 and 22. New bullet in Design rules, new line in `CLAUDE.md`, new row and notes in `skills/README.md`, `skills/` row in the Layout table.
+- `scripts/check-release.js` check 14: the skill folder and its files are present, `SKILL.md` is byte for byte the upstream file (SHA-256) and carries the credit, rule 30 is in `AGENTS.md`, the Unslop line is in `CLAUDE.md`.
+- Audit of the current site against `signs.md` written into `TODO.md` (findings only, nothing in the look was changed in this version).
+### Changed
+- Version stamps only on the pages. No data, no page text and no style changed.
+
+## [1.68.0] - 2026-11-01
+### Changed
+- Site name in Google (owner request: Google shows the address `ledgertone.settwor.com.pl` above the result instead of "Ledgertone"). The `WebSite` JSON-LD of the home page and of `all.html` no longer has `alternateName` `ledgertone.settwor.com.pl` (added in an old version, `scripts/build-home.js`): the address was offered to Google as a second name of the site, and Google can pick it. The name stays one: `name` "Ledgertone", the same as `og:site_name`, `apple-mobile-web-app-title` and the start of the home `<title>`. Google decides the site name itself and re-reads it only after a new crawl of the home page, so the change can take days or weeks.
+
+## [1.67.0] - 2026-11-01
+### Removed
+- The mentions of the rounded figure of Pandora (owner request), such as "(Pandora showed 24K)" and "shown as 24K", on the artist pages. The answer sentence (also in the JSON-LD, the meta description and the FAQ) now reads "N had X listeners over 28 days on Pandora in the Ledgertone snapshot of Month Year, place ..." with no bracket; the grey "shown as ..." beside the number in the 28-day listeners card is gone. The key `cardShown` is removed from `data/artist-text.js` (en and ru) and from `assets/artist-page.js`. The sentence for a "Few" reading no longer says "Pandora showed": "the 28-day listeners of X on Pandora were \"Few\", not a number" (Russian likewise). Text only, no data changed. Not changed: the page title and the meta line still use the short figure (for example "24K listeners"), and the method texts on `about.html` and in `srcP` and `dsMethod` still describe how the figure is read.
+
+## [1.66.0] - 2026-11-01
+### Changed
+- Logo for Google (owner request: the logo did not fit). The `logo` of the `Organization` in the JSON-LD of `index.html` was `assets/icons/favicon-192.png`, where the letters "Le" touch all four edges, so Google's round or rounded crop cut them. It is now the new file `assets/icons/logo-512.png`: 512 x 512 px, white square, the same "Le" in Gloock (the site font file) at about 56 percent of the width, centred, with free margin on every side. `scripts/build-home.js` writes the new address. The favicon files (`favicon-32.png`, `favicon-32-dark.png`, `favicon-192.png`) and `apple-touch-icon.png` are not changed (owner request). Google updates a logo only after it re-reads the page, which can take days or weeks.
+
+## [1.65.0] - 2026-11-01
+### Changed
+- Dark theme without blue or violet tints (owner request: only black, white and grey). `assets/styles.css`, both dark places (the media query and `[data-theme=dark]`, kept identical): page `--bg` #0A0A0A (was the deep violet #120E26), `--surface` #2B2B2B (was #2A2058), `--ink` #F5F5F5, `--muted` #A1A1A1, `--line` and `--ring` neutral white alphas, shadows pure black alphas instead of navy, the heading gradient `--hg` white to grey, the unused field colours `--f1` to `--f5` and `--btn2` greys, the accent `--accent` #ECECEC with dark text (`--on-accent` #0A0A0A, new in the dark places) so the primary button, the focus ring and the bars are light grey instead of violet. The pending-genre panel tint is neutral grey. Navy shadow tints in the light theme (`rgba(10,14,36,...)`) are now plain black alphas, the light theme colours are unchanged.
+- `theme-color` of the dark browser bar is #0A0A0A in `index.html` (and `all.html` from the build) and in `assets/theme.js`.
+- Not changed: the dark award cards on the SETTWOR pages are pages of the CDRA site (iframes), their colours are set there. Glass stays glass, no opaque panels added.
+
+## [1.64.0] - 2026-11-01
+### Changed
+- `data/settwor-platforms.js` (owner request): YouTube Music monthly listeners 57,300 (the owner's "57.3K", read on 2026-11-01, the day he gave it); the row "YouTube" is now "YouTube Music". The row "Apple Music" is removed: Apple Music has no listeners figure of this kind (owner). The platforms section of `settwor.html` and `settwor-ru.html` now counts three platforms, the sum follows by itself (rule 25). The Apple Music profile link in the profile list is unchanged.
+
+## [1.63.0] - 2026-11-01
+### Added
+- Footer link "SETTWOR projects" to `https://settwor.com.pl/projects/` on every page (owner request), after "SETTWOR on Pandora"; on `settwor-ru.html` it reads "Проекты SETTWOR". Written in `about.html`, `index.html`, `privacy.html`, `404.html` and in the Russian footer of `scripts/build-artist-pages.js`; `all.html`, `spotify.html`, `settwor.html` and every artist page get it from the build. A plain link, no new request, no change to `privacy.html` text. Because the footer is part of every artist page shell, all artist pages are in this archive once.
+
+## [1.62.0] - 2026-11-01
+### Removed
+- Files that were no longer part of the site and only stayed in the owner's folder (owner request, deleted with `delete-banned-pages.bat`): `rankings.html` (removed from the site in an old version, not linked, not in the sitemap), `skills.zip` (a copy of the folder `skills/`), `scripts/build-platforms.js` (gone since v1.56.0, rule 25, not run by `build-all.js`), the 12 placeholder images `assets/artists/*.svg` of the old sample data (removed in an old version, nothing refers to them), and the Outfit and SF Pro Rounded font files in `assets/fonts/` (removed from the CSS in v1.55.2). `assets/fonts/NewYork.woff` stays (README: kept in the folder, unused). No change to the pages.
+
+## [1.61.0] - 2026-11-01
+### Changed
+- SETTWOR pages (owner request): the gaps between the blocks are smaller. A block had 56px padding above and below plus a 36px margin, about 150px between two blocks; now one gap of 44px on desktop and 34px on phones (the page is about 850px shorter on desktop).
+- The left bar of the growth facts ("Growth and activity") is now the ink color (near black in the light theme, light in the dark theme, where a black bar would not be seen) instead of the accent color.
+- Phones: the tagline under the name ("SETTWOR is a phonk and Brazilian phonk artist...") now sits under the photo and the name over the full width, not in a narrow column beside the photo.
+- Not changed: the first award card looks smaller than the other two. All three frames have the same size in `assets/styles.css`; the card inside is drawn by the CDRA page (`embed/SETTWOR-2-5m.html`), so the cause is in that page. Only `assets/styles.css` changed.
+
+## [1.60.0] - 2026-11-01
+### Fixed
+- Table header "28-day listeners on Pandora" (owner request). Desktop: the column was 10.5rem wide, narrower than the one-line text "28-DAY LISTENERS ON", so the text stuck out to the right of the padding and did not line up with the Pandora logo and the numbers below; the column is now 12rem and the text, the logo and the numbers share one right edge. Phones: the header took three lines; it is now two ("28-DAY LISTENERS" and "ON" plus the logo), the text no longer wraps (`white-space:nowrap`, the column is 7.25rem). Only `assets/styles.css` changed, no page file changed.
+
+## [1.59.0] - 2026-11-01
+### Changed
+- Sending the site without the artist pages (owner request: do not add the artist folder to the archive every time, keep every artist page ready, change one file to change all pages). The mechanism already existed (page shells filled by `assets/artist-page.js` from `data/artist-text.js`, rule 13; unchanged pages left out of the archive by `data/pages-manifest.json`, rule 17), so the change makes it safe and writes it down: the owner may send the site without `artists/`, `settwor.html` and `settwor-ru.html`, the agent regenerates them with `node scripts/build-all.js` and `pack.js --prev` leaves the unchanged ones out.
+- `scripts/pack.js` stops with an error when a page of `data/artist-pages.js` is missing in the working copy (before, a missing page was skipped silently, which would have written a manifest without it and listed it under DELETE).
+- Rule 17 in `AGENTS.md`, the line in `CLAUDE.md` and the new section "Sending the site without the artist pages" in `docs/DATA.md` (also: which single file changes what on every artist page). No change to the site itself.
+
+## [1.58.0] - 2026-11-01
+### Changed
+- SETTWOR pages (`settwor.html`, `settwor-ru.html`): the line with the genres now starts with the label "Genres:" ("Жанры:" on the Russian page), so it is clear that Phonk and Brazilian Phonk are genres (owner request). New text key `genresLbl` in `data/artist-text.js`, new style `.lbl` in `assets/styles.css`, rendered by `assets/artist-page.js`.
+- Every artist page except SETTWOR moved from the site root into the new folder `artists/` (owner request): `/<slug>.html` is now `/artists/<slug>.html`. The file names stay the same, only the folder is new. `settwor.html`, `settwor-ru.html` and `settwor-listeners.csv` stay in the root.
+- How it works: `pageArtists()` in `assets/ledger-core.js` gives every artist except the owner the path `artists/<slug>.html`, so `data/artist-pages.js`, the artist links in the ranking tables (`assets/app.js` now accepts the folder), the static home rows, the JSON-LD, the canonical addresses and `sitemap.xml` follow by themselves. `scripts/build-artist-pages.js` writes into `artists/` and puts `../` in front of every local link and script of the page shell; `assets/artist-page.js` does the same for the text it draws, so the page works in the folder with no other change. `assets/update.js` and `assets/consent.js` already use root addresses.
+- `scripts/check-release.js` scans `artists/` too (version stamps, local links, iframes, loader) and has the new check 13: every page of the map is in `artists/` and no old copy is left in the root.
+### Fixed
+- Not done: the old root addresses `/<slug>.html` stop working once the old files are deleted (404). The new addresses are in `sitemap.xml`; Google drops the old ones by itself, which takes time. The old root copies must be deleted from the site folder (`delete-banned-pages.bat`), otherwise they stay online as duplicates.
+
 ## [1.57.0] - 2026-11-01
 ### Added
 - Section "Streams" (Russian page: "Прослушивания") on `settwor.html` and `settwor-ru.html` (owner request): plays per platform and per year, total streams, YouTube release videos and the whole channel, read from the owner's own site every time the page opens. New `assets/streams.js` fetches `https://settwor.com.pl/streams.json`, which the main site builds from its `_data` folder (`platforms/*.yml`, `auto_stats.json`, `streams.yml`). So a figure changed on the main site shows here without a new Ledgertone version and without `build-all.js`. The page holds no figure (rule 13); text keys `str*` in `data/artist-text.js`; new jump link "Streams".
@@ -61,7 +162,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 - Browser bar colour in the light theme is white: `theme-color` in `index.html` (and `all.html` by the build) and `BAR.light` in `assets/theme.js`.
 ### Fixed
 - The version line in the footer did not always appear on the first view. `reveal()` in `assets/motion.js` hides everything below the first screen until an `IntersectionObserver` (bottom margin 6 percent) sees it. The last footer line sits inside that bottom band when the page is scrolled to its end, so it stayed at opacity 0 on phones and came late on desktop. Now, when the page is at its end, everything still waiting enters at once (checked on scroll, resize, load, pageshow and twice shortly after load, because the list changes the page height). Items already shown are removed from the waiting list so nothing blinks twice. Checked in Chromium at 390, 1280 and 1440 px on the home page, About, Privacy, Spotify, the full list, an artist page and 404: the version line is fully visible after scrolling to the bottom.
-- `scripts/check-release.js` check 11 still expected the old CDRA host `cdras.github.io`, so it failed on the correct `https://cdra.settwor.com.pl/embed/` frames; the pattern now matches the host of AGENTS.md rule 27.
+- `scripts/check-release.js` check 11 still expected the old CDRA host, so it failed on the correct `https://cdra.settwor.com.pl/embed/` frames; the pattern now matches the host of AGENTS.md rule 27.
 - `liue.html`, the page of the banned artist "líue" (rule 8, deleted in an earlier version), was back in the archive with the stamp 0.94.0 and failed the version check. Removed again; the owner deletes it from the site folder with `delete-banned-pages.bat`.
 - Not done: Safari and a real iPhone were not tested (Chromium only).
 
@@ -461,7 +562,7 @@ Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 ### Changed
 - Banned artist (owner request): "líue" removed from `data/unverified.js` and `data/links.js`, added to `banned` in `data/snapshots.js`, his page `liue.html` deleted, `data/artist-pages.js` and `sitemap.xml` rebuilt (AGENTS.md rule 8). `node scripts/check-banned.js` prints ok.
 - Fonts (owner report: text jumped while fonts loaded): every `@font-face` in `assets/styles.css` uses `font-display:optional` instead of `swap`; `SFProRounded-Semibold.woff` and `NewYork.woff` are now preloaded in `index.html`, `about.html`, `404.html` (and so in every artist page). Not yet shrunk to woff2 or subset (no tools here); on a first visit with a slow connection the fallback font may stay until the next load.
-- Search appearance: `favicon.ico` rebuilt with 16, 32 and 48 px; `assets/icons/favicon-192.png` linked in every head (Google wants a multiple of 48 px); the missing `apple-touch-icon.png` (180 px, from the 192 px icon) added; `alternateName` `ledgertone.settwor.com.pl` added to the `WebSite` JSON-LD of the home page (`scripts/build-home.js`). The site name in Google may still read "GitHub" for a github.io subdomain, only a custom domain fixes it for sure.
+- Search appearance: `favicon.ico` rebuilt with 16, 32 and 48 px; `assets/icons/favicon-192.png` linked in every head (Google wants a multiple of 48 px); the missing `apple-touch-icon.png` (180 px, from the 192 px icon) added; `alternateName` `ledgertone.settwor.com.pl` added to the `WebSite` JSON-LD of the home page (`scripts/build-home.js`). The site name in Google may still read "GitHub" for a shared subdomain, only a custom domain fixes it for sure.
 - Structured data: `license` (CC BY 4.0, `https://creativecommons.org/licenses/by/4.0/`) added to the `Dataset` JSON-LD of every artist page (`assets/artist-page.js`), the optional field the Rich Results Test reported as missing. Licence chosen by the assistant, the owner may change it.
 - Archive naming rule changed (owner decision): `Ledgertone vX.Y.Z.zip`, always the whole site (AGENTS.md rule 5 and `CLAUDE.md`). The owner shorthand "<name> - бан" is written down in `CLAUDE.md`.
 - Note: the icon, font and licence changes of this version were first handed out as unnumbered patch archives that broke rules 5 and 9; this version replaces them.

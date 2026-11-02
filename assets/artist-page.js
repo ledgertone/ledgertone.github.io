@@ -77,7 +77,7 @@
     var artistId = a.owner ? a.site + '#artist' : url + '#artist';
     var ld = { '@context': 'https://schema.org', '@graph': [
       { '@type': 'WebPage', '@id': url + '#page', url: url, name: title, description: desc, inLanguage: lang, dateModified: latest, isPartOf: { '@type': 'WebSite', name: 'Ledgertone', url: SITE }, publisher: { '@id': SITE + '#org' }, breadcrumb: { '@id': url + '#crumbs' }, about: { '@id': artistId }, mainEntity: { '@id': url + '#faq' } },
-      Object.assign({ '@type': 'Organization', '@id': SITE + '#org', name: 'Ledgertone', url: SITE, logo: SITE + 'assets/icons/favicon-192.png' }, a.owner ? { founder: { '@id': artistId } } : {}),
+      Object.assign({ '@type': 'Organization', '@id': SITE + '#org', name: 'Ledgertone', url: SITE, logo: SITE + 'assets/icons/logo-512.png' }, a.owner ? { founder: { '@id': artistId } } : {}),
       { '@type': 'BreadcrumbList', '@id': url + '#crumbs', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Ledgertone', item: SITE }, { '@type': 'ListItem', position: 2, name: a.name, item: url }] },
       a.owner ? core.ownerNode(lk) : { '@type': 'MusicGroup', '@id': artistId, name: a.name, url: a.site, image: a.photo || undefined, sameAs: [a.site, lk.pandora, lk.spotify].filter(Boolean) },
       { '@type': 'Dataset', '@id': url + '#data', name: fmt(t.dsName, { name: a.name }), description: fmt(t.dsDesc, { answer: answer, date: latest }), creator: a.owner ? core.ownerCreator() : { '@type': 'Organization', name: 'Ledgertone', url: SITE }, license: 'https://creativecommons.org/licenses/by/4.0/', url: url, isAccessibleForFree: true, publisher: { '@id': SITE + '#org' }, measurementTechnique: t.dsMethod, keywords: fmt(t.dsKeywords, { name: a.name }), distribution: a.csv ? [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: SITE + a.csv }] : undefined, dateModified: latest, temporalCoverage: coverage, inLanguage: lang, about: { '@id': artistId },
@@ -105,7 +105,7 @@
       '<p>' + esc(answer) + ' ' + esc(second) + '</p>'
     ].concat(a.verified === false ? ['<p>' + esc(fmt(t.unvNote, vn)) + '</p>'] : []).concat([
       '<div class="stats" role="group" aria-label="' + esc(fmt(t.aria, vn)) + '">',
-      statCard(t.cardL, isNum ? n(top.x.listeners) : 'Few', isNum ? fmt(t.cardShown, { text: top.x.text }) : ''),
+      statCard(t.cardL, isNum ? n(top.x.listeners) : 'Few', ''),
       statCard(t.cardSnap, m(latest), latest),
       places.map(function (x) { return statCard(fmt(t.cardPlace, { genre: x.name }), String(x.p.place), fmt(t.cardOf, { of: n(x.p.of) }), dropMark(a, x.p.place, x.e, t)); }).join('\n'),
       '</div>',
@@ -120,7 +120,7 @@
     if (a.owner && t.ownTitle) {
       var sec = function (id, inner) { return '<section class="blk" id="' + id + '">\n' + inner + '\n</section>'; };
       var cards = [];
-      if (isNum) cards.push(statCard(t.cardL, n(top.x.listeners), fmt(t.cardShown, { text: top.x.text })));
+      if (isNum) cards.push(statCard(t.cardL, n(top.x.listeners), ''));
       counted.forEach(function (p) {
         if (p.name === 'Pandora') return;
         cards.push(statCard(p.name + ': ' + metricName(p.metric), n(p.listeners), p.date));
@@ -136,7 +136,7 @@
       }).join('\n');
       var platTable = '<div class="tbl hist glass glass-flat"><table><caption class="sr">' + esc(fmt(t.platCap, vn)) + '</caption>\n<thead><tr><th scope="col">' + esc(t.platTh[0]) + '</th><th scope="col">' + esc(t.platTh[1]) + '</th><th scope="col" class="c-st">' + esc(t.platTh[2]) + '</th></tr></thead>\n<tbody>\n' + platRows + '\n</tbody></table></div>';
       var sumCard = '<div class="stats sumrow" role="group" aria-label="' + esc(t.sumL) + '">' + statCard(t.sumL, counted.length ? n(sum) : t.noData, counted.length ? fmt(t.sumOf, { k: counted.length, all: plat.length }) : '') + '</div>';
-      var chips = genres.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('');
+      var chips = '<li class="lbl">' + esc(t.genresLbl) + '</li>' + genres.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join(''); // v1.58.0: the label says that these are genres
       var links = [];
       if (a.site) links.push([fmt(t.linkSite, vn), a.site]);
       links.push([t.profBio, a.site + 'bio.html']);
@@ -153,7 +153,7 @@
         sec('platforms', '<h2>' + esc(t.platH) + '</h2>\n<p>' + esc(fmt(t.platLead, vn)) + '</p>\n' + platTable + '\n' + sumCard + '\n<p>' + esc(t.platNote) + '</p>'),
         // v1.57.0 (rule 28): plays and views from the owner's site, filled in the browser by assets/streams.js, so no figure is written here
         t.strH ? sec('streams', '<h2>' + esc(t.strH) + '</h2>\n<p>' + esc(fmt(t.strLead, vn)) + '</p>\n<div id="streams-live" data-state="loading" aria-live="polite"><p class="nd">' + esc(t.strLoad) + '</p></div>\n<noscript><p class="nd">' + esc(t.strNoJs) + '</p></noscript>\n<p><a href="' + esc(a.site + 'streams') + '" rel="noopener">' + esc(t.strOpen) + '</a></p>') : '',
-        sec('pandora', '<h2>' + esc(fmt(t.pandoraH, vn)) + '</h2>\n<p>' + esc(answer) + ' ' + esc(second) + '</p>\n<div class="stats" role="group" aria-label="' + esc(fmt(t.aria, vn)) + '">\n' + statCard(t.cardL, isNum ? n(top.x.listeners) : 'Few', isNum ? fmt(t.cardShown, { text: top.x.text }) : '') + '\n' + statCard(t.cardSnap, m(latest), latest) + '\n' + places.map(function (x) { return statCard(fmt(t.cardPlace, { genre: x.name }), String(x.p.place), fmt(t.cardOf, { of: n(x.p.of) }), dropMark(a, x.p.place, x.e, t)); }).join('\n') + '\n</div>\n<h3>' + esc(t.srcH) + '</h3>\n<p>' + t.srcP + '</p>\n<h3>' + esc(t.histH) + '</h3>\n<p>' + esc(fmt(t.histLead, vn)) + '</p>\n' + histTable + '\n' + linkRow('<p>', '</p>', ' &middot; ', '')),
+        sec('pandora', '<h2>' + esc(fmt(t.pandoraH, vn)) + '</h2>\n<p>' + esc(answer) + ' ' + esc(second) + '</p>\n<div class="stats" role="group" aria-label="' + esc(fmt(t.aria, vn)) + '">\n' + statCard(t.cardL, isNum ? n(top.x.listeners) : 'Few', '') + '\n' + statCard(t.cardSnap, m(latest), latest) + '\n' + places.map(function (x) { return statCard(fmt(t.cardPlace, { genre: x.name }), String(x.p.place), fmt(t.cardOf, { of: n(x.p.of) }), dropMark(a, x.p.place, x.e, t)); }).join('\n') + '\n</div>\n<h3>' + esc(t.srcH) + '</h3>\n<p>' + t.srcP + '</p>\n<h3>' + esc(t.histH) + '</h3>\n<p>' + esc(fmt(t.histLead, vn)) + '</p>\n' + histTable + '\n' + linkRow('<p>', '</p>', ' &middot; ', '')),
         t.growItems ? sec('growth', '<h2>' + esc(t.growH) + '</h2>\n<p>' + esc(fmt(t.growLead, vn)) + '</p>\n<ul class="grow">\n' + t.growItems.map(function (x) { return '<li class="glass glass-flat">' + esc(x) + '</li>'; }).join('\n') + '\n</ul>\n<p>' + fmtH(t.growSrc, vn) + '</p>') : '',
         t.awardsItems && t.awardsItems.length ? sec('awards', awardsBlock(t, vn)) : '',
         sec('profiles', '<h2>' + esc(t.profH) + '</h2>\n<p>' + esc(fmt(t.profLead, vn)) + '</p>\n' + plinks),
@@ -161,6 +161,8 @@
         '</section>', '</main>'
       ].filter(Boolean).join('\n');
     }
+    // v1.58.0: the pages of every artist except the owner live in artists/, so a local link written for the root gets ../ in front (links that already start with ../, / or # or have a scheme are left alone)
+    if (!a.owner) body = body.replace(/(\s(?:href|src)=")(?![a-z][a-z0-9+.-]*:|\/|#|\.\.\/)/gi, '$1../');
     return { lang: lang, locale: ru ? 'ru_RU' : 'en_US', url: url, file: file, answer: answer, second: second, title: title, desc: desc, ld: ld, body: body, hist: hist, latest: latest, lk: lk, twin: twin, urlEn: urlEn, urlRu: urlRu };
   }
 
@@ -178,7 +180,7 @@
     var a = core.pageArtists().find(function (x) { return x.key === key; });
     var r = a && model(a, lang);
     var set = function (sel, make) { var el = doc.head.querySelector(sel); if (!el) { el = make(); doc.head.appendChild(el); } return el; };
-    if (!r) { main.innerHTML = '<section class="wrap doc"><p>' + esc(TEXT[lang].missing) + '</p><p><a href="index.html">' + esc(TEXT[lang].linkRank) + '</a></p></section>'; return; }
+    if (!r) { main.innerHTML = '<section class="wrap doc"><p>' + esc(TEXT[lang].missing) + '</p><p><a href="../index.html">' + esc(TEXT[lang].linkRank) + '</a></p></section>'; return; }
     main.innerHTML = r.body.replace(/^<main>\n/, '').replace(/\n<\/main>$/, '');
     doc.title = r.title;
     set('meta[name="description"]', function () { var e = doc.createElement('meta'); e.name = 'description'; return e; }).setAttribute('content', r.desc);

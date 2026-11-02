@@ -18,7 +18,11 @@ const name = 'Ledgertone v' + version + '.zip';
 const target = path.resolve(out, name);
 
 const map = fs.readFileSync(path.join(root, 'data/artist-pages.js'), 'utf8');
-const pages = [...new Set([...map.matchAll(/: "([^"]+\.html)"/g)].map((m) => m[1]).concat(['settwor.html', 'settwor-ru.html']))].filter((f) => fs.existsSync(path.join(root, f)));
+const pages = [...new Set([...map.matchAll(/: "([^"]+\.html)"/g)].map((m) => m[1]).concat(['settwor.html', 'settwor-ru.html']))];
+// v1.59.0: the owner may send the site without the folder artists/ (rule 17). The pages are generated from the data, so a missing page is never skipped silently
+// (a skipped page would be missing in the manifest and would show up as "gone" under DELETE): stop and ask for node scripts/build-all.js first.
+const absent = pages.filter((f) => !fs.existsSync(path.join(root, f)));
+if (absent.length) { console.error('FAIL: ' + absent.length + ' artist pages are missing in this working copy (' + absent.slice(0, 3).join(', ') + (absent.length > 3 ? ', ...' : '') + '). They are generated from the data: run node scripts/build-all.js first.'); process.exit(1); }
 const unzipP = (f) => { try { return cp.execFileSync('unzip', ['-p', prev, f], { stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1 << 26 }).toString('utf8'); } catch (e) { return null; } };
 
 const mask = (s, v) => s.split(v).join('<V>');

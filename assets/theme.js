@@ -26,7 +26,7 @@
   var ORDER = ["auto", "light", "dark"];
   var RU = document.documentElement.lang === "ru"; // Russian page (settwor-ru.html, v0.81.0)
   var LABEL = RU ? { auto: "Авто", light: "Светлая", dark: "Тёмная" } : { auto: "Auto", light: "Light", dark: "Dark" };
-  var BAR = { light: "#FFFFFF", dark: "#120E26" };
+  var BAR = { light: "#FFFFFF", dark: "#0A0A0A" };
   var root = document.documentElement;
   var mode = "auto";
 

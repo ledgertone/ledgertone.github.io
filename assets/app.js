@@ -84,7 +84,7 @@
   const linkMap = (window.LEDGERTONE_LINKS && typeof window.LEDGERTONE_LINKS === 'object') ? window.LEDGERTONE_LINKS : {};
   // Artist pages (owner decision, v0.82.0): data/artist-pages.js maps the same key to a generated page. The name opens that page, the Pandora pill still opens Pandora.
   const pageMap = (window.LEDGERTONE_PAGES && typeof window.LEDGERTONE_PAGES === 'object') ? window.LEDGERTONE_PAGES : {};
-  const pageOf = (n) => { const f = pageMap[norm(n)]; return (typeof f === 'string' && /^[a-z0-9-]+\.html$/.test(f)) ? f : null; };
+  const pageOf = (n) => { const f = pageMap[norm(n)]; return (typeof f === 'string' && /^(artists\/)?[a-z0-9-]+\.html$/.test(f)) ? f : null; };
   const pandoraLink = (u) => { const x = safeUrl(u); try { return x && /^(www\.)?pandora\.com$/.test(new URL(x).hostname) ? x : null; } catch (e) { return null; } };
   const spotifyLink = (id) => (typeof id === 'string' && /^[A-Za-z0-9]{22}$/.test(id)) ? 'https://open.spotify.com/artist/' + id : null;
   // Open Spotify links in the Spotify app (owner request, v0.72.0). Phones and tablets keep the plain https link: open.spotify.com is a universal link (iOS) and an app link (Android), so the installed app opens it by itself. Desktop browsers have no such handoff, so a plain click launches the app through the spotify: URI and falls back to the web page in a new tab if the browser never left the page (no app installed). Modified clicks (Ctrl, Cmd, Shift, middle button) keep the normal https behavior.
@@ -137,7 +137,7 @@
       const v = el('div', 'v', nf.format(n)); v.append(el('span', 'of', ' / ' + nf.format(t)));
       const bar = el('div', 'bar'), fill = el('i'); fill.style.transform = 'scaleX(' + (t ? n / t : 0) + ')'; bar.append(fill);
       c.append(el('div', 'k', label), v, bar); statsBox.append(c);
-      if (!reduce.matches) fill.animate([{ transform: 'scaleX(0)' }, { transform: fill.style.transform }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' });
+      if (!reduce.matches) fill.animate([{ transform: 'scaleX(0)' }, { transform: fill.style.transform }], { duration: 500, easing: 'cubic-bezier(.2,.8,.2,1)' });
     });
   }
 
@@ -241,7 +241,7 @@
     const slice = rows.slice(from, from + size);
     list.replaceChildren();
     if (!slice.length) {
-      const tr = el('tr'), td = el('td', 'none', 'No artists match your search.');
+      const tr = el('tr'), td = el('td', 'none', 'No artists match your search');
       td.colSpan = 3; tr.append(td); list.append(tr);
     }
     // Performance (owner request, v0.93.0): "All" made the iPhone freeze (thousands of rows, each with two glass buttons). Rows are now built in small chunks, the next chunk
@@ -306,7 +306,7 @@
       const end = Math.min(slice.length, shown + CHUNK), frag = document.createDocumentFragment(), start = shown;
       for (; shown < end; shown++) frag.append(makeRow(slice[shown], shown));
       list.append(frag);
-      if (start === 0 && !reduce.matches && !window.LTMotion) Array.from(list.children).slice(0, 15).forEach((tr, n) => tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, delay: n * 20, easing: 'ease-out', fill: 'backwards' }));
+      if (start === 0 && !reduce.matches && !window.LTMotion) Array.from(list.children).slice(0, 6).forEach((tr, n) => tr.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, delay: n * 50, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }));
     };
     if (!window.IntersectionObserver) { shown = 0; while (shown < slice.length) addChunk(); }
     else {

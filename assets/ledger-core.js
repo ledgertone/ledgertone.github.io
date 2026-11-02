@@ -107,7 +107,7 @@
       var base = slugOf(a.name) || 'artist-' + (++n), f = base, i = 2;
       while (used.has(f)) f = base + '-' + (i++);
       used.add(f);
-      out.push(Object.assign({ key: k, file: f + '.html' }, a));
+      out.push(Object.assign({ key: k, file: 'artists/' + f + '.html' }, a)); // v1.58.0 (owner request): every artist page except SETTWOR lives in the folder artists/
     });
     return out;
   };

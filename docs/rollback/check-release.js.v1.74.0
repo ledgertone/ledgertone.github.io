@@ -1,0 +1,209 @@
+// Release check (v1.23.0): one command that runs the checks an agent did by hand before every archive.
+// usage: node scripts/check-release.js [--no-build]
+// 1 node --check on every script; 2 check-banned.js; 3 build-all.js (skipped with --no-build); 4 no em-dash or emoji in the sources;
+// 5 version: CHANGELOG top entry equals version.json, the meta tag, the footer line and every ?v= stamp of every HTML page;
+// 6 JSON-LD of index.html, settwor.html, settwor-ru.html and one artist shell parses and every referenced @id is defined on the same page;
+// 7 every local href and src of every HTML page points to an existing file (data/artist-media*.js are expected to be missing, rule 9).
+// 8 feed.xml: one entry per snapshot, unique ids, linked from index.html.
+// 9 ranking files (v1.26.0, older snapshots v1.37.0): one CSV and one JSON per snapshotted genre (and per older snapshot), row count equals the top list, CSV and JSON agree, linked from index.html, Dataset in the JSON-LD.
+// 14 Unslop skill (v1.69.0, rule 30): skills/unslop is present, SKILL.md is the unedited upstream file with its credit, rule 30 is in AGENTS.md and CLAUDE.md.
+// Exit code 1 when anything fails.
+const fs = require('fs'), path = require('path'), cp = require('child_process');
+const root = path.resolve(__dirname, '..');
+const rd = (f) => fs.readFileSync(path.join(root, f), 'utf8');
+let fails = 0;
+const SITE_URL = 'https://ledgertone.settwor.com.pl/';
+const ok = (m) => console.log('ok    ' + m);
+const bad = (m) => { fails++; console.log('FAIL  ' + m); };
+const run = (args) => { try { return { ok: true, out: cp.execFileSync('node', args, { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] }).toString() }; } catch (e) { return { ok: false, out: String(e.stdout || '') + String(e.stderr || '') }; } };
+
+// 1 syntax
+const jsFiles = [];
+['assets', 'scripts', 'scripts/lib'].forEach((d) => fs.readdirSync(path.join(root, d)).forEach((f) => { if (f.endsWith('.js')) jsFiles.push(d + '/' + f); }));
+const synt = jsFiles.filter((f) => !run(['--check', f]).ok);
+synt.length ? bad('syntax error in ' + synt.join(', ')) : ok('node --check on ' + jsFiles.length + ' scripts');
+
+// 2 banned
+const b = run(['scripts/check-banned.js']);
+b.ok ? ok(b.out.trim()) : bad('check-banned: ' + b.out.trim());
+
+// 3 build
+if (!process.argv.includes('--no-build')) {
+  const r = run(['scripts/build-all.js']);
+  r.ok ? ok('build-all ran') : bad('build-all: ' + r.out.trim().split('\n').slice(-3).join(' '));
+}
+
+// 4 characters
+const srcFiles = jsFiles.concat(['CLAUDE.md', 'AGENTS.md', 'CHANGELOG.md', 'TODO.md', 'README.md', 'assets/styles.css', 'docs/DATA.md', 'docs/SEO.md']);
+const emoji = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F2FF}]/u;
+const chars = [];
+srcFiles.forEach((f) => { if (!fs.existsSync(path.join(root, f))) return; const t = rd(f); if (t.includes('\u2014')) chars.push(f + ' (em-dash)'); if (emoji.test(t)) chars.push(f + ' (emoji)'); });
+chars.length ? bad('forbidden characters: ' + chars.join(', ')) : ok('no em-dash and no emoji in ' + srcFiles.length + ' sources');
+
+// 5 version
+const ver = (rd('CHANGELOG.md').match(/^## \[([0-9.]+)\]/m) || [])[1];
+const htmls = fs.readdirSync(root).filter((f) => f.endsWith('.html')).concat(fs.existsSync(path.join(root, 'artists')) ? fs.readdirSync(path.join(root, 'artists')).filter((f) => f.endsWith('.html')).map((f) => 'artists/' + f) : []); // v1.58.0: the artist pages are in artists/
+const verBad = [];
+if (JSON.parse(rd('version.json')).version !== ver) verBad.push('version.json');
+htmls.forEach((f) => {
+  const t = rd(f);
+  if (!/ledgertone-version/.test(t)) return; // for example the Google verification file
+  if (!t.includes('name="ledgertone-version" content="' + ver + '"')) verBad.push(f + ' meta');
+  if (!new RegExp('<p class="ver">[^<]*' + ver.replace(/\./g, '\\.') + '</p>').test(t)) verBad.push(f + ' footer');
+  [...t.matchAll(/\?v=([0-9.]+)/g)].forEach((m) => { if (m[1] !== ver) verBad.push(f + ' ?v=' + m[1]); });
+});
+verBad.length ? bad('version differs from ' + ver + ': ' + [...new Set(verBad)].slice(0, 8).join(', ')) : ok('version ' + ver + ' in CHANGELOG, version.json, meta, footer and ?v= stamps of ' + htmls.length + ' pages');
+
+// 6 JSON-LD
+const map = rd('data/artist-pages.js'), shell = (map.match(/: "([^"]+\.html)"/) || [])[1];
+const ldPages = ['index.html', 'settwor.html', 'settwor-ru.html'].concat(shell ? [shell] : []).filter((f) => fs.existsSync(path.join(root, f)));
+ldPages.forEach((f) => {
+  const blocks = [...rd(f).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  if (!blocks.length) { if (f === 'index.html' || f.startsWith('settwor')) bad(f + ': no JSON-LD'); else ok(f + ': no JSON-LD (shell, filled in the browser)'); return; }
+  const defined = new Set(), refs = new Set();
+  const walk = (o, top) => { if (Array.isArray(o)) return o.forEach((x) => walk(x, top)); if (o && typeof o === 'object') { const keys = Object.keys(o); if (o['@id']) { if (keys.length > 1 || top) defined.add(o['@id']); else refs.add(o['@id']); } keys.forEach((k) => walk(o[k], false)); } };
+  try { blocks.forEach((s) => walk(JSON.parse(s), true)); } catch (e) { return bad(f + ': JSON-LD does not parse (' + e.message + ')'); }
+  const miss = [...refs].filter((r) => !defined.has(r));
+  miss.length ? bad(f + ': @id not defined: ' + miss.join(', ')) : ok(f + ': JSON-LD parses, ' + defined.size + ' @id defined, ' + refs.size + ' references resolve');
+});
+
+// 7 links
+const missing = new Map();
+htmls.forEach((f) => {
+  const t = rd(f);
+  [...t.matchAll(/\s(?:href|src)="([^"#?]+)(?:[?#][^"]*)?"/g)].forEach((m) => {
+    const u = m[1];
+    if (/^(https?:|mailto:|tel:|data:|javascript:|spotify:|\/\/)/.test(u)) return;
+    if (/^data\/artist-media[a-z0-9-]*\.js$/.test(u)) return;
+    const target = u[0] === '/' ? path.join(root, u) : path.join(root, path.dirname(f), u);
+    if (!fs.existsSync(target)) { const k = u; missing.set(k, (missing.get(k) || []).concat(f)); }
+  });
+});
+missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([u, fs2]) => u + ' (in ' + fs2[0] + (fs2.length > 1 ? ' and ' + (fs2.length - 1) + ' more' : '') + ')').join(', ')) : ok('every local href and src of ' + htmls.length + ' pages exists');
+
+// 8 feed (v1.25.0): feed.xml has one entry per snapshot, unique ids, every entry has a date and a summary, the home page links to it
+(function () {
+  if (!fs.existsSync(path.join(root, 'feed.xml'))) return bad('feed.xml is missing');
+  global.window = global.window || {}; require(path.join(root, 'data/snapshots.js'));
+  const snaps = window.LEDGERTONE.snapshots.filter((s) => s.capturedAt).length;
+  const f = rd('feed.xml'), entries = f.match(/<entry>[\s\S]*?<\/entry>/g) || [], ids = entries.map((e) => (e.match(/<id>([^<]+)<\/id>/) || [])[1]);
+  const problems = [];
+  if (entries.length !== snaps) problems.push(entries.length + ' entries for ' + snaps + ' snapshots');
+  if (new Set(ids).size !== ids.length) problems.push('duplicate ids');
+  if (entries.some((e) => !/<updated>\d{4}-\d{2}-\d{2}T00:00:00Z<\/updated>/.test(e) || !/<summary>[^<]+<\/summary>/.test(e))) problems.push('entry without date or summary');
+  if (!/<feed xmlns="http:\/\/www.w3.org\/2005\/Atom">/.test(f) || !/<\/feed>\s*$/.test(f)) problems.push('feed element');
+  if (!/<link rel="alternate" type="application\/atom\+xml"[^>]*href="feed.xml"/.test(rd('index.html'))) problems.push('index.html does not link feed.xml');
+  problems.length ? bad('feed.xml: ' + problems.join(', ')) : ok('feed.xml: ' + entries.length + ' entries, one per snapshot, linked from index.html');
+})();
+
+// 9 ranking files (v1.26.0)
+(function () {
+  global.window = global.window || {}; ['snapshots', 'unverified', 'links'].forEach((f) => require(path.join(root, 'data', f + '.js')));
+  const core = require(path.join(root, 'assets/ledger-core.js'))(window);
+  const problems = [], idx = rd('index.html');
+  let n = 0;
+  core.L.genres.forEach((g) => {
+    const s = core.snapsOf(g.id)[0];
+    if (!s || !s.capturedAt) return;
+    n++;
+    const csvF = 'ranking-' + g.id + '.csv', jsonF = 'ranking-' + g.id + '.json';
+    if (!fs.existsSync(path.join(root, csvF)) || !fs.existsSync(path.join(root, jsonF))) return problems.push(g.id + ': file missing');
+    const want = core.topOf(g.id).length;
+    let j; try { j = JSON.parse(rd(jsonF)); } catch (e) { return problems.push(jsonF + ' does not parse'); }
+    const lines = rd(csvF).split(/\r?\n/).filter(Boolean);
+    if (j.artists.length !== want || j.count !== want) problems.push(jsonF + ': ' + j.artists.length + ' rows, top list has ' + want);
+    if (lines.length - 1 !== want) problems.push(csvF + ': ' + (lines.length - 1) + ' rows, top list has ' + want);
+    if (j.snapshot !== s.capturedAt || !lines[1] || lines[1].indexOf(s.capturedAt) !== 0) problems.push(g.id + ': snapshot date differs');
+    if (j.artists.some((a, i) => a.place !== i + 1)) problems.push(jsonF + ': places are not 1..N');
+    if (!/not live data/.test(j.note)) problems.push(jsonF + ': note must say not live data');
+    // older snapshots (v1.37.0): one pair per older snapshot that has numbered artists, listed in the latest JSON
+    core.snapsOf(g.id).slice(1).forEach((o, i) => {
+      const rows = core.rankedAt(g.id, i + 1).filter((a) => a.rank <= core.topLimit).length;
+      if (!rows) return;
+      const stem = 'ranking-' + g.id + '-' + o.capturedAt, c2 = stem + '.csv', j2 = stem + '.json';
+      if (!fs.existsSync(path.join(root, c2)) || !fs.existsSync(path.join(root, j2))) return problems.push(stem + ': file missing');
+      let jj; try { jj = JSON.parse(rd(j2)); } catch (e) { return problems.push(j2 + ' does not parse'); }
+      const ll = rd(c2).split(/\r?\n/).filter(Boolean);
+      if (jj.artists.length !== rows || jj.count !== rows || ll.length - 1 !== rows) problems.push(stem + ': row count differs from the snapshot');
+      if (jj.snapshot !== o.capturedAt || !/not live data/.test(jj.note)) problems.push(stem + ': snapshot date or note');
+      if (!(j.earlier_snapshots || []).some((e) => e.snapshot === o.capturedAt && e.csv === SITE_URL + c2 && e.json === SITE_URL + j2)) problems.push(jsonF + ' does not list ' + o.capturedAt);
+    });
+    [csvF, jsonF].forEach((f) => { if (!idx.includes('href="' + f + '"')) problems.push('index.html does not link ' + f); if (!idx.includes(SITE_URL + f)) problems.push('Dataset of index.html lacks ' + f); });
+  });
+  if (!n) problems.push('no snapshots');
+  problems.length ? bad('ranking files: ' + problems.slice(0, 6).join('; ')) : ok('ranking files: ' + n + ' genres, CSV and JSON agree with the top list, linked and in the Dataset JSON-LD');
+})();
+
+// 10 permalink line (v1.28.0, rule 23): index.html and all.html carry the dated permalink of the latest snapshot of the first genre
+(function () {
+  global.window = global.window || {}; ['snapshots', 'unverified', 'links'].forEach((f) => require(path.join(root, 'data', f + '.js')));
+  const core = require(path.join(root, 'assets/ledger-core.js'))(window);
+  const g = core.L.genres[0], s = core.snapsOf(g.id)[0], problems = [];
+  if (!s) return problems.push('no snapshot') && bad('permalink line: no snapshot');
+  [['index.html', ''], ['all.html', 'all.html']].forEach(([f, pre]) => {
+    const want = '<p class="cite" id="cite">Cite this snapshot: <a href="' + pre + '#' + g.id + '-' + s.capturedAt + '">' + SITE_URL + pre + '#' + g.id + '-' + s.capturedAt + '</a></p>';
+    if (!rd(f).includes(want)) problems.push(f + ': permalink line missing or wrong');
+  });
+  problems.length ? bad('permalink line: ' + problems.join('; ')) : ok('permalink line: index.html and all.html point to #' + g.id + '-' + s.capturedAt);
+})();
+
+// 11 iframes (v1.54.0, rule 27): the only iframes on the site are the CDRA award cards
+(function () {
+  const problems = []; let n = 0;
+  htmls.forEach((f) => {
+    [...rd(f).matchAll(/<iframe\b[^>]*>/g)].forEach((m) => {
+      n++;
+      const src = (m[0].match(/\ssrc=\"([^\"]*)\"/) || [])[1] || '';
+      if (!/^https:\/\/cdra\.settwor\.com\.pl\/embed\/[A-Za-z0-9-]+\.html$/.test(src)) problems.push(f + ': iframe src ' + src);
+      if (!/\sreferrerpolicy=\"no-referrer\"/.test(m[0]) || !/\sloading=\"lazy\"/.test(m[0]) || !/\stitle=\"[^\"]+\"/.test(m[0])) problems.push(f + ': iframe without referrerpolicy, loading or title');
+    });
+  });
+  problems.length ? bad('iframes: ' + problems.slice(0, 5).join('; ')) : ok('iframes: ' + n + ' CDRA award card frames, all from https://cdra.settwor.com.pl/embed/');
+})();
+
+// 12 streams loader (v1.57.0, rule 28): assets/streams.js asks exactly one address, stores nothing, and only the two owner pages load it
+(function () {
+  const problems = [];
+  const js = rd('assets/streams.js');
+  const urls = [...new Set([...js.matchAll(/https?:\/\/[^\s'"`)]+/g)].map((m) => m[0]))];
+  if (urls.length !== 1 || urls[0] !== 'https://settwor.com.pl/streams.json') problems.push('addresses in assets/streams.js: ' + urls.join(', '));
+  if (/localStorage|sessionStorage|document\.cookie|indexedDB/.test(js)) problems.push('assets/streams.js stores something');
+  htmls.forEach((f) => {
+    const has = /assets\/streams\.js/.test(rd(f)), own = f === 'settwor.html' || f === 'settwor-ru.html';
+    if (has !== own) problems.push(f + (has ? ': loads streams.js but is not an owner page' : ': owner page without streams.js'));
+    if (own && !/id="streams-live"/.test(rd(f))) problems.push(f + ': no streams-live container');
+  });
+  problems.length ? bad('streams loader: ' + problems.join('; ')) : ok('streams loader: one address (https://settwor.com.pl/streams.json), no storage, only on settwor.html and settwor-ru.html');
+})();
+
+// 13 artist pages folder (v1.58.0): every artist page except the two SETTWOR pages is in artists/, and no old copy of a moved page is left in the root
+(function () {
+  const problems = [];
+  const files = [...rd('data/artist-pages.js').matchAll(/: "([^"]+\.html)"/g)].map((m) => m[1]);
+  files.forEach((f) => {
+    if (f === 'settwor.html') return;
+    if (!/^artists\/[a-z0-9-]+\.html$/.test(f)) problems.push(f + ' is not in artists/');
+    else if (!fs.existsSync(path.join(root, f))) problems.push(f + ' is missing');
+    else if (fs.existsSync(path.join(root, f.slice('artists/'.length)))) problems.push('old copy in the root: ' + f.slice('artists/'.length));
+  });
+  problems.length ? bad('artist pages folder: ' + problems.slice(0, 6).join('; ') + (problems.length > 6 ? ' and ' + (problems.length - 6) + ' more' : '')) : ok('artist pages folder: ' + files.length + ' pages in the map, all in artists/ (SETTWOR in the root), no old copy in the root');
+})();
+
+// 14 Unslop skill (v1.69.0, rule 30): the folder skills/unslop exists unedited with its credit (SKILL.md hash, LICENSE, CITATION.cff, all reference files), and the rule is in AGENTS.md and CLAUDE.md
+(function () {
+  const problems = [];
+  const crypto = require('crypto');
+  const base = 'skills/unslop/';
+  ['SKILL.md', 'LICENSE', 'CITATION.cff', 'agents/openai.yaml', 'references/tokens.md', 'references/signs.md', 'references/visuals.md', 'references/effects.md', 'references/refs.md', 'scripts/snapshot.mjs', 'scripts/story.mjs'].forEach((f) => { if (!fs.existsSync(path.join(root, base + f))) problems.push(base + f + ' is missing'); });
+  if (!problems.length) {
+    const hash = crypto.createHash('sha256').update(fs.readFileSync(path.join(root, base + 'SKILL.md'))).digest('hex');
+    if (hash !== '9e49b2ff7643fa09729e8665890a18f6bfa58a82e6fcbba330da38136ccdc393') problems.push('SKILL.md was edited (upstream copy, never edit it, AGENTS.md rule 30)');
+    if (!/Damir Sokolovsky/.test(rd(base + 'SKILL.md')) || !/CC BY 4\.0/.test(rd(base + 'SKILL.md'))) problems.push('credit missing in SKILL.md');
+  }
+  if (!/^30\. Unslop skill/m.test(rd('AGENTS.md'))) problems.push('rule 30 missing in AGENTS.md');
+  if (!/skills\/unslop\/SKILL\.md/.test(rd('CLAUDE.md'))) problems.push('Unslop line missing in CLAUDE.md');
+  problems.length ? bad('unslop skill: ' + problems.join('; ')) : ok('unslop skill: folder, credit and rule 30 in place, SKILL.md unedited');
+})();
+
+console.log(fails ? '\n' + fails + ' check(s) failed' : '\nall checks passed');
+process.exit(fails ? 1 : 0);

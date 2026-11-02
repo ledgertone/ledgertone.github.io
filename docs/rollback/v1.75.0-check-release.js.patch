@@ -1,0 +1,32 @@
+--- docs/rollback/check-release.js.v1.74.0	2026-11-01 20:53:41.234130268 +0000
++++ scripts/check-release.js	2026-11-01 20:53:53.457826222 +0000
+@@ -6,6 +6,7 @@
+ // 7 every local href and src of every HTML page points to an existing file (data/artist-media*.js are expected to be missing, rule 9).
+ // 8 feed.xml: one entry per snapshot, unique ids, linked from index.html.
+ // 9 ranking files (v1.26.0, older snapshots v1.37.0): one CSV and one JSON per snapshotted genre (and per older snapshot), row count equals the top list, CSV and JSON agree, linked from index.html, Dataset in the JSON-LD.
++// 15 No github.io in any text file of the site (v1.75.0, rule 31).
+ // 14 Unslop skill (v1.69.0, rule 30): skills/unslop is present, SKILL.md is the unedited upstream file with its credit, rule 30 is in AGENTS.md and CLAUDE.md.
+ // Exit code 1 when anything fails.
+ const fs = require('fs'), path = require('path'), cp = require('child_process');
+@@ -205,5 +206,21 @@
+   problems.length ? bad('unslop skill: ' + problems.join('; ')) : ok('unslop skill: folder, credit and rule 30 in place, SKILL.md unedited');
+ })();
+ 
++// 15 No github.io anywhere on the site (v1.75.0, rule 31)
++(function () {
++  const hits = [];
++  const skipFiles = new Set(['AGENTS.md', 'CLAUDE.md']);
++  const skipDirs = new Set(['node_modules', '.git', 'skills', 'scripts']);
++  (function walk(dir) {
++    fs.readdirSync(path.join(root, dir), { withFileTypes: true }).forEach((e) => {
++      const rel = dir ? dir + '/' + e.name : e.name;
++      if (e.isDirectory()) { if (!skipDirs.has(e.name) && rel !== 'docs/rollback') walk(rel); return; }
++      if (skipFiles.has(rel) || !/\.(html|js|css|json|xml|txt|csv|md|svg|webmanifest|bat)$/i.test(e.name)) return;
++      if (/github\.io/i.test(fs.readFileSync(path.join(root, rel), 'utf8'))) hits.push(rel);
++    });
++  })('');
++  hits.length ? bad('github.io found in ' + hits.slice(0, 5).join(', ') + (hits.length > 5 ? ' and ' + (hits.length - 5) + ' more' : '') + ' (AGENTS.md rule 31)') : ok('no github.io in any text file of the site (the text inside og-image.png is checked by eye)');
++})();
++
+ console.log(fails ? '\n' + fails + ' check(s) failed' : '\nall checks passed');
+ process.exit(fails ? 1 : 0);

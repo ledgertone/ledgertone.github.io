@@ -4,6 +4,5 @@
 // To publish a platform, fill listeners (a whole number) and date (YYYY-MM-DD, the day the number was read), then run node scripts/build-all.js.
 window.LEDGERTONE_PLATFORMS = [
   { name: 'Spotify', metric: 'Monthly listeners', listeners: 5191, date: '2026-11-01', followers: 179, popularity: 16 },
-  { name: 'Apple Music', metric: 'Monthly listeners', listeners: null, date: null },
-  { name: 'YouTube', metric: 'Monthly listeners', listeners: null, date: null }
+  { name: 'YouTube Music', metric: 'Monthly listeners', listeners: 57300, date: '2026-11-01' }
 ];

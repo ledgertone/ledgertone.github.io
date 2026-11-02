@@ -1,0 +1,38 @@
+--- docs/rollback/styles.css.v1.73.0	2026-11-01 20:48:01.344453572 +0000
++++ assets/styles.css	2026-11-01 20:47:12.271417429 +0000
+@@ -31,7 +31,7 @@
+ .theme{display:inline-grid;place-items:center;width:44px;height:44px;margin-left:2px;padding:0;border-radius:50%;color:var(--ink);cursor:pointer;font:inherit}
+ .theme[hidden]{display:none}
+ .theme svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+-.link,.btn,.picker button,.theme{transition:transform 100ms var(--ease)}
++.link,.btn,.picker button,.theme{transition:transform 120ms var(--ease)}
+ .link:active,.btn:active,.picker button:active,.theme:active{transform:scale(.97)}
+ 
+ /* Content layer: opaque, never glass */
+@@ -84,7 +84,7 @@
+ .consent p{margin:0 0 12px;color:var(--ink);font-size:.9375rem;line-height:1.4}
+ .consent a{color:var(--ink);text-underline-offset:3px}
+ .consent-actions{display:flex;gap:8px}
+-.cbtn{flex:1;font:inherit;font-size:.9375rem;font-weight:500;min-height:44px;padding:0 16px;border-radius:999px;color:var(--ink);cursor:pointer;transition:transform 100ms var(--ease)}
++.cbtn{flex:1;font:inherit;font-size:.9375rem;font-weight:500;min-height:44px;padding:0 16px;border-radius:999px;color:var(--ink);cursor:pointer;transition:transform 120ms var(--ease)}
+ .cbtn:active{transform:scale(.97)}
+ .doc{padding:calc(env(safe-area-inset-top,0px) + 112px) 0 40px}
+ .doc h1{max-width:none}
+@@ -176,7 +176,7 @@
+ html.ptr-lock{overflow:hidden;touch-action:none}
+ .ptr{position:fixed;z-index:12;left:50%;top:calc(env(safe-area-inset-top,0px) + 70px);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;color:var(--ink);opacity:0;transform:translate(-50%,-56px);pointer-events:none;will-change:transform,opacity}
+ .ptr svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transform:rotate(var(--r,0deg))}
+-.ptr.back{transition:transform .25s var(--ease),opacity .25s var(--ease)}
++.ptr.back{transition:transform .2s var(--ease),opacity .2s var(--ease)}
+ .ptr.ready{color:var(--accent)}
+ .ptr.busy svg{animation:spin .8s linear infinite}
+ /* Genre switcher under the title */
+@@ -236,7 +236,7 @@
+ @media(max-width:700px){.tbl .info{display:contents}.tbl .wh{display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:8px;row-gap:0;align-items:center}.tbl .wh .av{grid-column:1;grid-row:1/3;margin-right:2px}.tbl .wh .nm{grid-column:2/4;grid-row:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tbl .wh.hasfl .nm{grid-column:2}.tbl .wh .lks{grid-column:2/4;grid-row:2}.tbl .wh .flag{grid-column:3;grid-row:1;justify-self:end;gap:4px;padding:2px 8px 2px 4px;font-size:.625rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 2px 6px -2px rgba(240,23,58,.6)}.tbl .wh .flag::before{width:11px;height:11px;font-size:.5625rem}.tbl .flag .fl{display:none}.tbl .flag .fs{display:inline}}
+ /* artist links (v0.61.0, buttons since v0.66.0): the name links to Pandora; under it two small glass pill buttons, Spotify and Pandora, each only when the link exists. Glass-flat (no refraction filter per row), 44 px hit area through ::before */
+ .tbl .lks{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:4px}
+-.tbl .lk{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 8px;border-radius:999px;font-size:.75rem;font-weight:500;line-height:1;color:var(--ink);text-decoration:none;white-space:nowrap;transition:transform 100ms var(--ease)}
++.tbl .lk{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 8px;border-radius:999px;font-size:.75rem;font-weight:500;line-height:1;color:var(--ink);text-decoration:none;white-space:nowrap;transition:transform 120ms var(--ease)}
+ .tbl .lk::before{content:"";position:absolute;inset:-11px -2px}
+ .tbl .lk svg{flex:none;width:8px;height:8px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.6}
+ .tbl .lk:active{transform:scale(.97)}
