@@ -2,6 +2,10 @@
 
 Format follows Keep a Changelog. Dates are YYYY-MM-DD.
 
+## [1.76.0] - 2026-11-11
+### Added
+- Redirect pages for the old root addresses of artist pages (Search Console reported them as "Not found (404)" after the move to `artists/` in v1.58.0). GitHub Pages ignores a `_redirects` file, so the owner's `_redirects` (94 old addresses) was turned into `data/old-pages.js` and removed. `scripts/build-old-redirects.js` (run by `build-all.js`) writes `<slug>.html` in the root for every slug of that list whose page `artists/<slug>.html` still exists: canonical to the new address, meta refresh 0 and `location.replace`, which Google treats as a permanent redirect. No tracker, no version stamp, so the files stay the same between versions. Check 13 of `scripts/check-release.js` allows only these pages in the root (slug in the list, target in the page map). Rule 29 of `AGENTS.md` updated.
+
 ## [1.75.0] - 2026-11-01
 ### Changed
 - The old shared GitHub Pages domain is gone from the site (owner decision, new rule 31 in `AGENTS.md`, line in `CLAUDE.md`, check 15 in `scripts/check-release.js`). The domain text in `assets/og-image.png` is now `ledgertone.settwor.com.pl`; the README launch line and the history lines no longer name the old domain.

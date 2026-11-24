@@ -185,9 +185,19 @@ missing.size ? bad('missing files: ' + [...missing.entries()].slice(0, 8).map(([
     if (f === 'settwor.html') return;
     if (!/^artists\/[a-z0-9-]+\.html$/.test(f)) problems.push(f + ' is not in artists/');
     else if (!fs.existsSync(path.join(root, f))) problems.push(f + ' is missing');
-    else if (fs.existsSync(path.join(root, f.slice('artists/'.length)))) problems.push('old copy in the root: ' + f.slice('artists/'.length));
+    else if (fs.existsSync(path.join(root, f.slice('artists/'.length))) && !rd(f.slice('artists/'.length)).includes('<meta name="ledgertone-redirect" content="' + f + '">')) problems.push('old copy in the root: ' + f.slice('artists/'.length));
   });
-  problems.length ? bad('artist pages folder: ' + problems.slice(0, 6).join('; ') + (problems.length > 6 ? ' and ' + (problems.length - 6) + ' more' : '')) : ok('artist pages folder: ' + files.length + ' pages in the map, all in artists/ (SETTWOR in the root), no old copy in the root');
+  // v1.76.0: redirect pages for old root addresses (scripts/build-old-redirects.js) are allowed only for slugs of data/old-pages.js whose page is still in the map
+  global.window = global.window || {}; require(path.join(root, 'data/old-pages.js'));
+  const oldSet = new Set(window.LEDGERTONE_OLD_PAGES || []), mapSet = new Set(files);
+  let redirects = 0;
+  fs.readdirSync(root).filter((f) => f.endsWith('.html')).forEach((f) => {
+    const m = rd(f).match(/<meta name="ledgertone-redirect" content="([^"]+)">/);
+    if (!m) return;
+    redirects++;
+    if (!oldSet.has(f.slice(0, -5)) || m[1] !== 'artists/' + f || !mapSet.has(m[1])) problems.push('stray redirect page: ' + f);
+  });
+  problems.length ? bad('artist pages folder: ' + problems.slice(0, 6).join('; ') + (problems.length > 6 ? ' and ' + (problems.length - 6) + ' more' : '')) : ok('artist pages folder: ' + files.length + ' pages in the map, all in artists/ (SETTWOR in the root), no old copy in the root, ' + redirects + ' redirect pages for old addresses');
 })();
 
 // 14 Unslop skill (v1.69.0, rule 30): the folder skills/unslop exists unedited with its credit (SKILL.md hash, LICENSE, CITATION.cff, all reference files), and the rule is in AGENTS.md and CLAUDE.md
