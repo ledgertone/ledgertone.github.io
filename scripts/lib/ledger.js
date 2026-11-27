@@ -13,6 +13,8 @@ const SITE = 'https://ledgertone.settwor.com.pl/';
 
 const CRLF = (s) => s.replace(/\r?\n/g, '\r\n');
 const readCRLF = (f) => fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n');
-const writeCRLF = (f, s) => fs.writeFileSync(path.join(root, f), CRLF(s));
+// Google sees .html and the clean address as two pages (the host redirects /x.html to /x), so every absolute address of this site is written without .html.
+const cleanSiteUrls = (s) => s.replace(/(https:\/\/ledgertone\.settwor\.com\.pl\/(?:[A-Za-z0-9_\-.\/]*?\/)?)index\.html(?=["'#?\s<])/g, '$1').replace(/(https:\/\/ledgertone\.settwor\.com\.pl\/[A-Za-z0-9_\-.\/]*?)\.html(?=["'#?\s<])/g, '$1');
+const writeCRLF = (f, s) => fs.writeFileSync(path.join(root, f), CRLF(/\.(html|xml)$/.test(f) ? cleanSiteUrls(s) : s));
 
 module.exports = { earlierPlaceAt, moveAt, historyOf, pageArtists, pageFileOf, verifiedKeys, OWNER, PLATFORMS: core.PLATFORMS, ownerNode, ownerCreator, hasReading, root, L, LINKS, SITE, homeId, norm, esc, banned, genreName, byName, month, num, snapsOf, rosterOf, unverifiedOf, rankedAt, topLimit, topOf, artistCount, safeUrl, pandoraLink, spotifyLink, linksOf, readCRLF, writeCRLF, CRLF };
